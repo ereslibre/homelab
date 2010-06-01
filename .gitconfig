@@ -1,0 +1,16 @@
+[user]
+	name = Rafael Fernández López
+	email = ereslibre@ereslibre.es
+[core]
+	excludesfile = /home/ereslibre/.global-gitignore
+	editor = nano
+[alias]
+	compact = "!sh -c \"echo \\\"Before: `du -sh .git`\\\"; git count-objects; git gc --aggressive --prune; echo \\\"After: `du -sh .git`\\\"; git count-objects\""
+	ci = commit
+	st = status
+	co = checkout
+	br = branch
+[color]
+	ui = auto
+[push]
+	default = matching
