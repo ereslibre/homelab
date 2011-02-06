@@ -5,7 +5,7 @@
 	excludesfile = /home/ereslibre/.global-gitignore
 	editor = nano
 [alias]
-	compact = "!sh -c \"echo \\\"Before: `du -sh .git`\\\"; git count-objects; git gc --aggressive --prune; echo \\\"After: `du -sh .git`\\\"; git count-objects\""
+	serve = daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	ci = commit
 	st = status
 	co = checkout
