@@ -69,10 +69,9 @@
 ; set default compile command
 (setq compile-command "cd ~/proyectos/ideallibrary ; ./waf")
 ; yasnippet
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/yas")
+(add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "/usr/share/emacs/site-lisp/yas/snippets")
 (yas/load-directory "~/.emacs.d/yasnippet/snippets")
 (add-hook 'yas/after-exit-snippet-hook
 		  '(lambda ()
