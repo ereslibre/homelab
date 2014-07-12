@@ -1,4 +1,7 @@
-#name : while ... : ...
+# -*- mode: snippet -*-
+# name: while
+# key: wh
+# group: control structure
 # --
-while ${condition}:
-    $0
+while ${1:True}:
+      $0
