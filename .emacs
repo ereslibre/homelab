@@ -1,9 +1,6 @@
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/")
 
-;; Special modes
-(load "haskell-mode-autoloads.el")
-
 ;; Save last opened files
 (desktop-save-mode t)
 
@@ -18,9 +15,6 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-
-;; Fringe setup
-;; (require 'fringe-center-code)
 
 ;; Powerline
 (require 'powerline)
