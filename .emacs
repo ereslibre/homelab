@@ -29,6 +29,7 @@
       (package-install p))))
 
 ;; Save last opened files
+(setq desktop-save t)
 (desktop-save-mode t)
 
 ;; No welcome screen
