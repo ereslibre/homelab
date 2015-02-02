@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet)
+  '(projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -92,3 +92,11 @@
 ;; Projectile
 (require 'projectile)
 (projectile-global-mode)
+(setq projectile-enable-caching t)
+
+(require 'nyan-mode)
+(nyan-mode)
+(nyan-start-animation)
+
+;; Default font
+(set-default-font "Monaco 12")
