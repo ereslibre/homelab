@@ -94,10 +94,11 @@
 (require 'projectile)
 (projectile-global-mode)
 (setq projectile-enable-caching t)
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 (require 'nyan-mode)
 (nyan-mode)
 (nyan-start-animation)
 
 ;; Default font
-(set-default-font "Monaco 12")
+(set-default-font "Monaco 11")
