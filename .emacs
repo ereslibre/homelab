@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode)
+  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
