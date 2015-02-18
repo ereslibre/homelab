@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode centered-window-mode magit)
+  '(projectile projectile-rails haml-mode linum-relative fill-column-indicator monokai-theme powerline yaml-mode yasnippet nyan-mode magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -74,7 +74,7 @@
 (setq-default js-indent-level 2)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
-(setq-default fill-column 80)
+(setq-default fill-column 100)
 
 ;; Syntax highlighting
 (show-paren-mode 1)
@@ -105,9 +105,11 @@
 (nyan-mode)
 (nyan-start-animation)
 
-;; Centered window mode
-(require 'centered-window-mode)
-(centered-window-mode t)
+;; Fill column
+(require 'fill-column-indicator)
+(setq-default fci-rule-column 100)
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
 
 ;; Default font
-(set-default-font "Monaco 11")
+(set-default-font "Monaco 12")
