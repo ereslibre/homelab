@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode)
+  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode centered-window-mode magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -71,6 +71,7 @@
 
 ;; Writing style
 (setq-default c-basic-indent 2)
+(setq-default js-indent-level 2)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 80)
@@ -86,6 +87,9 @@
 (add-to-list 'auto-mode-alist
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
 
+;; Magit
+(require 'magit)
+
 ;; Yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -96,9 +100,14 @@
 (setq projectile-enable-caching t)
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
+;; Nyan cat, basic
 (require 'nyan-mode)
 (nyan-mode)
 (nyan-start-animation)
+
+;; Centered window mode
+(require 'centered-window-mode)
+(centered-window-mode t)
 
 ;; Default font
 (set-default-font "Monaco 11")
