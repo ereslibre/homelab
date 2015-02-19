@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative fill-column-indicator centered-window-mode monokai-theme powerline yaml-mode yasnippet nyan-mode magit)
+  '(projectile projectile-rails haml-mode linum-relative fill-column-indicator monokai-theme powerline yaml-mode yasnippet nyan-mode magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -104,11 +104,6 @@
 (require 'nyan-mode)
 (nyan-mode)
 (nyan-start-animation)
-
-;; Centered window mode
-(require 'centered-window-mode)
-(centered-window-mode t)
-(global-visual-line-mode t)
 
 ;; Fill column
 (require 'fill-column-indicator)
