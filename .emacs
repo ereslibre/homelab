@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative fill-column-indicator monokai-theme powerline yaml-mode yasnippet nyan-mode magit)
+  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet nyan-mode magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -104,12 +104,6 @@
 (require 'nyan-mode)
 (nyan-mode)
 (nyan-start-animation)
-
-;; Fill column
-(require 'fill-column-indicator)
-(setq-default fci-rule-column 100)
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode 1)
 
 ;; Default font
 (set-default-font "Monaco 12")
