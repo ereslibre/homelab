@@ -5,12 +5,13 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="ereslibre"
+ZSH_THEME="nanotech"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias whoises='ssh root@linux2100.neodigit.com '\''php /usr/custombin/dominios.es.stats/whois-toplus.php '\'' $1'
+alias contactes='ssh root@linux2100.neodigit.com '\''php /usr/custombin/dominios.es.stats/contact-toplus.php '\'' $1'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,8 +56,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin/vendor_perl:/home/ereslibre/.gem/ruby/2.1.0/bin:$PATH
-export EDITOR=emacs
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin/vendor_perl:/home/ereslibre/.gem/ruby/2.1.0/bin:$PATH
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -74,3 +77,8 @@ export EDITOR=emacs
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+eval `keychain --eval --agents ssh --inherit any id_rsa`
