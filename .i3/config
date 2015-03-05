@@ -15,7 +15,7 @@ set $mod Mod4
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Cantarell 10
+font pango:Ubuntu 11
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -153,12 +153,15 @@ bar {
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id nm-applet
 exec --no-startup-id feh --bg-scale ~/.wallpapers/archlinux-simplyblack.png
+exec --no-startup-id dropbox start
 exec --no-startup-id gnome-keyring-daemon
 
 bindsym --release $mod+n exec --no-startup-id emacs
 bindsym --release $mod+t exec --no-startup-id telegram
 bindsym --release $mod+c exec --no-startup-id chromium
 bindsym --release $mod+m exec --no-startup-id geary
+bindsym --release $mod+q exec --no-startup-id quasselclient
+bindsym --release $mod+g exec --no-startup-id nautilus
 
 bindsym $mod+shift+o exec xscreensaver-command --lock
 
