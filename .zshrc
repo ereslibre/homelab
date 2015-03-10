@@ -81,4 +81,4 @@ export LANG=en_US.UTF-8
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-eval `keychain --eval --agents ssh --inherit any id_rsa`
+export $(gnome-keyring-daemon -s)
