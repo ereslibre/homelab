@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit)
+  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit git-gutter)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -27,6 +27,9 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Random stuff
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; Save last opened files
 (setq desktop-save t)
@@ -86,6 +89,8 @@
              '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist
+             '("\\.\\(?:php\\)\\'" . ruby-mode))
 
 ;; Magit
 (require 'magit)
@@ -96,9 +101,21 @@
 
 ;; Projectile
 (require 'projectile)
+(helm-projectile-on)
+(require 'helm-projectile)
 (projectile-global-mode)
+(setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
+(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant") projectile-globally-ignored-directories))
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
+;; Git-gutter
+(require 'git-gutter)
+(global-git-gutter-mode t)
+(git-gutter:linum-setup)
+
+;; Darkroom
+(require 'darkroom)
+
 ;; Default font
-(set-default-font "Monaco 12")
+(set-default-font "Monaco 13")
