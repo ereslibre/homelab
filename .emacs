@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit git-gutter)
+  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -66,7 +66,8 @@
 (set-face-background 'hl-line "grey22")
 
 ;; Enable linum-mode
-(global-linum-mode t)
+(global-linum-mode 1)
+(setq-default linum-relative-format "%4s \u2502 ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
@@ -109,13 +110,5 @@
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant") projectile-globally-ignored-directories))
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
-;; Git-gutter
-(require 'git-gutter)
-(global-git-gutter-mode t)
-(git-gutter:linum-setup)
-
-;; Darkroom
-(require 'darkroom)
-
 ;; Default font
-(set-default-font "Monaco 13")
+(set-default-font "Inconsolata 14")
