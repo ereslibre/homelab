@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit)
+  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -102,7 +102,6 @@
 
 ;; Projectile
 (require 'projectile)
-(helm-projectile-on)
 (require 'helm-projectile)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
