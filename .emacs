@@ -38,6 +38,9 @@
 ;; No welcome screen
 (setq-default inhibit-startup-message t)
 
+;; Do not break lines
+(set-default 'truncate-lines t)
+
 ;; No backups
 (setq-default make-backup-files nil)
 (setq-default auto-save-default nil)
@@ -111,4 +114,4 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Ubuntu Mono 12")
+(set-default-font "Ubuntu Mono 14")
