@@ -57,9 +57,6 @@
 (line-number-mode 1)
 (column-number-mode 1)
 
-;; Load Monokai theme
-(require 'monokai-theme)
-
 ;; Load relative numbers
 (require 'linum-relative)
 
@@ -112,6 +109,9 @@
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant") projectile-globally-ignored-directories))
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
+
+;; Default theme
+(load-theme 'monokai t)
 
 ;; Default font
 (set-default-font "Ubuntu Mono 14")
