@@ -67,11 +67,12 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format "%4s \u2502 ")
+(setq-default linum-relative-format "%4s \u2551 ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
 (electric-pair-mode 1)
+(electric-indent-mode 0)
 
 ;; Writing style
 (setq-default c-basic-indent 2)
