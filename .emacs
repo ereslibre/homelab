@@ -111,4 +111,4 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Inconsolata 14")
+(set-default-font "Ubuntu Mono 12")
