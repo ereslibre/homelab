@@ -67,7 +67,7 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format "%4s \u2551 ")
+(setq-default linum-relative-format "%4s \u2502 ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
