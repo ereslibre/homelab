@@ -12,7 +12,7 @@
 (require 'cl)
  
 (defvar my-packages
-  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit)
+  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -59,6 +59,7 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
+(setq linum-disabled-modes-list '(twittering-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -67,7 +68,7 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format "%4s \u2551 ")
+(setq-default linum-relative-format "%4s \u2502 ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
@@ -101,6 +102,11 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+;; Twittering mode
+(require 'twittering-mode)
+(setq twittering-icon-mode t)
+(setq twittering-use-master-password t)
+
 ;; Projectile
 (require 'projectile)
 (require 'helm-projectile)
@@ -114,4 +120,4 @@
 (load-theme 'monokai t)
 
 ;; Default font
-(set-default-font "Ubuntu Mono 14")
+(set-default-font "Ubuntu Mono 12")
