@@ -10,6 +10,13 @@
 ;; Check that all required packages are installed
 
 (require 'cl)
+
+;; Org mode
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
  
 (defvar my-packages
   '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode)
@@ -59,7 +66,7 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
-(setq linum-disabled-modes-list '(twittering-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(setq linum-disabled-modes-list '(twittering-mode org-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -121,3 +128,13 @@
 
 ;; Default font
 (set-default-font "Ubuntu Mono 12")
+
+(custom-set-faces
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Ubuntu Mono"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.2 :family "Ubuntu Mono"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.15 :family "Ubuntu Mono"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.1 :family "Ubuntu Mono"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Ubuntu Mono"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Ubuntu Mono"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Ubuntu Mono"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Ubuntu Mono")))))
