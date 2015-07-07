@@ -8,9 +8,15 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 
-;; Check that all required packages are installed
-
 (require 'cl)
+
+(global-set-key "\M-i" 'imenu)
+
+;; imenu
+(set-default
+ 'imenu-after-jump-hook (recenter (/ (window-height) 2)))
+(set-default
+ 'imenu-auto-rescan t)
 
 ;; Org mode
 (require 'org)
@@ -21,7 +27,7 @@
 
 (defvar my-packages
   '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
-  "A list of packages to ensure are installed at launch.")
+  "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
   (loop for p in my-packages
@@ -29,9 +35,7 @@
         finally (return t)))
  
 (unless (my-packages-installed-p)
-  ;; check for new packages (package versions)
   (package-refresh-contents)
-  ;; install the missing packages
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
@@ -39,8 +43,6 @@
 ;; Gitgutter
 (require 'git-gutter-fringe)
 (global-git-gutter-mode t)
-(custom-set-variables
- '(git-gutter:update-interval 2))
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -145,5 +147,5 @@
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
 (require 'powerline)
-(powerline-center-theme)
+(powerline-default-theme)
 (setq powerline-default-separator 'wave)
