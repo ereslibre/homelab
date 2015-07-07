@@ -20,11 +20,13 @@
 (global-set-key "\C-cb" 'org-iswitchb)
  
 ;; Gitgutter
-(require 'git-gutter-fringe+)
-(global-git-gutter+-mode t)
+(require 'git-gutter-fringe)
+(global-git-gutter-mode t)
+(custom-set-variables
+ '(git-gutter:update-interval 2))
 
 (defvar my-packages
-  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe+ twittering-mode)
+  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
@@ -62,9 +64,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; Powerline
-(require 'powerline)
-(powerline-default-theme)
+;; Default theme
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -77,7 +78,6 @@
 ;; Cursor
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "grey22")
 
 ;; Enable linum-mode
 (global-linum-mode 1)
@@ -86,7 +86,7 @@
 
 ;; Writing helpers
 (electric-pair-mode 1)
-(electric-indent-mode 0)
+(electric-indent-mode -1)
 
 ;; Writing style
 (setq-default c-basic-indent 2)
@@ -129,11 +129,8 @@
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant") projectile-globally-ignored-directories))
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
-;; Default theme
-(load-theme 'monokai t)
-
 ;; Default font
-(set-default-font "Ubuntu Mono 16")
+(set-default-font "Ubuntu Mono derivative Powerline-14")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Ubuntu Mono"))))
@@ -144,3 +141,7 @@
  '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Ubuntu Mono"))))
  '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Ubuntu Mono"))))
  '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Ubuntu Mono")))))
+
+;; Powerline
+(require 'powerline)
+(powerline-default-theme)
