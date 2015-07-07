@@ -129,7 +129,7 @@
 (load-theme 'monokai t)
 
 ;; Default font
-(set-default-font "Ubuntu Mono 12")
+(set-default-font "Ubuntu Mono 16")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Ubuntu Mono"))))
