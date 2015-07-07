@@ -60,6 +60,7 @@
 
 ;; Powerline
 (require 'powerline)
+(powerline-default-theme)
 
 ;; Lines and columns
 (line-number-mode 1)
