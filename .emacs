@@ -18,12 +18,6 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
- 
-;; Gitgutter
-(require 'git-gutter-fringe)
-(global-git-gutter-mode t)
-(custom-set-variables
- '(git-gutter:update-interval 2))
 
 (defvar my-packages
   '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
@@ -41,6 +35,12 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Gitgutter
+(require 'git-gutter-fringe)
+(global-git-gutter-mode t)
+(custom-set-variables
+ '(git-gutter:update-interval 2))
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
