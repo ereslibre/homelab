@@ -19,8 +19,12 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
  
+;; Gitgutter
+(require 'git-gutter-fringe+)
+(global-git-gutter+-mode t)
+
 (defvar my-packages
-  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode)
+  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe+ twittering-mode)
   "A list of packages to ensure are installed at launch.")
  
 (defun my-packages-installed-p ()
