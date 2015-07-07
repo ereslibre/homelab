@@ -130,7 +130,7 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Ubuntu Mono derivative Powerline-14")
+(set-default-font "Ubuntu Mono-14")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Ubuntu Mono"))))
@@ -143,5 +143,7 @@
  '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Ubuntu Mono")))))
 
 ;; Powerline
+(setq ns-use-srgb-colorspace nil)
 (require 'powerline)
-(powerline-default-theme)
+(powerline-center-theme)
+(setq powerline-default-separator 'wave)
