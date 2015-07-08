@@ -43,6 +43,7 @@
 ;; Gitgutter
 (require 'git-gutter-fringe)
 (global-git-gutter-mode t)
+(custom-set-variables '(git-gutter:update-interval 2))
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
