@@ -26,7 +26,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-ls-git helm-ls-hg helm-ls-svn helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
+  '(projectile projectile-rails helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
