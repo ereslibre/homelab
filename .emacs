@@ -149,3 +149,4 @@
 (require 'powerline)
 (powerline-default-theme)
 (setq powerline-default-separator 'wave)
+(setq powerline-display-buffer-size nil)
