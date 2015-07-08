@@ -26,7 +26,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (defvar my-packages
-  '(projectile helm-projectile projectile-rails haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
+  '(projectile projectile-rails helm helm-ls-git helm-ls-hg helm-ls-svn helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
@@ -123,9 +123,19 @@
 (setq twittering-icon-mode t)
 (setq twittering-use-master-password t)
 
+;; Helm
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map [remap find-file] 'helm-find-files)
+(define-key global-map [remap occur] 'helm-occur)
+(define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(unless (boundp 'completion-in-region-function)
+  (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+
 ;; Projectile
-(require 'projectile)
-(require 'helm-projectile)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
