@@ -10,7 +10,9 @@
 
 (require 'cl)
 
+;; General shortcuts
 (global-set-key "\M-i" 'imenu)
+(global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/bin/zsh")))
 
 ;; imenu
 (set-default
@@ -76,11 +78,12 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
-(setq linum-disabled-modes-list '(twittering-mode org-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
 
 ;; Cursor
 (blink-cursor-mode 0)
-(global-hl-line-mode 1)
+(add-hook 'after-change-major-mode-hook
+          '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Enable linum-mode
 (global-linum-mode 1)
@@ -122,6 +125,8 @@
              (indent-region yas/snippet-beg
                             yas/snippet-end)))
 (set-variable 'yas/wrap-around-region nil)
+(add-hook 'term-mode-hook (lambda()
+                (yas-minor-mode -1)))
 
 ;; Twittering mode
 (require 'twittering-mode)
