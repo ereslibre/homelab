@@ -28,7 +28,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (defvar my-packages
-  '(projectile projectile-rails helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode google-translate)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode google-translate)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
@@ -132,6 +132,22 @@
 (require 'twittering-mode)
 (setq twittering-icon-mode t)
 (setq twittering-use-master-password t)
+
+;; Helm
+(require 'helm-config)
+(helm-mode 1)
+(helm-autoresize-mode t)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z")  'helm-select-action)
+(define-key global-map [remap find-file] 'helm-find-files)
+(define-key global-map [remap occur] 'helm-occur)
+(define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(unless (boundp 'completion-in-region-function)
+  (define-key lisp-interaction-mode-map [remap ompletion-at-point] 'helm-lisp-completion-at-point)
+  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
 
 ;; Projectile
 (projectile-global-mode)
