@@ -117,6 +117,11 @@
 ;; Yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
+(add-hook 'yas/after-exit-snippet-hook
+          '(lambda ()
+             (indent-region yas/snippet-beg
+                            yas/snippet-end)))
+(set-variable 'yas/wrap-around-region nil)
 
 ;; Twittering mode
 (require 'twittering-mode)
