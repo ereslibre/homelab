@@ -60,7 +60,7 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin/vendor_perl:/home/
 export EDITOR="emacs -nw"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export TERM="xterm-256color"
+export TERM=xterm-256color
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
