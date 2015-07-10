@@ -20,9 +20,6 @@
 (set-default
  'imenu-auto-rescan t)
 
-;; Auto complete
-(ac-config-default)
-
 ;; Org mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -44,6 +41,9 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Auto complete
+(ac-config-default)
 
 ;; Gitgutter
 (require 'git-gutter-fringe)
