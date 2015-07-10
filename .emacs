@@ -20,6 +20,9 @@
 (set-default
  'imenu-auto-rescan t)
 
+;; Auto complete
+(ac-config-default)
+
 ;; Org mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -28,7 +31,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode google-translate)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode google-translate auto-complete)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
@@ -78,7 +81,7 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
-(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode text-mode dired-mode dired-x-mode image-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
 
 ;; Cursor
 (blink-cursor-mode 0)
