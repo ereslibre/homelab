@@ -28,7 +28,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist git-gutter-fringe twittering-mode google-translate auto-complete)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
@@ -45,10 +45,8 @@
 ;; Auto complete
 (ac-config-default)
 
-;; Gitgutter
-(require 'git-gutter-fringe)
-(global-git-gutter-mode t)
-(custom-set-variables '(git-gutter:update-interval 2))
+;; diff hl
+(global-diff-hl-mode)
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
