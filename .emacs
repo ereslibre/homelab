@@ -79,7 +79,7 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
-(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode text-mode dired-mode dired-x-mode image-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode text-mode doc-view-mode dired-mode dired-x-mode image-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
 
 ;; Cursor
 (blink-cursor-mode 0)
