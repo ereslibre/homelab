@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
@@ -57,7 +57,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin/vendor_perl:/home/ereslibre/.gem/ruby/2.1.0/bin:$PATH
-export EDITOR="emacs -nw"
+export EDITOR='emacsclient -c'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export TERM=xterm-256color
@@ -81,5 +81,3 @@ export TERM=xterm-256color
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
-export $(gnome-keyring-daemon -s)
