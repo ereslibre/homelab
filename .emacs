@@ -27,6 +27,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;; Highlight current line
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "#3e4446")
+
 (defvar my-packages
   '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl)
   "Ensure this packages are installed")
