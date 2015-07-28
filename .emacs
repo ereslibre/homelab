@@ -32,7 +32,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl dockerfile-mode docker)
   "Ensure this packages are installed")
  
 (defun my-packages-installed-p ()
@@ -46,11 +46,15 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+;; Docker integration
+(require 'docker)
+
 ;; Auto complete
 (ac-config-default)
 
 ;; diff hl
 (global-diff-hl-mode)
+(run-with-idle-timer 1 t 'diff-hl-update)
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
@@ -98,6 +102,7 @@
 ;; Writing helpers
 (electric-pair-mode 1)
 (electric-indent-mode -1)
+(setq ruby-insert-encoding-magic-comment nil)
 
 ;; Writing style
 (setq-default c-basic-indent 2)
@@ -164,7 +169,7 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monaco-12")
+(set-default-font "Monoid-13")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Ubuntu Mono"))))
