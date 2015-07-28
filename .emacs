@@ -169,8 +169,8 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monoid-14")
-(set-face-attribute 'default nil :family "Monoid" :height 140)
+(set-default-font "Monoid-12")
+(set-face-attribute 'default nil :family "Monoid" :height 120)
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Monoid"))))
