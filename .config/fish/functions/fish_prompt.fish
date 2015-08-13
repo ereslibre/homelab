@@ -1,0 +1,37 @@
+function fish_prompt --description 'Write out the prompt'
+	set -l last_status $status
+
+	set -l normal (set_color normal)
+
+	# Hack; fish_config only copies the fish_prompt function (see #736)
+	if not set -q -g __fish_classic_git_functions_defined
+		set -g __fish_classic_git_functions_defined
+
+		function __fish_repaint_status --on-variable fish_color_status --description "Event handler; repaint when fish_color_status changes"
+			if status --is-interactive
+				commandline -f repaint ^/dev/null
+			end
+		end
+
+		function __fish_repaint_bind_mode --on-variable fish_key_bindings --description "Event handler; repaint when fish_key_bindings changes"
+			if status --is-interactive
+				commandline -f repaint ^/dev/null
+			end
+		end
+
+		# initialize our new variables
+		if not set -q __fish_classic_git_prompt_initialized
+			set -qU fish_color_status; or set -U fish_color_status red
+			set -U __fish_classic_git_prompt_initialized
+		end
+	end
+
+	set -l color_cwd $fish_color_cwd
+
+	set -l prompt_status
+	if test $last_status -ne 0
+		set prompt_status ' ' (set_color $fish_color_status) "[$last_status]" "$normal"
+	end
+
+	echo -n -s (set_color $color_cwd) (prompt_pwd) $normal (__fish_git_prompt) $normal $prompt_status "$mode_str" " > "
+end
