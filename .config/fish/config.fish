@@ -6,7 +6,7 @@ if [ -x /usr/local/bin/keychain ]
 end
 
 if boot2docker status | grep running > /dev/null
-  set shinit (boot2docker shellinit)
+  set shinit (boot2docker shellinit ^ /dev/null)
   for i in (seq (count $shinit))
     eval $shinit[$i]
   end
