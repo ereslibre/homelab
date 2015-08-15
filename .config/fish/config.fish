@@ -1,7 +1,7 @@
 set fish_greeting
 
 if [ -x /usr/local/bin/keychain ]
-    keychain --nogui ^/dev/null
+    keychain --nogui id_rsa ^/dev/null
     . $HOME/.keychain/$HOSTNAME-fish
 end
 
