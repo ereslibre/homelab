@@ -5,8 +5,8 @@ if [ -x /usr/local/bin/keychain ]
     . $HOME/.keychain/$HOSTNAME-fish
 end
 
-if boot2docker status | grep running >/dev/null
-  set shinit (boot2docker shellinit ^/dev/null)
+if docker-machine status default | grep running >/dev/null
+  set shinit (docker-machine env default ^/dev/null)
   for i in (seq (count $shinit))
     eval $shinit[$i]
   end
