@@ -5,10 +5,12 @@ if [ -x /usr/local/bin/keychain ]
     . $HOME/.keychain/$HOSTNAME-fish
 end
 
-if docker-machine status default | grep -i running >/dev/null
-  set shinit (docker-machine env default ^/dev/null)
-  for i in (seq (count $shinit))
-    eval $shinit[$i]
+if [ -x /usr/local/bin/docker-machine ]
+  if docker-machine status default | grep -i running >/dev/null
+    set shinit (docker-machine env default ^/dev/null)
+    for i in (seq (count $shinit))
+      eval $shinit[$i]
+    end
   end
 end
 
