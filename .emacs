@@ -34,12 +34,12 @@
 (defvar my-packages
   '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl dockerfile-mode docker)
   "Ensure this packages are installed")
- 
+
 (defun my-packages-installed-p ()
   (loop for p in my-packages
         when (not (package-installed-p p)) do (return nil)
         finally (return t)))
- 
+
 (unless (my-packages-installed-p)
   (package-refresh-contents)
   (dolist (p my-packages)
@@ -74,6 +74,9 @@
 (setq-default make-backup-files nil)
 (setq-default auto-save-default nil)
 
+;; Remove whitespaces at the end of line
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; Graphical interface tweaks
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -97,12 +100,12 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format " %4s \u2502 ")
+(setq-default linum-relative-format " %4s | ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
 (electric-pair-mode 1)
-(electric-indent-mode -1)
+(electric-indent-mode 1)
 (setq ruby-insert-encoding-magic-comment nil)
 
 ;; Writing style
