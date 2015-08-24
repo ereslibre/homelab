@@ -2,8 +2,8 @@
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;(add-to-list 'package-archives
+;             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
@@ -173,8 +173,8 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monoid-12")
-(set-face-attribute 'default nil :family "Monoid" :height 120)
+(set-default-font "Monoid-13")
+(set-face-attribute 'default nil :family "Monoid" :height 130)
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Monoid"))))
