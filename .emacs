@@ -173,18 +173,17 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monoid-13")
-(set-face-attribute 'default nil :family "Monoid" :height 130)
+(set-default-font "Hack-12")
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Monoid"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.2 :family "Monoid"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.15 :family "Monoid"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.1 :family "Monoid"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Monoid"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Monoid"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Monoid"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Monoid")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.3 :family "Hack"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.2 :family "Hack"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.15 :family "Hack"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.1 :family "Hack"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Hack"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Hack"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Hack"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Hack")))))
 
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
