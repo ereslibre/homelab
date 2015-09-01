@@ -100,7 +100,7 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format " %4s | ")
+(setq-default linum-relative-format " %4s \u2503 ")
 (setq-default linum-relative-current-symbol "")
 
 ;; Writing helpers
