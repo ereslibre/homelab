@@ -1,8 +1,10 @@
 set fish_greeting
 
+set EDITOR nano
+
 if [ -x /usr/local/bin/keychain ]
     keychain --nogui id_rsa ^/dev/null
-    . $HOME/.keychain/$HOSTNAME-fish
+    source $HOME/.keychain/(hostname)-fish
 end
 
 if [ -x /usr/local/bin/docker-machine ]
