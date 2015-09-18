@@ -1,6 +1,6 @@
 set fish_greeting
 
-set -x EDITOR nano
+set -x EDITOR emacs
 
 if [ -x /usr/local/bin/keychain ]
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
