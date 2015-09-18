@@ -1,9 +1,9 @@
 set fish_greeting
 
-set EDITOR nano
+set -x EDITOR nano
 
 if [ -x /usr/local/bin/keychain ]
-    keychain --nogui id_rsa ^/dev/null
+    keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
     source $HOME/.keychain/(hostname)-fish
 end
 
