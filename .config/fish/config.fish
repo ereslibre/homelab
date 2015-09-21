@@ -1,6 +1,7 @@
 set fish_greeting
 
-set -x EDITOR emacs
+set -x EDITOR "emacs -nw --no-desktop"
+set -x GIT_EDITOR "emacs -nw --no-desktop"
 
 if [ -x /usr/local/bin/keychain ]
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
