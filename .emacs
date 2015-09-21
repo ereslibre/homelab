@@ -169,21 +169,21 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
-(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant") projectile-globally-ignored-directories))
+(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant" "assets") projectile-globally-ignored-directories))
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Hack-10")
+(set-default-font "Monaco-12")
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Hack"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.15 :family "Hack"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.1 :family "Hack"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.05 :family "Hack"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Hack"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Hack"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Hack"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Hack")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.15 :family "Monaco"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.1 :family "Monaco"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.05 :family "Monaco"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Monaco"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Monaco"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Monaco"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Monaco")))))
 
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
