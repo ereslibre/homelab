@@ -32,7 +32,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate auto-complete diff-hl dockerfile-mode docker)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode docker)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -48,9 +48,6 @@
 
 ;; Docker integration
 (require 'docker)
-
-;; Auto complete
-(ac-config-default)
 
 ;; diff hl
 (global-diff-hl-mode)
