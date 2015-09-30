@@ -20,6 +20,10 @@
 (set-default
  'imenu-auto-rescan t)
 
+;; Undo tree
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+
 ;; Org mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -32,7 +36,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode docker)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode docker undo-tree)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
