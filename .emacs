@@ -54,6 +54,7 @@
 (global-diff-hl-mode)
 (run-with-idle-timer 1 t 'diff-hl-update)
 (setq diff-hl-side 'right)
+(setq diff-hl-draw-borders nil)
 
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
