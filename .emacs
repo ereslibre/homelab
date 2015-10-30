@@ -32,7 +32,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -82,7 +82,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'monokai t)
+(load-theme 'farmhouse-dark t)
 
 ;; Lines and columns
 (line-number-mode 1)
