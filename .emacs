@@ -101,6 +101,8 @@
 (global-linum-mode 1)
 (setq-default linum-relative-format " %4s \u2503 ")
 (setq-default linum-relative-current-symbol "")
+(with-eval-after-load 'linum
+  (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
