@@ -175,6 +175,8 @@
 
 ;; Default font
 (set-default-font "Input Mono-11:thin")
+(add-to-list 'default-frame-alist '(font . "Input Mono-11:thin" ))
+(set-face-attribute 'default t :font "Input Mono-11:thin" )
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
