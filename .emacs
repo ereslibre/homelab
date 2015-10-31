@@ -32,7 +32,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -90,7 +90,7 @@
 
 ;; Load relative numbers
 (require 'linum-relative)
-(setq linum-disabled-modes-list '(twittering-mode term-mode org-mode text-mode doc-view-mode dired-mode dired-x-mode image-mode)) (defun linum-on () (unless (or (minibufferp) (member major-mode linum-disabled-modes-list)) (linum-mode 1)))
+(require 'linum-off)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -99,7 +99,7 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format " %4s \u2503 ")
+(setq-default linum-relative-format " %4s | ")
 (setq-default linum-relative-current-symbol "")
 (with-eval-after-load 'linum
   (linum-relative-toggle))
@@ -174,7 +174,7 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monaco-12")
+(set-default-font "Input Mono-11:thin")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
