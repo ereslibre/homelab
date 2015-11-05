@@ -14,6 +14,8 @@
 (global-set-key "\M-i" 'imenu)
 (global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/bin/zsh")))
 
+(setenv "SHELL" "/bin/bash")
+
 ;; imenu
 (set-default
  'imenu-after-jump-hook (recenter (/ (window-height) 2)))
@@ -32,7 +34,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree auto-complete)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -99,7 +101,7 @@
 
 ;; Enable linum-mode
 (global-linum-mode 1)
-(setq-default linum-relative-format " %4s | ")
+(setq-default linum-relative-format "%4s")
 (setq-default linum-relative-current-symbol "")
 (with-eval-after-load 'linum
   (linum-relative-toggle))
