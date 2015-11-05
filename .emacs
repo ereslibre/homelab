@@ -150,6 +150,9 @@
 (setq twittering-icon-mode t)
 (setq twittering-use-master-password t)
 
+;; Auto complete
+(global-auto-complete-mode t)
+
 ;; Helm
 (require 'helm-config)
 (helm-mode 1)
