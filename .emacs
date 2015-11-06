@@ -34,7 +34,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree auto-complete)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree auto-complete sublimity)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -47,6 +47,12 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Sublimity
+(require 'sublimity)
+(require 'sublimity-scroll)
+(require 'sublimity-attractive)
+(sublimity-mode 1)
 
 ;; Undo tree
 (require 'undo-tree)
@@ -84,15 +90,15 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'farmhouse-dark t)
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
 (column-number-mode 1)
 
 ;; Load relative numbers
-(require 'linum-relative)
-(require 'linum-off)
+;;(require 'linum-relative)
+;;(require 'linum-off)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -100,11 +106,11 @@
           '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Enable linum-mode
-(global-linum-mode 1)
-(setq-default linum-relative-format "%4s")
-(setq-default linum-relative-current-symbol "")
-(with-eval-after-load 'linum
-  (linum-relative-toggle))
+;;(global-linum-mode 1)
+;;(setq-default linum-relative-format "%4s")
+;;(setq-default linum-relative-current-symbol "")
+;;(with-eval-after-load 'linum
+;;  (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
@@ -179,9 +185,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monaco-11:regular")
-(add-to-list 'default-frame-alist '(font . "Monaco-11:regular" ))
-(set-face-attribute 'default t :font "Monaco-11:regular" )
+(set-default-font "Monaco-12:regular")
+(add-to-list 'default-frame-alist '(font . "Monaco-12:regular" ))
+(set-face-attribute 'default t :font "Monaco-12:regular" )
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
