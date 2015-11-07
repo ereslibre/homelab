@@ -34,7 +34,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree auto-complete sublimity)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off farmhouse-theme monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -50,13 +50,16 @@
 
 ;; Sublimity
 (require 'sublimity)
-(require 'sublimity-scroll)
 (require 'sublimity-attractive)
 (sublimity-mode 1)
 
 ;; Undo tree
 (require 'undo-tree)
 (global-undo-tree-mode 1)
+
+;; Browse kill ring
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
 
 ;; diff hl
 (global-diff-hl-mode)
@@ -90,7 +93,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'monokai t)
+(load-theme 'farmhouse-dark t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -185,19 +188,19 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Monaco-12:regular")
-(add-to-list 'default-frame-alist '(font . "Monaco-12:regular" ))
-(set-face-attribute 'default t :font "Monaco-12:regular" )
+(set-default-font "Source Code Pro-12:ExtraLight")
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-12:ExtraLight" ))
+(set-face-attribute 'default t :font "Source Code Pro-12:ExtraLight" )
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.15 :family "Monaco"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.1 :family "Monaco"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.05 :family "Monaco"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Monaco"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Monaco"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Monaco"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Monaco")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Source Code Pro"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.15 :family "Source Code Pro"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.1 :family "Source Code Pro"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.05 :family "Source Code Pro"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Source Code Pro"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Source Code Pro"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Source Code Pro"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Source Code Pro")))))
 
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
