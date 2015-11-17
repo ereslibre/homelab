@@ -119,6 +119,19 @@
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 (setq ruby-insert-encoding-magic-comment nil)
+(add-hook 'ruby-mode-hook
+  (lambda () (hs-minor-mode)))
+
+(eval-after-load "hideshow"
+  '(add-to-list 'hs-special-modes-alist
+    `(ruby-mode
+      ,(rx (or "def" "class" "module" "do" "{" "[")) ; Block start
+      ,(rx (or "}" "]" "end"))                       ; Block end
+      ,(rx (or "#" "=begin"))                        ; Comment start
+      ruby-forward-sexp nil)))
+
+(global-set-key (kbd "C-c H") 'hs-hide-block)
+(global-set-key (kbd "C-c S") 'hs-show-block)
 
 ;; Writing style
 (setq-default c-basic-indent 2)
