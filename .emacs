@@ -54,9 +54,9 @@
       (package-install p))))
 
 ;; Sublimity
-;; (require 'sublimity)
-;; (require 'sublimity-attractive)
-;; (sublimity-mode 1)
+(require 'sublimity)
+(require 'sublimity-attractive)
+(sublimity-mode 1)
 
 ;; Undo tree
 (require 'undo-tree)
