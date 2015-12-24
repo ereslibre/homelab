@@ -1,3 +1,7 @@
+;; Default shell
+(setenv "SHELL" "/bin/bash")
+(setenv "ESHELL" "/bin/bash")
+
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
@@ -14,7 +18,8 @@
 (global-set-key "\M-i" 'imenu)
 (global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/bin/zsh")))
 
-(setenv "SHELL" "/bin/bash")
+;; Dash at point
+(global-set-key "\C-cd" 'dash-at-point)
 
 ;; imenu
 (set-default
@@ -49,9 +54,9 @@
       (package-install p))))
 
 ;; Sublimity
-(require 'sublimity)
-(require 'sublimity-attractive)
-(sublimity-mode 1)
+;; (require 'sublimity)
+;; (require 'sublimity-attractive)
+;; (sublimity-mode 1)
 
 ;; Undo tree
 (require 'undo-tree)
@@ -100,8 +105,7 @@
 (column-number-mode 1)
 
 ;; Load relative numbers
-;;(require 'linum-relative)
-;;(require 'linum-off)
+;; (require 'linum-relative)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -109,11 +113,11 @@
           '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Enable linum-mode
-;;(global-linum-mode 1)
-;;(setq-default linum-relative-format "%4s")
-;;(setq-default linum-relative-current-symbol "")
-;;(with-eval-after-load 'linum
-;;  (linum-relative-toggle))
+;; (global-linum-mode 1)
+;; (setq-default linum-relative-format "%4s")
+;; (setq-default linum-relative-current-symbol "")
+;; (with-eval-after-load 'linum
+;;   (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
