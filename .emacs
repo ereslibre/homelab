@@ -39,7 +39,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -57,6 +57,9 @@
 (require 'sublimity)
 (require 'sublimity-attractive)
 (sublimity-mode 1)
+
+;; Hide comments
+(require 'hide-comnt)
 
 ;; Undo tree
 (require 'undo-tree)
