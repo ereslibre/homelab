@@ -128,7 +128,7 @@
 (setq ruby-insert-encoding-magic-comment nil)
 (add-hook 'ruby-mode-hook
           (lambda () (hs-minor-mode)))
-(add-hook 'ruby-mode-hook (lambda () (interactive) (hide/show-comments 'hide)))
+;; (add-hook 'ruby-mode-hook (lambda () (interactive) (hide/show-comments 'hide)))
 
 (eval-after-load "hideshow"
   '(add-to-list 'hs-special-modes-alist
