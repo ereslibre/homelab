@@ -212,9 +212,9 @@
 ;; (set-default-font "monofur-14:Regular")
 ;; (add-to-list 'default-frame-alist '(font . "monofur-14:Regular"))
 ;; (set-face-attribute 'default t :font "monofur-14:Regular")
-(set-default-font "Ubuntu Mono-14:Regular")
-(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-14:Regular"))
-(set-face-attribute 'default t :font "Ubuntu Mono-14:Regular")
+(set-default-font "monofur-13:Regular")
+(add-to-list 'default-frame-alist '(font . "monofur-13:Regular"))
+(set-face-attribute 'default t :font "monofur-13:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
@@ -229,6 +229,6 @@
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
 (require 'powerline)
-(powerline-default-theme)
+(powerline-center-theme)
 (setq powerline-default-separator 'wave)
 (setq powerline-display-buffer-size nil)
