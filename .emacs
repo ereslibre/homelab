@@ -18,9 +18,6 @@
 (global-set-key "\M-i" 'imenu)
 (global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/bin/zsh")))
 
-;; Dash at point
-(global-set-key "\C-cd" 'dash-at-point)
-
 ;; imenu
 (set-default
  'imenu-after-jump-hook (recenter (/ (window-height) 2)))
@@ -39,7 +36,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt dash-at-point)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -52,6 +49,9 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Dash at point
+(global-set-key "\C-cd" 'dash-at-point)
 
 ;; Sublimity
 (require 'sublimity)
@@ -209,9 +209,12 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "monofur-14:Regular")
-(add-to-list 'default-frame-alist '(font . "monofur-14:Regular"))
-(set-face-attribute 'default t :font "monofur-14:Regular")
+;; (set-default-font "monofur-14:Regular")
+;; (add-to-list 'default-frame-alist '(font . "monofur-14:Regular"))
+;; (set-face-attribute 'default t :font "monofur-14:Regular")
+(set-default-font "Ubuntu Mono-14:Regular")
+(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-14:Regular"))
+(set-face-attribute 'default t :font "Ubuntu Mono-14:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
