@@ -36,7 +36,7 @@
 (set-face-background 'hl-line "#3e4446")
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt dash-at-point)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme molokai-theme cyberpunk-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt dash-at-point dockerfile-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -101,7 +101,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'monokai t)
+(load-theme 'molokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -109,6 +109,7 @@
 
 ;; Load relative numbers
 ;; (require 'linum-relative)
+;; (require 'linum-off)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -128,7 +129,6 @@
 (setq ruby-insert-encoding-magic-comment nil)
 (add-hook 'ruby-mode-hook
           (lambda () (hs-minor-mode)))
-;; (add-hook 'ruby-mode-hook (lambda () (interactive) (hide/show-comments 'hide)))
 
 (eval-after-load "hideshow"
   '(add-to-list 'hs-special-modes-alist
@@ -209,12 +209,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-;; (set-default-font "monofur-14:Regular")
-;; (add-to-list 'default-frame-alist '(font . "monofur-14:Regular"))
-;; (set-face-attribute 'default t :font "monofur-14:Regular")
-(set-default-font "monofur-13:Regular")
-(add-to-list 'default-frame-alist '(font . "monofur-13:Regular"))
-(set-face-attribute 'default t :font "monofur-13:Regular")
+(set-default-font "monofur-12:Regular")
+(add-to-list 'default-frame-alist '(font . "monofur-12:Regular"))
+(set-face-attribute 'default t :font "monofur-12:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
@@ -229,6 +226,6 @@
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
 (require 'powerline)
-(powerline-center-theme)
+(powerline-default-theme)
 (setq powerline-default-separator 'wave)
 (setq powerline-display-buffer-size nil)
