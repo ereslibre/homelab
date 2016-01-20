@@ -100,7 +100,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'soothe t)
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
