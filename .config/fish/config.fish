@@ -10,7 +10,7 @@ end
 
 if [ -x /usr/local/bin/docker-machine ]
   if docker-machine status default | grep -i running >/dev/null
-    set shinit (docker-machine env default ^/dev/null)
+    set shinit (docker-machine env --shell fish default ^/dev/null)
     for i in (seq (count $shinit))
       eval $shinit[$i]
     end
@@ -25,5 +25,9 @@ if [ -x /usr/local/bin/rbenv ]
   set PATH $HOME/.rbenv/shims $PATH
   rbenv rehash >/dev/null ^&1
 end
+
+set -x GOPATH $HOME/go
+set PATH /usr/local/opt/go/libexec/bin $PATH
+set PATH $GOPATH/bin $PATH
 
 alias whoises 'ssh root@linux2100.neodigit.com '\''php /usr/custombin/dominios.es.stats/whois-toplus.php '\'' $1'
