@@ -35,7 +35,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme soothe-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt dash-at-point go-mode)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme soothe-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring auto-complete sublimity ack hide-comnt dash-at-point go-mode markdown-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
