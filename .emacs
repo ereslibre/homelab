@@ -79,6 +79,7 @@
 
 ;; Save last opened files
 (setq desktop-save t)
+(setq desktop-restore-frames nil)
 (desktop-save-mode t)
 
 ;; No welcome screen
