@@ -53,9 +53,9 @@
 (global-set-key "\C-cd" 'dash-at-point)
 
 ;; Sublimity
-(require 'sublimity)
-(require 'sublimity-attractive)
-(sublimity-mode 1)
+;; (require 'sublimity)
+;; (require 'sublimity-attractive)
+;; (sublimity-mode 1)
 
 ;; Hide comments
 (require 'hide-comnt)
