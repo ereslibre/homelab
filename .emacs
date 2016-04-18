@@ -209,9 +209,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "monofur-14:Regular")
-(add-to-list 'default-frame-alist '(font . "monofur-14:Regular"))
-(set-face-attribute 'default t :font "monofur-14:Regular")
+(set-default-font "Hack-12:Regular")
+(add-to-list 'default-frame-alist '(font . "Hack-12:Regular"))
+(set-face-attribute 'default t :font "Hack-12:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
