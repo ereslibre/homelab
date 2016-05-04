@@ -30,6 +30,8 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done t)
+(setq org-agenda-files '("~/org"))
 
 ;; Highlight current line
 (global-hl-line-mode 1)
@@ -232,3 +234,6 @@
 (powerline-default-theme)
 (setq powerline-default-separator 'arrow-fade)
 (setq powerline-display-buffer-size nil)
+
+;; org-habit
+(add-to-list 'org-modules 'org-habit)
