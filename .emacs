@@ -53,9 +53,10 @@
 (global-set-key "\C-cd" 'dash-at-point)
 
 ;; Sublimity
-;; (require 'sublimity)
-;; (require 'sublimity-attractive)
-;; (sublimity-mode 1)
+(require 'sublimity)
+(require 'sublimity-attractive)
+(setq sublimity-attractive-centering-width 110)
+(sublimity-mode 1)
 
 ;; Hide comments
 (require 'hide-comnt)
@@ -71,7 +72,7 @@
 ;; diff hl
 (global-diff-hl-mode)
 (run-with-idle-timer 1 t 'diff-hl-update)
-(setq diff-hl-side 'right)
+(setq diff-hl-side 'left)
 (setq diff-hl-draw-borders nil)
 
 ;; Random stuff
@@ -129,6 +130,8 @@
 (setq ruby-insert-encoding-magic-comment nil)
 (add-hook 'ruby-mode-hook
           (lambda () (hs-minor-mode)))
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (eval-after-load "hideshow"
   '(add-to-list 'hs-special-modes-alist
@@ -209,9 +212,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Hack-12:Regular")
-(add-to-list 'default-frame-alist '(font . "Hack-12:Regular"))
-(set-face-attribute 'default t :font "Hack-12:Regular")
+(set-default-font "Ubuntu Mono-12:Regular")
+(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-12:Regular"))
+(set-face-attribute 'default t :font "Ubuntu Mono-12:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
@@ -227,5 +230,5 @@
 (setq ns-use-srgb-colorspace nil)
 (require 'powerline)
 (powerline-default-theme)
-(setq powerline-default-separator 'wave)
+(setq powerline-default-separator 'arrow-fade)
 (setq powerline-display-buffer-size nil)
