@@ -32,7 +32,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 (setq org-log-repeat 'note)
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("~/Dropbox/org"))
 
 ;; Highlight current line
 (global-hl-line-mode 1)
