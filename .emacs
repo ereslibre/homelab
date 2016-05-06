@@ -222,14 +222,14 @@
 (set-face-attribute 'default t :font "Ubuntu Mono-12:Regular")
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1.2 :family "Monaco"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1.15 :family "Monaco"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1.1 :family "Monaco"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1.05 :family "Monaco"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :family "Monaco"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :family "Monaco"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :family "Monaco"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :family "Monaco")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 1 :family "Ubuntu Mono"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "Ubuntu Mono")))))
 
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
