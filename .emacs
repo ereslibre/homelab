@@ -32,7 +32,6 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 (setq org-log-repeat 'note)
-(setq org-agenda-include-diary t)
 (setq org-agenda-start-day "-1d")
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-files '("~/Dropbox/org"))
