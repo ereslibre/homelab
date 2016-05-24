@@ -110,7 +110,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'aurora t)
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -217,19 +217,19 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "Ubuntu Mono-12:Regular")
-(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-12:Regular"))
-(set-face-attribute 'default t :font "Ubuntu Mono-12:Regular")
+(set-default-font "mononoki-11:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-11:Regular"))
+(set-face-attribute 'default t :font "mononoki-11:Regular")
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "Ubuntu Mono"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "Ubuntu Mono"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "Ubuntu Mono"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1 :family "Ubuntu Mono"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 1 :family "Ubuntu Mono"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "Ubuntu Mono"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 1 :family "Ubuntu Mono"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "Ubuntu Mono")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "mononoki"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "mononoki"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "mononoki"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 1 :family "mononoki"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 1 :family "mononoki"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "mononoki"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 1 :family "mononoki"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "mononoki")))))
 
 ;; Powerline
 (setq ns-use-srgb-colorspace nil)
