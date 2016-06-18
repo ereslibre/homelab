@@ -1,0 +1,86 @@
+;; -*- Mode:p Lisp -*-
+;;; .stumpwmrc --- StumpWM Init File
+
+(in-package :stumpwm)
+
+;; Modeline
+
+(setf *startup-message* nil)
+(setf *mode-line-timeout* 60)
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
+
+(defun pretty-time ()
+  "Returns the date formatted as '17:19:51 Mon, 27 Apr 2014'."
+  (defun stringify-dow (dow)
+    (nth dow '("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun")))
+  (defun stringify-mon (mon)
+    (nth (- mon 1) '("Jan" "Feb" "Mar" "Apr"
+                     "May" "Jun" "Jul" "Aug"
+                     "Sep" "Oct" "Nov" "Dec")))
+(multiple-value-bind (sec min hr date mon yr dow dst-p tz)
+      (get-decoded-time)
+    (format NIL "~2,'0d:~2,'0d ~a, ~d ~a ~d (GMT ~@d)"
+            hr min
+            (stringify-dow dow)
+            date (stringify-mon mon)
+             yr (- tz))))
+
+(setf *screen-mode-line-format*
+      (list "[^B%n^b] %W " ; groups/windows
+            "^>" ; right align
+            " ^7* " '(:eval (pretty-time)); date
+            ))
+
+;; Defaults
+
+;;(load-module "ttf-fonts")
+;;(set-font (make-instance 'xft:font :family "Ubuntu" :subfamily "Regular" :size 11))
+
+(setf *group-format* "%s [%n] %t ")
+(setf *window-format* "%m%n%s%c")
+
+(setf *message-window-gravity* :top-right)
+(setf *input-window-gravity* :top-right)
+
+(setq *ignore-wm-inc-hints* t)
+
+(setq *window-border-style* :thin)
+
+(setf *timeout-wait* 5)
+
+(setf *mouse-focus-policy* :click)
+
+;; Shortcuts
+
+(define-key *top-map* (kbd "C-Q") "quit")
+(define-key *top-map* (kbd "C-Return") "exec terminator")
+
+(define-key *root-map* (kbd "c") "exec terminator")
+(define-key *root-map* (kbd "C-c") "exec terminator")
+
+(define-key *root-map* (kbd "M-m") "exec geary")
+(define-key *root-map* (kbd "M-c") "exec chromium")
+(define-key *root-map* (kbd "M-g") "exec nautilus")
+(define-key *root-map* (kbd "M-q") "exec quasselclient")
+(define-key *root-map* (kbd "M-i") "exec telegram-desktop")
+
+(define-key *root-map* (kbd "C-n") "move-focus down")
+(define-key *root-map* (kbd "C-p") "move-focus up")
+(define-key *root-map* (kbd "C-f") "move-focus right")
+(define-key *root-map* (kbd "C-b") "move-focus left")
+
+(define-key *root-map* (kbd "M-p") "move-window up")
+(define-key *root-map* (kbd "M-b") "move-window left")
+(define-key *root-map* (kbd "M-n") "move-window down")
+(define-key *root-map* (kbd "M-f") "move-window right")
+
+;; Create groups
+
+(run-commands "grename code" "gnewbg www" "gnewbg im" "gnewbg mail")
+
+;; Special keys
+
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
