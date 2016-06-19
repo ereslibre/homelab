@@ -20,16 +20,19 @@
                      "Sep" "Oct" "Nov" "Dec")))
 (multiple-value-bind (sec min hr date mon yr dow dst-p tz)
       (get-decoded-time)
-    (format NIL "~2,'0d:~2,'0d ~a, ~d ~a ~d (GMT ~@d)"
+    (format NIL "~2,'0d:~2,'0d ~a, ~d ~a"
             hr min
             (stringify-dow dow)
             date (stringify-mon mon)
-             yr (- tz))))
+             )))
 
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %W " ; groups/windows
             "^>" ; right align
-            " ^7* " '(:eval (pretty-time)); date
+            " ^7* "
+            " | " '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t)) "%"
+            " | " '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
+            " | " '(:eval (pretty-time)) " |"
             ))
 
 ;; Defaults
@@ -82,10 +85,4 @@
 
 ;; Create groups
 
-(run-commands "grename code" "gnewbg www" "gnewbg im" "gnewbg mail")
-
-;; Special keys
-
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
-(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
+(run-commands "grename code" "gnewbg www" "gnewbg im" "gnewbg mail" "gnewbg media")
