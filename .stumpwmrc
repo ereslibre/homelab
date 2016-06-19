@@ -20,12 +20,27 @@
       (set-keyboard-layout "en_US")
       (set-keyboard-layout "es")))
 
+(setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
+(setf *volume* (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t))
 (defun volume-info ()
-  (let ((muted (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
-        (volume (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t)))
-    (if (string-equal muted "yes")
-        "-"
-        volume)))
+  (if (string-equal *muted* "yes")
+    (concat "~" *volume*)
+    *volume*))
+
+(defcommand raise-volume () ()
+  (run-shell-command "pactl set-sink-volume 0 +5%")
+  (setf *volume* (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t))
+  nil)
+
+(defcommand lower-volume () ()
+  (run-shell-command "pactl set-sink-volume 0 -5%")
+  (setf *volume* (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t))
+  nil)
+
+(defcommand toggle-mute () ()
+  (run-shell-command "pactl set-sink-mute 0 toggle")
+  (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
+  nil)
 
 (defun battery-status ()
   (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
@@ -98,6 +113,6 @@
 
 ;; Deal with special keys
 
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume 0 +5%")
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume 0 -5%")
-(define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggle")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "raise-volume")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
+(define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
