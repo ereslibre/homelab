@@ -10,29 +10,12 @@
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
 
-(defun pretty-time ()
-  "Returns the date formatted as '17:19:51 Mon, 27 Apr 2014'."
-  (defun stringify-dow (dow)
-    (nth dow '("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun")))
-  (defun stringify-mon (mon)
-    (nth (- mon 1) '("Jan" "Feb" "Mar" "Apr"
-                     "May" "Jun" "Jul" "Aug"
-                     "Sep" "Oct" "Nov" "Dec")))
-(multiple-value-bind (sec min hr date mon yr dow dst-p tz)
-      (get-decoded-time)
-    (format NIL "~2,'0d:~2,'0d ~a, ~d ~a"
-            hr min
-            (stringify-dow dow)
-            date (stringify-mon mon)
-             )))
-
 (setf *screen-mode-line-format*
-      (list "[^B%n^b] %W " ; groups/windows
-            "^>" ; right align
-            " ^7* "
-            " | " '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t)) "%"
-            " | " '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
-            " | " '(:eval (pretty-time)) " |"
+      (list "[^B%n^b] %W"
+            "^>"
+            "^7*"
+            " [" '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t)) " | "
+                 '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t)) "%]"
             ))
 
 ;; Defaults
