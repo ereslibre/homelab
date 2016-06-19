@@ -8,8 +8,20 @@
 
 ;; Modeline
 
+(defun set-keyboard-layout (layout)
+  (setq *keyboard-layout* layout)
+  (run-shell-command (concat "setxkbmap " layout)))
+
+(set-keyboard-layout "en_US")
+(defcommand rr-keyboard-layout () ()
+  (if (string-equal *keyboard-layout* "es")
+      (set-keyboard-layout "en_US")
+      (set-keyboard-layout "es")))
+
+(defun keyboard-layout ()
+  *keyboard-layout*)
+
 (defun volume-info ()
-  "Get current volume"
   (let ((muted (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
         (volume (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t)))
     (if (string-equal muted "yes")
@@ -17,11 +29,9 @@
         volume)))
 
 (defun battery-status ()
-  "Get battery status"
   (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
 
 (defun battery-capacity ()
-  "Get battery capacity"
   (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t))
 
 (setf *startup-message* nil)
@@ -33,6 +43,7 @@
       (list "[^B%n^b] %W"
             "^>"
             "^7*"
+            " K[" '(:eval (keyboard-layout)) "]"
             " S[" '(:eval (volume-info)) "]"
             " B[" '(:eval (battery-status)) "|"
                   '(:eval (battery-capacity)) "%]"
@@ -58,6 +69,8 @@
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
 (define-key *top-map* (kbd "M-N") "gnext")
 (define-key *top-map* (kbd "M-P") "gprev")
+
+(define-key *top-map* (kbd "M-z") "rr-keyboard-layout")
 
 (define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
 
