@@ -20,9 +20,6 @@
       (set-keyboard-layout "en_US")
       (set-keyboard-layout "es")))
 
-(defun keyboard-layout ()
-  *keyboard-layout*)
-
 (defun volume-info ()
   (let ((muted (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
         (volume (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t)))
@@ -45,7 +42,7 @@
       (list "[^B%n^b] %W"
             "^>"
             "^7*"
-            " K[" '(:eval (keyboard-layout)) "]"
+            " K[" '(:eval *keyboard-layout*) "]"
             " S[" '(:eval (volume-info)) "]"
             " B[" '(:eval (battery-status)) "|"
                   '(:eval (battery-capacity)) "%]"
