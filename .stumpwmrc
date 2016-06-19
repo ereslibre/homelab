@@ -5,6 +5,8 @@
 ;; Do some initializations
 
 (run-shell-command "xscreensaver -no-splash")
+(run-shell-command "gnome-keyring-daemon")
+(run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon-localeexec")
 
 ;; Modeline
 
