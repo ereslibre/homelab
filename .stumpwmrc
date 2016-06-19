@@ -1,9 +1,28 @@
 ;; -*- Mode:p Lisp -*-
-;;; .stumpwmrc --- StumpWM Init File
 
 (in-package :stumpwm)
 
+;; Do some initializations
+
+(run-shell-command "xscreensaver -no-splash")
+
 ;; Modeline
+
+(defun volume-info ()
+  "Get current volume"
+  (let ((muted (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
+        (volume (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t)))
+    (if (string-equal muted "yes")
+        "-"
+        volume)))
+
+(defun battery-status ()
+  "Get battery status"
+  (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
+
+(defun battery-capacity ()
+  "Get battery capacity"
+  (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t))
 
 (setf *startup-message* nil)
 (setf *mode-line-timeout* 60)
@@ -14,27 +33,20 @@
       (list "[^B%n^b] %W"
             "^>"
             "^7*"
-            " [" '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t)) " | "
-                 '(:eval (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t)) "%]"
+            " S[" '(:eval (volume-info)) "]"
+            " B[" '(:eval (battery-status)) "|"
+                  '(:eval (battery-capacity)) "%]"
             ))
 
 ;; Defaults
 
-;;(load-module "ttf-fonts")
-;;(set-font (make-instance 'xft:font :family "Ubuntu" :subfamily "Regular" :size 11))
-
 (setf *group-format* "%s [%n] %t ")
 (setf *window-format* "%m%n%s%c")
-
 (setf *message-window-gravity* :top-right)
 (setf *input-window-gravity* :top-right)
-
 (setq *ignore-wm-inc-hints* t)
-
 (setq *window-border-style* :thin)
-
 (setf *timeout-wait* 5)
-
 (setf *mouse-focus-policy* :click)
 
 ;; Shortcuts
@@ -46,6 +58,8 @@
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
 (define-key *top-map* (kbd "M-N") "gnext")
 (define-key *top-map* (kbd "M-P") "gprev")
+
+(define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
 
 (define-key *root-map* (kbd "c") "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec terminator")
