@@ -66,6 +66,12 @@
 (define-key *root-map* (kbd "M-n") "move-window down")
 (define-key *root-map* (kbd "M-f") "move-window right")
 
-;; Create groups
+;; Create default groups
 
 (run-commands "grename code" "gnewbg www" "gnewbg im" "gnewbg mail" "gnewbg media")
+
+;; Deal with special keys
+
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume 0 +5%")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume 0 -5%")
+(define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggle")
