@@ -2,6 +2,11 @@
 
 (in-package :stumpwm)
 
+;; Include nice fonts
+
+(load-module "ttf-fonts")
+(set-font (make-instance 'xft:font :family "Anonymous Pro" :subfamily "Regular" :size 22))
+
 ;; Do some initializations
 
 (run-shell-command "xscreensaver -no-splash")
