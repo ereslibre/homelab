@@ -128,6 +128,6 @@
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
 (define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
 
-;; Change PATH
+;; Give priority to ~/bin when calling to StumpWM's exec
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
