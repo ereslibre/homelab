@@ -127,3 +127,7 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "raise-volume")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
 (define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
+
+;; Change PATH
+
+(setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
