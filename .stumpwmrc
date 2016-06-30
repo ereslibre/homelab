@@ -121,3 +121,8 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "raise-volume")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
 (define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
+
+;; Deal with HiDPI
+
+(setf (getenv "GDK_SCALE") "1")
+(setf (getenv "GDK_DPI_SCALE") "1")
