@@ -12,6 +12,7 @@
 (run-shell-command "xrdb -merge ~/.Xresources")
 (run-shell-command "feh --bg-scale ~/.wallpapers/1.jpg")
 (run-shell-command "xsetroot -cursor_name left_ptr")
+(run-shell-command "xmodmap ~/.Xmodmap")
 (run-shell-command "xscreensaver -no-splash")
 (run-shell-command "gnome-keyring-daemon")
 (run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon-localeexec")
