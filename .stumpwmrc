@@ -9,6 +9,8 @@
 
 ;; Do some initializations
 
+(run-shell-command "feh --bg-scale ~/.wallpapers/1.jpg")
+(run-shell-command "xsetroot -cursor_name left_ptr")
 (run-shell-command "xscreensaver -no-splash")
 (run-shell-command "gnome-keyring-daemon")
 (run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon-localeexec")
@@ -96,6 +98,9 @@
 (define-key *root-map* (kbd "c") "exec terminator")
 (define-key *root-map* (kbd "C-c") "exec terminator")
 
+(define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
+(define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
+
 (define-key *root-map* (kbd "M-m") "exec geary")
 (define-key *root-map* (kbd "M-c") "exec chromium")
 (define-key *root-map* (kbd "M-g") "exec nautilus")
@@ -121,8 +126,3 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "raise-volume")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
 (define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
-
-;; Deal with HiDPI
-
-(setf (getenv "GDK_SCALE") "1")
-(setf (getenv "GDK_DPI_SCALE") "1")
