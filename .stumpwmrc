@@ -10,24 +10,35 @@
 ;; Do some initializations
 
 (run-shell-command "xrdb -merge ~/.Xresources")
-(run-shell-command "feh --bg-scale ~/.wallpapers/1.jpg")
+(run-shell-command "feh --bg-scale ~/.wallpapers/2.jpg")
 (run-shell-command "xsetroot -cursor_name left_ptr")
 (run-shell-command "xmodmap ~/.Xmodmap")
 (run-shell-command "xscreensaver -no-splash")
-(run-shell-command "gnome-keyring-daemon")
-(run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon-localeexec")
+(run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon &")
 
 ;; Modeline
 
 (defun set-keyboard-layout (layout)
   (setq *keyboard-layout* layout)
   (run-shell-command (concat "setxkbmap " layout)))
-
 (set-keyboard-layout "en_US")
 (defcommand rr-keyboard-layout () ()
   (if (string-equal *keyboard-layout* "es")
       (set-keyboard-layout "en_US")
       (set-keyboard-layout "es")))
+
+(defun set-brightness (brightness)
+  (setq *brightness* brightness)
+  (run-shell-command (concat "sudo su -c 'echo " brightness " > /sys/class/backlight/intel_backlight/brightness'")))
+(set-brightness "100")
+
+(defcommand raise-brightness () ()
+  (setq new-brightness (+ (parse-integer *brightness*) 10))
+  (set-brightness (write-to-string new-brightness)))
+
+(defcommand lower-brightness () ()
+  (setq new-brightness (- (parse-integer *brightness*) 10))
+  (set-brightness (write-to-string new-brightness)))
 
 (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
 (setf *volume* (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t))
@@ -66,10 +77,11 @@
       (list "[^B%n^b] %W"
             "^>"
             "^7*"
-            " K[" '(:eval *keyboard-layout*) "]"
-            " S[" '(:eval (volume-info)) "]"
-            " B[" '(:eval (battery-status)) "|"
-                  '(:eval (battery-capacity)) "%]"
+            " KBD[" '(:eval *keyboard-layout*) "]"
+            " SND[" '(:eval (volume-info)) "]"
+            " BKL[" '(:eval *brightness*) "]"
+            " BAT[" '(:eval (battery-status)) "|"
+                    '(:eval (battery-capacity)) "%]"
             ))
 
 ;; Defaults
@@ -128,6 +140,8 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "raise-volume")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "lower-volume")
 (define-key *top-map* (kbd "XF86AudioMute") "toggle-mute")
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "raise-brightness")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "lower-brightness")
 
 ;; Give priority to ~/bin when calling to StumpWM's exec
 
