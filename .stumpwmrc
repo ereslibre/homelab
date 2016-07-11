@@ -73,6 +73,20 @@
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
 
+(setf *message-window-padding* 5)
+
+(set-focus-color   "lightskyblue4")
+(set-unfocus-color "gray6")
+(set-win-bg-color  "gray8")
+
+(set-fg-color "oldlace")
+(set-bg-color "gray8")
+(set-border-color "oldlace")
+
+(setf *mode-line-foreground-color* "oldlace"
+      *mode-line-background-color* "dimgray"
+      *mode-line-border-color*     "oldlace")
+
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %W"
             "^>"
@@ -146,3 +160,21 @@
 ;; Give priority to ~/bin when calling to StumpWM's exec
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
+
+;; Add commands
+
+(defcommand wp (search)
+  ((:string "Search in Wikipedia for: "))
+  "docstring"
+  (check-type search string)
+  (run-or-raise
+     (concat "chromium https://en.wikipedia.org/wiki/Special:Search?search=" (substitute #\+ #\Space search))
+     '(:class "Wikipedia")))
+
+(defcommand gg (search)
+  ((:string "Search in Google for: "))
+  "docstring"
+  (check-type search string)
+  (run-or-raise
+     (concat "chromium https://www.google.com/search?q=" (substitute #\+ #\Space search))
+     '(:class "Google")))
