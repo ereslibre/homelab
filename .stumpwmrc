@@ -83,6 +83,8 @@
 (set-bg-color "gray8")
 (set-border-color "oldlace")
 
+(setq *time-modeline-string* "%a %e %b %H:%M")
+
 (setf *mode-line-foreground-color* "oldlace"
       *mode-line-background-color* "dimgray"
       *mode-line-border-color*     "oldlace")
@@ -96,6 +98,7 @@
             " [" '(:eval *brightness*) "]"
             " [" '(:eval (battery-status)) "|"
                  '(:eval (battery-capacity)) "%]"
+            " [%d]"
             ))
 
 ;; Defaults
