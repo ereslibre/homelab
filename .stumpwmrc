@@ -30,7 +30,7 @@
 (defun set-brightness (brightness)
   (setq *brightness* brightness)
   (run-shell-command (concat "sudo su -c 'echo " brightness " > /sys/class/backlight/intel_backlight/brightness'")))
-(set-brightness "100")
+(set-brightness "10")
 
 (defcommand raise-brightness () ()
   (setq new-brightness (+ (parse-integer *brightness*) 10))
