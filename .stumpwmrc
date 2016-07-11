@@ -5,7 +5,7 @@
 ;; Include nice fonts
 
 (load-module "ttf-fonts")
-(set-font (make-instance 'xft:font :family "Anonymous Pro" :subfamily "Regular" :size 22))
+(set-font (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 22))
 
 ;; Do some initializations
 
@@ -77,11 +77,11 @@
       (list "[^B%n^b] %W"
             "^>"
             "^7*"
-            " KBD[" '(:eval *keyboard-layout*) "]"
-            " SND[" '(:eval (volume-info)) "]"
-            " BKL[" '(:eval *brightness*) "]"
-            " BAT[" '(:eval (battery-status)) "|"
-                    '(:eval (battery-capacity)) "%]"
+            " [" '(:eval *keyboard-layout*) "]"
+            " [" '(:eval (volume-info)) "]"
+            " [" '(:eval *brightness*) "]"
+            " [" '(:eval (battery-status)) "|"
+                 '(:eval (battery-capacity)) "%]"
             ))
 
 ;; Defaults
