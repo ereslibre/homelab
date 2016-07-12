@@ -1,11 +1,11 @@
-;; -*- Mode:p Lisp -*-
+;; -*- Mode: Lisp -*-
 
 (in-package :stumpwm)
 
 ;; Include nice fonts
 
 (load-module "ttf-fonts")
-(set-font (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 22))
+(set-font (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 20))
 
 ;; Do some initializations
 
