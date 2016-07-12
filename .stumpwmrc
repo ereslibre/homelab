@@ -5,7 +5,8 @@
 ;; Include nice fonts
 
 (load-module "ttf-fonts")
-(set-font (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 20))
+(set-font (list (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 20)
+                (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 20)))
 
 ;; Do some initializations
 
@@ -85,20 +86,23 @@
 
 (setf *time-modeline-string* "%a %e %b %H:%M")
 
-(setf *mode-line-foreground-color* "oldlace"
-      *mode-line-background-color* "dimgray"
-      *mode-line-border-color*     "oldlace")
+(setf *mode-line-foreground-color* "white"
+      *mode-line-background-color* "black"
+      *mode-line-border-color*     "oldlace"
+      *mode-line-position*         :bottom)
+
+(mode-line) (mode-line)
 
 (setf *screen-mode-line-format*
       (list "^B[ %n ]^b [ %W ]"
             "^>"
             "^7*"
-            " [" '(:eval *keyboard-layout*) "]"
-            " [" '(:eval (volume-info)) "]"
-            " [" '(:eval *brightness*) "]"
-            " [" '(:eval (battery-status)) "|"
-                 '(:eval (battery-capacity)) "%]"
-            " [%d]"
+            "^f1^f0 " '(:eval *keyboard-layout*) " | "
+            "^f1^f0 " '(:eval (volume-info)) " | "
+            "^f1^f0 " '(:eval *brightness*) " | "
+            "^f1^f0 " '(:eval (battery-status)) " "
+                        '(:eval (battery-capacity)) "% | "
+            "^f1^f0 %d"
             ))
 
 ;; Defaults
