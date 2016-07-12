@@ -19,7 +19,7 @@
 ;; Modeline
 
 (defun set-keyboard-layout (layout)
-  (setq *keyboard-layout* layout)
+  (setf *keyboard-layout* layout)
   (run-shell-command (concat "setxkbmap " layout)))
 (set-keyboard-layout "en_US")
 (defcommand rr-keyboard-layout () ()
@@ -28,16 +28,16 @@
       (set-keyboard-layout "es")))
 
 (defun set-brightness (brightness)
-  (setq *brightness* brightness)
+  (setf *brightness* brightness)
   (run-shell-command (concat "sudo su -c 'echo " brightness " > /sys/class/backlight/intel_backlight/brightness'")))
 (set-brightness "10")
 
 (defcommand raise-brightness () ()
-  (setq new-brightness (+ (parse-integer *brightness*) 10))
+  (setf new-brightness (+ (parse-integer *brightness*) 10))
   (set-brightness (write-to-string new-brightness)))
 
 (defcommand lower-brightness () ()
-  (setq new-brightness (- (parse-integer *brightness*) 10))
+  (setf new-brightness (- (parse-integer *brightness*) 10))
   (set-brightness (write-to-string new-brightness)))
 
 (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
@@ -83,14 +83,14 @@
 (set-bg-color "gray8")
 (set-border-color "oldlace")
 
-(setq *time-modeline-string* "%a %e %b %H:%M")
+(setf *time-modeline-string* "%a %e %b %H:%M")
 
 (setf *mode-line-foreground-color* "oldlace"
       *mode-line-background-color* "dimgray"
       *mode-line-border-color*     "oldlace")
 
 (setf *screen-mode-line-format*
-      (list "[^B%n^b] %W"
+      (list "^B[ %n ]^b [ %W ]"
             "^>"
             "^7*"
             " [" '(:eval *keyboard-layout*) "]"
@@ -107,8 +107,8 @@
 (setf *window-format* "%m%n%s%c")
 (setf *message-window-gravity* :top-right)
 (setf *input-window-gravity* :top-right)
-(setq *ignore-wm-inc-hints* t)
-(setq *window-border-style* :thin)
+(setf *ignore-wm-inc-hints* t)
+(setf *window-border-style* :thin)
 (setf *timeout-wait* 5)
 (setf *mouse-focus-policy* :click)
 
