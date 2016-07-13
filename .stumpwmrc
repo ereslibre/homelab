@@ -111,7 +111,7 @@
             "^>"
             "^7*"
             "^f1^f0 %I | "
-            "^f1^f0 %t | "
+            "^f1^f0 %c | "
             "^f1^f0 " '(:eval *keyboard-layout*) " | "
                         '(:eval (volume-info)) " | "
             "^f1^f0 " '(:eval *brightness*) " | "
