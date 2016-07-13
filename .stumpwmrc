@@ -84,7 +84,7 @@
 (set-bg-color "gray8")
 (set-border-color "oldlace")
 
-(setf *time-modeline-string* "%a %e %b %H:%M")
+(setf *time-modeline-string* "^f1^f0 %a, %e %b | ^f1^f0 %H:%M")
 
 (setf *mode-line-foreground-color* "white"
       *mode-line-background-color* "black"
@@ -102,7 +102,7 @@
             "^f1^f0 " '(:eval *brightness*) " | "
             "^f1^f0 " '(:eval (battery-status)) " "
                         '(:eval (battery-capacity)) "% | "
-            "^f1^f0 %d"
+            "%d"
             ))
 
 ;; Defaults
