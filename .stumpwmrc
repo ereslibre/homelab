@@ -2,6 +2,11 @@
 
 (in-package :stumpwm)
 
+;; Include features from contrib
+
+(load-module "cpu")
+(load-module "wifi")
+
 ;; Include nice fonts
 
 (load-module "ttf-fonts")
@@ -45,8 +50,8 @@
 (setf *volume* (run-shell-command "pactl list sinks | grep -i volume | head -n1 | awk '{print $5}' | tr -d '\\r\\n'" t))
 (defun volume-info ()
   (if (string-equal *muted* "yes")
-    (concat "~" *volume*)
-    *volume*))
+    (concat "^f1^f0 " *volume*)
+    (concat "^f1^f0 " *volume*)))
 
 (defcommand raise-volume () ()
   (run-shell-command "pactl set-sink-volume 0 +5%")
@@ -64,7 +69,15 @@
   nil)
 
 (defun battery-status ()
-  (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
+  (let* ((status (run-shell-command "cat /sys/class/power_supply/BAT0/status | tr -d '\\r\\n'" t))
+         (capacity (cond ((< (parse-integer (battery-capacity)) 5) "^f1^f0")
+                         ((< (parse-integer (battery-capacity)) 10) "^f1^f0")
+                         ((< (parse-integer (battery-capacity)) 60) "^f1^f0")
+                         ((< (parse-integer (battery-capacity)) 80) "^f1^f0")
+                         (T "^f1^f0"))))
+  (if (string-equal status "Discharging")
+    capacity
+    (concat "^f1^f0 " capacity))))
 
 (defun battery-capacity ()
   (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t))
@@ -97,10 +110,12 @@
       (list "^B[ %n ]^b [ %W ]"
             "^>"
             "^7*"
+            "^f1^f0 %I | "
+            "^f1^f0 %t | "
             "^f1^f0 " '(:eval *keyboard-layout*) " | "
-            "^f1^f0 " '(:eval (volume-info)) " | "
+                        '(:eval (volume-info)) " | "
             "^f1^f0 " '(:eval *brightness*) " | "
-            "^f1^f0 " '(:eval (battery-status)) " "
+                        '(:eval (battery-status)) " "
                         '(:eval (battery-capacity)) "% | "
             "%d"
             ))
