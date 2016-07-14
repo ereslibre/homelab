@@ -217,9 +217,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "mononoki-14:Regular")
-(add-to-list 'default-frame-alist '(font . "mononoki-14:Regular"))
-(set-face-attribute 'default t :font "mononoki-14:Regular")
+(set-default-font "mononoki-16:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-16:Regular"))
+(set-face-attribute 'default t :font "mononoki-16:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "mononoki"))))
