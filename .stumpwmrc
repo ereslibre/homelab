@@ -10,17 +10,17 @@
 ;; Include nice fonts
 
 (load-module "ttf-fonts")
-(set-font (list (make-instance 'xft:font :family "mononoki" :subfamily "Regular" :size 20)
+(set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 20)
                 (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 20)))
 
 ;; Do some initializations
 
+(run-shell-command "xrandr --dpi 220")
 (run-shell-command "xrdb -merge ~/.Xresources")
 (run-shell-command "feh --bg-scale ~/.wallpapers/2.jpg")
 (run-shell-command "xsetroot -cursor_name left_ptr")
 (run-shell-command "xmodmap ~/.Xmodmap")
 (run-shell-command "xscreensaver -no-splash")
-(run-shell-command "/usr/lib/gnome-settings-daemon/gnome-settings-daemon &")
 
 ;; Modeline
 
@@ -191,7 +191,13 @@
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
 
-;; Add commands
+;; Better HiDPI support
+
+(setf (getenv "GDK_SCALE") "2")
+(setf (getenv "GDK_DPI_SCALE") "0.5")
+(setf (getenv "QT_DEVICE_PIXEL_RATIO") "0")
+
+;; add commands
 
 (defcommand wp (search)
   ((:string "Search in Wikipedia for: "))
