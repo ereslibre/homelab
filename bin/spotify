@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-/usr/bin/spotify --force-device-scale-factor=2
+/usr/bin/spotify --force-device-scale-factor=2 "$@"
