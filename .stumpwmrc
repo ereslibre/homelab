@@ -195,7 +195,7 @@
 
 (setf (getenv "GDK_SCALE") "2")
 (setf (getenv "GDK_DPI_SCALE") "0.5")
-(setf (getenv "QT_DEVICE_PIXEL_RATIO") "0")
+(setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
 
 ;; add commands
 
