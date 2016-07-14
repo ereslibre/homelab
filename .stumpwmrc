@@ -17,7 +17,10 @@
 
 (run-shell-command "xrandr --dpi 220")
 (run-shell-command "xrdb -merge ~/.Xresources")
-(run-shell-command "feh --bg-scale ~/.wallpapers/2.jpg")
+(let*
+    ((all-backgrounds (list-directory "~/.wallpapers"))
+     (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
+  (run-shell-command (concat "feh --bg-scale " random-background)))
 (run-shell-command "xsetroot -cursor_name left_ptr")
 (run-shell-command "xmodmap ~/.Xmodmap")
 (run-shell-command "xscreensaver -no-splash")
