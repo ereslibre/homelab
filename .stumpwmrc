@@ -157,6 +157,7 @@
 (define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
 
 (define-key *root-map* (kbd "c") "exec terminator")
+(define-key *root-map* (kbd "d") "exec dmenu_run")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 (define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
