@@ -157,16 +157,15 @@
 (define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
 
 (define-key *root-map* (kbd "c") "exec terminator")
-(define-key *root-map* (kbd "C-c") "exec terminator")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 (define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 
-(define-key *root-map* (kbd "M-m") "exec geary")
-(define-key *root-map* (kbd "M-c") "exec chromium")
-(define-key *root-map* (kbd "M-g") "exec nautilus")
-(define-key *root-map* (kbd "M-q") "exec quasselclient")
-(define-key *root-map* (kbd "M-i") "exec telegram-desktop")
+(define-key *root-map* (kbd "C-m") "exec geary")
+(define-key *root-map* (kbd "C-c") "exec chromium")
+(define-key *root-map* (kbd "C-g") "exec nautilus")
+(define-key *root-map* (kbd "C-q") "exec quasselclient")
+(define-key *root-map* (kbd "C-i") "exec telegram-desktop")
 
 (define-key *root-map* (kbd "C-n") "move-focus down")
 (define-key *root-map* (kbd "C-p") "move-focus up")
