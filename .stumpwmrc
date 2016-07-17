@@ -165,7 +165,7 @@
 
 (define-key *root-map* (kbd "C-m") "exec geary")
 (define-key *root-map* (kbd "C-c") "exec chromium")
-(define-key *root-map* (kbd "C-g") "exec nautilus")
+(define-key *root-map* (kbd "C-s") "exec nautilus")
 (define-key *root-map* (kbd "C-q") "exec quasselclient")
 (define-key *root-map* (kbd "C-i") "exec telegram-desktop")
 
