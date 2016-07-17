@@ -17,6 +17,7 @@
 
 (run-shell-command "xrandr --dpi 220")
 (run-shell-command "xrdb -merge ~/.Xresources")
+(run-shell-command "redshift")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
