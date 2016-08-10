@@ -43,7 +43,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring sublimity ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring sublimity ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -80,7 +80,7 @@
 ;; diff hl
 (global-diff-hl-mode)
 (run-with-idle-timer 1 t 'diff-hl-update)
-(setq diff-hl-side 'left)
+(setq diff-hl-side 'right)
 (setq diff-hl-draw-borders nil)
 
 ;; Random stuff
