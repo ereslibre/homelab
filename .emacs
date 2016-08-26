@@ -43,7 +43,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring sublimity ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring sublimity ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime rust-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -217,9 +217,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "mononoki-16:Regular")
-(add-to-list 'default-frame-alist '(font . "mononoki-16:Regular"))
-(set-face-attribute 'default t :font "mononoki-16:Regular")
+(set-default-font "mononoki-10:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-10:Regular"))
+(set-face-attribute 'default t :font "mononoki-10:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "mononoki"))))
