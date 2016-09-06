@@ -1,8 +1,6 @@
 set fish_greeting
 
-echo
 cat ~/.todo
-echo
 
 set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"

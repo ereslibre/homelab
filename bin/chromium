@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-/usr/bin/chromium --force-device-scale-factor=2 "$@"
+if [ -z "$LOW_DPI" ]; then
+  /usr/bin/chromium --force-device-scale-factor=2 "$@"
+else
+  /usr/bin/chromium "$@"
+fi
