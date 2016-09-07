@@ -8,15 +8,27 @@
 (load-module "wifi")
 
 ;; Include nice fonts
-
 (load-module "ttf-fonts")
-(set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
-                (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))
+
+(if (getenv "LOW_DPI")
+    (progn
+      (setf (getenv "GDK_SCALE") "1")
+      (setf (getenv "GDK_DPI_SCALE") "1")
+      (run-shell-command "xrandr --dpi 96")
+      (run-shell-command "xrdb -merge ~/.Xresources.lowdpi")
+      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
+                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12))))
+    (progn
+      (setf (getenv "GDK_SCALE") "2")
+      (setf (getenv "GDK_DPI_SCALE") "0.5")
+      (run-shell-command "xrandr --dpi 220")
+      (run-shell-command "xrdb -merge ~/.Xresources")
+      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
+                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))))
+
+(setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
 
 ;; Do some initializations
-
-(run-shell-command "xrandr --dpi 220")
-(run-shell-command "xrdb -merge ~/.Xresources")
 (run-shell-command "redshift")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
@@ -194,13 +206,15 @@
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
 
-;; Better HiDPI support
+;; Add commands
 
-(setf (getenv "GDK_SCALE") "2")
-(setf (getenv "GDK_DPI_SCALE") "0.5")
-(setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
-
-;; add commands
+(defcommand hidpi(command)
+  ((:string "Execute command with HiDPI: "))
+  "docstring"
+  (check-type command string)
+  (run-or-raise
+   (concat "hidpi " command)
+   '(:class "HiDPI")))
 
 (defcommand wp (search)
   ((:string "Search in Wikipedia for: "))
