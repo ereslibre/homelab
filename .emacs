@@ -77,6 +77,9 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
+;; Default browser
+(setq browse-url-browser-function 'browse-url-chromium)
+
 ;; diff hl
 (global-diff-hl-mode)
 (run-with-idle-timer 1 t 'diff-hl-update)

@@ -30,13 +30,13 @@
 
 ;; Do some initializations
 (run-shell-command "killall redshift")
-(run-shell-command "redshift")
+(run-shell-command "redshift &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
   (run-shell-command (concat "feh --bg-scale " random-background)))
 (run-shell-command "xsetroot -cursor_name left_ptr")
-(run-shell-command "xscreensaver -no-splash")
+(run-shell-command "gnome-screensaver &")
 
 ;; Modeline
 
@@ -158,7 +158,7 @@
 ;; Shortcuts
 
 (define-key *top-map* (kbd "C-Q") "quit")
-(define-key *top-map* (kbd "C-Return") "exec terminator")
+(define-key *top-map* (kbd "C-Return") "exec gnome-terminal")
 
 (define-key *top-map* (kbd "M-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
@@ -167,9 +167,9 @@
 
 (define-key *top-map* (kbd "M-z") "rr-keyboard-layout")
 
-(define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
+(define-key *root-map* (kbd "M-l") "exec gnome-screensaver-command --lock")
 
-(define-key *root-map* (kbd "c") "exec terminator")
+(define-key *root-map* (kbd "c") "exec gnome-terminal")
 (define-key *root-map* (kbd "d") "exec dmenu_run")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
@@ -206,6 +206,11 @@
 ;; Give priority to ~/bin when calling to StumpWM's exec
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
+
+;; Default apps
+
+(setf (getenv "EDITOR") "emacs -nw -q")
+(setf (getenv "BROWSER") "chromium")
 
 ;; Add commands
 
