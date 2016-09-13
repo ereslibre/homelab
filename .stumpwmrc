@@ -49,25 +49,18 @@
       (set-keyboard-layout "en_US")
       (set-keyboard-layout "es")))
 
-(defvar *max-brightness* (parse-integer (run-shell-command "cat /sys/class/backlight/intel_backlight/max_brightness | tr -d '\\r\\n'" t)))
 (defun set-brightness (brightness)
-  (if (and (>= (parse-integer brightness) 0)
-           (<= (parse-integer brightness) *max-brightness*))
-      (progn
-        (setf *brightness* brightness)
-        (run-shell-command (concat "sudo su -c 'echo " brightness " > /sys/class/backlight/intel_backlight/brightness'")))))
-(set-brightness "10")
+  (setf *brightness* brightness)
+  (run-shell-command (concat "xbacklight -set " brightness)))
 
-(defun relative-brightness ()
-  (setf brightness (round (/ (* 100 (parse-integer *brightness*)) *max-brightness*)))
-  (write-to-string brightness))
+(set-brightness "5")
 
 (defcommand raise-brightness () ()
-  (setf new-brightness (+ (parse-integer *brightness*) 10))
+  (setf new-brightness (+ (parse-integer *brightness*) 1))
   (set-brightness (write-to-string new-brightness)))
 
 (defcommand lower-brightness () ()
-  (setf new-brightness (- (parse-integer *brightness*) 10))
+  (setf new-brightness (- (parse-integer *brightness*) 1))
   (set-brightness (write-to-string new-brightness)))
 
 (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
@@ -138,7 +131,7 @@
             "^f1^f0 %c | "
             "^f1^f0 " '(:eval *keyboard-layout*) " | "
                         '(:eval (volume-info)) " | "
-            "^f1^f0 " '(:eval (relative-brightness)) "% | "
+            "^f1^f0 " '(:eval *brightness*) "% | "
                         '(:eval (battery-status)) " "
                         '(:eval (battery-capacity)) "% | "
             "%d"
