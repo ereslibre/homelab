@@ -27,6 +27,7 @@
                       (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))))
 
 (setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
+(setf (getenv "GDK_CORE_DEVICE_EVENTS") "1")
 
 ;; Do some initializations
 (run-shell-command "killall redshift")
