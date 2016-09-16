@@ -2,6 +2,6 @@
 Name=StumpWM
 Encoding=UTF-8
 Comment=Launch the Stump window manager
-Exec=stumpwm
-TryExec=stumpwm
+Exec=stumpwm-hidpi
+TryExec=stumpwm-hidpi
 Type=XSession
