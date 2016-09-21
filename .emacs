@@ -77,6 +77,9 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
+;; Default browser
+(setq browse-url-browser-function 'browse-url-chromium)
+
 ;; diff hl
 (global-diff-hl-mode)
 (run-with-idle-timer 1 t 'diff-hl-update)
@@ -217,9 +220,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "mononoki-16:Regular")
-(add-to-list 'default-frame-alist '(font . "mononoki-16:Regular"))
-(set-face-attribute 'default t :font "mononoki-16:Regular")
+(set-default-font "mononoki-10:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-10:Regular"))
+(set-face-attribute 'default t :font "mononoki-10:Regular")
 
 (custom-set-faces
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "mononoki"))))

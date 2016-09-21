@@ -8,23 +8,36 @@
 (load-module "wifi")
 
 ;; Include nice fonts
-
 (load-module "ttf-fonts")
-(set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
-                (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))
+
+(if (getenv "LOW_DPI")
+    (progn
+      (setf (getenv "GDK_SCALE") "1")
+      (setf (getenv "GDK_DPI_SCALE") "1")
+      (run-shell-command "xrandr --dpi 96")
+      (run-shell-command "xrdb -merge ~/.Xresources.lowdpi")
+      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
+                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12))))
+    (progn
+      (setf (getenv "GDK_SCALE") "2")
+      (setf (getenv "GDK_DPI_SCALE") "0.5")
+      (run-shell-command "xrandr --dpi 220")
+      (run-shell-command "xrdb -merge ~/.Xresources")
+      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
+                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))))
+
+(setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
+(setf (getenv "GDK_CORE_DEVICE_EVENTS") "1")
 
 ;; Do some initializations
-
-(run-shell-command "xrandr --dpi 220")
-(run-shell-command "xrdb -merge ~/.Xresources")
-(run-shell-command "redshift")
+(run-shell-command "killall redshift")
+(run-shell-command "redshift &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
   (run-shell-command (concat "feh --bg-scale " random-background)))
 (run-shell-command "xsetroot -cursor_name left_ptr")
-(run-shell-command "xmodmap ~/.Xmodmap")
-(run-shell-command "xscreensaver -no-splash")
+(run-shell-command "gnome-screensaver &")
 
 ;; Modeline
 
@@ -37,25 +50,18 @@
       (set-keyboard-layout "en_US")
       (set-keyboard-layout "es")))
 
-(defvar *max-brightness* (parse-integer (run-shell-command "cat /sys/class/backlight/intel_backlight/max_brightness | tr -d '\\r\\n'" t)))
 (defun set-brightness (brightness)
-  (if (and (>= (parse-integer brightness) 0)
-           (<= (parse-integer brightness) *max-brightness*))
-      (progn
-        (setf *brightness* brightness)
-        (run-shell-command (concat "sudo su -c 'echo " brightness " > /sys/class/backlight/intel_backlight/brightness'")))))
-(set-brightness "10")
+  (setf *brightness* brightness)
+  (run-shell-command (concat "xbacklight -set " brightness)))
 
-(defun relative-brightness ()
-  (setf brightness (round (/ (* 100 (parse-integer *brightness*)) *max-brightness*)))
-  (write-to-string brightness))
+(set-brightness "5")
 
 (defcommand raise-brightness () ()
-  (setf new-brightness (+ (parse-integer *brightness*) 10))
+  (setf new-brightness (+ (parse-integer *brightness*) 1))
   (set-brightness (write-to-string new-brightness)))
 
 (defcommand lower-brightness () ()
-  (setf new-brightness (- (parse-integer *brightness*) 10))
+  (setf new-brightness (- (parse-integer *brightness*) 1))
   (set-brightness (write-to-string new-brightness)))
 
 (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))
@@ -126,7 +132,7 @@
             "^f1^f0 %c | "
             "^f1^f0 " '(:eval *keyboard-layout*) " | "
                         '(:eval (volume-info)) " | "
-            "^f1^f0 " '(:eval (relative-brightness)) "% | "
+            "^f1^f0 " '(:eval *brightness*) "% | "
                         '(:eval (battery-status)) " "
                         '(:eval (battery-capacity)) "% | "
             "%d"
@@ -146,7 +152,7 @@
 ;; Shortcuts
 
 (define-key *top-map* (kbd "C-Q") "quit")
-(define-key *top-map* (kbd "C-Return") "exec terminator")
+(define-key *top-map* (kbd "C-Return") "exec gnome-terminal")
 
 (define-key *top-map* (kbd "M-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
@@ -155,9 +161,9 @@
 
 (define-key *top-map* (kbd "M-z") "rr-keyboard-layout")
 
-(define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
+(define-key *root-map* (kbd "M-l") "exec gnome-screensaver-command --lock")
 
-(define-key *root-map* (kbd "c") "exec terminator")
+(define-key *root-map* (kbd "c") "exec gnome-terminal")
 (define-key *root-map* (kbd "d") "exec dmenu_run")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
@@ -195,13 +201,20 @@
 
 (setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
 
-;; Better HiDPI support
+;; Default apps
 
-(setf (getenv "GDK_SCALE") "2")
-(setf (getenv "GDK_DPI_SCALE") "0.5")
-(setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
+(setf (getenv "EDITOR") "emacs -nw -q")
+(setf (getenv "BROWSER") "chromium")
 
-;; add commands
+;; Add commands
+
+(defcommand hdpi(command)
+  ((:string "Execute command with HiDPI: "))
+  "docstring"
+  (check-type command string)
+  (run-or-raise
+   (concat "hidpi " command)
+   '(:class "HiDPI")))
 
 (defcommand wp (search)
   ((:string "Search in Wikipedia for: "))
@@ -218,3 +231,26 @@
   (run-or-raise
      (concat "chromium https://www.google.com/search?q=" (substitute #\+ #\Space search))
      '(:class "Google")))
+
+;; Add extra maps
+
+(setf *display-map*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "l") "laptop-only")
+    (define-key m (kbd "f") "external-right")
+    (define-key m (kbd "b") "external-left")
+    m))
+
+(defcommand laptop-only () ()
+  (run-shell-command "xrandr --output eDP1 --auto --primary --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
+  (restart-soft))
+
+(defcommand external-right () ()
+  (run-shell-command "xrandr --output eDP1 --auto --output DP1 --primary --right-of eDP1 --auto --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
+  (restart-soft))
+
+(defcommand external-left () ()
+  (run-shell-command "xrandr --output eDP1 --auto --output DP1 --primary --left-of eDP1 --auto --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
+  (restart-soft))
+
+(define-key *root-map* (kbd "C-d") '*display-map*)

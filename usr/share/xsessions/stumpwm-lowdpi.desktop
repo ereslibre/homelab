@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=StumpWM (Low DPI)
+Encoding=UTF-8
+Comment=Launch the Stump window manager
+Exec=stumpwm-lowdpi
+TryExec=stumpwm-lowdpi
+Type=XSession
