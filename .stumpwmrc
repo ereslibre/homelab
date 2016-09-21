@@ -54,14 +54,14 @@
   (setf *brightness* brightness)
   (run-shell-command (concat "xbacklight -set " brightness)))
 
-(set-brightness "5")
+(set-brightness "15")
 
 (defcommand raise-brightness () ()
-  (setf new-brightness (+ (parse-integer *brightness*) 1))
+  (setf new-brightness (+ (parse-integer *brightness*) 5))
   (set-brightness (write-to-string new-brightness)))
 
 (defcommand lower-brightness () ()
-  (setf new-brightness (- (parse-integer *brightness*) 1))
+  (setf new-brightness (- (parse-integer *brightness*) 5))
   (set-brightness (write-to-string new-brightness)))
 
 (setf *muted* (run-shell-command "pactl list sinks | grep Mute | awk '{print $2}' | tr -d '\\r\\n'" t))

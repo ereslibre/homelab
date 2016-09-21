@@ -1,0 +1,33 @@
+# == Load passwords ==
+source "gpg2 -dq $HOME/.muttrc-passwords.gpg |"
+
+# == IMAP ==
+set imap_user = "ereslibre@gmail.com"
+set imap_pass = $my_gmail_password
+set imap_keepalive = 900
+set folder = imaps://imap.gmail.com/
+set spoolfile = "+INBOX"
+set record="+[Gmail]/Sent Mail"
+set postponed ="+[Gmail]/Drafts"
+set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
+
+# == SMTP ==
+set smtp_url = "smtp://ereslibre@smtp.gmail.com:587/"
+set smtp_pass = $imap_pass
+set ssl_force_tls = yes
+
+# ==  Composition ==
+set editor = `echo \$EDITOR`
+set edit_headers = yes
+set charset = UTF-8
+unset use_domain
+set realname = "Rafael Fernández López"
+set from = "ereslibre@gmail.com"
+set use_from = yes
+
+# == Others ==
+set sort = threads
+set move = no
+set header_cache = ~/.mutt/cache
+set message_cachedir = $header_cache
+set send_charset="us-ascii:utf-8"
