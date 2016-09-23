@@ -98,7 +98,7 @@
 (setq-default inhibit-startup-message t)
 
 ;; Do not break lines
-(set-default 'truncate-lines t)
+(set-default 'truncate-lines nil)
 
 ;; No backups
 (setq-default make-backup-files nil)
@@ -120,8 +120,8 @@
 (column-number-mode 1)
 
 ;; Load relative numbers
-;; (require 'linum-relative)
-;; (require 'linum-off)
+(require 'linum-relative)
+(require 'linum-off)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -129,11 +129,11 @@
           '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Enable linum-mode
-;; (global-linum-mode 1)
-;; (setq-default linum-relative-format "%4s")
-;; (setq-default linum-relative-current-symbol "")
-;; (with-eval-after-load 'linum
-;;   (linum-relative-toggle))
+(global-linum-mode 1)
+(setq-default linum-relative-format "%4s")
+(setq-default linum-relative-current-symbol "")
+(with-eval-after-load 'linum
+  (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
@@ -225,6 +225,10 @@
 (set-face-attribute 'default t :font "mononoki-10:Regular")
 
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 1 :family "mononoki"))))
  '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 1 :family "mononoki"))))
  '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 1 :family "mononoki"))))
