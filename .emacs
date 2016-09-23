@@ -120,8 +120,8 @@
 (column-number-mode 1)
 
 ;; Load relative numbers
-(require 'linum-relative)
-(require 'linum-off)
+;; (require 'linum-relative)
+;; (require 'linum-off)
 
 ;; Cursor
 (blink-cursor-mode 0)
@@ -129,11 +129,11 @@
           '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Enable linum-mode
-(global-linum-mode 1)
-(setq-default linum-relative-format "%4s")
-(setq-default linum-relative-current-symbol "")
-(with-eval-after-load 'linum
-  (linum-relative-toggle))
+;; (global-linum-mode 1)
+;; (setq-default linum-relative-format "%4s")
+;; (setq-default linum-relative-current-symbol "")
+;; (with-eval-after-load 'linum
+;;   (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
@@ -247,3 +247,11 @@
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (rust-mode slime haskell-mode markdown-mode go-mode dash-at-point hide-comnt ack sublimity browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
