@@ -164,7 +164,7 @@
 (define-key *root-map* (kbd "M-l") "exec gnome-screensaver-command --lock")
 
 (define-key *root-map* (kbd "c") "exec terminator")
-(define-key *root-map* (kbd "d") "exec dmenu_run")
+(define-key *root-map* (kbd "d") "exec dmenu_run -fn 'Atari ST 8x16 System Font:Regular' -p 'What you up to?'")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 (define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
