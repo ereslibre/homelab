@@ -30,65 +30,31 @@ set sort = threads
 set move = no
 set header_cache = ~/.mutt/cache
 set message_cachedir = $header_cache
-set send_charset="us-ascii:utf-8"
+set send_charset = "utf-8"
 
 # == Colors ==
-# Default colour definitions
-color hdrdefault black        cyan
-color quoted     red          white
-color signature  brightblack  white
-color indicator  brightwhite  red
-color attachment black        green
-color error      red          white
-color message    blue         white
-color search     brightwhite  magenta
-color status     brightyellow blue
-color tree       red          white
-color normal     blue         white
-color tilde      green        white
-color bold       brightyellow white
-color markers    red          white
+color normal	white black
+color attachment brightyellow black
+color hdrdefault cyan black
+color indicator black cyan
+color markers	brightred black
+color quoted	green black
+color signature cyan black
+color status	brightgreen blue
+color tilde	blue black
+color tree	red black
 
-# Colour definitions when on a mono screen
-mono bold      bold
-mono underline underline
-mono indicator reverse
+color index	red black ~D
+color index	magenta black ~T
 
-# Colours for items in the reader
-color header brightwhite cyan "^(From|Subject):"
-color header red         cyan "^X-Junked-Because: "
-color header red         cyan "^X-Virus-hagbard: .* FOUND"
-mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
+#color header	brightgreen black ^From:
+#color header	brightcyan black ^To:
+#color header	brightcyan black ^Reply-To:
+#color header	brightcyan black ^Cc:
+#color header	brightblue black ^Subject:
 
-# Colours for items in the index
-color index brightblue  white ~N
-color index brightgreen white "~N (~x hagbard\.davep\.org | ~h \"^In-[Rr]eply-[Tt]o: .*hagbard\.davep\.org\")"
-color index red         white ~F
-color index black       green ~T
-color index brightwhite black ~D
-mono  index bold              ~N
-mono  index bold              ~F
-mono  index bold              ~T
-mono  index bold              ~D
+color body	brightred black [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+# identifies email addresses
 
-# Highlights inside the body of a message.
-
-# URLs
-color body brightblue  white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
-color body brightblue  white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
-color body brightblue  white "news:[^ \">\t\r\n]*"
-mono  body bold              "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
-mono  body bold              "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
-mono  body bold              "news:[^ \">\t\r\n]*"
-
-# email addresses
-color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
-mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
-
-# Various smilies and the like
-color body brightgreen white "<[Gg]>"                                            # <g>
-color body brightgreen white "<[Bb][Gg]>"                                        # <bg>
-color body brightgreen white " [;:]-*[)>(<|]"                                    # :-) etc...
-color body brightblue  white "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)" # *Bold* text.
-color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
-color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
+color body	brightblue black (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+# identifies URLs
