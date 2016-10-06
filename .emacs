@@ -43,7 +43,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring sublimity ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime rust-mode)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime rust-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -59,12 +59,6 @@
 
 ;; Dash at point
 (global-set-key "\C-cd" 'dash-at-point)
-
-;; Sublimity
-(require 'sublimity)
-(require 'sublimity-attractive)
-(setq sublimity-attractive-centering-width 110)
-(sublimity-mode 1)
 
 ;; Hide comments
 (require 'hide-comnt)
@@ -254,4 +248,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rust-mode slime haskell-mode markdown-mode go-mode dash-at-point hide-comnt ack sublimity browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
+    (rust-mode slime haskell-mode markdown-mode go-mode dash-at-point hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
