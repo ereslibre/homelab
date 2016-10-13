@@ -43,7 +43,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime rust-mode)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt dash-at-point go-mode markdown-mode haskell-mode slime rust-mode olivetti)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -56,6 +56,10 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Enable Olivetti
+(add-hook 'find-file-hook #'turn-on-olivetti-mode)
+(add-hook 'after-init-hook #'turn-on-olivetti-mode)
 
 ;; Dash at point
 (global-set-key "\C-cd" 'dash-at-point)
@@ -214,9 +218,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "mononoki-8:Regular")
-(add-to-list 'default-frame-alist '(font . "mononoki-8:Regular"))
-(set-face-attribute 'default t :font "mononoki-8:Regular")
+(set-default-font "mononoki-9:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-9:Regular"))
+(set-face-attribute 'default t :font "mononoki-9:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -241,6 +245,7 @@
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -248,4 +253,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rust-mode slime haskell-mode markdown-mode go-mode dash-at-point hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
+    (olivetti rust-mode slime haskell-mode markdown-mode go-mode dash-at-point hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
