@@ -58,6 +58,8 @@
       (package-install p))))
 
 ;; Enable Olivetti
+(setq olivetti-body-width 100)
+(add-hook 'dired-after-readin-hook #'turn-on-olivetti-mode)
 (add-hook 'find-file-hook #'turn-on-olivetti-mode)
 (add-hook 'after-init-hook #'turn-on-olivetti-mode)
 
@@ -96,7 +98,7 @@
 (setq-default inhibit-startup-message t)
 
 ;; Do not break lines
-(set-default 'truncate-lines nil)
+(set-default 'truncate-lines t)
 
 ;; No backups
 (setq-default make-backup-files nil)
