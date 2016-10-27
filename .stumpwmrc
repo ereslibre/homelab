@@ -101,7 +101,7 @@
   (run-shell-command "cat /sys/class/power_supply/BAT0/capacity | tr -d '\\r\\n'" t))
 
 (setf *startup-message* nil)
-(setf *mode-line-timeout* 60)
+(setf *mode-line-timeout* 1)
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
 
