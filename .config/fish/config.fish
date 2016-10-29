@@ -9,6 +9,7 @@ set -x CC "ccache gcc"
 set -x CXX "ccache g++"
 
 set PATH $HOME/bin /usr/lib/ccache/bin $PATH
+set -x GOPATH $HOME/projects/go-workspace
 
 set -x KUBERNETES_PROVIDER "vagrant"
 set -x VAGRANT_DEFAULT_PROVIDER "virtualbox"
