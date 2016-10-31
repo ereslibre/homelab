@@ -13,6 +13,7 @@ set PATH $GOPATH/bin $HOME/bin /usr/lib/ccache/bin $PATH
 
 set -x KUBERNETES_PROVIDER "vagrant"
 set -x VAGRANT_DEFAULT_PROVIDER "virtualbox"
+set -x KUBERNETES_VAGRANT_USE_NFS "true"
 
 if [ -x /usr/bin/keychain ]
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
