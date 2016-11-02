@@ -5,8 +5,7 @@ cat ~/.todo
 set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"
 
-set -x GOPATH $HOME/projects/go-workspace
-set PATH $GOPATH/bin $HOME/bin /usr/lib/ccache/bin $PATH
+set PATH $GOPATH/bin $HOME/bin $PATH
 
 set -x KUBERNETES_PROVIDER "vagrant"
 set -x VAGRANT_DEFAULT_PROVIDER "virtualbox"
