@@ -36,7 +36,7 @@ else
     echo "> ereslibre added to sudoers"
 fi
 systemctl enable gdm fstrim.timer docker NetworkManager &> /dev/null
-for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" \))
+for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" ! -iname ".packages" \))
 do
     cp $file /home/ereslibre/ &> /dev/null
     chown -R ereslibre:users /home/ereslibre/$file &> /dev/null
