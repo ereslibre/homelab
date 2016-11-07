@@ -217,9 +217,9 @@
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ;; Default font
-(set-default-font "mononoki-9:Regular")
-(add-to-list 'default-frame-alist '(font . "mononoki-9:Regular"))
-(set-face-attribute 'default t :font "mononoki-9:Regular")
+(set-default-font "mononoki-11:Regular")
+(add-to-list 'default-frame-alist '(font . "mononoki-11:Regular"))
+(set-face-attribute 'default t :font "mononoki-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
