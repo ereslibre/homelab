@@ -16,3 +16,5 @@ xorg-apps
 openssh
 fzf
 repo
+sbcl
+ack

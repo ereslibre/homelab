@@ -58,3 +58,15 @@ do
     cp "root$file" $file &> /dev/null
     echo "  > copying root$file to $file"
 done
+echo "> cloning projects"
+mkdir -p /home/ereslibre/projects &> /dev/null
+pushd /home/ereslibre/projects &> /dev/null
+repo init -u git@github.com:ereslibre/manifest.git
+repo sync
+popd &> /dev/null
+chown -R ereslibre:users /home/ereslibre/projects
+
+echo "> setting up StumpWM"
+mkdir -p /home/ereslibre/.stumpwm.d &> /dev/null
+git clone git@github.com:stumpwm/stumpwm-contrib.git /home/ereslibre/.stumpwm.d/modules &> /dev/null
+chown -R ereslibre:users /home/ereslibre/.stumpwm.d
