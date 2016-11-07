@@ -43,7 +43,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme aurora-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode olivetti)
+  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode olivetti)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -252,4 +252,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (olivetti rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline aurora-theme monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
+    (olivetti rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
