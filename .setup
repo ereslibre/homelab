@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+if [ "$(id -u)" != "0" ]; then
+   echo "Make sure you are root :)" 1>&2
+   exit 1
+fi
+if grep archlinuxfr /etc/pacman.conf &> /dev/null
+then
+    echo "> archlinuxfr found in /etc/pacman.conf"
+else
+    echo >> /etc/pacman.conf
+    echo "[archlinuxfr]" >> /etc/pacman.conf
+    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf
+    echo "Server = http://repo.archlinux.fr/\$arch" >> /etc/pacman.conf
+    echo "> archlinuxfr added to /etc/pacman.conf"
+    pacman -Syy &> /dev/null
+fi
+pacman -S --needed sudo yaourt &> /dev/null
+echo "> installing packages"
+while IFS= read -r package
+do
+    echo "  > installing $package"
+    pacman -S --needed --noconfirm $package &> /dev/null
+done < .packages
+if grep ereslibre /etc/passwd &> /dev/null
+then
+    echo "> ereslibre user already exists"
+else
+    useradd -m -g users -G wheel,docker -s /usr/bin/fish ereslibre &> /dev/null
+    echo "> ereslibre user created"
+fi
+if [ -f /etc/sudoers.d/ereslibre ];
+then
+    echo "> ereslibre present in sudoers"
+else
+    echo "ereslibre ALL=(ALL) ALL" > /etc/sudoers.d/ereslibre
+    echo "> ereslibre added to sudoers"
+fi
+systemctl enable gdm fstrim.timer docker NetworkManager &> /dev/null
+for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" \))
+do
+    cp $file /home/ereslibre/ &> /dev/null
+    chown -R ereslibre:users /home/ereslibre/$file &> /dev/null
+done
+for dir in $(find . -maxdepth 1 -type d \( ! -iname ".git" ! -iname "root" \))
+do
+    cp $dir /home/ereslibre/ &> /dev/null
+    chown -R ereslibre:users /home/ereslibre/$dir &> /dev/null
+done
+echo "> creating / directories"
+for dir in $(find root -type f | sed 's/^root//' | xargs dirname | uniq)
+do
+    mkdir -p $dir &> /dev/null
+    echo "  > $dir"
+done
+echo "> copying files"
+for file in $(find root -type f | sed 's/^root//')
+do
+    cp "root$file" $file &> /dev/null
+    echo "  > copying root$file to $file"
+done
