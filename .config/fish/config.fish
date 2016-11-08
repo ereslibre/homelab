@@ -5,11 +5,7 @@ cat ~/.todo
 set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"
 
-set PATH $GOPATH/bin $HOME/bin $PATH
-
-set -x KUBERNETES_PROVIDER "vagrant"
-set -x VAGRANT_DEFAULT_PROVIDER "virtualbox"
-set -x KUBERNETES_VAGRANT_USE_NFS "true"
+set PATH $HOME/.bin $PATH
 
 if [ -x /usr/bin/keychain ]
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
