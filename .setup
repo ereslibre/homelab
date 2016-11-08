@@ -56,19 +56,32 @@ do
     cp "root$file" $file &> /dev/null
     echo "  > copying root$file to $file"
 done
-echo "> cloning projects"
-mkdir -p /home/ereslibre/projects &> /dev/null
-pushd /home/ereslibre/projects &> /dev/null
-repo init -u git@github.com:ereslibre/manifest.git
-repo sync
-popd &> /dev/null
+if [ -d /home/ereslibre/projects ];
+then
+    echo "> projects exists"
+else
+    echo "> cloning projects"
+    mkdir -p /home/ereslibre/projects &> /dev/null
+    pushd /home/ereslibre/projects &> /dev/null
+    repo init -u git@github.com:ereslibre/manifest.git
+    repo sync
+    popd &> /dev/null
+fi
+if [ -d /home/ereslibre/quicklisp ];
+then
+    echo "> quicklisp already installed"
+else
+    echo "> installing quicklisp"
+    pushd /home/ereslibre &> /dev/null
+    curl -O https://beta.quicklisp.org/quicklisp.lisp &> /dev/null
+    sbcl --load quicklisp.lisp                   \
+         --eval '(quicklisp-quickstart:install)' \
+         --eval '(ql:add-to-init-file)'          \
+         --eval '(quit)'
+    popd &> /dev/null
+fi
 
-echo "> installing quicklisp"
 pushd /home/ereslibre &> /dev/null
-curl -O https://beta.quicklisp.org/quicklisp.lisp &> /dev/null
-sbcl --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' \
-                           --eval '(ql:add-to-init-file)'          \
-                           --eval '(quit)'
 rm quicklisp.lisp &> /dev/null
 popd &> /dev/null
 
