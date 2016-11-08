@@ -42,7 +42,7 @@ do
 done
 for dir in $(find . -maxdepth 1 -type d \( ! -iname ".git" ! -iname "root" \))
 do
-    cp $dir /home/ereslibre/ &> /dev/null
+    cp -r $dir /home/ereslibre/ &> /dev/null
 done
 echo "> creating / directories"
 for dir in $(find root -type f | sed 's/^root//' | xargs dirname | uniq)
