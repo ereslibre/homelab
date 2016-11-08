@@ -40,7 +40,7 @@ for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" ! -iname ".package
 do
     cp $file /home/ereslibre/ &> /dev/null
 done
-for dir in $(find . -maxdepth 1 -type d \( ! -iname ".git" ! -iname "root" \))
+for dir in $(find . -maxdepth 1 -type d \( ! -iname ".git" ! -iname "root" ! -iname "." \))
 do
     cp -r $dir /home/ereslibre/ &> /dev/null
 done
