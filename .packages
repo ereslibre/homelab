@@ -6,6 +6,7 @@ hdparm
 htop
 gnome
 gnome-extra
+gnome-screensaver
 terminator
 xf86-input-keyboard
 xf86-input-mouse
@@ -19,3 +20,4 @@ repo
 sbcl
 ack
 feh
+redshift
