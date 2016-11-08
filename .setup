@@ -87,6 +87,7 @@ popd &> /dev/null
 
 echo "> initialize stumpwm dependencies"
 su - ereslibre -c "sbcl --eval '(ql:quickload :clx-truetype)' \
+                        --eval '(ql:quickload :cl-ppcre)'     \
                         --eval '(xft:cache-fonts)'            \
                         --eval '(quit)'"
 
