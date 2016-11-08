@@ -39,12 +39,10 @@ systemctl enable gdm fstrim.timer docker NetworkManager &> /dev/null
 for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" ! -iname ".packages" \))
 do
     cp $file /home/ereslibre/ &> /dev/null
-    chown -R ereslibre:users /home/ereslibre/$file &> /dev/null
 done
 for dir in $(find . -maxdepth 1 -type d \( ! -iname ".git" ! -iname "root" \))
 do
     cp $dir /home/ereslibre/ &> /dev/null
-    chown -R ereslibre:users /home/ereslibre/$dir &> /dev/null
 done
 echo "> creating / directories"
 for dir in $(find root -type f | sed 's/^root//' | xargs dirname | uniq)
@@ -64,12 +62,6 @@ pushd /home/ereslibre/projects &> /dev/null
 repo init -u git@github.com:ereslibre/manifest.git
 repo sync
 popd &> /dev/null
-chown -R ereslibre:users /home/ereslibre/projects
-
-echo "> setting up stumpwm"
-mkdir -p /home/ereslibre/.stumpwm.d &> /dev/null
-git clone git@github.com:stumpwm/stumpwm-contrib.git /home/ereslibre/.stumpwm.d/modules &> /dev/null
-chown -R ereslibre:users /home/ereslibre/.stumpwm.d
 
 echo "> installing quicklisp"
 pushd /home/ereslibre &> /dev/null
@@ -84,3 +76,10 @@ echo "> initialize stumpwm dependencies"
 sbcl --eval '(ql:quickload :clx-truetype)' \
      --eval '(xft:cache-fonts)'            \
      --eval '(quit)'
+
+echo "> setting up stumpwm"
+mkdir -p /home/ereslibre/.stumpwm.d &> /dev/null
+git clone git@github.com:stumpwm/stumpwm-contrib.git /home/ereslibre/.stumpwm.d/modules &> /dev/null
+
+echo "> fixing permissions"
+chown -R ereslibre:users /home/ereslibre
