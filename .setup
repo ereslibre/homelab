@@ -74,10 +74,10 @@ else
     echo "> installing quicklisp"
     pushd /home/ereslibre &> /dev/null
     curl -O https://beta.quicklisp.org/quicklisp.lisp &> /dev/null
-    sbcl --load quicklisp.lisp                   \
-         --eval '(quicklisp-quickstart:install)' \
-         --eval '(ql:add-to-init-file)'          \
-         --eval '(quit)'
+    su - ereslibre -c "sbcl --load quicklisp.lisp                                         \
+                            --eval '(quicklisp-quickstart:install :path \".quicklisp/\")' \
+                            --eval '(ql:add-to-init-file)'                                \
+                            --eval '(quit)'"
     popd &> /dev/null
 fi
 
@@ -86,9 +86,9 @@ rm quicklisp.lisp &> /dev/null
 popd &> /dev/null
 
 echo "> initialize stumpwm dependencies"
-sbcl --eval '(ql:quickload :clx-truetype)' \
-     --eval '(xft:cache-fonts)'            \
-     --eval '(quit)'
+su - ereslibre -c "sbcl --eval '(ql:quickload :clx-truetype)' \
+                        --eval '(xft:cache-fonts)'            \
+                        --eval '(quit)'"
 
 echo "> setting up stumpwm"
 mkdir -p /home/ereslibre/.stumpwm.d &> /dev/null
