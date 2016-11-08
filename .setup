@@ -67,7 +67,7 @@ else
     repo sync
     popd &> /dev/null
 fi
-if [ -d /home/ereslibre/quicklisp ];
+if [ -d /home/ereslibre/.quicklisp ];
 then
     echo "> quicklisp already installed"
 else
