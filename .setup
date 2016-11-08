@@ -14,7 +14,7 @@ else
     echo "> archlinuxfr added to /etc/pacman.conf"
     pacman -Syy &> /dev/null
 fi
-pacman -S --needed sudo yaourt &> /dev/null
+pacman -S --needed --noconfirm sudo yaourt &> /dev/null
 echo "> installing packages"
 while IFS= read -r package
 do
