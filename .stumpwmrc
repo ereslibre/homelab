@@ -22,7 +22,7 @@
       (setf (getenv "GDK_SCALE") "2")
       (setf (getenv "GDK_DPI_SCALE") "0.5")
       (run-shell-command "xrandr --dpi 220")
-      (run-shell-command "xrdb -merge ~/.Xresources")
+      (run-shell-command "xrdb -merge ~/.Xresources.hidpi")
       (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
                       (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))))
 
