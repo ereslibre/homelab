@@ -2,32 +2,33 @@
 
 (in-package :stumpwm)
 
-;; Include features from contrib
-
-(load-module "cpu")
-(load-module "wifi")
-
-;; Include nice fonts
-(load-module "ttf-fonts")
-
+;; Set resolution related stuff
 (if (getenv "LOW_DPI")
     (progn
       (setf (getenv "GDK_SCALE") "1")
       (setf (getenv "GDK_DPI_SCALE") "1")
       (run-shell-command "xrandr --dpi 96")
-      (run-shell-command "xrdb -merge ~/.Xresources.lowdpi")
-      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
-                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12))))
+      (run-shell-command "xrdb ~/.Xresources.lowdpi"))
     (progn
       (setf (getenv "GDK_SCALE") "2")
       (setf (getenv "GDK_DPI_SCALE") "0.5")
       (run-shell-command "xrandr --dpi 220")
-      (run-shell-command "xrdb -merge ~/.Xresources.hidpi")
-      (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
-                      (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))))
+      (run-shell-command "xrdb ~/.Xresources.hidpi")))
 
 (setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
 (setf (getenv "GDK_CORE_DEVICE_EVENTS") "1")
+
+
+;; Include features from contrib
+(load-module "cpu")
+(load-module "wifi")
+(load-module "ttf-fonts")
+
+(if (getenv "LOW_DPI")
+  (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
+                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12)))
+  (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
+                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22))))
 
 ;; Do some initializations
 (run-shell-command "killall redshift")
