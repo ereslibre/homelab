@@ -19,7 +19,7 @@ echo "> installing packages"
 while IFS= read -r package
 do
     echo "  > installing $package"
-    pacman -S --needed --noconfirm $package &> /dev/null
+    yaourt -S --needed --noconfirm $package &> /dev/null
 done < .packages
 if grep ereslibre /etc/passwd &> /dev/null
 then
