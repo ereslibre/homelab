@@ -1,8 +1,7 @@
 chromium
 docker
 emacs
-lightdm
-lightdm-gtk-greeter
+gdm
 hdparm
 htop
 gnome
