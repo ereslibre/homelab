@@ -12,6 +12,7 @@ terminator
 xf86-input-keyboard
 xf86-input-mouse
 xf86-input-libinput
+xf86-video-intel
 xorg-server
 xorg-apps
 openssh
