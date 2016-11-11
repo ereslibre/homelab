@@ -3,6 +3,7 @@ docker
 emacs
 lightdm
 lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
 hdparm
 htop
 gnome
