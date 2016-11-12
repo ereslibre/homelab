@@ -8,6 +8,7 @@ set -x GIT_EDITOR "emacs -nw -q"
 set PATH $HOME/.bin $PATH
 
 alias dc docker-compose
+alias dm docker-machine
 
 if [ -x /usr/bin/keychain ]
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
