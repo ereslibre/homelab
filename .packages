@@ -36,3 +36,4 @@ nload
 docker-compose
 docker-machine
 quassel-client
+rsync
