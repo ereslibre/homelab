@@ -32,5 +32,6 @@ spotify
 qt4
 vlc
 mtr
+nload
 docker-compose
 docker-machine
