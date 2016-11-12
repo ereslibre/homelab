@@ -32,3 +32,5 @@ spotify
 qt4
 vlc
 mtr
+docker-compose
+docker-machine
