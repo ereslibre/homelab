@@ -4,8 +4,9 @@ cat ~/.todo
 
 set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"
+set -x GOPATH $HOME/.go
 
-set PATH $HOME/.bin $PATH
+set PATH $HOME/.bin $GOPATH/bin $PATH
 
 alias dc docker-compose
 alias dm docker-machine
