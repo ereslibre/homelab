@@ -95,5 +95,8 @@ echo "> setting up stumpwm"
 mkdir -p /home/ereslibre/.stumpwm.d &> /dev/null
 git clone https://github.com/stumpwm/stumpwm-contrib.git /home/ereslibre/.stumpwm.d/modules &> /dev/null
 
+echo "> setting up go"
+mkdir -p /home/ereslibre/.go/bin
+
 echo "> fixing permissions"
 chown -R ereslibre:users /home/ereslibre
