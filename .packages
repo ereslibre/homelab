@@ -40,3 +40,5 @@ rsync
 wget
 go
 rust
+virtualbox
+vagrant
