@@ -38,3 +38,5 @@ docker-machine
 quassel-client
 rsync
 wget
+go
+rust
