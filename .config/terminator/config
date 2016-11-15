@@ -1,0 +1,25 @@
+[global_config]
+  geometry_hinting = False
+  title_font = mononoki 11
+  title_hide_sizetext = True
+  title_use_system_font = False
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    copy_on_selection = True
+    cursor_blink = False
+    font = mononoki 11
+    icon_bell = False
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
