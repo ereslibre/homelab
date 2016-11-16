@@ -40,7 +40,7 @@ rsync
 wget
 go
 rust
-virtualbox
+virtualbox virtualbox-host-modules-arch
 vagrant
 mutt
 recordmydesktop
