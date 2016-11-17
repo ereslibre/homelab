@@ -46,4 +46,5 @@ mutt
 recordmydesktop
 gtk-recordmydesktop
 nmap
-cups foomatic-db foomatic-db-engine foomatic-db-nonfree hplip
+cups foomatic-db foomatic-db-engine foomatic-db-nonfree hplip python-pillow
+sane xsane
