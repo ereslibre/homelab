@@ -45,3 +45,5 @@ vagrant
 mutt
 recordmydesktop
 gtk-recordmydesktop
+nmap
+cups foomatic-db foomatic-db-engine foomatic-db-nonfree hplip

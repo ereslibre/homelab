@@ -35,7 +35,7 @@ else
     echo "ereslibre ALL=(ALL) ALL" > /etc/sudoers.d/ereslibre
     echo "> ereslibre added to sudoers"
 fi
-systemctl enable lightdm fstrim.timer docker NetworkManager &> /dev/null
+systemctl enable lightdm fstrim.timer docker NetworkManager org.cups.cupsd.service avahi-daemon.service &> /dev/null
 for file in $(find . -maxdepth 1 -type f \( ! -iname ".setup" ! -iname ".packages" \))
 do
     cp $file /home/ereslibre/ &> /dev/null
