@@ -32,7 +32,7 @@
 
 ;; Do some initializations
 (run-shell-command "killall redshift" t)
-(run-shell-command "redshift &")
+(run-shell-command "redshift -r &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
