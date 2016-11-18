@@ -188,7 +188,7 @@
 
 ;; Create default groups
 
-(run-commands "grename code" "gnewbg www" "gnewbg im" "gnewbg mail" "gnewbg media")
+(run-commands "grename code" "gnewbg terminals" "gnewbg www" "gnewbg im" "gnewbg mail" "gnewbg media")
 
 ;; Deal with special keys
 
