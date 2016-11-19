@@ -49,3 +49,4 @@ nmap
 cups foomatic-db foomatic-db-engine foomatic-db-nonfree hplip python-pillow
 sane xsane
 strace
+bluez-utils
