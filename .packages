@@ -25,6 +25,7 @@ redshift
 dmenu
 keychain
 fish
+networkmanager
 pavucontrol
 wireless_tools
 telegram-desktop-bin
@@ -51,3 +52,5 @@ sane xsane
 strace
 bluez-utils
 google-talkplugin
+networkmanager-openconnect
+networkmanager-openvpn
