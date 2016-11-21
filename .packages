@@ -57,3 +57,4 @@ networkmanager-openvpn
 mumble protobuf
 dunst
 transmission-gtk
+libvirt
