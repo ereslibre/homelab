@@ -33,6 +33,8 @@
 (run-shell-command "/usr/lib/gnome-session/gnome-session-binary --disable-acceleration-check")
 (run-shell-command "killall redshift" t)
 (run-shell-command "redshift -r &")
+(run-shell-command "killall dunst" t)
+(run-shell-command "dunst -conf ~/.dunstrc &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))

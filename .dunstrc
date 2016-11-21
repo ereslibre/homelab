@@ -1,0 +1,17 @@
+[global]
+    font = "Mononoki 10"
+    allow_markup = yes
+    format = "<b>%s %p</b>\n%b"
+    sort = yes
+    indicate_hidden = true
+    idle_threshold = 0
+    geometry = "300x5-20+20"
+    alignment = center
+    show_age_threshold = 60
+    follow = mouse
+    word_wrap = yes
+    separator_height = 2
+    padding = 10
+    horizontal_padding = 10
+    separator_color = frame
+    startup_notification = true
