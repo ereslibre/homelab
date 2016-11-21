@@ -56,3 +56,4 @@ networkmanager-openconnect
 networkmanager-openvpn
 mumble protobuf
 dunst
+transmission-gtk
