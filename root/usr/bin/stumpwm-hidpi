@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-eval `gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh`
 exec ssh-agent /usr/local/bin/stumpwm "$@"

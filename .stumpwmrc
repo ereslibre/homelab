@@ -18,7 +18,6 @@
 (setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
 (setf (getenv "GDK_CORE_DEVICE_EVENTS") "1")
 
-
 ;; Include features from contrib
 (load-module "cpu")
 (load-module "wifi")
@@ -31,6 +30,7 @@
                   (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22))))
 
 ;; Do some initializations
+(run-shell-command "/usr/lib/gnome-session/gnome-session-binary --disable-acceleration-check")
 (run-shell-command "killall redshift" t)
 (run-shell-command "redshift -r &")
 (let*

@@ -25,6 +25,7 @@ redshift
 dmenu
 keychain
 fish
+networkmanager
 pavucontrol
 wireless_tools
 telegram-desktop-bin
@@ -49,3 +50,7 @@ nmap
 cups foomatic-db foomatic-db-engine foomatic-db-nonfree hplip python-pillow
 sane xsane
 strace
+bluez-utils
+google-talkplugin
+networkmanager-openconnect
+networkmanager-openvpn
