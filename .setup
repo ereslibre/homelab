@@ -25,7 +25,7 @@ if grep ereslibre /etc/passwd &> /dev/null
 then
     echo "> ereslibre user already exists"
 else
-    useradd -m -g users -G wheel,docker,kvm -s /usr/bin/fish ereslibre &> /dev/null
+    useradd -m -g users -G wheel,docker,kvm,libvirt -s /usr/bin/fish ereslibre &> /dev/null
     echo "> ereslibre user created"
 fi
 if [ -f /etc/sudoers.d/ereslibre ];
