@@ -58,4 +58,9 @@ networkmanager-openvpn
 mumble protobuf
 dunst
 transmission-gtk
+qemu
+ebtables
+dnsmasq
+bridge-utils
+openbsd-netcat
 libvirt
