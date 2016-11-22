@@ -36,7 +36,7 @@ mtr
 nload
 docker-compose
 docker-machine
-quassel-monolithic
+weechat
 rsync
 wget
 go
