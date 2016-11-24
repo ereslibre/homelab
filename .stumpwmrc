@@ -30,7 +30,6 @@
                   (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22))))
 
 ;; Do some initializations
-(run-shell-command "/usr/lib/gnome-session/gnome-session-binary --disable-acceleration-check")
 (run-shell-command "killall redshift" t)
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)
