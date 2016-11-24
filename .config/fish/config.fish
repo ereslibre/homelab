@@ -6,7 +6,7 @@ set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"
 set -x GOPATH $HOME/.go
 
-set PATH $HOME/.bin $GOPATH/bin $PATH
+set PATH $HOME/.bin $GOPATH/bin $HOME/.gem/ruby/2.3.0/bin $PATH
 
 alias dc docker-compose
 alias dm docker-machine
