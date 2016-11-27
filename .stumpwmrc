@@ -23,6 +23,8 @@
 (load-module "wifi")
 (load-module "ttf-fonts")
 
+(setf wifi:*iwconfig-path* "/usr/sbin/iwconfig")
+
 (if (getenv "LOW_DPI")
   (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
                   (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12)))
