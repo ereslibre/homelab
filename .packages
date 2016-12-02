@@ -64,3 +64,4 @@ dnsmasq
 bridge-utils
 openbsd-netcat
 libvirt
+taskwarrior
