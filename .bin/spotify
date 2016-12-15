@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-if [ -z "$LOW_DPI" ]; then
-  /usr/bin/spotify --force-device-scale-factor=2 "$@"
-else
-  /usr/bin/spotify "$@"
-fi
