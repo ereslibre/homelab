@@ -65,3 +65,4 @@ bridge-utils
 openbsd-netcat
 libvirt
 taskwarrior
+xdpyinfo
