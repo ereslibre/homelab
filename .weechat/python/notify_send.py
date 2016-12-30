@@ -230,6 +230,7 @@ def message_printed_callback(data, buffer, date, tags, is_displayed,
     if notification_should_be_sent(buffer, tags, nick, is_displayed, is_highlight):
         notification = prepare_notification(buffer, nick, message)
         send_notification(notification)
+        log_notification(notification)
 
     return weechat.WEECHAT_RC_OK
 
@@ -637,6 +638,10 @@ def send_notification(notification):
             stdout=devnull,
         )
 
+def log_notification(notification):
+    weechat.log_print(
+        "{0}: {1}".format(notification.source or '-', notification.message)
+    )
 
 if __name__ == '__main__':
     # Registration.
