@@ -36,8 +36,6 @@
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)
 (run-shell-command "dunst &")
-(run-shell-command "killall forward-notifications" t)
-(run-shell-command "forward-notifications &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
@@ -246,17 +244,5 @@
     (define-key m (kbd "f") "external-right")
     (define-key m (kbd "b") "external-left")
     m))
-
-(defcommand laptop-only () ()
-  (run-shell-command "xrandr --output eDP1 --auto --primary --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
-  (restart-soft))
-
-(defcommand external-right () ()
-  (run-shell-command "xrandr --output eDP1 --auto --output DP1 --primary --right-of eDP1 --auto --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
-  (restart-soft))
-
-(defcommand external-left () ()
-  (run-shell-command "xrandr --output eDP1 --auto --output DP1 --primary --left-of eDP1 --auto --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off")
-  (restart-soft))
 
 (define-key *root-map* (kbd "C-d") '*display-map*)
