@@ -36,6 +36,8 @@
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)
 (run-shell-command "dunst &")
+(run-shell-command "killall forward-notifications" t)
+(run-shell-command "forward-notifications &")
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
