@@ -39,7 +39,7 @@
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
-  (run-shell-command (concat "feh --bg-scale " random-background)))
+  (run-shell-command (concat "feh --no-fehbg --bg-scale " random-background)))
 (run-shell-command "xsetroot -cursor_name left_ptr")
 (run-shell-command "xscreensaver &")
 
