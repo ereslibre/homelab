@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ssh ereslibre 'tail -n0 -f ~/.weechat/weechat.log' | xargs -I'{}' notify-send Weechat '{}'
