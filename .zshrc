@@ -98,7 +98,7 @@ RPROMPT='$(git_prompt_info) %F{blue}] %F{white}%T'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -x /usr/bin/keychain ]; then
-    keychain --nogui $HOME/.ssh/id_rsa
+    keychain --nogui $HOME/.ssh/id_rsa &> /dev/null
     source $HOME/.keychain/$(hostname)-sh
 fi
 
