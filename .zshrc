@@ -76,9 +76,11 @@ fi
 export GIT_EDITOR='emacs -nw -q'
 
 if [ "freedom" != $HOST ]; then
-  export PROMPT="%F{white}$HOST $PROMPT"
+  PROMPT="%F{white}$HOST %F{green}%2c%F{white} [%f "
+else
+  PROMPT="%F{green}%2c%F{white} [%f "
 fi
-RPROMPT='$(git_prompt_info) %F{blue}] %F{white}%T'
+RPROMPT='$(git_prompt_info) %F{white}] %F{white}%T'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
