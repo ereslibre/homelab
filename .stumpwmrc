@@ -2,6 +2,8 @@
 
 (in-package :stumpwm)
 
+(setf (getenv "XCURSOR_THEME") "Adwaita")
+
 ;; Set resolution related stuff
 (if (getenv "LOW_DPI")
     (progn
