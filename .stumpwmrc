@@ -203,9 +203,9 @@
 (define-key *top-map* (kbd "XF86MonBrightnessUp") "raise-brightness")
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "lower-brightness")
 
-;; Give priority to ~/bin when calling to StumpWM's exec
+;; Give priority to ~/.bin when calling to StumpWM's exec
 
-(setf (getenv "PATH") (concat "~/bin:" (getenv "PATH")))
+(setf (getenv "PATH") (concat "~/.bin:" (getenv "PATH")))
 
 ;; Default apps
 
