@@ -179,7 +179,7 @@
 (define-key *root-map* (kbd "C-c") "exec chromium")
 (define-key *root-map* (kbd "C-s") "exec nautilus")
 (define-key *root-map* (kbd "C-q") "exec quasselclient")
-(define-key *root-map* (kbd "C-i") "exec telegram-desktop")
+(define-key *root-map* (kbd "C-i") "exec telegram")
 
 (define-key *root-map* (kbd "C-n") "move-focus down")
 (define-key *root-map* (kbd "C-p") "move-focus up")
@@ -204,7 +204,6 @@
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "lower-brightness")
 
 ;; Give priority to ~/.bin when calling to StumpWM's exec
-
 (setf (getenv "PATH") (concat "~/.bin:" (getenv "PATH")))
 
 ;; Default apps
