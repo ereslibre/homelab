@@ -38,6 +38,8 @@
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)
 (run-shell-command "dunst &")
+
+(setf *random-state* (make-random-state t))
 (let*
     ((all-backgrounds (list-directory "~/.wallpapers"))
      (random-background (namestring (nth (random (length all-backgrounds)) all-backgrounds))))
