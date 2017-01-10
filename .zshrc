@@ -77,8 +77,8 @@ export GIT_EDITOR='emacs -nw -q'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="@"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
-if [ "freedom" = $HOST ]; then
-  PROMPT='%F{white}$(hostname) %F{green}%2c%F{yellow}$(git_prompt_info) %F{white}[%f '
+if [ "freedom" != $HOST ]; then
+  PROMPT='%F{white}$HOST %F{green}%2c%F{yellow}$(git_prompt_info) %F{white}[%f '
 else
   PROMPT='%F{green}%2c%F{yellow}$(git_prompt_info) %F{white}[%f '
 fi
