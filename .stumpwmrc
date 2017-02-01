@@ -160,7 +160,7 @@
 ;; Shortcuts
 
 (define-key *top-map* (kbd "C-Q") "quit")
-(define-key *top-map* (kbd "C-Return") "exec terminator")
+(define-key *top-map* (kbd "C-Return") "exec gnome-terminal")
 
 (define-key *top-map* (kbd "M-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
@@ -180,7 +180,6 @@
 (define-key *root-map* (kbd "c") "exec chromium")
 (define-key *root-map* (kbd "C-c") "exec chromium")
 (define-key *root-map* (kbd "C-s") "exec nautilus")
-(define-key *root-map* (kbd "C-q") "exec quasselclient")
 (define-key *root-map* (kbd "C-i") "exec telegram")
 
 (define-key *root-map* (kbd "C-n") "move-focus down")
