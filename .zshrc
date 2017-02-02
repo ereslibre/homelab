@@ -78,11 +78,11 @@ export GIT_EDITOR='emacs -nw -q'
 ZSH_THEME_GIT_PROMPT_PREFIX="@"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
 if [ "freedom" != $HOST ]; then
-  PROMPT='%F{white}$HOST %F{green}%2c%F{yellow}$(git_prompt_info) %F{white}[%f '
+  PROMPT='%F{white}$HOST %F{green}%2c%F{yellow}$(git_prompt_info) %F{white} '
 else
-  PROMPT='%F{green}%2c%F{yellow}$(git_prompt_info) %F{white}[%f '
+  PROMPT='%F{green}%2c%F{yellow}$(git_prompt_info) %F{white} '
 fi
-RPROMPT=' %F{white}] %F{white}%T'
+RPROMPT=' %F{white}%T'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
