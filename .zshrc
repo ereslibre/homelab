@@ -4,7 +4,6 @@ export PATH=/sbin:/usr/sbin:$HOME/.bin:$GOPATH/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-export ZLE_RPROMPT_INDENT=0
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
@@ -78,11 +77,11 @@ export GIT_EDITOR='emacs -nw -q'
 ZSH_THEME_GIT_PROMPT_PREFIX="@"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
 if [ "freedom" != $HOST ]; then
-  PROMPT='%F{white}$HOST %F{green}%2c%F{yellow}$(git_prompt_info) %F{white} '
+  PROMPT='%F{white}$HOST %F{green}%2c%F{yellow}$(git_prompt_info) %F{white}'
 else
-  PROMPT='%F{green}%2c%F{yellow}$(git_prompt_info) %F{white} '
+  PROMPT='%F{green}%2c%F{yellow}$(git_prompt_info) %F{white}'
 fi
-RPROMPT=' %F{white}%T'
+RPROMPT=''
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
