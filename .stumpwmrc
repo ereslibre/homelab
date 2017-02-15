@@ -160,7 +160,7 @@
 ;; Shortcuts
 
 (define-key *top-map* (kbd "C-Q") "quit")
-(define-key *top-map* (kbd "C-Return") "exec gnome-terminal")
+(define-key *top-map* (kbd "C-Return") "exec terminator")
 
 (define-key *top-map* (kbd "M-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
