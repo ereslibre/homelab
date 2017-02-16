@@ -38,6 +38,7 @@
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)
 (run-shell-command "dunst &")
+(run-shell-command "dropbox start &")
 
 (setf *random-state* (make-random-state t))
 (let*
