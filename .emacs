@@ -30,11 +30,19 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
 (setq org-log-done t)
 (setq org-log-repeat 'note)
 (setq org-agenda-start-day "-1d")
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-files '("~/Dropbox/org"))
+(setq org-capture-templates
+      '(
+        ("j" "Journal Entry"
+         entry (file+datetree "~/Dropbox/org/journal.org")
+         "* %?"
+         :empty-lines 0)
+        ))
 
 ;; Calendar
 (setq calendar-week-start-day 1)
