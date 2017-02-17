@@ -51,7 +51,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode linum-relative linum-off monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode olivetti terraform-mode)
+  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -64,12 +64,6 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
-
-;; Enable Olivetti
-(setq olivetti-body-width 100)
-(add-hook 'dired-after-readin-hook #'turn-on-olivetti-mode)
-(add-hook 'find-file-hook #'turn-on-olivetti-mode)
-(add-hook 'after-init-hook #'turn-on-olivetti-mode)
 
 ;; Hide comments
 (require 'hide-comnt)
@@ -124,21 +118,10 @@
 (line-number-mode 1)
 (column-number-mode 1)
 
-;; Load relative numbers
-;; (require 'linum-relative)
-;; (require 'linum-off)
-
 ;; Cursor
 (blink-cursor-mode 0)
 (add-hook 'after-change-major-mode-hook
           '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
-
-;; Enable linum-mode
-;; (global-linum-mode 1)
-;; (setq-default linum-relative-format "%4s")
-;; (setq-default linum-relative-current-symbol "")
-;; (with-eval-after-load 'linum
-;;   (linum-relative-toggle))
 
 ;; Writing helpers
 (electric-pair-mode 1)
@@ -156,6 +139,9 @@
       ,(rx (or "}" "]" "end"))                       ; Block end
       ,(rx (or "#" "=begin"))                        ; Comment start
       ruby-forward-sexp nil)))
+
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
 
 (global-set-key (kbd "C-c H") 'hs-hide-block)
 (global-set-key (kbd "C-c S") 'hs-show-block)
@@ -247,7 +233,7 @@
 (setq ns-use-srgb-colorspace nil)
 (require 'powerline)
 (powerline-default-theme)
-(setq powerline-default-separator 'arrow-fade)
+(setq powerline-default-separator 'wave)
 (setq powerline-display-buffer-size nil)
 
 ;; org-habit
@@ -261,4 +247,4 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (terraform-mode olivetti rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme linum-off linum-relative haml-mode helm-projectile helm projectile-rails projectile))))
+    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile))))
