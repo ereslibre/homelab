@@ -97,7 +97,8 @@
 (setq-default inhibit-startup-message t)
 
 ;; Do not break lines
-(set-default 'truncate-lines t)
+(setq-default truncate-lines t)
+(setq-default global-visual-line-mode t)
 
 ;; No backups
 (setq-default make-backup-files nil)
