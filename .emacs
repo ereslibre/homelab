@@ -141,7 +141,12 @@
       ,(rx (or "#" "=begin"))                        ; Comment start
       ruby-forward-sexp nil)))
 
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
+    (if (and
+         (not (string-match "^\*.*\*$" (buffer-name)))
+         (not (eq major-mode 'dired-mode)))
+        (fci-mode 1))))
 (global-fci-mode 1)
 
 (global-set-key (kbd "C-c H") 'hs-hide-block)
