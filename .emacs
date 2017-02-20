@@ -51,7 +51,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator)
+  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator linum-relative linum-off)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -171,6 +171,17 @@
              '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\.\\(?:php\\)\\'" . ruby-mode))
+
+;; Load relative numbers
+(require 'linum-relative)
+(require 'linum-off)
+
+;; Enable linum-mode
+(global-linum-mode 1)
+(setq-default linum-relative-format "%4s")
+(setq-default linum-relative-current-symbol "")
+(with-eval-after-load 'linum
+  (linum-relative-toggle))
 
 ;; Magit
 (require 'magit)
