@@ -3,4 +3,4 @@ if [ "$#" -ne "3" ]; then
   echo "usage: $0 target_port source_ip source_port"
   exit 1
 fi
-ssh -v -N -f ereslibre -L $1:$2:$3
+ssh -v -N ereslibre -L $1:$2:$3
