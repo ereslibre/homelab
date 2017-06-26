@@ -99,6 +99,7 @@ RPROMPT=''
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias iosc="osc -A https://api.suse.de"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -108,3 +109,5 @@ if [ -x /usr/bin/keychain ]; then
 fi
 
 cat ~/.todo
+
+[[ -s "/home/ereslibre/.gvm/scripts/gvm" ]] && source "/home/ereslibre/.gvm/scripts/gvm"
