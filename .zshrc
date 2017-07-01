@@ -101,6 +101,7 @@ RPROMPT=''
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iosc="osc -A https://api.suse.de"
 
+[ -f ~/.alias ] && source ~/.alias
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -x /usr/bin/keychain ]; then
