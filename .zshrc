@@ -1,8 +1,7 @@
 # If you come from bash you might have to change your $PATH.
-export GOPATH=$HOME/.go
 export RUSTPATH=$HOME/.rust
 export CARGOPATH=$HOME/.cargo
-export PATH=/sbin:/usr/sbin:$HOME/.bin:$GOPATH/bin:$RUSTPATH/bin:$CARGOPATH/bin:/usr/local/bin:$PATH
+export PATH=/sbin:/usr/sbin:$HOME/.bin:$RUSTPATH/bin:$CARGOPATH/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
