@@ -178,8 +178,8 @@
 (define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 
 (define-key *root-map* (kbd "C-m") "exec geary")
-(define-key *root-map* (kbd "c") "exec chromium")
-(define-key *root-map* (kbd "C-c") "exec chromium")
+(define-key *root-map* (kbd "c") "exec conkeror")
+(define-key *root-map* (kbd "C-c") "exec conkeror")
 (define-key *root-map* (kbd "C-s") "exec nautilus")
 (define-key *root-map* (kbd "C-i") "exec telegram")
 
@@ -211,7 +211,7 @@
 ;; Default apps
 
 (setf (getenv "EDITOR") "emacs -nw -q")
-(setf (getenv "BROWSER") "chromium")
+(setf (getenv "BROWSER") "conkeror")
 
 ;; Add commands
 
@@ -222,22 +222,6 @@
   (run-or-raise
    (concat "hidpi " command)
    '(:class "HiDPI")))
-
-(defcommand wp (search)
-  ((:string "Search in Wikipedia for: "))
-  "docstring"
-  (check-type search string)
-  (run-or-raise
-     (concat "chromium https://en.wikipedia.org/wiki/Special:Search?search=" (substitute #\+ #\Space search))
-     '(:class "Wikipedia")))
-
-(defcommand gg (search)
-  ((:string "Search in Google for: "))
-  "docstring"
-  (check-type search string)
-  (run-or-raise
-     (concat "chromium https://www.google.com/search?q=" (substitute #\+ #\Space search))
-     '(:class "Google")))
 
 ;; Add extra maps
 
