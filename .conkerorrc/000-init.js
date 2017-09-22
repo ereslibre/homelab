@@ -14,4 +14,6 @@ define_webjump("ws", "https://es.wikipedia.org/w/index.php?search=%s");
 define_webjump("bsc", "https://bugzilla.suse.com/show_bug.cgi?id=%s");
 define_webjump("bscn", "https://bugzilla.suse.com/buglist.cgi?cmdtype=runnamed&namedcmd=%s");
 
+
+session_pref("general.useragent.compatMode.firefox", true);
 session_pref("xpinstall.whitelist.required", false);
