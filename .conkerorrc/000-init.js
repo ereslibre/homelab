@@ -1,4 +1,4 @@
-url_completion_use_history = true;
+url_completion_use_history = false;
 url_completion_use_bookmarks = true;
 can_kill_last_buffer = true;
 
