@@ -1,12 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 export RUSTPATH=$HOME/.rust
 export CARGOPATH=$HOME/.cargo
-export PATH=/sbin:/usr/sbin:$HOME/.bin:$RUSTPATH/bin:$CARGOPATH/bin:/usr/local/bin:$PATH
+export GOPATH=$HOME/.go
+export PATH=/sbin:/usr/sbin:$HOME/.bin:$RUSTPATH/bin:$CARGOPATH/bin:/usr/local/bin:$GOPATH/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
+export TERM=xterm-color
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -99,6 +102,7 @@ RPROMPT=''
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iosc="osc -A https://api.suse.de"
+alias smutt="mutt -F ~/.muttrc-suse"
 
 [ -f ~/.alias ] && source ~/.alias
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -108,6 +112,6 @@ if [ -x /usr/bin/keychain ]; then
     source $HOME/.keychain/$(hostname)-sh
 fi
 
-cat ~/.todo
+export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-[[ -s "/home/ereslibre/.gvm/scripts/gvm" ]] && source "/home/ereslibre/.gvm/scripts/gvm"
+cat ~/.todo
