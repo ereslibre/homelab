@@ -1,4 +1,4 @@
-source "$HOME/.muttrc-generic"
+source ~/.muttrc-init
 
 # == IMAP ==
 set imap_user = "rfernandezlopez@suse.de"
@@ -13,3 +13,5 @@ set from = "rfernandezlopez@suse.de"
 
 # == Others ==
 set header_cache = ~/.mutt-suse/cache
+
+source ~/.muttrc-generic

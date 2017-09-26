@@ -1,0 +1,2 @@
+# == Load passwords ==
+source "gpg2 -dq $HOME/.muttrc-passwords.gpg |"

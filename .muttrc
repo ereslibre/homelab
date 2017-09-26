@@ -1,4 +1,4 @@
-source "$HOME/.muttrc-generic"
+source ~/.muttrc-init
 
 # == IMAP ==
 set imap_user = "ereslibre@gmail.com"
@@ -7,7 +7,6 @@ set folder = imaps://imap.gmail.com/
 set record="+[Gmail]/Sent Mail"
 set postponed ="+[Gmail]/Drafts"
 set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
-set spoolfile = "+INBOX"
 
 # == SMTP ==
 set smtp_url = "smtp://ereslibre@smtp.gmail.com:587/"
@@ -17,3 +16,5 @@ set from = "ereslibre@gmail.com"
 
 # == Others ==
 set header_cache = ~/.mutt/cache
+
+source ~/.muttrc-generic
