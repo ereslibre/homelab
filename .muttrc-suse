@@ -1,0 +1,15 @@
+source "$HOME/.muttrc-generic"
+
+# == IMAP ==
+set imap_user = "rfernandezlopez@suse.de"
+set imap_pass = $my_suse_password
+set folder = imaps://imap.suse.de:993/
+
+# == SMTP ==
+set smtp_url = "smtp://rfernandezlopez@imap.suse.de:587/"
+
+# == Composition ==
+set from = "rfernandezlopez@suse.de"
+
+# == Others ==
+set header_cache = ~/.mutt-suse/cache

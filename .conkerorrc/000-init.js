@@ -5,7 +5,7 @@ can_kill_last_buffer = true;
 cwd = get_home_directory();
 cwd.append("Downloads");
 
-homepage = "https://duckduckgo.com";
+homepage = "https://start.duckduckgo.com";
 
 define_webjump("d", "http://www.duckduckgo.com/?q=%s");
 define_webjump("g", "http://www.google.com/search?q=%s");

@@ -1,0 +1,35 @@
+# == Load passwords ==
+source "gpg2 -dq $HOME/.muttrc-passwords.gpg |"
+
+# ==  Composition ==
+set editor = `echo \$EDITOR`
+set charset = UTF-8
+unset use_domain
+set realname = "Rafael Fernández López"
+set use_from = yes
+
+# == Others ==
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set imap_check_subscribed
+set mail_check_stats
+set sort = threads
+set move = no
+set message_cachedir = $header_cache
+set send_charset = "utf-8"
+
+# == Sidebar ==
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+bind index,pager p previous-entry
+bind index,pager n next-entry
+
+# == PGP ==
+set crypt_use_gpgme
+set crypt_autosign
+set crypt_replysign
+set crypt_replyencrypt
+set crypt_replysignencrypted
+set crypt_verify_sig
+set pgp_verify_sig
