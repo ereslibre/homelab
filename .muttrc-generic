@@ -24,6 +24,9 @@ set move = no
 set message_cachedir = $header_cache
 set send_charset = "utf-8"
 
+# == Keybindings ==
+bind index G imap-fetch-mail
+
 # == Sidebar ==
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
