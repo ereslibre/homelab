@@ -1,6 +1,3 @@
-# == Mail ==
-set record = "+INBOX/Sent"
-
 # == Colors ==
 # vim: filetype=muttrc
 # author: Tom Auty
