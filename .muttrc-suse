@@ -2,7 +2,7 @@ source ~/.muttrc-init
 
 # == IMAP ==
 set folder=~/.mail/suse
-mailboxes `echo -n "+ "; find ~/.mail/suse/ -maxdepth 1 -mindepth 1 -type d -printf "+'%f' " | sort -i`
+mailboxes `find ~/.mail/suse -type d -name cur -printf '%h\n' | sort -d | tr '\n' ' '`
 
 # == SMTP ==
 set smtp_url = "smtp://rfernandezlopez@imap.suse.de:587/"

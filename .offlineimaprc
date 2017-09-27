@@ -17,7 +17,7 @@ type = Gmail
 remoteuser = ereslibre@gmail.com
 remotepasseval = get_pass(account="gmail")
 sslcacertfile = /etc/ssl/ca-bundle.pem
-folderfilter = lambda folder: folder in ['[Gmail]/Inbox']
+folderfilter = lambda folder: folder in ['INBOX']
 
 [Account ereslibre]
 localrepository = ereslibre-local
@@ -33,7 +33,7 @@ type = Gmail
 remoteuser = ereslibre@ereslibre.es
 remotepasseval = get_pass(account="ereslibre")
 sslcacertfile = /etc/ssl/ca-bundle.pem
-folderfilter = lambda folder: folder in ['[Gmail]/Inbox']
+folderfilter = lambda folder: folder in ['INBOX']
 
 [Account suse]
 localrepository = suse-local

@@ -16,6 +16,7 @@ set use_from = yes
 
 # == Others ==
 set sidebar_visible
+set sidebar_folder_indent
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set imap_check_subscribed
 set mail_check_stats

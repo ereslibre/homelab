@@ -2,7 +2,7 @@ source ~/.muttrc-init
 
 # == IMAP ==
 set folder=~/.mail/gmail
-mailboxes `echo -n "+ "; find ~/.mail/gmail/ -maxdepth 1 -mindepth 1 -type d -printf "+'%f' " | sort -i`
+mailboxes `find ~/.mail/gmail -type d -name cur -printf '%h\n' | sort -d | tr '\n' ' '`
 
 # == SMTP ==
 set smtp_url = "smtp://ereslibre@smtp.gmail.com:587/"
