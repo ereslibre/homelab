@@ -34,6 +34,8 @@
                   (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22))))
 
 ;; Do some initializations
+(run-shell-command "killall offlineimap" t)
+(run-shell-command "offlineimap &")
 (run-shell-command "killall redshift" t)
 (run-shell-command "redshift -r &")
 (run-shell-command "killall dunst" t)

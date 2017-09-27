@@ -1,9 +1,12 @@
 [general]
 # List of accounts to be synced, separated by a comma.
+maxsyncaccounts = 3
 accounts = gmail,ereslibre,suse
 pythonfile = ~/.offlineimap.py
 
 [Account gmail]
+autorefresh = 0.5
+quick = 10
 localrepository = gmail-local
 remoterepository = gmail-remote
 
@@ -20,6 +23,8 @@ sslcacertfile = /etc/ssl/ca-bundle.pem
 folderfilter = lambda folder: folder in ['INBOX']
 
 [Account ereslibre]
+autorefresh = 0.5
+quick = 10
 localrepository = ereslibre-local
 remoterepository = ereslibre-remote
 
@@ -36,6 +41,8 @@ sslcacertfile = /etc/ssl/ca-bundle.pem
 folderfilter = lambda folder: folder in ['INBOX']
 
 [Account suse]
+autorefresh = 0.5
+quick = 10
 localrepository = suse-local
 remoterepository = suse-remote
 
