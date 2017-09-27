@@ -7,7 +7,7 @@ mailboxes `find ~/.mail/gmail -type d -name cur -printf '%h\n' | sort -d | tr '\
 
 # == SMTP ==
 set smtp_url = "smtp://ereslibre@smtp.gmail.com:587/"
-set smtp_pass = `gpg2 -dq ~/.offlineimappass-ereslibre.gpg | tr -d '\n'`
+set smtp_pass = `gpg2 -dq ~/.offlineimappass-gmail.gpg | tr -d '\n'`
 
 # ==  Composition ==
 set from = "ereslibre@gmail.com"
