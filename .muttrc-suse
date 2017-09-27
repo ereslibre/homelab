@@ -1,11 +1,13 @@
 source ~/.muttrc-init
 
 # == IMAP ==
-set folder=~/.mail/suse
+set folder = ~/.mail/suse
+set record = "+INBOX/Sent"
 mailboxes `find ~/.mail/suse -type d -name cur -printf '%h\n' | sort -d | tr '\n' ' '`
 
 # == SMTP ==
 set smtp_url = "smtp://rfernandezlopez@imap.suse.de:587/"
+set smtp_pass = `gpg2 -dq ~/.offlineimappass-suse.gpg | tr -d '\n'`
 
 # == Composition ==
 set from = "rfernandezlopez@suse.de"

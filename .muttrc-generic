@@ -1,10 +1,10 @@
 # == Mail ==
-set mbox = +INBOX
-set spoolfile = +INBOX
-set mbox_type=Maildir
+set mbox = "+INBOX"
+set spoolfile = "+INBOX"
+set mbox_type = Maildir
 
 # == SMTP ==
-set smtp_pass = $imap_pass
+set ssl_starttls = yes
 set ssl_force_tls = yes
 
 # ==  Composition ==
@@ -24,9 +24,6 @@ set sort = threads
 set move = no
 set message_cachedir = $header_cache
 set send_charset = "utf-8"
-
-# == Keybindings ==
-bind index G imap-fetch-mail
 
 # == Sidebar ==
 bind index,pager \CP sidebar-prev

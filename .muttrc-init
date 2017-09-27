@@ -1,9 +1,6 @@
 # == Mail ==
 set record = "+INBOX/Sent"
 
-# == Load passwords ==
-source "gpg2 -dq $HOME/.muttrc-passwords.gpg |"
-
 # == Colors ==
 # vim: filetype=muttrc
 # author: Tom Auty

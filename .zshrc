@@ -102,7 +102,8 @@ RPROMPT=''
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iosc="osc -A https://api.suse.de"
-alias smutt="mutt -F ~/.muttrc-suse"
+alias mutt="/usr/bin/mutt -F ~/.muttrc-gmail"
+alias smutt="/usr/bin/mutt -F ~/.muttrc-suse"
 
 [ -f ~/.alias ] && source ~/.alias
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
