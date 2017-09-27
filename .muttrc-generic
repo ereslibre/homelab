@@ -1,7 +1,7 @@
-# == IMAP ==
-set mbox = +Inbox
-set spoolfile = +Inbox
-set imap_keepalive = 900
+# == Mail ==
+set mbox = +INBOX
+set spoolfile = +INBOX
+set mbox_type=Maildir
 
 # == SMTP ==
 set smtp_pass = $imap_pass

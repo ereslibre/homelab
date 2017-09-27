@@ -1,0 +1,53 @@
+[general]
+# List of accounts to be synced, separated by a comma.
+accounts = gmail,ereslibre,suse
+pythonfile = ~/.offlineimap.py
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+
+[Repository gmail-local]
+type = Maildir
+sep = /
+localfolders = ~/.mail/gmail
+
+[Repository gmail-remote]
+type = Gmail
+remoteuser = ereslibre@gmail.com
+remotepasseval = get_pass(account="gmail")
+sslcacertfile = /etc/ssl/ca-bundle.pem
+folderfilter = lambda folder: folder in ['[Gmail]/Inbox']
+
+[Account ereslibre]
+localrepository = ereslibre-local
+remoterepository = ereslibre-remote
+
+[Repository ereslibre-local]
+type = Maildir
+sep = /
+localfolders = ~/.mail/ereslibre
+
+[Repository ereslibre-remote]
+type = Gmail
+remoteuser = ereslibre@ereslibre.es
+remotepasseval = get_pass(account="ereslibre")
+sslcacertfile = /etc/ssl/ca-bundle.pem
+folderfilter = lambda folder: folder in ['[Gmail]/Inbox']
+
+[Account suse]
+localrepository = suse-local
+remoterepository = suse-remote
+
+[Repository suse-local]
+type = Maildir
+sep = /
+localfolders = ~/.mail/suse
+
+[Repository suse-remote]
+type = IMAP
+remotehost = imap.suse.de
+remoteport = 993
+remoteuser = rfernandezlopez@suse.de
+remotepasseval = get_pass(account="suse")
+sslcacertfile = /usr/share/pki/trust/anchors/SUSE_Trust_Root.crt.pem

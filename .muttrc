@@ -1,12 +1,8 @@
 source ~/.muttrc-init
 
 # == IMAP ==
-set imap_user = "ereslibre@gmail.com"
-set imap_pass = $my_gmail_password
-set folder = imaps://imap.gmail.com/
-set record="+[Gmail]/Sent Mail"
-set postponed ="+[Gmail]/Drafts"
-set mbox="imaps://imap.gmail.com/[Gmail]/All Mail"
+set folder=~/.mail/gmail
+mailboxes `echo -n "+ "; find ~/.mail/gmail/ -maxdepth 1 -mindepth 1 -type d -printf "+'%f' " | sort -i`
 
 # == SMTP ==
 set smtp_url = "smtp://ereslibre@smtp.gmail.com:587/"

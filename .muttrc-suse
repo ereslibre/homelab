@@ -1,9 +1,8 @@
 source ~/.muttrc-init
 
 # == IMAP ==
-set imap_user = "rfernandezlopez@suse.de"
-set imap_pass = $my_suse_password
-set folder = imaps://imap.suse.de:993/
+set folder=~/.mail/suse
+mailboxes `echo -n "+ "; find ~/.mail/suse/ -maxdepth 1 -mindepth 1 -type d -printf "+'%f' " | sort -i`
 
 # == SMTP ==
 set smtp_url = "smtp://rfernandezlopez@imap.suse.de:587/"
