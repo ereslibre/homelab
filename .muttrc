@@ -1,7 +1,8 @@
 source ~/.muttrc-init
 
 # == IMAP ==
-set folder=~/.mail/gmail
+set folder = ~/.mail/gmail
+set record = "+[Gmail]/Sent Mail"
 mailboxes `find ~/.mail/gmail -type d -name cur -printf '%h\n' | sort -d | tr '\n' ' '`
 
 # == SMTP ==

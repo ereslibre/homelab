@@ -20,7 +20,7 @@ type = Gmail
 remoteuser = ereslibre@gmail.com
 remotepasseval = get_pass(account="gmail")
 sslcacertfile = /etc/ssl/ca-bundle.pem
-folderfilter = lambda folder: folder in ['INBOX']
+folderfilter = lambda folder: folder in ['INBOX', '[Gmail]/Sent Mail']
 
 [Account ereslibre]
 autorefresh = 0.5

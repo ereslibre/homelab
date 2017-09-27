@@ -1,3 +1,6 @@
+# == Mail ==
+set record = "+INBOX/Sent"
+
 # == Load passwords ==
 source "gpg2 -dq $HOME/.muttrc-passwords.gpg |"
 
