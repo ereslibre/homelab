@@ -13,6 +13,7 @@ set charset = UTF-8
 unset use_domain
 set realname = "Rafael Fernández López"
 set use_from = yes
+set signature = "~/.signature"
 
 # == Others ==
 set sidebar_visible
