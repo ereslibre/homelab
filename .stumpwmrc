@@ -174,7 +174,7 @@
 
 (define-key *root-map* (kbd "M-l") "exec xscreensaver-command --lock")
 
-(define-key *root-map* (kbd "d") "exec PATH=~/.bin:$PATH dmenu_run -fn 'Atari ST 8x16 System Font-12' -p 'What you up to?' -m 0")
+(define-key *root-map* (kbd "d") "exec PATH=~/.bin:$PATH dmenu_run -fn 'Atari ST 8x16 System Font-12' -p 'What you up to?' -m -1")
 
 (define-key *root-map* (kbd "e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
 (define-key *root-map* (kbd "C-e") "exec GDK_SCALE=1 GDK_DPI_SCALE=1 emacs")
