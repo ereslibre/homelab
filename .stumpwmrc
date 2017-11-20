@@ -213,7 +213,7 @@
 ;; Default apps
 
 (setf (getenv "EDITOR") "emacs -nw -q")
-(setf (getenv "BROWSER") "conkeror")
+(setf (getenv "BROWSER") "chromium")
 
 ;; Add commands
 
