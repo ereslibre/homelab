@@ -51,7 +51,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator linum-relative linum-off)
+  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -172,16 +172,8 @@
 (add-to-list 'auto-mode-alist
              '("\\.\\(?:php\\)\\'" . ruby-mode))
 
-;; Load relative numbers
-(require 'linum-relative)
-(require 'linum-off)
-
-;; Enable linum-mode
-(global-linum-mode 1)
-(setq-default linum-relative-format "%4s")
-(setq-default linum-relative-current-symbol "")
-(with-eval-after-load 'linum
-  (linum-relative-toggle))
+;; Disable linum-mode
+(global-linum-mode 0)
 
 ;; Magit
 (require 'magit)
@@ -264,4 +256,4 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile linum-relative linum-off))))
+    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile))))
