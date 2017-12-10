@@ -195,6 +195,8 @@
 (define-key *root-map* (kbd "M-n") "move-window down")
 (define-key *root-map* (kbd "M-f") "move-window right")
 
+(define-key *root-map* (kbd "b") "balance-frames")
+
 ;; Create default groups
 
 (run-commands "grename code" "gnewbg terminals" "gnewbg www" "gnewbg im" "gnewbg mail" "gnewbg media")
