@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xrandr --output DP1-1 --auto --output DP1-2 --auto --primary --left-of DP1-1 --output eDP1 --off

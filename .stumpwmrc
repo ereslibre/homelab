@@ -113,8 +113,10 @@
 
 (setf *startup-message* nil)
 (setf *mode-line-timeout* 1)
-(if (not (head-mode-line (current-head)))
-    (toggle-mode-line (current-screen) (current-head)))
+(dolist (screen *screen-list*)
+  (dolist (head (screen-heads screen))
+    (if (not (head-mode-line head))
+        (toggle-mode-line screen head))))
 
 (setf *message-window-padding* 5)
 
