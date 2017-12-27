@@ -41,6 +41,8 @@
 (run-shell-command "killall dunst" t)
 (run-shell-command "dunst &")
 (run-shell-command "dropbox start &")
+(run-shell-command "killall gsd-xsettings" t)
+(run-shell-command "/usr/lib/gnome-settings-daemon-3.0/gsd-xsettings &")
 
 (setf *random-state* (make-random-state t))
 (let*
