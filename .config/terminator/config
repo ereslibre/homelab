@@ -1,5 +1,4 @@
 [global_config]
-  geometry_hinting = False
   title_font = mononoki 10
   title_hide_sizetext = True
   title_use_system_font = False
@@ -17,6 +16,7 @@
   [[default]]
     cursor_blink = False
     cursor_color = "#00ff00"
+    custom_command = /sbin/tmux
     font = Hack 10
     foreground_color = "#ffffff"
     icon_bell = False
@@ -24,4 +24,5 @@
     scrollback_infinite = True
     scrollbar_position = hidden
     show_titlebar = False
+    use_custom_command = True
     use_system_font = False
