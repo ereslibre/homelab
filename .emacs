@@ -2,6 +2,9 @@
 (setenv "SHELL" "/bin/bash")
 (setenv "ESHELL" "/bin/bash")
 
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
+
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
