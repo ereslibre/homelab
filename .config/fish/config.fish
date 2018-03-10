@@ -8,7 +8,7 @@ set -x GOPATH $HOME/.go
 
 set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $PATH
 
-if [ -x /usr/bin/keychain ]
+if type -q keychain
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
     source $HOME/.keychain/(hostname)-fish
 end
