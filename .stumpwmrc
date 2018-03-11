@@ -167,7 +167,7 @@
 ;; Shortcuts
 
 (define-key *top-map* (kbd "C-Q") "quit")
-(define-key *top-map* (kbd "C-Return") "exec terminator -u")
+(define-key *top-map* (kbd "C-Return") "exec tilix")
 
 (define-key *top-map* (kbd "M-n") "pull-hidden-next")
 (define-key *top-map* (kbd "M-p") "pull-hidden-previous")
