@@ -55,7 +55,7 @@
 (global-hl-line-mode 1)
 
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator)
+  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator neotree sublimity)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -249,6 +249,27 @@
 (setq powerline-default-separator 'wave)
 (setq powerline-display-buffer-size nil)
 
+;; Neotree
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(defun neotree-project-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (neotree-toggle)
+    (if project-dir
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find git project root."))))
+(global-set-key [f8] 'neotree-project-dir)
+
+;; Sublimity
+(require 'sublimity)
+(require 'sublimity-attractive)
+
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
 
@@ -260,4 +281,4 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    (quote
-    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile))))
+    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile neotree sublimity))))
