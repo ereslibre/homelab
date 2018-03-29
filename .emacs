@@ -19,7 +19,7 @@
 
 ;; General shortcuts
 (global-set-key "\M-i" 'imenu)
-(global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/bin/zsh")))
+(global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
 
 ;; imenu
 (set-default
@@ -30,7 +30,6 @@
 ;; Org mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
@@ -51,11 +50,8 @@
 ;; Calendar
 (setq calendar-week-start-day 1)
 
-;; Highlight current line
-(global-hl-line-mode 1)
-
 (defvar my-packages
-  '(projectile projectile-rails helm helm-projectile haml-mode monokai-theme powerline yaml-mode yasnippet magit gist twittering-mode google-translate diff-hl dockerfile-mode undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode slime rust-mode fill-column-indicator neotree)
+  '(projectile helm helm-projectile spacemacs-theme yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -85,7 +81,6 @@
 
 ;; diff hl
 (global-diff-hl-mode)
-(run-with-idle-timer 1 t 'diff-hl-update)
 (setq diff-hl-side 'right)
 (setq diff-hl-draw-borders nil)
 
@@ -117,7 +112,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'monokai t)
+(load-theme 'spacemacs-light t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -125,33 +120,12 @@
 
 ;; Cursor
 (blink-cursor-mode 0)
-(add-hook 'after-change-major-mode-hook
-          '(lambda () (hl-line-mode (if (equal major-mode 'term-mode) 0 1))))
 
 ;; Writing helpers
 (electric-pair-mode 1)
 (electric-indent-mode 1)
-(setq ruby-insert-encoding-magic-comment nil)
-(add-hook 'ruby-mode-hook
-          (lambda () (hs-minor-mode)))
 
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
-(eval-after-load "hideshow"
-  '(add-to-list 'hs-special-modes-alist
-    `(ruby-mode
-      ,(rx (or "def" "class" "module" "do" "{" "[")) ; Block start
-      ,(rx (or "}" "]" "end"))                       ; Block end
-      ,(rx (or "#" "=begin"))                        ; Comment start
-      ruby-forward-sexp nil)))
-
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-    (if (and
-         (not (string-match "^\*.*\*$" (buffer-name)))
-         (not (eq major-mode 'dired-mode)))
-        (fci-mode 1))))
-(global-fci-mode 1)
+(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 
 (global-set-key (kbd "C-c H") 'hs-hide-block)
 (global-set-key (kbd "C-c S") 'hs-show-block)
@@ -161,42 +135,14 @@
 (setq-default js-indent-level 2)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
-(setq-default fill-column 100)
 
 ;; Syntax highlighting
 (show-paren-mode 1)
 (setq-default show-paren-delay 0)
 (setq-default show-paren-style 'parenthesis)
-(require 'haml-mode)
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist
-             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\.\\(?:php\\)\\'" . ruby-mode))
-
-;; Disable linum-mode
-(global-linum-mode 0)
 
 ;; Magit
 (require 'magit)
-
-;; Yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-(add-hook 'yas/after-exit-snippet-hook
-          '(lambda ()
-             (indent-region yas/snippet-beg
-                            yas/snippet-end)))
-(set-variable 'yas/wrap-around-region nil)
-(add-hook 'term-mode-hook (lambda()
-                (yas-minor-mode -1)))
-
-;; Twittering mode
-(require 'twittering-mode)
-(setq twittering-icon-mode t)
-(setq twittering-use-master-password t)
 
 ;; Helm
 (require 'helm-config)
@@ -220,51 +166,26 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
-(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".repo" ".vagrant" "assets") projectile-globally-ignored-directories))
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
+(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant") projectile-globally-ignored-directories))
 
 ;; Default font
-(set-default-font "hack-10:Regular")
-(add-to-list 'default-frame-alist '(font . "hack-10:Regular"))
-(set-face-attribute 'default t :font "hack-10:Regular")
+(set-default-font "Monaco-11:Regular")
+(add-to-list 'default-frame-alist '(font . "Monaco-11:Regular"))
+(set-face-attribute 'default t :font "Monaco-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 100 :family "hack"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 100 :family "hack"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 100 :family "hack"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 100 :family "hack"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 100 :family "hack"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 100 :family "hack"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 100 :family "hack"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 100 :family "hack")))))
-
-;; Powerline
-(setq ns-use-srgb-colorspace nil)
-(require 'powerline)
-(powerline-default-theme)
-(setq powerline-default-separator 'wave)
-(setq powerline-display-buffer-size nil)
-
-;; Neotree
-(setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
-(defun neotree-project-dir ()
-  "Open NeoTree using the git root."
-  (interactive)
-  (let ((project-dir (projectile-project-root))
-        (file-name (buffer-file-name)))
-    (neotree-toggle)
-    (if project-dir
-        (if (neo-global--window-exists-p)
-            (progn
-              (neotree-dir project-dir)
-              (neotree-find file-name)))
-      (message "Could not find git project root."))))
-(global-set-key [f8] 'neotree-project-dir)
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 110 :family "hack"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "hack"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "hack"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 110 :family "hack"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 110 :family "hack"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "hack"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 110 :family "hack"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "hack")))))
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
@@ -274,7 +195,51 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(compilation-message-face (quote default))
  '(delete-selection-mode nil)
+ '(fci-rule-color "#3C3D37")
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-tail-colors
+   (quote
+    (("#3C3D37" . 0)
+     ("#679A01" . 20)
+     ("#4BBEAE" . 30)
+     ("#1DB4D0" . 50)
+     ("#9A8F21" . 60)
+     ("#A75B00" . 70)
+     ("#F309DF" . 85)
+     ("#3C3D37" . 100))))
+ '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (fill-column-indicator rust-mode slime haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree dockerfile-mode diff-hl google-translate twittering-mode gist magit yasnippet yaml-mode powerline monokai-theme haml-mode helm-projectile helm projectile-rails projectile neotree))))
+    (spacemacs-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
+ '(pos-tip-background-color "#FFFACE")
+ '(pos-tip-foreground-color "#272822")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
