@@ -51,7 +51,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(projectile helm helm-projectile spacemacs-theme yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode)
+  '(monokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -112,7 +112,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'spacemacs-light t)
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -169,9 +169,9 @@
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant") projectile-globally-ignored-directories))
 
 ;; Default font
-(set-default-font "Monaco-11:Regular")
-(add-to-list 'default-frame-alist '(font . "Monaco-11:Regular"))
-(set-face-attribute 'default t :font "Monaco-11:Regular")
+(set-default-font "Hack-11:Regular")
+(add-to-list 'default-frame-alist '(font . "Hack-11:Regular"))
+(set-face-attribute 'default t :font "Hack-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -216,7 +216,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (spacemacs-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
+    (monokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
