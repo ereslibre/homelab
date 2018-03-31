@@ -5,17 +5,17 @@
 (setf (getenv "XCURSOR_THEME") "Adwaita")
 
 ;; Set resolution related stuff
-(if (getenv "LOW_DPI")
-    (progn
-      (setf (getenv "GDK_SCALE") "1")
-      (setf (getenv "GDK_DPI_SCALE") "1")
-      (run-shell-command "xrandr --dpi 96")
-      (run-shell-command "xrdb ~/.Xresources.lowdpi"))
+(if (getenv "HIGH_DPI")
     (progn
       (setf (getenv "GDK_SCALE") "2")
       (setf (getenv "GDK_DPI_SCALE") "0.5")
       (run-shell-command "xrandr --dpi 220")
-      (run-shell-command "xrdb ~/.Xresources.hidpi")))
+      (run-shell-command "xrdb ~/.Xresources.hidpi"))
+    (progn
+      (setf (getenv "GDK_SCALE") "1")
+      (setf (getenv "GDK_DPI_SCALE") "1")
+      (run-shell-command "xrandr --dpi 96")
+      (run-shell-command "xrdb ~/.Xresources.lowdpi")))
 
 (setf (getenv "QT_AUTO_SCREEN_SCALE_FACTOR") "1")
 (setf (getenv "GDK_CORE_DEVICE_EVENTS") "1")
@@ -27,11 +27,11 @@
 
 (setf wifi:*iwconfig-path* "/usr/sbin/iwconfig")
 
-(if (getenv "LOW_DPI")
-  (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
-                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12)))
+(if (getenv "HIGH_DPI")
   (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 22)
-                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22))))
+                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 22)))
+  (set-font (list (make-instance 'xft:font :family "Atari ST 8x16 System Font" :subfamily "Medium" :size 12)
+                  (make-instance 'xft:font :family "FontAwesome" :subfamily "Regular" :size 12))))
 
 ;; Do some initializations
 (run-shell-command "killall redshift" t)

@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-export LOW_DPI=1
 exec ssh-agent /usr/local/bin/stumpwm "$@"
