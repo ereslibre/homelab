@@ -166,7 +166,7 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
-(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant") projectile-globally-ignored-directories))
+(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
 
 ;; Default font
 (set-default-font "DejaVu Sans Mono-11:Regular")
