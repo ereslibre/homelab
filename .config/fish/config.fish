@@ -2,6 +2,7 @@ set fish_greeting
 
 cat ~/.todo
 
+set -x TERMINAL tilix
 set -x EDITOR "emacs -nw -q"
 set -x GIT_EDITOR "emacs -nw -q"
 set -x GOPATH $HOME/.go
