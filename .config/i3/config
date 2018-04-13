@@ -92,12 +92,12 @@ default_border pixel
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "code"
-set $ws2 "terminals"
-set $ws3 "www"
-set $ws4 "im"
-set $ws5 "mail"
-set $ws6 "media"
+set $ws1 "1:code"
+set $ws2 "2:terminals"
+set $ws3 "3:www"
+set $ws4 "4:im"
+set $ws5 "5:mail"
+set $ws6 "6:media"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
