@@ -190,5 +190,6 @@ bindsym XF86AudioMute exec $psst pactl set-sink-mute @DEFAULT_SINK@ toggle $upda
 # Init
 
 exec --no-startup-id redshift
+exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id feh --bg-scale ~/.wallpapers/$(ls -1 ~/.wallpapers | tail -n$(( 1 + $RANDOM % $(ls -1 ~/.wallpapers | wc -l) )) | head -n1)
