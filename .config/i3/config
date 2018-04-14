@@ -167,7 +167,7 @@ bar {
         status_command i3status
         position top
         tray_output none
-        separator_symbol " / "
+        separator_symbol " | "
 }
 
 bindsym $mod+shift+o exec xscreensaver-command --lock
@@ -189,4 +189,5 @@ bindsym XF86AudioMute exec $psst pactl set-sink-mute @DEFAULT_SINK@ toggle $upda
 exec --no-startup-id redshift
 exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
+exec --no-startup-id /usr/lib/gnome-settings-daemon-3.0/gsd-xsettings
 exec --no-startup-id feh --bg-scale ~/.wallpapers/$(ls -1 ~/.wallpapers | tail -n$(( 1 + $RANDOM % $(ls -1 ~/.wallpapers | wc -l) )) | head -n1)
