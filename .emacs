@@ -51,7 +51,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -216,7 +216,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
+    (json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
