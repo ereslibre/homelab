@@ -51,7 +51,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -178,14 +178,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 110 :family "Consolas"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "Consolas"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "Consolas"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 110 :family "Consolas"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 110 :family "Consolas"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "Consolas"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 110 :family "Consolas"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "Consolas")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 130 :family "Consolas"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 130 :family "Consolas"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 130 :family "Consolas"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Consolas"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas")))))
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
@@ -216,7 +216,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
+    (rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
