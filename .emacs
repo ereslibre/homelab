@@ -87,6 +87,9 @@
 ;; Random stuff
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; Rainbow delimiters
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
 ;; Save last opened files
 (setq desktop-save t)
 (setq desktop-restore-frames nil)
