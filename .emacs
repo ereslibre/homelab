@@ -175,23 +175,23 @@
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
 
 ;; Default font
-(set-default-font "Consolas-13:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-13:Regular"))
-(set-face-attribute 'default t :font "Consolas-13:Regular")
+(set-default-font "Consolas-11:Regular")
+(add-to-list 'default-frame-alist '(font . "Consolas-11:Regular"))
+(set-face-attribute 'default t :font "Consolas-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 130 :family "Consolas"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 130 :family "Consolas"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 130 :family "Consolas"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Consolas"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 110 :family "Consolas"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "Consolas"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "Consolas"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 110 :family "Consolas"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 110 :family "Consolas"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 110 :family "Consolas"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 110 :family "Consolas"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 110 :family "Consolas")))))
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
