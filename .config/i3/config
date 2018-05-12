@@ -168,6 +168,18 @@ bar {
         position top
         tray_output none
         separator_symbol " | "
+
+        colors {
+               background #000000
+               statusline #ffffff
+               separator  #ffffff
+
+               focused_workspace  #ffffff #ffffff #000000
+               active_workspace   #ffffff #ffffff #000000
+               inactive_workspace #000000 #000000 #ffffff
+               urgent_workspace   #900000 #900000 #ffffff
+               binding_mode       #2f343a #900000 #ffffff
+        }
 }
 
 bindsym $mod+shift+o exec xscreensaver-command --lock
