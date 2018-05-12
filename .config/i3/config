@@ -175,7 +175,7 @@ bar {
                separator  #ffffff
 
                focused_workspace  #ffffff #ffffff #000000
-               active_workspace   #ffffff #ffffff #000000
+               active_workspace   #666666 #666666 #ffffff
                inactive_workspace #000000 #000000 #ffffff
                urgent_workspace   #900000 #900000 #ffffff
                binding_mode       #2f343a #900000 #ffffff
