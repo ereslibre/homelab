@@ -210,3 +210,4 @@ exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id xsetroot -solid black
 exec --no-startup-id /usr/lib/gnome-settings-daemon-3.0/gsd-xsettings
+exec --no-startup-id dropbox start
