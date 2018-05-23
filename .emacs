@@ -87,7 +87,8 @@
 (setq diff-hl-side 'right)
 (setq diff-hl-draw-borders nil)
 
-;; Random stuff
+;; Misc
+(global-unset-key (kbd "C-z"))
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; Rainbow delimiters
