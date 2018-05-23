@@ -156,6 +156,7 @@
 (helm-mode 1)
 (helm-autoresize-mode t)
 (setq helm-split-window-in-side-p t)
+(setq helm-find-files-ignore-thing-at-point t) ; Ignore ffap
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-z")  'helm-select-action)
