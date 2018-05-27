@@ -51,7 +51,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters fill-column-indicator)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -70,14 +70,6 @@
 
 ;; Winner mode
 (winner-mode 1)
-
-;; Fill column indicator
-(require 'fill-column-indicator)
-(setq fci-rule-width 1)
-(setq fci-rule-column 100)
-(add-hook 'prog-mode-hook 'fci-mode)
-(add-hook 'text-mode-hook 'turn-on-fci-mode)
-(add-hook 'org-mode-hook 'turn-off-fci-mode 'append)
 
 ;; Undo tree
 (require 'undo-tree)
@@ -231,7 +223,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (fill-column-indicator rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
+    (rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
