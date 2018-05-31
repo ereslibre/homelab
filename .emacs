@@ -27,6 +27,10 @@
 (set-default
  'imenu-auto-rescan t)
 
+;; Line numbers
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+
 ;; Org mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
