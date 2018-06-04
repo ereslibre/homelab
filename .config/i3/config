@@ -188,8 +188,8 @@ bar {
 
 bindsym $mod+shift+o exec --no-startup-id xscreensaver-command --lock
 
-bindsym --release $mod+e exec emacs
-bindsym --release $mod+c exec chromium
+bindsym --release $mod+e exec --no-startup-id emacs
+bindsym --release $mod+c exec --no-startup-id chromium
 bindsym --release $mod+z exec --no-startup-id rr_keyboard_layout
 
 # Multimedia keys
