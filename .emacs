@@ -27,6 +27,9 @@
 (set-default
  'imenu-auto-rescan t)
 
+;; hide-show mode
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
