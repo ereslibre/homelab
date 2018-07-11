@@ -178,7 +178,7 @@
   (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
 
 ;; Projectile
-(projectile-global-mode)
+(projectile-mode)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
