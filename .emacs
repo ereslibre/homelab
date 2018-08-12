@@ -178,10 +178,11 @@
   (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
 
 ;; Projectile
-(projectile-mode)
+(projectile-mode +1)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Default font
 (set-default-font "Consolas-11:Regular")
