@@ -30,6 +30,10 @@
 ;; hide-show mode
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
+;; doc-view
+(require 'doc-view)
+(setq doc-view-resolution 300)
+
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
