@@ -189,9 +189,9 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Default font
-(set-default-font "Consolas-11:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-11:Regular"))
-(set-face-attribute 'default t :font "Consolas-11:Regular")
+(set-default-font "Inconsolata-12:Regular")
+(add-to-list 'default-frame-alist '(font . "Inconsolata-12:Regular"))
+(set-face-attribute 'default t :font "Inconsolata-12:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -209,6 +209,10 @@
 
 ;; org-habit
 (add-to-list 'org-modules 'org-habit)
+
+;; Go envvars
+(setenv "GOPATH" "/home/ereslibre/.go")
+(add-to-list 'exec-path "/home/ereslibre/.go/bin")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -235,7 +239,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (eglot rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile eglot)))
+    (vue-mode eglot rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile eglot)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
