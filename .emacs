@@ -189,9 +189,9 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Default font
-(set-default-font "Inconsolata-12:Regular")
-(add-to-list 'default-frame-alist '(font . "Inconsolata-12:Regular"))
-(set-face-attribute 'default t :font "Inconsolata-12:Regular")
+(set-default-font "Consolas-12:Regular")
+(add-to-list 'default-frame-alist '(font . "Consolas-12:Regular"))
+(set-face-attribute 'default t :font "Consolas-12:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
