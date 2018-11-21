@@ -17,6 +17,12 @@
 
 (require 'cl)
 
+;; Fill column indicator
+(require 'fill-column-indicator)
+(setq fci-rule-column 80)
+(add-hook 'text-mode-hook 'turn-on-fci-mode)
+(add-hook 'prog-mode-hook 'turn-on-fci-mode)
+
 ;; General shortcuts
 (global-set-key "\M-i" 'imenu)
 (global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
@@ -62,7 +68,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters eglot)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters eglot vue-mode fill-column-indicator)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -211,8 +217,8 @@
 (add-to-list 'org-modules 'org-habit)
 
 ;; Go envvars
-(setenv "GOPATH" "/home/ereslibre/.go")
-(add-to-list 'exec-path "/home/ereslibre/.go/bin")
+(setenv "GOPATH" "/home/ereslibre/projects/go")
+(add-to-list 'exec-path "/home/ereslibre/projects/go/bin")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -239,7 +245,7 @@
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (vue-mode eglot rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile eglot)))
+    (fill-column-indicator vue-mode eglot rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile eglot)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
