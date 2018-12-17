@@ -8,7 +8,7 @@ set -x GIT_EDITOR "emacs -nw -q"
 set -x GOPATH $HOME/projects/go
 set -x CARGOPATH $HOME/.cargo
 
-set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $CARGOPATH/bin $PATH
+set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $CARGOPATH/bin /usr/local/kubebuilder/bin $PATH
 
 alias iosc="osc -A https://api.suse.de"
 alias mutt="/usr/bin/mutt -F ~/.muttrc-gmail"
