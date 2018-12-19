@@ -55,11 +55,11 @@
 (setq org-log-repeat 'note)
 (setq org-agenda-start-day "-1d")
 (setq org-agenda-start-on-weekday nil)
-(setq org-agenda-files '("~/Dropbox/org"))
+(setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
 (setq org-capture-templates
       '(
         ("j" "Journal Entry"
-         entry (file+datetree "~/Dropbox/org/journal.org")
+         entry (file+datetree "/run/media/ereslibre/ereslibre/org/journal.org")
          "* %?"
          :empty-lines 0)
         ))
@@ -195,9 +195,9 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Default font
-(set-default-font "Consolas-12:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-12:Regular"))
-(set-face-attribute 'default t :font "Consolas-12:Regular")
+(set-default-font "Consolas-11:Regular")
+(add-to-list 'default-frame-alist '(font . "Consolas-11:Regular"))
+(set-face-attribute 'default t :font "Consolas-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
