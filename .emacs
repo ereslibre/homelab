@@ -68,7 +68,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters eglot vue-mode fill-column-indicator)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters eglot vue-mode fill-column-indicator neotree)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -194,10 +194,26 @@
 (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+;; Neotree
+(require 'neotree)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(defun neotree-project-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (neotree-show)
+    (if project-dir
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find git project root."))))
+
 ;; Default font
-(set-default-font "Consolas-11:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-11:Regular"))
-(set-face-attribute 'default t :font "Consolas-11:Regular")
+(set-default-font "DejaVu Sans Mono-11:Regular")
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11:Regular"))
+(set-face-attribute 'default t :font "DejaVu Sans Mono-11:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -219,56 +235,11 @@
 ;; Go envvars
 (setenv "GOPATH" "/home/ereslibre/projects/go")
 (add-to-list 'exec-path "/home/ereslibre/projects/go/bin")
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(compilation-message-face (quote default))
- '(delete-selection-mode nil)
- '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
- '(highlight-tail-colors
-   (quote
-    (("#3C3D37" . 0)
-     ("#679A01" . 20)
-     ("#4BBEAE" . 30)
-     ("#1DB4D0" . 50)
-     ("#9A8F21" . 60)
-     ("#A75B00" . 70)
-     ("#F309DF" . 85)
-     ("#3C3D37" . 100))))
- '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (fill-column-indicator vue-mode eglot rainbow-delimiters yafolding json-mode darkokai-theme rust-mode haskell-mode markdown-mode go-mode hide-comnt ack browse-kill-ring undo-tree diff-hl google-translate gist magit yaml-mode helm-projectile helm projectile eglot)))
- '(pos-tip-background-color "#FFFACE")
- '(pos-tip-foreground-color "#272822")
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#F92672")
-     (40 . "#CF4F1F")
-     (60 . "#C26C0F")
-     (80 . "#E6DB74")
-     (100 . "#AB8C00")
-     (120 . "#A18F00")
-     (140 . "#989200")
-     (160 . "#8E9500")
-     (180 . "#A6E22E")
-     (200 . "#729A1E")
-     (220 . "#609C3C")
-     (240 . "#4E9D5B")
-     (260 . "#3C9F79")
-     (280 . "#A1EFE4")
-     (300 . "#299BA6")
-     (320 . "#2896B5")
-     (340 . "#2790C3")
-     (360 . "#66D9EF"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
+    (yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode hide-comnt helm-projectile haskell-mode google-translate go-mode gist fill-column-indicator eglot diff-hl darkokai-theme browse-kill-ring ack))))
