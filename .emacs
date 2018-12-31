@@ -211,9 +211,9 @@
       (message "Could not find git project root."))))
 
 ;; Default font
-(set-default-font "DejaVu Sans Mono-11:Regular")
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-11:Regular"))
-(set-face-attribute 'default t :font "DejaVu Sans Mono-11:Regular")
+(set-default-font "Consolas-12:Regular")
+(add-to-list 'default-frame-alist '(font . "Consolas-12:Regular"))
+(set-face-attribute 'default t :font "Consolas-12:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
