@@ -196,7 +196,6 @@
 
 ;; Neotree
 (require 'neotree)
-(setq projectile-switch-project-action 'neotree-projectile-action)
 (setq neo-autorefresh t)
 (defun neotree-project-dir ()
   "Open NeoTree using the git root."
