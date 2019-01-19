@@ -1,7 +1,7 @@
 # -*- conf -*-
 [global]
 	# Font
-	font = Mononoki 10
+	font = Consolas 12
 
 	# allows a small subset of HTML markup like
 	# <b>bold</b>
@@ -43,13 +43,13 @@
 
 	# Geometry
 	# [{width}x{height}][+/-{x}][+/-{y}]
-	geometry = "300x5-24+48"
+	geometry = "400x10-24-24"
 
 	# Transparency sent to compositor; range 0-100
 	transparency = 10
 
 	# Don't remove messages if the user is idle
-	# for more than idle_threshold seconds, or 0 to disable. 
+	# for more than idle_threshold seconds, or 0 to disable.
 	idle_threshold = 120
 
 	# variable if a notification popped up
