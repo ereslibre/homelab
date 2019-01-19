@@ -203,11 +203,11 @@ bindsym XF86AudioMute exec $psst pactl set-sink-mute @DEFAULT_SINK@ toggle $upda
 
 # Init
 
-exec --no-startup-id /usr/bin/pulseaudio --start
 exec --no-startup-id redshift
 exec --no-startup-id dunst
 exec --no-startup-id dex -a -e gnome
 exec --no-startup-id xscreensaver -no-splash
+exec_always --no-startup-id start-pulseaudio-x11
 exec_always --no-startup-id xrdb ~/.Xresources.lowdpi
 exec_always --no-startup-id xsetroot -solid black
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
