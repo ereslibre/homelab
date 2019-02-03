@@ -33,8 +33,15 @@
 (set-default
  'imenu-auto-rescan t)
 
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;; hide-show mode
 (add-hook 'prog-mode-hook 'hs-minor-mode)
+
+;; lsp mode
+(require 'lsp-mode)
+(add-hook 'prog-mode-hook 'lsp)
 
 ;; doc-view
 (require 'doc-view)
@@ -68,7 +75,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters eglot vue-mode fill-column-indicator neotree)
+  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode fill-column-indicator neotree)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -242,4 +249,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode hide-comnt helm-projectile haskell-mode google-translate go-mode gist fill-column-indicator eglot diff-hl darkokai-theme browse-kill-ring ack))))
+    (flymake lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode hide-comnt helm-projectile haskell-mode google-translate go-mode gist fill-column-indicator diff-hl darkokai-theme browse-kill-ring ack))))
