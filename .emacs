@@ -91,6 +91,7 @@
 ;; lsp mode
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook 'lsp)
+(setq lsp-prefer-flymake :none)
 
 ;; Winner mode
 (winner-mode 1)
@@ -172,6 +173,9 @@
 (setq-default show-paren-delay 0)
 (setq-default show-paren-style 'parenthesis)
 
+;; Line highlight
+(global-hl-line-mode +1)
+
 ;; Magit
 (require 'magit)
 
@@ -216,6 +220,7 @@
               (neotree-dir project-dir)
               (neotree-find file-name)))
       (message "Could not find git project root."))))
+(global-set-key (kbd "C-c n") 'neotree-toggle)
 
 ;; Default font
 (set-default-font "Consolas-13:Regular")
