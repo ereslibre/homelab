@@ -188,7 +188,7 @@ bar {
 
 bindsym $mod+shift+o exec xscreensaver-command --lock
 
-bindsym --release $mod+e exec --no-startup-id emacsclient --create-frame
+bindsym --release $mod+e exec --no-startup-id emacsclient -nc
 bindsym --release $mod+c exec --no-startup-id chromium
 bindsym --release $mod+z exec --no-startup-id ~/.bin/rr_keyboard_layout
 
