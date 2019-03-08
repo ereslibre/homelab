@@ -9,19 +9,11 @@
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 
 (require 'cl)
-
-;; Fill column indicator
-(require 'fill-column-indicator)
-(setq fci-rule-column 80)
-(add-hook 'text-mode-hook 'turn-on-fci-mode)
-(add-hook 'prog-mode-hook 'turn-on-fci-mode)
 
 ;; General shortcuts
 (global-set-key "\M-i" 'imenu)
@@ -32,16 +24,6 @@
  'imenu-after-jump-hook (recenter (/ (window-height) 2)))
 (set-default
  'imenu-auto-rescan t)
-
-;; company
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; hide-show mode
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-
-;; lsp mode
-(require 'lsp-mode)
-(add-hook 'prog-mode-hook 'lsp)
 
 ;; doc-view
 (require 'doc-view)
@@ -75,7 +57,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack hide-comnt go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode fill-column-indicator neotree)
+  '(darkokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -89,8 +71,26 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-;; Hide comments
-(require 'hide-comnt)
+;; company mode
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(progn
+     (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+     ))
+
+;; go
+(defun go-mode-custom ()
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save))
+(add-hook 'go-mode-hook 'go-mode-custom)
+
+;; hide-show mode
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
+;; lsp mode
+(require 'lsp-mode)
+(add-hook 'prog-mode-hook 'lsp)
 
 ;; Winner mode
 (winner-mode 1)
@@ -218,9 +218,9 @@
       (message "Could not find git project root."))))
 
 ;; Default font
-(set-default-font "Consolas-12:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-12:Regular"))
-(set-face-attribute 'default t :font "Consolas-12:Regular")
+(set-default-font "Consolas-13:Regular")
+(add-to-list 'default-frame-alist '(font . "Consolas-13:Regular"))
+(set-face-attribute 'default t :font "Consolas-13:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -242,6 +242,7 @@
 ;; Go envvars
 (setenv "GOPATH" "/home/ereslibre/projects/go")
 (add-to-list 'exec-path "/home/ereslibre/projects/go/bin")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -249,4 +250,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flymake lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode hide-comnt helm-projectile haskell-mode google-translate go-mode gist fill-column-indicator diff-hl darkokai-theme browse-kill-ring ack))))
+    (helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode gist diff-hl darkokai-theme browse-kill-ring ack))))
