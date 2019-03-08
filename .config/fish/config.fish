@@ -3,8 +3,8 @@ set fish_greeting
 cat ~/.todo
 
 set -x TERMINAL tilix
-set -x EDITOR "emacs -nw -q"
-set -x GIT_EDITOR "emacs -nw -q"
+set -x EDITOR "emacsclient"
+set -x GIT_EDITOR "emacsclient"
 set -x GOPATH $HOME/projects/go
 set -x CARGOPATH $HOME/.cargo
 set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
