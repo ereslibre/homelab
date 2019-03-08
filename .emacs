@@ -57,7 +57,7 @@
 (setq calendar-week-start-day 1)
 
 (defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp)
+  '(darkokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
   "Ensure this packages are installed")
 
 (defun my-packages-installed-p ()
@@ -92,6 +92,7 @@
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook 'lsp)
 (setq lsp-prefer-flymake :none)
+(setq lsp-restart 'ignore)
 
 ;; Winner mode
 (winner-mode 1)
@@ -192,7 +193,6 @@
 (define-key global-map [remap occur] 'helm-occur)
 (define-key global-map [remap list-buffers] 'helm-buffers-list)
 (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-(global-set-key (kbd "C-c h g") 'helm-google-suggest)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (unless (boundp 'completion-in-region-function)
   (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
@@ -255,4 +255,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode gist diff-hl darkokai-theme browse-kill-ring ack))))
+    (github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode gist diff-hl darkokai-theme browse-kill-ring ack))))
