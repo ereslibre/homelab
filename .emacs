@@ -209,6 +209,8 @@
 (require 'neotree)
 (setq neo-autorefresh t)
 (setq neo-theme 'ascii)
+(setq neo-global--autorefresh-timer
+      (run-with-idle-timer 0 0 'neo-global--do-autorefresh))
 (defun neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
