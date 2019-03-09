@@ -208,6 +208,7 @@
 ;; Neotree
 (require 'neotree)
 (setq neo-autorefresh t)
+(setq neo-theme 'ascii)
 (defun neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
