@@ -121,9 +121,9 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Save last opened files
-(setq desktop-save t)
+(setq desktop-save nil)
 (setq desktop-restore-frames nil)
-(desktop-save-mode t)
+(desktop-save-mode nil)
 
 ;; No welcome screen
 (setq-default inhibit-startup-message t)
