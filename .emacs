@@ -86,10 +86,11 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;; lsp mode
+(require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
-  (add-hook 'prog-mode-hook 'lsp)
   (setq lsp-prefer-flymake :none)
   (setq lsp-restart 'ignore))
+(add-hook 'prog-mode-hook 'lsp)
 
 ;; Winner mode
 (winner-mode 1)
