@@ -192,15 +192,6 @@ bindsym --release $mod+e exec --no-startup-id emacsclient -c
 bindsym --release $mod+c exec --no-startup-id chromium
 bindsym --release $mod+z exec --no-startup-id ~/.bin/rr_keyboard_layout
 
-# Multimedia keys
-
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-
-bindsym XF86AudioLowerVolume exec $psst pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl set-sink-mute @DEFAULT_SINK@ 0 $update
-bindsym XF86AudioRaiseVolume exec $psst pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl set-sink-mute @DEFAULT_SINK@ 0 $update
-bindsym XF86AudioMute exec $psst pactl set-sink-mute @DEFAULT_SINK@ toggle $update
-
 # Init
 
 exec --no-startup-id dunst
