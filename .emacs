@@ -209,6 +209,28 @@
 (require 'neotree)
 (setq neo-autorefresh t)
 (setq neo-theme 'ascii)
+(defun neo-window--init (window buffer)
+  "Make WINDOW a NeoTree window.
+NeoTree buffer is BUFFER."
+  (neo-buffer--with-resizable-window
+   (switch-to-buffer buffer)
+   (set-window-parameter window 'no-delete-other-windows t)
+   (set-window-parameter window 'no-other-window t)
+   (set-window-dedicated-p window t))
+  window)
+(defun neo-global--attach ()
+  "Attach the global neotree buffer"
+  (when neo-global--autorefresh-timer
+    (cancel-timer neo-global--autorefresh-timer))
+  (when neo-autorefresh
+    (setq neo-global--autorefresh-timer
+          (run-with-idle-timer 0.1 10 'neo-global--do-autorefresh)))
+  (setq neo-global--buffer (get-buffer neo-buffer-name))
+  (setq neo-global--window (get-buffer-window
+                            neo-global--buffer))
+ (neo-global--with-buffer
+    (neo-buffer--lock-width))
+  (run-hook-with-args 'neo-after-create-hook '(window)))
 (defun neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
@@ -221,7 +243,7 @@
               (neotree-dir project-dir)
               (neotree-find file-name)))
       (message "Could not find git project root."))))
-(global-set-key (kbd "C-c n") 'neotree-toggle)
+(global-set-key (kbd "C-c n") 'neotree-find)
 
 ;; Default font
 (set-default-font "Consolas-13:Regular")
