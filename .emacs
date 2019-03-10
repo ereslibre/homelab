@@ -30,7 +30,7 @@
 
 ;; General shortcuts
 (global-set-key "\M-i" 'imenu)
-(global-set-key "\C-ct" '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
+(global-set-key "\C-c t" '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
 
 ;; imenu
 (set-default
@@ -123,7 +123,7 @@
 ;; Save last opened files
 (setq desktop-save nil)
 (setq desktop-restore-frames nil)
-(desktop-save-mode nil)
+(desktop-save-mode 0)
 
 ;; No welcome screen
 (setq-default inhibit-startup-message t)
