@@ -89,7 +89,7 @@
 (require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
   (setq lsp-prefer-flymake :none)
-  (setq lsp-restart 'ignore))
+  (setq lsp-restart 'auto-restart))
 (add-hook 'prog-mode-hook 'lsp)
 
 ;; Winner mode
