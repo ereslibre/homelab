@@ -5,15 +5,28 @@
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
 
-(require 'package)
+(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp")
+
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp")
+(defvar my-packages
+  '(darkokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
+  "Ensure this packages are installed")
 
 (require 'cl)
+(defun my-packages-installed-p ()
+  (loop for p in my-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (my-packages-installed-p)
+  (package-refresh-contents)
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;; General shortcuts
 (global-set-key "\M-i" 'imenu)
@@ -26,8 +39,8 @@
  'imenu-auto-rescan t)
 
 ;; doc-view
-(require 'doc-view)
-(setq doc-view-resolution 300)
+(with-eval-after-load 'doc-view
+  (setq doc-view-resolution 300))
 
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -35,49 +48,33 @@
 
 ;; Org mode
 (require 'org)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-cc" 'org-capture)
-(setq org-log-done t)
-(setq org-log-repeat 'note)
-(setq org-agenda-start-day "-1d")
-(setq org-agenda-start-on-weekday nil)
-(setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
-(setq org-capture-templates
-      '(
-        ("j" "Journal Entry"
-         entry (file+datetree "/run/media/ereslibre/ereslibre/org/journal.org")
-         "* %?"
-         :empty-lines 0)
-        ))
+(with-eval-after-load 'org
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  (global-set-key "\C-c l" 'org-store-link)
+  (global-set-key "\C-c a" 'org-agenda)
+  (global-set-key "\C-c c" 'org-capture)
+  (setq org-log-done t)
+  (setq org-log-repeat 'note)
+  (setq org-agenda-start-day "-1d")
+  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
+  (setq org-capture-templates
+        '(
+          ("j" "Journal Entry"
+           entry (file+datetree "/run/media/ereslibre/ereslibre/org/journal.org")
+           "* %?"
+           :empty-lines 0)
+          ))
+  (add-to-list 'org-modules 'org-habit))
 
 ;; Calendar
 (setq calendar-week-start-day 1)
 
-(defvar my-packages
-  '(darkokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
-  "Ensure this packages are installed")
-
-(defun my-packages-installed-p ()
-  (loop for p in my-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-(unless (my-packages-installed-p)
-  (package-refresh-contents)
-  (dolist (p my-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
 ;; company mode
 (add-hook 'after-init-hook 'global-company-mode)
-(eval-after-load 'company
-  '(progn
-     (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-     ))
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
 
 ;; go
 (defun go-mode-custom ()
@@ -89,33 +86,36 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;; lsp mode
-(require 'lsp-mode)
-(add-hook 'prog-mode-hook 'lsp)
-(setq lsp-prefer-flymake :none)
-(setq lsp-restart 'ignore)
+(with-eval-after-load 'lsp-mode
+  (add-hook 'prog-mode-hook 'lsp)
+  (setq lsp-prefer-flymake :none)
+  (setq lsp-restart 'ignore))
 
 ;; Winner mode
 (winner-mode 1)
 
 ;; Undo tree
 (require 'undo-tree)
-(global-undo-tree-mode 1)
+(with-eval-after-load 'undo-tree
+  (global-undo-tree-mode 1))
 
 ;; Browse kill ring
 (require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
-
-;; Default browser
-(setq browse-url-browser-function 'browse-url-chromium)
+(with-eval-after-load 'browse-kill-ring
+  (browse-kill-ring-default-keybindings))
 
 ;; diff hl
-(global-diff-hl-mode)
-(setq diff-hl-side 'right)
-(setq diff-hl-draw-borders nil)
+(require 'diff-hl)
+(with-eval-after-load 'diff-hl
+  (global-diff-hl-mode)
+  (setq diff-hl-side 'right)
+  (setq diff-hl-draw-borders nil))
 
 ;; Misc
 (global-unset-key (kbd "C-z"))
-(setq magit-last-seen-setup-instructions "1.4.0")
+
+;; Default browser
+(setq browse-url-browser-function 'browse-url-chromium)
 
 ;; Rainbow delimiters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -177,74 +177,71 @@
 ;; Line highlight
 (global-hl-line-mode +1)
 
-;; Magit
-(require 'magit)
-
 ;; Helm
-(require 'helm-config)
-(helm-mode 1)
-(helm-autoresize-mode t)
-(setq helm-split-window-inside-p t)
-(setq helm-find-files-ignore-thing-at-point t) ; Ignore ffap
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-z")  'helm-select-action)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(define-key global-map [remap occur] 'helm-occur)
-(define-key global-map [remap list-buffers] 'helm-buffers-list)
-(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(unless (boundp 'completion-in-region-function)
-  (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
-  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+(require 'helm)
+(with-eval-after-load 'helm
+  (helm-mode 1)
+  (helm-autoresize-mode t)
+  (setq helm-split-window-inside-p t)
+  (setq helm-find-files-ignore-thing-at-point t) ; Ignore ffap
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-z")  'helm-select-action)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (define-key global-map [remap occur] 'helm-occur)
+  (define-key global-map [remap list-buffers] 'helm-buffers-list)
+  (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (unless (boundp 'completion-in-region-function)
+    (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+    (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
 
 ;; Projectile
-(projectile-mode +1)
-(setq projectile-completion-system 'helm)
-(setq projectile-enable-caching t)
-(setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(require 'projectile)
+(with-eval-after-load 'projectile
+  (projectile-mode +1)
+  (setq projectile-completion-system 'helm)
+  (setq projectile-enable-caching t)
+  (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;; Neotree
 (require 'neotree)
-(setq neo-autorefresh t)
-(setq neo-theme 'ascii)
-(defun neo-window--init (window buffer)
-  "Make WINDOW a NeoTree window.
-NeoTree buffer is BUFFER."
-  (neo-buffer--with-resizable-window
-   (switch-to-buffer buffer)
-   (set-window-parameter window 'no-delete-other-windows t)
-   (set-window-parameter window 'no-other-window t)
-   (set-window-dedicated-p window t))
-  window)
-(defun neo-global--attach ()
-  "Attach the global neotree buffer"
-  (when neo-global--autorefresh-timer
-    (cancel-timer neo-global--autorefresh-timer))
-  (when neo-autorefresh
-    (setq neo-global--autorefresh-timer
-          (run-with-idle-timer 0.1 10 'neo-global--do-autorefresh)))
-  (setq neo-global--buffer (get-buffer neo-buffer-name))
-  (setq neo-global--window (get-buffer-window
-                            neo-global--buffer))
- (neo-global--with-buffer
-    (neo-buffer--lock-width))
-  (run-hook-with-args 'neo-after-create-hook '(window)))
-(defun neotree-project-dir ()
-  "Open NeoTree using the git root."
-  (interactive)
-  (let ((project-dir (projectile-project-root))
-        (file-name (buffer-file-name)))
-    (neotree-show)
-    (if project-dir
-        (if (neo-global--window-exists-p)
-            (progn
-              (neotree-dir project-dir)
-              (neotree-find file-name)))
-      (message "Could not find git project root."))))
-(global-set-key (kbd "C-c n") 'neotree-toggle)
-(global-set-key (kbd "C-c t") 'neotree-find)
+(with-eval-after-load 'neotree
+  (setq neo-autorefresh t)
+  (setq neo-theme 'ascii)
+  (defun neo-window--init (window buffer)
+    (neo-buffer--with-resizable-window
+     (switch-to-buffer buffer)
+     (set-window-parameter window 'no-delete-other-windows t)
+     (set-window-parameter window 'no-other-window t)
+     (set-window-dedicated-p window t))
+    window)
+  (defun neo-global--attach ()
+    (when neo-global--autorefresh-timer
+      (cancel-timer neo-global--autorefresh-timer))
+    (when neo-autorefresh
+      (setq neo-global--autorefresh-timer
+            (run-with-idle-timer 0.1 10 'neo-global--do-autorefresh)))
+    (setq neo-global--buffer (get-buffer neo-buffer-name))
+    (setq neo-global--window (get-buffer-window
+                              neo-global--buffer))
+    (neo-global--with-buffer
+     (neo-buffer--lock-width))
+    (run-hook-with-args 'neo-after-create-hook '(window)))
+  (defun neotree-project-dir ()
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-show)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root."))))
+  (global-set-key (kbd "C-c n") 'neotree-toggle)
+  (global-set-key (kbd "C-c t") 'neotree-find))
 
 ;; Default font
 (set-default-font "Consolas-13:Regular")
@@ -264,9 +261,6 @@ NeoTree buffer is BUFFER."
  '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
  '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Consolas"))))
  '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas")))))
-
-;; org-habit
-(add-to-list 'org-modules 'org-habit)
 
 ;; Go envvars
 (setenv "GOPATH" "/home/ereslibre/projects/go")
