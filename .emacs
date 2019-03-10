@@ -243,7 +243,8 @@ NeoTree buffer is BUFFER."
               (neotree-dir project-dir)
               (neotree-find file-name)))
       (message "Could not find git project root."))))
-(global-set-key (kbd "C-c n") 'neotree-find)
+(global-set-key (kbd "C-c n") 'neotree-toggle)
+(global-set-key (kbd "C-c t") 'neotree-find)
 
 ;; Default font
 (set-default-font "Consolas-13:Regular")
