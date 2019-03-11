@@ -186,7 +186,7 @@ bar {
         }
 }
 
-bindsym $mod+shift+o exec xscreensaver-command --lock
+bindsym $mod+shift+o exec xautolock -locknow
 
 bindsym --release $mod+e exec --no-startup-id emacsclient -c
 bindsym --release $mod+c exec --no-startup-id chromium
@@ -194,8 +194,8 @@ bindsym --release $mod+z exec --no-startup-id ~/.bin/rr_keyboard_layout
 
 # Init
 
-exec --no-startup-id dunst
-exec --no-startup-id xscreensaver -no-splash
+exec_always --no-startup-id dunst
+exec_always --no-startup-id xautolock -time 10 -locker "i3lock"
 exec_always --no-startup-id start-pulseaudio-x11
 exec_always --no-startup-id xrdb ~/.Xresources.lowdpi
 exec_always --no-startup-id xsetroot -solid black
