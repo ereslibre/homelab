@@ -14,8 +14,6 @@ set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $CARGOPATH/bin /usr/local/kubebu
 alias emacs="emacsclient -t"
 alias iosc="osc -A https://api.suse.de"
 
-eval (dircolors ~/.dir_colors/dircolors | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
-
 if type -q keychain; and not set -q WINDOW_MANAGER
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
     source $HOME/.keychain/(hostname)-fish

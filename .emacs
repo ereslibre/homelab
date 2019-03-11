@@ -13,7 +13,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(darkokai-theme dracula-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
+  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit gist google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
   "Ensure this packages are installed")
 
 (require 'cl)
@@ -149,7 +149,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'dracula t)
+(load-theme 'monokai t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -277,4 +277,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dracula-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode gist diff-hl darkokai-theme browse-kill-ring ack))))
+    (monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode gist diff-hl browse-kill-ring ack))))
