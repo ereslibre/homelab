@@ -29,8 +29,8 @@
       (package-install p))))
 
 ;; General shortcuts
-(global-set-key "\M-i" 'imenu)
-(global-set-key "\C-c t" '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
+(global-set-key (kbd "M-i") 'imenu)
+(global-set-key (kbd "C-c t") '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
 
 ;; imenu
 (set-default
@@ -50,9 +50,9 @@
 (require 'org)
 (with-eval-after-load 'org
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  (global-set-key "\C-c l" 'org-store-link)
-  (global-set-key "\C-c a" 'org-agenda)
-  (global-set-key "\C-c c" 'org-capture)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
   (setq org-log-done t)
   (setq org-log-repeat 'note)
   (setq org-agenda-start-day "-1d")
