@@ -30,7 +30,10 @@
 
 ;; General shortcuts
 (global-set-key (kbd "M-i") 'imenu)
-(global-set-key (kbd "C-c t") '(lambda() (interactive) (ansi-term "/usr/bin/fish")))
+(global-set-key (kbd "C-c T") '(lambda() (interactive) (term "/sbin/tmux")))
+
+;; Terminal tweaks
+(add-hook 'term-mode-hook '(lambda () (setq-local global-hl-line-mode nil)))
 
 ;; imenu
 (set-default
