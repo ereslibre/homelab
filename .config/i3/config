@@ -195,7 +195,7 @@ bindsym --release $mod+z exec --no-startup-id ~/.bin/rr_keyboard_layout
 # Init
 
 exec_always --no-startup-id dunst
-exec_always --no-startup-id xautolock -time 10 -locker "i3lock"
+exec_always --no-startup-id xautolock -time 10 -locker "i3lock -c 333333"
 exec_always --no-startup-id start-pulseaudio-x11
 exec_always --no-startup-id xrdb ~/.Xresources.lowdpi
 exec_always --no-startup-id xsetroot -solid black
