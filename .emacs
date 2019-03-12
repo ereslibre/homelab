@@ -59,7 +59,7 @@
   (setq org-log-done t)
   (setq org-log-repeat 'note)
   (setq org-agenda-start-day "-1d")
-  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-start-on-weekday 1)
   (setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
   (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
   (setq org-capture-templates
