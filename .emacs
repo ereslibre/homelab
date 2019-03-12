@@ -63,6 +63,18 @@
   (setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
   (setq org-capture-templates
         '(
+          ("t" "Thought"
+           entry (file "/run/media/ereslibre/ereslibre/org/thoughts.org")
+           "* %?"
+           :empty-lines 0)
+          ("k" "Task"
+           entry (file "/run/media/ereslibre/ereslibre/org/tasks.org")
+           "* %?"
+           :empty-lines 0)
+          ("n" "Note"
+           entry (file "/run/media/ereslibre/ereslibre/org/notes.org")
+           "* %?"
+           :empty-lines 0)
           ("j" "Journal Entry"
            entry (file+datetree "/run/media/ereslibre/ereslibre/org/journal.org")
            "* %?"
