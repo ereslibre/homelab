@@ -45,6 +45,9 @@
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
 
+;; Word wrap
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
