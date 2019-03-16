@@ -59,6 +59,7 @@
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c C-o") 'org-open-at-point)
   (setq org-log-done t)
   (setq org-log-repeat 'note)
   (setq org-agenda-start-day "-1d")
