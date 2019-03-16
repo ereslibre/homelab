@@ -14,7 +14,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep)
+  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline)
   "Ensure this packages are installed")
 
 (require 'cl)
@@ -125,6 +125,12 @@
 (require 'browse-kill-ring)
 (with-eval-after-load 'browse-kill-ring
   (browse-kill-ring-default-keybindings))
+
+;; powerline
+(require 'powerline)
+(with-eval-after-load 'powerline
+  (setq powerline-default-separator 'wave)
+  (powerline-default-theme))
 
 ;; diff hl
 (require 'diff-hl)
@@ -295,4 +301,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
+    (powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
