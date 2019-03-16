@@ -5,6 +5,7 @@
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
 
+(add-to-list 'exec-path "/usr/bin/vendor_perl")
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 
@@ -13,7 +14,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review)
+  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep)
   "Ensure this packages are installed")
 
 (require 'cl)
