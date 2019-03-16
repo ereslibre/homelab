@@ -295,4 +295,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack))))
+    (monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
