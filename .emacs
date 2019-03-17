@@ -57,7 +57,7 @@
 (require 'org)
 (with-eval-after-load 'org
   (setq org-agenda-files '("~/projects/org/inbox.org"
-                           "~/projects/org/gtd.org"
+                           "~/projects/org/projects.org"
                            "~/projects/org/tickler.org"
                            "~/projects/org/habits.org"))
   (global-set-key (kbd "C-c l") 'org-store-link)
@@ -70,7 +70,7 @@
   (setq org-agenda-start-on-weekday 1)
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '(("~/projects/org/gtd.org" :maxlevel . 3)
+  (setq org-refile-targets '(("~/projects/org/projects.org" :maxlevel . 3)
                              ("~/projects/org/someday.org" :level . 1)
                              ("~/projects/org/tickler.org" :maxlevel . 2)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -78,7 +78,7 @@
         '(
           ("t" "TODO"
            entry (file "~/projects/org/inbox.org")
-           "* TODO %?\n  %T"
+           "* TODO %i%?\n  %T"
            :empty-lines 0)
           ("T" "Tickler"
            entry (file "~/projects/org/tickler.org")
