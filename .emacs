@@ -56,7 +56,10 @@
 ;; Org mode
 (require 'org)
 (with-eval-after-load 'org
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  (setq org-agenda-files '("~/projects/org/inbox.org"
+                           "~/projects/org/gtd.org"
+                           "~/projects/org/tickler.org"
+                           "~/projects/org/habits.org"))
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -65,24 +68,28 @@
   (setq org-log-repeat 'note)
   (setq org-agenda-start-day "-1d")
   (setq org-agenda-start-on-weekday 1)
-  (setq org-agenda-files '("/run/media/ereslibre/ereslibre/org"))
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-targets '(("~/projects/org/gtd.org" :maxlevel . 3)
+                             ("~/projects/org/someday.org" :level . 1)
+                             ("~/projects/org/tickler.org" :maxlevel . 2)))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-capture-templates
         '(
-          ("t" "Thought"
-           entry (file "/run/media/ereslibre/ereslibre/org/thoughts.org")
-           "* %?"
+          ("t" "TODO"
+           entry (file "~/projects/org/inbox.org")
+           "* TODO %?\n  %T"
            :empty-lines 0)
-          ("k" "Task"
-           entry (file "/run/media/ereslibre/ereslibre/org/tasks.org")
-           "* %?"
+          ("T" "Tickler"
+           entry (file "~/projects/org/tickler.org")
+           "* %i%?\n  %U"
            :empty-lines 0)
           ("n" "Note"
-           entry (file "/run/media/ereslibre/ereslibre/org/notes.org")
+           entry (file "~/projects/org/notes.org")
            "* %?"
            :empty-lines 0)
           ("j" "Journal Entry"
-           entry (file+datetree "/run/media/ereslibre/ereslibre/org/journal.org")
+           entry (file+datetree "~/projects/org/journal.org")
            "* %?"
            :empty-lines 0)
           ))
