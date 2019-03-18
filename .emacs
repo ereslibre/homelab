@@ -78,7 +78,7 @@
         '(
           ("t" "TODO"
            entry (file "~/projects/org/inbox.org")
-           "* TODO %i%?\n  %T"
+           "* TODO %i%?\n  %U"
            :empty-lines 0)
           ("T" "Tickler"
            entry (file "~/projects/org/tickler.org")
