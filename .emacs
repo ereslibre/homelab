@@ -59,6 +59,9 @@
   (setq org-agenda-files '("~/projects/org/inbox.org"
                            "~/projects/org/projects.org"
                            "~/projects/org/tickler.org"
+                           "~/projects/org/notes.org"
+                           "~/projects/org/someday.org"
+                           "~/projects/org/journal.org"
                            "~/projects/org/habits.org"))
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
@@ -193,8 +196,6 @@
 ;; Writing helpers
 (electric-pair-mode 1)
 (electric-indent-mode 1)
-
-(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 
 (global-set-key (kbd "C-c H") 'hs-hide-block)
 (global-set-key (kbd "C-c S") 'hs-show-block)
