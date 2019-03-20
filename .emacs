@@ -104,7 +104,11 @@
             ))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "-trabajo")
+            (tags-todo "personal")
+            ))
+          ("h" "Hacking"
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+            (tags-todo "hacking")
             ))))
   (add-to-list 'org-modules 'org-habit))
 
