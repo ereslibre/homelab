@@ -100,16 +100,23 @@
   (setq org-agenda-custom-commands
         '(("o" "Office"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "trabajo")
-            ))
+            (tags-todo "trabajo")))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "personal")
-            ))
+            (tags-todo "personal")))
           ("h" "Hacking"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+            (tags-todo "hacking")))
+          ("w" "Weekly review"
+           ((agenda "" ((org-agenda-start-day nil)
+                        (org-agenda-span 'week)
+                        (org-agenda-files '("~/projects/org/projects.org"
+                                            "~/projects/org/someday.org"))))
+            (tags-todo "trabajo")
+            (tags-todo "personal")
             (tags-todo "hacking")
-            ))))
+            (search "someday")
+            (org-agenda-list-stuck-projects)))))
   (add-to-list 'org-modules 'org-habit))
 
 ;; Calendar
