@@ -115,7 +115,7 @@
             (tags-todo "trabajo")
             (tags-todo "personal")
             (tags-todo "hacking")
-            (search "someday")
+            (tags "someday")
             (org-agenda-list-stuck-projects)))))
   (add-to-list 'org-modules 'org-habit))
 
