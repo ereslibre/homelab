@@ -97,6 +97,15 @@
            "* %?"
            :empty-lines 0)
           ))
+  (setq org-agenda-custom-commands
+        '(("o" "Office"
+           ((agenda "" ((org-agenda-span 1)))
+            (tags-todo "trabajo")
+            ))
+          ("p" "Personal"
+           ((agenda "" ((org-agenda-span 1)))
+            (tags-todo "-trabajo")
+            ))))
   (add-to-list 'org-modules 'org-habit))
 
 ;; Calendar
