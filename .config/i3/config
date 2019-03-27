@@ -192,6 +192,12 @@ bindsym --release $mod+e exec --no-startup-id emacsclient -c
 bindsym --release $mod+c exec --no-startup-id chromium
 bindsym --release $mod+z exec --no-startup-id ~/.bin/rr_keyboard_layout
 
+bindsym XF86MonBrightnessUp exec --no-startup-id dbus-send --session --type="method_call" --dest="org.gnome.SettingsDaemon.Power" /org/gnome/SettingsDaemon/Power org.gnome.SettingsDaemon.Power.Screen.StepUp
+bindsym XF86MonBrightnessDown exec --no-startup-id dbus-send --session --type="method_call" --dest="org.gnome.SettingsDaemon.Power" /org/gnome/SettingsDaemon/Power org.gnome.SettingsDaemon.Power.Screen.StepDown
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
 # Init
 
 exec_always --no-startup-id xautolock -time 10 -locker "i3lock -c 333333"
