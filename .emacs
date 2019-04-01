@@ -100,22 +100,20 @@
   (setq org-agenda-custom-commands
         '(("o" "Office"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "trabajo")))
+            (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "personal")))
+            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("h" "Hacking"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "hacking")))
+            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("w" "Weekly review"
            ((agenda "" ((org-agenda-start-day nil)
-                        (org-agenda-span 'week)
-                        (org-agenda-files '("~/projects/org/projects.org"
-                                            "~/projects/org/someday.org"))))
-            (tags-todo "trabajo")
-            (tags-todo "personal")
-            (tags-todo "hacking")
-            (tags "someday")
+                        (org-agenda-span 'week)))
+            (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags "someday" ((org-agenda-files '("~/projects/org/someday.org"))))
             (org-agenda-list-stuck-projects)))))
   (add-to-list 'org-modules 'org-habit))
 
