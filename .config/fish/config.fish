@@ -12,7 +12,7 @@ set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
 set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $CARGOPATH/bin /usr/local/kubebuilder/bin $PATH
 
 alias emacs="emacsclient -t"
-alias iosc="osc -A https://api.suse.de"
+alias bs="docker run --rm -v ~/.config/osc/oscrc:/root/.config/osc/oscrc -v ~/projects/suse/ibs:/root/ibs -v ~/projects/suse/obs:/root/obs -it ereslibre/buildservice"
 
 if type -q keychain; and not set -q WINDOW_MANAGER
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
