@@ -8,8 +8,6 @@ set -x GIT_EDITOR "emacsclient -t"
 set -x GOPATH $HOME/projects/go
 set -x CARGOPATH $HOME/.cargo
 set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
-# Set default bazel directory
-set -x TEST_TMPDIR "$HOME/.cache/bazel-local"
 
 set PATH /sbin /usr/sbin $HOME/.bin $GOPATH/bin $CARGOPATH/bin /usr/local/kubebuilder/bin $PATH
 
