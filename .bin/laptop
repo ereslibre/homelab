@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-xrandr --output eDP-1 --auto --primary --output DP-1-1 --off
+swaymsg output eDP-1 pos 0 0 res 1920x1080 enable
+for output in $(swaymsg -t get_outputs -r | jq -c '.[] | .name' | grep -v 'eDP-1'); do
+    swaymsg output $output disable
+done

@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-xrandr --output DP-1-1 --auto --primary --rotate left --output DP-1-2 --auto --right-of DP-1-1 --output eDP-1 --off
+swaymsg output eDP-1 disable
+swaymsg output DP-2 pos 0 0 res 1920x1080 enable
+swaymsg output DP-3 pos 1920 0 res 1920x1080 enable
