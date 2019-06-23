@@ -145,22 +145,7 @@ bindsym $mod+r mode "resize"
 # Start swaybar to display a workspace bar (plus the system information swaystatus
 # finds out, if available)
 bar {
-        status_command i3status
-        position top
-        tray_output none
-        separator_symbol " | "
-
-        colors {
-               background #000000
-               statusline #ffffff
-               separator  #ffffff
-
-               focused_workspace  #ffffff #ffffff #000000
-               active_workspace   #666666 #666666 #ffffff
-               inactive_workspace #000000 #000000 #ffffff
-               urgent_workspace   #900000 #900000 #ffffff
-               binding_mode       #2f343a #900000 #ffffff
-        }
+  swaybar_command waybar
 }
 
 bindsym $mod+shift+o exec xautolock -locknow
