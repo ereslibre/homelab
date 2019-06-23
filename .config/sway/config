@@ -18,7 +18,7 @@ bindsym $mod+Return exec tilix
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'Consolas-10' -p 'What you up to?'
+bindsym $mod+d exec bemenu-run --fn "Consolas 12"
 
 # change focus
 bindsym $mod+j focus left
@@ -172,8 +172,13 @@ input "type:pointer" {
   natural_scroll enabled
 }
 
+# X11
+
+# xwayland disable
+
 # Init
 
+exec_always mako
 exec_always redshift -m wayland
 exec_always xautolock -time 10 -locker "swaylock -c 333333"
 exec_always start-pulseaudio-x11
