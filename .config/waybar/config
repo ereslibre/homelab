@@ -10,18 +10,17 @@
         }
     },
     "clock": {
-        "format": "{:%a %h %d %H:%M}   "
+        "format": " {:%a %h %d %H:%M}"
     },
     "cpu": {
-        "format": "{usage}%   ",
+        "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "{}%  "
+        "format": " {}%"
     },
     "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}%  {icon}",
+        "format": "{icon} {percent}%",
         "format-icons": ["", ""]
     },
     "battery": {
@@ -30,26 +29,25 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}%  {icon}",
-        "format-charging": "{capacity}%  ",
-        "format-plugged": "{capacity}%  ",
-        "format-alt": "{time}  {icon}",
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
-        "format-linked": "{ifname} (No IP)  ",
-        "format-disconnected": "Disconnected  ⚠",
+        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+        "format-linked": " {ifname} (No IP)",
+        "format-disconnected": "⚠ Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        "format": "{volume}%  {icon} {format_source}",
-        "format-bluetooth": "{volume}%  {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}%  ",
-        "format-source-muted": "{volume}%  ",
+        "format": "{icon} {volume}% {format_source}",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " {volume}%",
         "format-icons": {
             "headphones": "",
             "handsfree": "",
