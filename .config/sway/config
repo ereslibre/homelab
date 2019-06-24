@@ -151,7 +151,7 @@ bar {
 bindsym $mod+shift+o exec xautolock -locknow
 
 bindsym $mod+e exec emacsclient -c
-bindsym $mod+c exec chromium
+bindsym $mod+c exec chromium --password-store=gnome
 bindsym $mod+z exec ~/.bin/rr_keyboard_layout
 
 bindsym XF86MonBrightnessUp exec light -A 5
