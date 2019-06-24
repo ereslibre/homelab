@@ -162,6 +162,10 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
 # Input
 
+input "*" {
+    xkb_layout us,es
+}
+
 input "type:touchpad" {
   tap enabled
   natural_scroll enabled
