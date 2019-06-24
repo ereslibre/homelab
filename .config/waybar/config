@@ -10,18 +10,21 @@
         }
     },
     "clock": {
-        "format": " {:%a %h %d %H:%M}"
+        "format": " {:%a %h %d %H:%M}",
+        "tooltip": false
     },
     "cpu": {
         "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": " {}%"
+        "format": " {}%",
+        "tooltip": false
     },
     "backlight": {
         "format": "{icon} {percent}%",
-        "format-icons": ["", ""]
+        "format-icons": ["", ""],
+        "tooltip": false
     },
     "battery": {
         "bat": "BAT0",
@@ -34,14 +37,16 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": false
     },
     "network": {
         "format-wifi": " {essid} ({signalStrength}%)",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "⚠ Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip": false
     },
     "pulseaudio": {
         "format": "{icon} {volume}% {format_source}",
@@ -58,6 +63,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "tooltip": false
     }
 }

@@ -43,6 +43,13 @@ window#waybar.chromium {
     border-bottom: 3px solid transparent;
 }
 
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #000000;
+  border-bottom: 3px solid #cccccc;
+}
+
 #workspaces button.focused {
     background-color: #64727D;
     border-bottom: 3px solid #ffffff;
