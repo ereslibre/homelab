@@ -258,7 +258,7 @@
 (with-eval-after-load 'projectile
   (projectile-mode +1)
   (setq projectile-completion-system 'helm)
-  (setq projectile-enable-caching t)
+  (setq projectile-enable-caching nil)
   (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
