@@ -30,7 +30,7 @@
       (package-install p))))
 
 ;; General shortcuts
-(global-set-key (kbd "M-i") 'imenu)
+(global-set-key (kbd "M-i") 'helm-imenu)
 (global-set-key (kbd "C-c T") '(lambda() (interactive) (term "/sbin/tmux")))
 
 ;; Terminal tweaks
