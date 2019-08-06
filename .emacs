@@ -101,7 +101,12 @@
            :empty-lines 0)
           ))
   (setq org-agenda-custom-commands
-        '(("o" "Office"
+        '(("A" "All"
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
+          ("o" "Office"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
             (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("p" "Personal"
