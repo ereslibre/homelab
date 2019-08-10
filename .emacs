@@ -9,6 +9,7 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
