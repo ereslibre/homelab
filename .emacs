@@ -112,10 +112,12 @@
             (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))))
+            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org")))))
+           ((org-agenda-tag-filter-preset '("+personal"))))
           ("h" "Hacking"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
+            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org")))))
+           ((org-agenda-tag-filter-preset '("+hacking"))))
           ("w" "Weekly review"
            ((agenda "" ((org-agenda-start-day nil)
                         (org-agenda-span 'week)))
