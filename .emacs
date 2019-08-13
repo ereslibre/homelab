@@ -109,7 +109,8 @@
             (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("o" "Office"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
-            (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org"))))))
+            (tags-todo "trabajo" ((org-agenda-files '("~/projects/org/projects.org")))))
+           ((org-agenda-tag-filter-preset '("+trabajo"))))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
             (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org")))))
