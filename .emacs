@@ -8,6 +8,7 @@
 (add-to-list 'exec-path "/usr/bin/vendor_perl")
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-initialize)
@@ -15,7 +16,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet)
+  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet notmuch)
   "Ensure this packages are installed")
 
 (require 'magit)
@@ -31,6 +32,10 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+(autoload 'notmuch "notmuch" "Notmuch mail" t)
+(with-eval-after-load 'notmuch
+  (setq notmuch-search-oldest-first nil))
 
 ;; General shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
@@ -61,6 +66,7 @@
 
 ;; Org mode
 (require 'org)
+(require 'org-notmuch)
 (with-eval-after-load 'org
   (setq org-agenda-files '("~/projects/org/inbox.org"
                            "~/projects/org/projects.org"
@@ -245,6 +251,13 @@
 ;; Line highlight
 (global-hl-line-mode +1)
 
+;; E-mail
+(setq message-send-mail-function 'message-send-mail-with-sendmail)
+(setq sendmail-program "/sbin/msmtp")
+(setq mail-specify-envelope-from t)
+(setq message-sendmail-envelope-from 'header)
+(setq mail-envelope-from 'header)
+
 ;; Helm
 (require 'helm)
 (with-eval-after-load 'helm
@@ -344,4 +357,4 @@
     ("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org")))
  '(package-selected-packages
    (quote
-    (yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
+    (notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
