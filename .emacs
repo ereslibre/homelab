@@ -33,10 +33,6 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-(autoload 'notmuch "notmuch" "Notmuch mail" t)
-(with-eval-after-load 'notmuch
-  (setq notmuch-search-oldest-first nil))
-
 ;; General shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
 (global-set-key (kbd "C-c T") '(lambda() (interactive) (term "/sbin/tmux")))
@@ -252,11 +248,22 @@
 (global-hl-line-mode +1)
 
 ;; E-mail
-(setq message-send-mail-function 'message-send-mail-with-sendmail)
-(setq sendmail-program "/sbin/msmtp")
-(setq mail-specify-envelope-from t)
-(setq message-sendmail-envelope-from 'header)
-(setq mail-envelope-from 'header)
+(autoload 'notmuch "notmuch" "Notmuch mail" t)
+(with-eval-after-load 'notmuch
+  (add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
+  (setq notmuch-search-oldest-first nil)
+  (setq notmuch-saved-searches '((:name "inbox" :query "tag:inbox")
+                                 (:name "unread" :query "tag:inbox AND tag:unread")
+                                 (:name "later" :query "tag:later")
+                                 (:name "personal" :query "tag:inbox AND NOT tag:work AND NOT to:rfernandezlopez@suse")
+                                 (:name "work" :query "tag:inbox AND (tag:work OR to:rfernandezlopez@suse)")
+                                 (:name "personal-later" :query "tag:later AND NOT tag:work AND NOT to:rfernandezlopez@suse")
+                                 (:name "work-later" :query "tag:later AND (tag:work OR to:rfernandezlopez@suse)")))
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (setq sendmail-program "/sbin/msmtp")
+  (setq mail-specify-envelope-from t)
+  (setq message-sendmail-envelope-from 'header)
+  (setq mail-envelope-from 'header))
 
 ;; Helm
 (require 'helm)
