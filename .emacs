@@ -16,7 +16,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet notmuch)
+  '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet notmuch git-link)
   "Ensure this packages are installed")
 
 (require 'magit)
@@ -59,6 +59,11 @@
 ;; Line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
+
+;; Git-link
+(global-set-key (kbd "C-c g l") 'git-link)
+(with-eval-after-load 'git-link
+  (setq git-link-use-commit t))
 
 ;; Org mode
 (require 'org)
@@ -249,6 +254,21 @@
 (global-hl-line-mode +1)
 
 ;; E-mail
+(defun ereslibre/fetch-mail-account (account)
+  (interactive)
+  (let ((name (format "offlineimap-%s" account)))
+    (with-current-buffer (get-buffer-create name)
+      (special-mode))
+    (start-process name name "offlineimap" "-a" account)))
+
+(defun ereslibre/fetch-mail ()
+  (interactive)
+  (ereslibre/fetch-mail-account "suse")
+  (ereslibre/fetch-mail-account "gmail")
+  (ereslibre/fetch-mail-account "ereslibre"))
+
+(global-set-key (kbd "C-c m m") 'notmuch)
+(global-set-key (kbd "C-c m f") 'ereslibre/fetch-mail)
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 (with-eval-after-load 'notmuch
   (add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
@@ -365,4 +385,4 @@
     ("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org")))
  '(package-selected-packages
    (quote
-    (notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
+    (git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
