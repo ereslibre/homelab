@@ -76,7 +76,9 @@
                            "~/projects/org/someday.org"
                            "~/projects/org/journal.org"
                            "~/projects/org/habits.org"))
-  (setq org-agenda-text-search-extra-files (directory-files-recursively "~/projects/org" "\.org$"))
+  (setq org-agenda-text-search-extra-files
+        (append (directory-files-recursively "~/projects/org" "\.org$")
+                (directory-files-recursively "~/projects/org" "\.org_archive$")))
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
