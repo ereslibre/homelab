@@ -19,8 +19,6 @@
   '(monokai-theme projectile helm helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet notmuch git-link)
   "Ensure this packages are installed")
 
-(require 'magit)
-
 (require 'cl)
 (defun my-packages-installed-p ()
   (loop for p in my-packages
@@ -32,6 +30,9 @@
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+;; Magit
+(require 'magit)
 
 ;; General shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
