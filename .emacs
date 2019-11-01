@@ -287,7 +287,8 @@
   (setq sendmail-program "/sbin/msmtp")
   (setq mail-specify-envelope-from t)
   (setq message-sendmail-envelope-from 'header)
-  (setq mail-envelope-from 'header))
+  (setq mail-envelope-from 'header)
+  (setq notmuch-crypto-process-mime t))
 
 ;; Helm
 (require 'helm)
