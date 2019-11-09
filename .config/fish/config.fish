@@ -10,7 +10,7 @@ set -x GOPATH $HOME/projects/go
 set -x CARGOPATH $HOME/.cargo
 set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
 
-set PATH $GOPATH/bin /sbin /usr/sbin $HOME/.bin $CARGOPATH/bin /usr/bin/vendor_perl/ $HOME/.linkerd2/bin $PATH
+set PATH $GOPATH/bin /sbin /usr/sbin $HOME/.bin $CARGOPATH/bin /usr/bin/vendor_perl/ $HOME/.linkerd2/bin $HOME/.openfaas $HOME/.k3sup $PATH
 
 alias k="kubectl"
 alias emacs="emacsclient -t"
