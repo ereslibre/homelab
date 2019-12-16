@@ -108,6 +108,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 bindsym $mod+Shift+n workspace next_on_output
 bindsym $mod+Shift+p workspace prev_on_output
+bindsym $mod+Shift+Control+n workspace next_on_output
+bindsym $mod+Shift+Control+p workspace prev_on_output
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
