@@ -163,7 +163,7 @@
 ;; lsp mode
 (require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
-  (setq lsp-prefer-flymake :none)
+  (setq lsp-diagnostics-package :none)
   (setq lsp-restart 'auto-restart))
 (add-hook 'prog-mode-hook 'lsp)
 
@@ -197,7 +197,7 @@
 (global-unset-key (kbd "C-z"))
 
 ;; Default browser
-(setq browse-url-browser-function 'browse-url-chromium)
+(setq browse-url-browser-function 'browse-url-xdg-open)
 
 ;; Rainbow delimiters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -314,7 +314,7 @@
 (with-eval-after-load 'projectile
   (projectile-mode +1)
   (setq projectile-completion-system 'helm)
-  (setq projectile-enable-caching nil)
+  (setq projectile-enable-caching t)
   (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
@@ -357,23 +357,23 @@
   (global-set-key (kbd "C-c t") 'neotree-find))
 
 ;; Default font
-(set-default-font "Consolas-13:Regular")
-(add-to-list 'default-frame-alist '(font . "Consolas-13:Regular"))
-(set-face-attribute 'default t :font "Consolas-13:Regular")
+(set-default-font "Mononoki-13:Regular")
+(add-to-list 'default-frame-alist '(font . "Mononoki-13:Regular"))
+(set-face-attribute 'default t :font "Mononoki-13:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 130 :family "Consolas"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 130 :family "Consolas"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 130 :family "Consolas"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Consolas"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Consolas"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Consolas")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 130 :family "Mononoki"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Mononoki"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Mononoki"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 130 :family "Mononoki"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 130 :family "Mononoki"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Mononoki"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Mononoki"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Mononoki")))))
 
 ;; Go envvars
 (setenv "GOPATH" "/home/ereslibre/projects/go")
@@ -389,4 +389,4 @@
     ("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org")))
  '(package-selected-packages
    (quote
-    (protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
+    (nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
