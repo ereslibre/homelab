@@ -163,7 +163,7 @@
 ;; lsp mode
 (require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
-  (setq lsp-diagnostics-package :none)
+  (setq lsp-diagnostic-package :none)
   (setq lsp-restart 'auto-restart))
 (add-hook 'prog-mode-hook 'lsp)
 
