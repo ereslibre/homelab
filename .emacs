@@ -16,7 +16,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company company-lsp github-review ripgrep powerline yasnippet notmuch git-link protobuf-mode)
+  '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company github-review ripgrep powerline yasnippet notmuch git-link protobuf-mode)
   "Ensure this packages are installed")
 
 (require 'cl)
@@ -43,6 +43,8 @@
 
 ;; yasnippet
 (require 'yasnippet)
+(with-eval-after-load 'yasnippet
+  (yas-global-mode 1))
 
 ;; imenu
 (set-default
@@ -157,12 +159,18 @@
   (add-hook 'before-save-hook 'gofmt-before-save))
 (add-hook 'go-mode-hook 'go-mode-custom)
 
+;; yafolding mode
+(require 'yafolding)
+(with-eval-after-load 'yafolding
+  (add-hook 'prog-mode-hook 'yafolding-mode))
+
 ;; hide-show mode
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;; lsp mode
 (require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
+  (setq lsp-auto-configure t)
   (setq lsp-diagnostic-package :none)
   (setq lsp-restart 'auto-restart))
 (add-hook 'prog-mode-hook 'lsp)
@@ -390,9 +398,55 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
+ '(compilation-message-face (quote default))
+ '(custom-safe-themes
+   (quote
+    ("f9aede508e587fe21bcfc0a85e1ec7d27312d9587e686a6f5afdbb0d220eab50" default)))
+ '(fci-rule-color "#3C3D37")
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-tail-colors
+   (quote
+    (("#3C3D37" . 0)
+     ("#679A01" . 20)
+     ("#4BBEAE" . 30)
+     ("#1DB4D0" . 50)
+     ("#9A8F21" . 60)
+     ("#A75B00" . 70)
+     ("#F309DF" . 85)
+     ("#3C3D37" . 100))))
+ '(magit-diff-use-overlays nil)
  '(org-agenda-files
    (quote
     ("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org")))
  '(package-selected-packages
    (quote
-    (helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile company-lsp helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))))
+    (helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep)))
+ '(pos-tip-background-color "#FFFACE")
+ '(pos-tip-foreground-color "#272822")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0"))))
