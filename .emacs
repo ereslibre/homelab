@@ -371,23 +371,23 @@
   (global-set-key (kbd "C-c t") 'neotree-find))
 
 ;; Default font
-(set-default-font "Mononoki-13:Regular")
-(add-to-list 'default-frame-alist '(font . "Mononoki-13:Regular"))
-(set-face-attribute 'default t :font "Mononoki-13:Regular")
+(set-default-font "Ubuntu Mono-15:Regular")
+(add-to-list 'default-frame-alist '(font . "Ubuntu Mono-15:Regular"))
+(set-face-attribute 'default t :font "Ubuntu Mono-15:Regular")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 130 :family "Mononoki"))))
- '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Mononoki"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Mononoki"))))
- '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 130 :family "Mononoki"))))
- '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 130 :family "Mononoki"))))
- '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 130 :family "Mononoki"))))
- '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 130 :family "Mononoki"))))
- '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 130 :family "Mononoki")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 150 :family "Ubuntu Mono"))))
+ '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono")))))
 
 ;; Go envvars
 (setenv "GOPATH" "/home/ereslibre/projects/go")
@@ -422,7 +422,7 @@
     ("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org")))
  '(package-selected-packages
    (quote
-    (helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep)))
+    (carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)

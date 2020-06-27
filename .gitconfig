@@ -17,3 +17,7 @@
 	default = matching
 [commit]
 	gpgsign = true
+[github]
+	user = ereslibre
+[pull]
+	ff = only
