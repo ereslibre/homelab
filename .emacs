@@ -265,6 +265,9 @@
 (global-hl-line-mode +1)
 
 ;; E-mail
+(setq mml-secure-openpgp-sign-with-sender t)
+(add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
+
 (defun ereslibre/fetch-mail-account (account)
   (interactive)
   (let ((name (format "offlineimap-%s" account)))
@@ -282,7 +285,6 @@
 (global-set-key (kbd "C-c m f") 'ereslibre/fetch-mail)
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 (with-eval-after-load 'notmuch
-  (add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
   (setq notmuch-search-oldest-first nil)
   (setq notmuch-saved-searches '((:name "inbox" :query "tag:inbox")
                                  (:name "unread" :query "tag:inbox AND tag:unread")
@@ -370,8 +372,8 @@
   (global-set-key (kbd "C-c n") 'neotree-toggle)
   (global-set-key (kbd "C-c t") 'neotree-find))
 
-;; Default font
-(set-default-font "Ubuntu Mono-15:Regular")
+;; Frame font
+(set-frame-font "Ubuntu Mono-15:Regular")
 (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-15:Regular"))
 (set-face-attribute 'default t :font "Ubuntu Mono-15:Regular")
 
