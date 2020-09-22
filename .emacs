@@ -20,6 +20,10 @@
   '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company github-review ripgrep powerline yasnippet notmuch git-link protobuf-mode)
   "Ensure this packages are installed")
 
+(require 'centered-window)
+(with-eval-after-load 'centered-window
+  (centered-window-mode))
+
 (require 'cl)
 (defun my-packages-installed-p ()
   (loop for p in my-packages
