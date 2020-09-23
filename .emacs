@@ -8,6 +8,7 @@
 (add-to-list 'exec-path "/usr/bin/vendor_perl")
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.local/bin")
+(add-to-list 'exec-path "~/.ghcup/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
