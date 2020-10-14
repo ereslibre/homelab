@@ -150,7 +150,8 @@
             (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))
             (tags "someday" ((org-agenda-files '("~/projects/org/someday.org"))))
             (org-agenda-list-stuck-projects)))))
-  (add-to-list 'org-modules 'org-habit))
+  (add-to-list 'org-modules 'org-habit)
+  (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
 
 ;; Calendar
 (setq calendar-week-start-day 1)
