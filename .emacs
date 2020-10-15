@@ -18,7 +18,7 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate diff-hl undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
+  '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
   "Ensure this packages are installed")
 
 (require 'centered-window)
@@ -202,13 +202,6 @@
 (with-eval-after-load 'powerline
   (setq powerline-default-separator 'wave)
   (powerline-default-theme))
-
-;; diff hl
-(require 'diff-hl)
-(with-eval-after-load 'diff-hl
-  (global-diff-hl-mode)
-  (setq diff-hl-side 'right)
-  (setq diff-hl-draw-borders nil))
 
 ;; Misc
 (global-unset-key (kbd "C-z"))
@@ -430,7 +423,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode diff-hl browse-kill-ring ack ripgrep))
+   '(typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
