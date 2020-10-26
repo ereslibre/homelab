@@ -13,7 +13,6 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-(package-initialize)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
@@ -126,20 +125,20 @@
           ))
   (setq org-agenda-custom-commands
         '(("A" "All"
-           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
             (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
             (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org"))))
             (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("o" "Office"
-           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
             (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+work"))))
           ("p" "Personal"
-           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
             (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+personal"))))
           ("h" "Hacking"
-           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 1)))
+           ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
             (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+hacking"))))
           ("w" "Weekly review"
@@ -148,8 +147,7 @@
             (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org"))))
             (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
             (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags "someday" ((org-agenda-files '("~/projects/org/someday.org"))))
-            (org-agenda-list-stuck-projects)))))
+            (tags "someday" ((org-agenda-files '("~/projects/org/someday.org"))))))))
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
 
@@ -423,7 +421,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
