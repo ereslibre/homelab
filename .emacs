@@ -86,7 +86,8 @@
                            "~/projects/org/notes.org"
                            "~/projects/org/someday.org"
                            "~/projects/org/journal.org"
-                           "~/projects/org/habits.org"))
+                           "~/projects/org/habits.org"
+                           "~/projects/org/reminders.org"))
   (setq org-agenda-text-search-extra-files
         (append (directory-files-recursively "~/projects/org" "\.org$")
                 (directory-files-recursively "~/projects/org" "\.org_archive$")))
@@ -102,11 +103,11 @@
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-targets '(("~/projects/org/projects.org" :maxlevel . 3)
                              ("~/projects/org/someday.org" :level . 1)
-                             ("~/projects/org/tickler.org" :maxlevel . 2)))
+                             ("~/projects/org/tickler.org" :maxlevel . 2)
+                             ("~/projects/org/reminders.org" :maxlevel . 3)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-capture-templates
-        '(
-          ("t" "TODO"
+        '(("t" "TODO"
            entry (file "~/projects/org/inbox.org")
            "* TODO %i%?\n  %U"
            :empty-lines 0)
@@ -404,8 +405,6 @@
  '(ansi-color-names-vector
    ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
  '(compilation-message-face 'default)
- '(custom-safe-themes
-   '("f9aede508e587fe21bcfc0a85e1ec7d27312d9587e686a6f5afdbb0d220eab50" default))
  '(fci-rule-color "#3C3D37")
  '(highlight-changes-colors '("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -419,7 +418,7 @@
      ("#3C3D37" . 100)))
  '(magit-diff-use-overlays nil)
  '(org-agenda-files
-   '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
+   '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
    '(pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
