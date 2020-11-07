@@ -127,28 +127,28 @@
   (setq org-agenda-custom-commands
         '(("A" "All"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
+            (tags-todo "+personal" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "+work" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "+hacking" ((org-agenda-files '("~/projects/org/projects.org"))))))
           ("o" "Office"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-            (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org")))))
+            (tags-todo "+work" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+work"))))
           ("p" "Personal"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org")))))
+            (tags-todo "+personal" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+personal"))))
           ("h" "Hacking"
            ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org")))))
+            (tags-todo "+hacking" ((org-agenda-files '("~/projects/org/projects.org")))))
            ((org-agenda-tag-filter-preset '("+hacking"))))
           ("w" "Weekly review"
            ((agenda "" ((org-agenda-start-day nil)
                         (org-agenda-span 'week)))
-            (tags-todo "work" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags-todo "personal" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags-todo "hacking" ((org-agenda-files '("~/projects/org/projects.org"))))
-            (tags "someday" ((org-agenda-files '("~/projects/org/someday.org"))))))))
+            (tags-todo "+work" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "+personal" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags-todo "+hacking" ((org-agenda-files '("~/projects/org/projects.org"))))
+            (tags "+someday" ((org-agenda-files '("~/projects/org/someday.org"))))))))
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
 
