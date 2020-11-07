@@ -79,15 +79,15 @@
 (require 'org)
 (require 'org-notmuch)
 (with-eval-after-load 'org
-  (setq org-agenda-files '("~/projects/org/inbox.org"
-                           "~/projects/org/birthdays.org"
-                           "~/projects/org/projects.org"
-                           "~/projects/org/tickler.org"
-                           "~/projects/org/notes.org"
-                           "~/projects/org/someday.org"
-                           "~/projects/org/journal.org"
+  (setq org-agenda-files '("~/projects/org/birthdays.org"
                            "~/projects/org/habits.org"
-                           "~/projects/org/reminders.org"))
+                           "~/projects/org/inbox.org"
+                           "~/projects/org/journal.org"
+                           "~/projects/org/notes.org"
+                           "~/projects/org/projects.org"
+                           "~/projects/org/reminders.org"
+                           "~/projects/org/someday.org"
+                           "~/projects/org/tickler.org"))
   (setq org-agenda-text-search-extra-files
         (append (directory-files-recursively "~/projects/org" "\.org$")
                 (directory-files-recursively "~/projects/org" "\.org_archive$")))
