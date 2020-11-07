@@ -102,8 +102,8 @@
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-targets '(("~/projects/org/projects.org" :maxlevel . 3)
-                             ("~/projects/org/someday.org" :level . 1)
-                             ("~/projects/org/tickler.org" :maxlevel . 2)
+                             ("~/projects/org/someday.org" :level . 3)
+                             ("~/projects/org/tickler.org" :maxlevel . 3)
                              ("~/projects/org/reminders.org" :maxlevel . 3)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-capture-templates
