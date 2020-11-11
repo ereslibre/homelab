@@ -17,7 +17,7 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (defvar my-packages
-  '(monokai-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
+  '(dracula-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
   "Ensure this packages are installed")
 
 (require 'centered-window)
@@ -102,7 +102,7 @@
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-targets '(("~/projects/org/projects.org" :maxlevel . 3)
-                             ("~/projects/org/someday.org" :level . 3)
+                             ("~/projects/org/someday.org" :maxlevel . 3)
                              ("~/projects/org/tickler.org" :maxlevel . 3)
                              ("~/projects/org/reminders.org" :maxlevel . 3)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -235,7 +235,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'monokai t)
+(load-theme 'dracula t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -420,7 +420,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline monokai-theme github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(dracula-theme pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
