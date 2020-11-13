@@ -101,7 +101,9 @@
   (setq org-agenda-start-on-weekday nil)
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '(("~/projects/org/projects.org" :maxlevel . 3)
+  (setq org-refile-targets '(("~/projects/org/birthdays.org" :maxlevel . 1)
+                             ("~/projects/org/habits.org" :maxlevel . 1)
+                             ("~/projects/org/projects.org" :maxlevel . 3)
                              ("~/projects/org/someday.org" :maxlevel . 3)
                              ("~/projects/org/tickler.org" :maxlevel . 3)
                              ("~/projects/org/reminders.org" :maxlevel . 3)))
@@ -420,7 +422,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(dracula-theme pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(ace-jump-helm-line dracula-theme pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
