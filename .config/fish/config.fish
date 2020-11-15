@@ -10,7 +10,7 @@ set -x GOPATH $HOME/projects/go
 set -x CARGOPATH $HOME/.cargo
 set -x SSH_AUTH_SOCK (gnome-keyring-daemon --start | awk -F= '{print  $2}')
 
-set PATH $GOPATH/bin /sbin /usr/sbin $HOME/.bin $CARGOPATH/bin /usr/bin/vendor_perl/ $HOME/.linkerd2/bin $HOME/.openfaas $HOME/.k3sup $PATH
+set PATH $GOPATH/bin /sbin /usr/sbin $HOME/.bin $HOME/.local/bin $CARGOPATH/bin /usr/bin/vendor_perl/ $PATH
 
 alias k="kubectl"
 alias emacs="emacsclient -t"
@@ -22,3 +22,10 @@ if type -q keychain; and not set -q WINDOW_MANAGER
     keychain --nogui $HOME/.ssh/id_rsa ^/dev/null
     source $HOME/.keychain/(hostname)-fish
 end
+
+eval (dircolors ~/.dir_colors/dircolors | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
+
+eval (~/.config/fish/misc/nix_fish_env.sh) 2>/dev/null
+
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
+test -f $GHCUP_INSTALL_BASE_PREFIX/.ghcup/env ; and set -gx PATH $HOME/.cabal/bin $GHCUP_INSTALL_BASE_PREFIX/.ghcup/bin $PATH
