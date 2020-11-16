@@ -17,7 +17,7 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (defvar my-packages
-  '(dracula-theme projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
+  '(doom-themes projectile helm helm-lsp helm-projectile helm-company yaml-mode magit google-translate undo-tree browse-kill-ring ack go-mode markdown-mode haskell-mode rust-mode json-mode yafolding rainbow-delimiters lsp-mode vue-mode neotree company ripgrep powerline yasnippet notmuch git-link protobuf-mode)
   "Ensure this packages are installed")
 
 (require 'centered-window)
@@ -237,7 +237,7 @@
 (scroll-bar-mode -1)
 
 ;; Default theme
-(load-theme 'dracula t)
+(load-theme 'doom-vibrant t)
 
 ;; Lines and columns
 (line-number-mode 1)
@@ -407,6 +407,8 @@
  '(ansi-color-names-vector
    ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
  '(compilation-message-face 'default)
+ '(custom-safe-themes
+   '("1c082c9b84449e54af757bcae23617d11f563fc9f33a832a8a2813c4d7dfb652" default))
  '(fci-rule-color "#3C3D37")
  '(highlight-changes-colors '("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -422,7 +424,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(ace-jump-helm-line dracula-theme pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp nord-theme protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(doom-themes ace-jump-helm-line pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
