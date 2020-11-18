@@ -21,3 +21,5 @@
 	user = ereslibre
 [pull]
 	ff = only
+[init]
+	defaultBranch = main
