@@ -87,7 +87,7 @@ function fish_prompt --description 'Write out the prompt'
 		)
 	end
 
-        if begin; [ $USER = "ereslibre" ]; and [ $__fish_prompt_hostname = "Rafaels-MacBook-Pro" ]; end
+        if begin; [ $USER = "ereslibre" ]; and [ $__fish_prompt_hostname = "desktop" ]; end
           set __fish_prompt_user_and_hostname
         else if begin; [ $USER = "ereslibre" ]; and [ $__fish_prompt_hostname = "freedom" ]; end
           set __fish_prompt_user_and_hostname
