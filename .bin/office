@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-swaymsg output eDP-1 disable
-swaymsg output DP-2 pos 0 0 res 3440x1440 enable

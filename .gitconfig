@@ -4,9 +4,7 @@
 	signingkey = 3762B54D325612C56CE86CA80A6D2C71F9CAE94E
 [core]
 	excludesfile = /home/ereslibre/.global-gitignore
-	editor = emacs
 [alias]
-	serve = daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	ci = commit
 	st = status
 	co = checkout

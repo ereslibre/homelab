@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-if [ ! -z "$HIGH_DPI" ]; then
-  /usr/bin/chromium --force-device-scale-factor=2 "$@"
-else
-  /usr/bin/chromium "$@"
-fi
