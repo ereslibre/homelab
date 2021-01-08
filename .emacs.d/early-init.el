@@ -102,10 +102,3 @@
 (show-paren-mode 1)
 (setq-default show-paren-delay 0)
 (setq-default show-paren-style 'parenthesis)
-
-;; E-mail
-(setq mml-secure-openpgp-sign-with-sender t)
-(add-hook 'message-setup-hook 'mml-secure-sign-pgpmime)
-
-;; Notmuch
-(global-set-key (kbd "C-c m m") 'notmuch)

@@ -153,21 +153,6 @@
   (with-eval-after-load 'rainbow-delimiters
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
-  ;; E-mail
-  (defun ereslibre/fetch-mail-account (account)
-    (interactive)
-    (let ((name (format "offlineimap-%s" account)))
-      (with-current-buffer (get-buffer-create name)
-	(special-mode))
-      (start-process name name "offlineimap" "-a" account)))
-
-  (defun ereslibre/fetch-mail ()
-    (interactive)
-    (ereslibre/fetch-mail-account "suse")
-    (ereslibre/fetch-mail-account "gmail")
-    (ereslibre/fetch-mail-account "ereslibre"))
-  (global-set-key (kbd "C-c m f") 'ereslibre/fetch-mail)
-
   ;; Helm
   (require 'helm)
   (with-eval-after-load 'helm
