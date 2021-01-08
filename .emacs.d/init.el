@@ -37,7 +37,6 @@
 
   ;; Org mode
   (require 'org)
-  (require 'org-notmuch)
   (with-eval-after-load 'org
     (setq org-agenda-files '("~/projects/org/birthdays.org"
 			     "~/projects/org/habits.org"
@@ -169,23 +168,6 @@
     (ereslibre/fetch-mail-account "ereslibre"))
   (global-set-key (kbd "C-c m f") 'ereslibre/fetch-mail)
 
-  (autoload 'notmuch "notmuch" "Notmuch mail" t)
-  (with-eval-after-load 'notmuch
-    (setq notmuch-search-oldest-first nil)
-    (setq notmuch-saved-searches '((:name "inbox" :query "tag:inbox")
-				   (:name "unread" :query "tag:inbox AND tag:unread")
-				   (:name "later" :query "tag:later")
-				   (:name "personal" :query "tag:inbox AND NOT tag:work AND NOT to:@suse")
-				   (:name "work" :query "tag:inbox AND (tag:work OR to:@suse)")
-				   (:name "personal-later" :query "tag:later AND NOT tag:work AND NOT to:@suse")
-				   (:name "work-later" :query "tag:later AND (tag:work OR to:@suse)")))
-    (setq message-send-mail-function 'message-send-mail-with-sendmail)
-    (setq sendmail-program "/sbin/msmtp")
-    (setq mail-specify-envelope-from t)
-    (setq message-sendmail-envelope-from 'header)
-    (setq mail-envelope-from 'header)
-    (setq notmuch-crypto-process-mime t))
-
   ;; Helm
   (require 'helm)
   (with-eval-after-load 'helm
@@ -309,7 +291,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(monokai-theme doom-themes ace-jump-helm-line pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp protobuf-mode git-link notmuch yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(monokai-theme doom-themes ace-jump-helm-line pandoc-mode typescript-mode terraform-mode carbon-now-sh nix-mode adoc-mode helm-lsp protobuf-mode git-link yasnippet powerline github-review helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
