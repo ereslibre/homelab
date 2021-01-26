@@ -245,11 +245,11 @@
    '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Fira Code")))))
 
   ;; Go
-  (setenv "GOPATH" "~/projects/go")
-  (add-to-list 'exec-path "~/projects/go/bin")
+  (setenv "GOPATH" "/home/ereslibre/projects/go")
+  (add-to-list 'exec-path "/home/ereslibre/projects/go/bin")
 
   ;; Cargo
-  (add-to-list 'exec-path "~/.cargo/bin"))
+  (add-to-list 'exec-path "/home/ereslibre/.cargo/bin"))
 
 (add-hook 'emacs-startup-hook 'ereslibre/initialize)
 
