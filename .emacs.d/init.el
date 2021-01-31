@@ -226,23 +226,23 @@
     (global-set-key (kbd "C-c t") 'neotree-find))
 
   ;; Frame font
-  (set-frame-font "Fira Code-13:Regular")
-  (add-to-list 'default-frame-alist '(font . "Fira Code-13:Regular"))
-  (set-face-attribute 'default t :font "Fira Code-13:Regular")
+  (set-frame-font "Ubuntu Mono-15:Regular")
+  (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-15:Regular"))
+  (set-face-attribute 'default t :font "Ubuntu Mono-15:Regular")
 
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 150 :family "Fira Code"))))
-   '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Fira Code"))))
-   '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Fira Code"))))
-   '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 150 :family "Fira Code"))))
-   '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 150 :family "Fira Code"))))
-   '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Fira Code"))))
-   '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 150 :family "Fira Code"))))
-   '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Fira Code")))))
+   '(org-level-1 ((t (:inherit variable-pitch :foreground "#FD971F" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-2 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-3 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-4 ((t (:inherit variable-pitch :foreground "#E6DB74" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 150 :family "Ubuntu Mono"))))
+   '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono")))))
 
   ;; Go
   (setenv "GOPATH" "/home/ereslibre/projects/go")
