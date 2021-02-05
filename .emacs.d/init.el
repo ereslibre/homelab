@@ -13,11 +13,6 @@
   ;; Default theme
   (load-theme 'doom-vibrant t)
 
-  ;; Centered-window
-  (require 'centered-window)
-  (with-eval-after-load 'centered-window
-    (centered-window-mode))
-
   ;; Magit
   (require 'magit)
 
@@ -263,6 +258,7 @@
  '(compilation-message-face 'default)
  '(custom-safe-themes
    '("1c082c9b84449e54af757bcae23617d11f563fc9f33a832a8a2813c4d7dfb652" default))
+ '(delete-selection-mode nil)
  '(fci-rule-color "#3C3D37")
  '(highlight-changes-colors '("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -301,6 +297,7 @@
      (320 . "#2896B5")
      (340 . "#2790C3")
      (360 . "#66D9EF"))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
