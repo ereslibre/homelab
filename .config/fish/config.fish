@@ -15,11 +15,14 @@ set fish_greeting
 fenv source ~/.bashrc
 fenv source ~/.nix-profile/etc/profile.d/nix.sh
 
-set -e SSH_AGENT_PID
-set -e SSH_AUTH_SOCK
-set -U -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+if not pgrep -f ssh-agent &> /dev/null
+   set -e SSH_AUTH_SOCK
+   eval (ssh-agent -c) &> /dev/null
+end
+
 if not pgrep -f gpg-agent &> /dev/null
-   eval (gpg-agent -c --daemon --enable-ssh-support)
+   set -e GPG_AGENT_INFO
+   eval (gpg-agent -c --daemon) &> /dev/null
 end
 
 # ghcup-env
