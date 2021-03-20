@@ -9,7 +9,7 @@ set -x GO111MODULE 'on'
 set -x GOPATH "$HOME/projects/go"
 set -x XDG_RUNTIME_DIR "/run/user/(id -u)"
 set -x PATH $PATH "$HOME/.bin" "$GOPATH/bin" "/usr/local/kubebuilder/bin"
-
+set -x GPG_TTY (tty)
 set fish_greeting
 
 fenv source ~/.bashrc
@@ -18,7 +18,7 @@ fenv source ~/.nix-profile/etc/profile.d/nix.sh
 set -e SSH_AUTH_SOCK
 set -U -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 if not pgrep -f gpg-agent &> /dev/null
-   gpg-agent -c --daemon --enable-ssh-support
+   source (gpg-agent -c --daemon --enable-ssh-support)
 end
 
 # ghcup-env
