@@ -5,9 +5,9 @@ alias ip='ip -color=auto'
 alias k=kubectl
 alias ls='ls --color=auto'
 
-set -x GO111MODULE 'on'
+set -x GO111MODULE "on"
 set -x GOPATH "$HOME/projects/go"
-set -x XDG_RUNTIME_DIR "/run/user/(id -u)"
+set -x XDG_RUNTIME_DIR /run/user/(id -u)
 set -x PATH $PATH "$HOME/.bin" "$GOPATH/bin" "/usr/local/kubebuilder/bin"
 set -x GPG_TTY (tty)
 set fish_greeting
