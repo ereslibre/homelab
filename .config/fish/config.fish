@@ -5,6 +5,7 @@ alias ip='ip -color=auto'
 alias k=kubectl
 alias ls='ls --color=auto'
 
+set -x EDITOR "emacsclient -t"
 set -x GO111MODULE "on"
 set -x GOPATH "$HOME/projects/go"
 set -x XDG_RUNTIME_DIR /run/user/(id -u)
