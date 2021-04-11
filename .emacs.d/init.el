@@ -26,6 +26,7 @@
     (setq doc-view-resolution 300))
 
   ;; Git-link
+  (require 'git-link)
   (with-eval-after-load 'git-link
     (global-set-key (kbd "C-c g l") 'git-link)
     (setq git-link-use-commit t))
