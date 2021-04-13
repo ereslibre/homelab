@@ -10,28 +10,28 @@
   (package-activate-all))
 
 (defun ereslibre/initialize ()
-  ;; Default theme
+  ;; default theme
   (load-theme 'doom-vibrant t)
 
-  ;; Magit
+  ;; magit
   (require 'magit)
 
-  ;; Yasnippet
+  ;; yasnippet
   (require 'yasnippet)
   (with-eval-after-load 'yasnippet
     (yas-global-mode 1))
 
-  ;; Doc-view
+  ;; doc-view
   (with-eval-after-load 'doc-view
     (setq doc-view-resolution 300))
 
-  ;; Git-link
+  ;; git-link
   (require 'git-link)
   (with-eval-after-load 'git-link
     (global-set-key (kbd "C-c g l") 'git-link)
     (setq git-link-use-commit t))
 
-  ;; Org mode
+  ;; org mode
   (require 'org)
   (with-eval-after-load 'org
     (setq org-agenda-files '("~/org/birthdays.org"
@@ -109,13 +109,13 @@
     (add-to-list 'org-modules 'org-habit)
     (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
 
-  ;; Company mode
+  ;; company mode
   (with-eval-after-load 'company
     (add-hook 'after-init-hook 'global-company-mode)
     (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
     (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
 
-  ;; Yafolding mode
+  ;; yafolding mode
   (require 'yafolding)
   (with-eval-after-load 'yafolding
     (add-hook 'prog-mode-hook 'yafolding-mode))
@@ -128,28 +128,28 @@
     (setq lsp-restart 'auto-restart))
   (add-hook 'prog-mode-hook 'lsp)
 
-  ;; Undo tree
+  ;; undo tree
   (require 'undo-tree)
   (with-eval-after-load 'undo-tree
     (global-undo-tree-mode 1))
 
-  ;; Browse kill ring
+  ;; browse kill ring
   (require 'browse-kill-ring)
   (with-eval-after-load 'browse-kill-ring
     (browse-kill-ring-default-keybindings))
 
-  ;; Powerline
+  ;; powerline
   (require 'powerline)
   (with-eval-after-load 'powerline
     (setq powerline-default-separator 'wave)
     (powerline-default-theme))
 
-  ;; Rainbow delimiters
+  ;; rainbow delimiters
   (require 'rainbow-delimiters)
   (with-eval-after-load 'rainbow-delimiters
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
-  ;; Helm
+  ;; helm
   (require 'helm)
   (with-eval-after-load 'helm
     (helm-mode 1)
@@ -174,7 +174,7 @@
     (global-set-key (kbd "C-c w s") 'helm-lsp-workspace-symbol)
     (global-set-key (kbd "C-c w g") 'helm-lsp-global-workspace-symbol))
 
-  ;; Projectile
+  ;; projectile
   (require 'projectile)
   (with-eval-after-load 'projectile
     (projectile-mode +1)
@@ -183,7 +183,7 @@
     (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-  ;; Neotree
+  ;; neotree
   (require 'neotree)
   (with-eval-after-load 'neotree
     (setq neo-autorefresh t)
@@ -221,7 +221,7 @@
     (global-set-key (kbd "C-c n") 'neotree-toggle)
     (global-set-key (kbd "C-c t") 'neotree-find))
 
-  ;; Frame font
+  ;; frame font
   (set-frame-font "Ubuntu Mono-15:Regular")
   (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-15:Regular"))
   (set-face-attribute 'default t :font "Ubuntu Mono-15:Regular")
@@ -240,11 +240,11 @@
    '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 150 :family "Ubuntu Mono"))))
    '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono")))))
 
-  ;; Go
+  ;; go
   (setenv "GOPATH" "/home/ereslibre/projects/go")
   (add-to-list 'exec-path "/home/ereslibre/projects/go/bin")
 
-  ;; Cargo
+  ;; cargo
   (add-to-list 'exec-path "/home/ereslibre/.cargo/bin"))
 
 (add-hook 'emacs-startup-hook 'ereslibre/initialize)

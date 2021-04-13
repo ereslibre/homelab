@@ -7,16 +7,17 @@
 
 (add-to-list 'exec-path "/usr/bin/vendor_perl")
 (add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "~/.bin")
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'exec-path "~/.ghcup/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
-;; General shortcuts
+;; general shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
 (global-set-key (kbd "C-c T") '(lambda() (interactive) (term "/sbin/tmux")))
 
-;; Terminal tweaks
+;; terminal tweaks
 (add-hook 'term-mode-hook '(lambda () (setq-local global-hl-line-mode nil)))
 
 ;; imenu
@@ -25,14 +26,14 @@
 (set-default
  'imenu-auto-rescan t)
 
-;; Word wrap
+;; word wrap
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; Line numbers
+;; line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 
-;; Calendar
+;; calendar
 (setq calendar-week-start-day 1)
 
 ;; go
@@ -41,53 +42,53 @@
   (add-hook 'before-save-hook 'gofmt-before-save))
 (add-hook 'go-mode-hook 'go-mode-custom)
 
-;; Winner mode
+;; winner mode
 (winner-mode 1)
 
-;; Misc
+;; misc
 (global-unset-key (kbd "C-z"))
 
-;; Default browser
+;; default browser
 (setq browse-url-browser-function 'browse-url-xdg-open)
 
-;; No welcome screen
+;; no welcome screen
 (setq-default inhibit-startup-message t)
 
-;; Do not break lines
+;; do not break lines
 (setq-default truncate-lines t)
 (setq-default global-visual-line-mode t)
 
-;; No backups
+;; no backups
 (setq-default make-backup-files nil)
 (setq-default auto-save-default nil)
 
-;; Save last opened files
+;; save last opened files
 (setq desktop-save nil)
 (desktop-save-mode 0)
 
-;; Line highlight
+;; line highlight
 (global-hl-line-mode +1)
 
-;; Remove whitespaces at the end of line
+;; remove whitespaces at the end of line
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Graphical interface tweaks
+;; graphical interface tweaks
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; Lines and columns
+;; lines and columns
 (line-number-mode 1)
 (column-number-mode 1)
 
-;; Cursor
+;; cursor
 (blink-cursor-mode 0)
 
-;; Writing helpers
+;; writing helpers
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
-;; Writing style
+;; writing style
 (setq-default c-basic-indent 2)
 (setq-default js-indent-level 2)
 (setq-default tab-width 2)
@@ -98,7 +99,11 @@
 (global-set-key (kbd "C-c H") 'hs-hide-block)
 (global-set-key (kbd "C-c S") 'hs-show-block)
 
-;; Syntax highlighting
+;; syntax highlighting
 (show-paren-mode 1)
 (setq-default show-paren-delay 0)
 (setq-default show-paren-style 'parenthesis)
+
+;; programming helpers
+(add-hook 'prog-mode-hook
+          (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
