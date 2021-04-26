@@ -2,7 +2,7 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (with-eval-after-load 'package
   (add-to-list 'package-archives
-	       '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+               '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
