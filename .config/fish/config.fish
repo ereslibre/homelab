@@ -9,7 +9,7 @@ set -x EDITOR "emacsclient -t"
 set -x GO111MODULE "on"
 set -x GOPATH "$HOME/projects/go"
 set -x XDG_RUNTIME_DIR /run/user/(id -u)
-set -x PATH $PATH "$HOME/.bin" "$HOME/.zig" "$GOPATH/bin" "/usr/local/kubebuilder/bin" "/usr/local/bin"
+set -x PATH $PATH "$HOME/.bin" "$HOME/.zig" "$GOPATH/bin" /home/ereslibre/.local/bin "/usr/local/kubebuilder/bin" "/usr/local/bin"
 set -x GPG_TTY (tty)
 set fish_greeting
 
