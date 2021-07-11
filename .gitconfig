@@ -1,7 +1,7 @@
 [user]
 	name = Rafael Fernández López
 	email = ereslibre@ereslibre.es
-	signingkey = 3762B54D325612C56CE86CA80A6D2C71F9CAE94E
+	signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
 [core]
 	excludesfile = /home/ereslibre/.global-gitignore
 [alias]
