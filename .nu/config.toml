@@ -1,0 +1,20 @@
+path = [
+  "/usr/bin",
+  "/bin",
+  "/usr/sbin",
+  "/sbin",
+  "/opt/homebrew/bin",
+  "/Users/ereslibre/.bin",
+  "/Users/ereslibre/.cargo/bin",
+]
+
+startup = [
+  "alias k = ^kubectl",
+  "alias ll = ls -l",
+  "alias la = ls -a",
+  "alias nuopen = open",
+  "alias open = ^open",
+]
+
+[line_editor]
+edit_mode = "emacs"
