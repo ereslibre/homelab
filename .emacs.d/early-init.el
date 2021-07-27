@@ -10,6 +10,7 @@
 (add-to-list 'exec-path "~/.bin")
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'exec-path "~/.ghcup/bin")
+(add-to-list 'exec-path "~/go/bin")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
