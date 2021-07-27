@@ -1,11 +1,13 @@
 path = [
+  "/opt/homebrew/bin",
+  "/usr/local/bin",
+  "/Users/ereslibre/.bin",
+  "/Users/ereslibre/.cargo/bin",
+  "/Users/ereslibre/.nix-profile/bin",
   "/usr/bin",
   "/bin",
   "/usr/sbin",
   "/sbin",
-  "/opt/homebrew/bin",
-  "/Users/ereslibre/.bin",
-  "/Users/ereslibre/.cargo/bin",
 ]
 
 startup = [
@@ -15,6 +17,9 @@ startup = [
   "alias nuopen = open",
   "alias open = ^open",
 ]
+
+[env]
+NIX_PATH = "nixpkgs=/Users/ereslibre/.nix-defexpr/channels/nixpkgs"
 
 [line_editor]
 edit_mode = "emacs"
