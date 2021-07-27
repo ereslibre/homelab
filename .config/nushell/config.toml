@@ -18,7 +18,10 @@ startup = [
   "alias open = ^open",
 ]
 
+skip_welcome_message = true
+
 [env]
+EDITOR = "emacs"
 NIX_PATH = "nixpkgs=/Users/ereslibre/.nix-defexpr/channels/nixpkgs"
 
 [line_editor]
