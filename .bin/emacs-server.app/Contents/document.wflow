@@ -59,11 +59,11 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=air -c ~</string>
+					<string>/Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
-					<integer>1</integer>
+					<integer>0</integer>
 					<key>shell</key>
 					<string>/bin/sh</string>
 					<key>source</key>
@@ -83,8 +83,10 @@
 				</array>
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
+				<key>IgnoresInput</key>
+				<true/>
 				<key>InputUUID</key>
-				<string>A378959A-F539-4809-B0AE-BAC7869F67E6</string>
+				<string>A8EB4277-3ABD-4D06-B32F-3908D2E81227</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -94,9 +96,9 @@
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>2792C72A-ECD3-4F3D-A973-49CB6352CC8C</string>
+				<string>F590406C-6A17-4EA6-88CE-2833CA1C380D</string>
 				<key>UUID</key>
-				<string>8E0A1A68-DD88-43B1-9630-FCF0A283EC07</string>
+				<string>D8D3E90E-9B8B-4A45-9A37-5976FB8E57D1</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -169,10 +171,12 @@
 						<string>4</string>
 					</dict>
 				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>309.000000:252.000000</string>
+				<string>309.000000:308.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
