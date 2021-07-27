@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=air -c ~</string>
+					<string>/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=air -c ~ &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
