@@ -1,22 +1,5 @@
-;; Default shell
-(setenv "SHELL" "/bin/bash")
-(setenv "ESHELL" "/bin/bash")
-
-(setq explicit-shell-file-name "/bin/bash")
-(setq shell-file-name "/bin/bash")
-
-(add-to-list 'exec-path "/usr/bin/vendor_perl")
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "~/.bin")
-(add-to-list 'exec-path "~/.local/bin")
-(add-to-list 'exec-path "~/.ghcup/bin")
-(add-to-list 'exec-path "~/go/bin")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp")
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
 ;; general shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
-(global-set-key (kbd "C-c T") '(lambda() (interactive) (term "/sbin/tmux")))
 
 ;; terminal tweaks
 (add-hook 'term-mode-hook '(lambda () (setq-local global-hl-line-mode nil)))

@@ -59,7 +59,11 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air &amp;&gt; /dev/null &amp;</string>
+					<string>export GO111MODULE=on
+export GOPATH=$(/opt/homebrew/bin/go env GOPATH)
+export GOROOT=$(/opt/homebrew/bin/go env GOROOT)
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+/Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>

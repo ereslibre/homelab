@@ -239,14 +239,7 @@
    '(org-level-5 ((t (:inherit variable-pitch :foreground "#A1EFE4" :height 150 :family "Ubuntu Mono derivative Powerline"))))
    '(org-level-6 ((t (:inherit variable-pitch :foreground "#A6E22E" :height 150 :family "Ubuntu Mono derivative Powerline"))))
    '(org-level-7 ((t (:inherit variable-pitch :foreground "#F92672" :height 150 :family "Ubuntu Mono derivative Powerline"))))
-   '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono derivative Powerline")))))
-
-  ;; go
-  (setenv "GOPATH" "~/go")
-  (add-to-list 'exec-path "~/go/bin")
-
-  ;; cargo
-  (add-to-list 'exec-path "~/.cargo/bin"))
+   '(org-level-8 ((t (:inherit variable-pitch :foreground "#66D9EF" :height 150 :family "Ubuntu Mono derivative Powerline"))))))
 
 (add-hook 'emacs-startup-hook 'ereslibre/initialize)
 
