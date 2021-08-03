@@ -59,10 +59,10 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>export GO111MODULE=on
+					<string>export PATH=$PATH:$HOME/.nix-profile/bin:$HOME/.$GOPATH/bin:$GOROOT/bin
+export GO111MODULE=on
 export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
-export PATH=$PATH:$HOME/.nix-profile/bin:$HOME/.$GOPATH/bin:$GOROOT/bin
 /Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -178,7 +178,7 @@ export PATH=$PATH:$HOME/.nix-profile/bin:$HOME/.$GOPATH/bin:$GOROOT/bin
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>309.000000:252.000000</string>
+				<string>309.000000:372.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>

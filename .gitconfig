@@ -3,7 +3,7 @@
 	email = ereslibre@ereslibre.es
 	signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
 [core]
-	excludesfile = /home/ereslibre/.global-gitignore
+	excludesfile = /home/ereslibre/.gitignore
 [alias]
 	ci = commit
 	st = status
