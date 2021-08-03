@@ -269,7 +269,7 @@
  '(org-agenda-files
    '("~/projects/org/inbox.org" "~/projects/org/birthdays.org" "~/projects/org/projects.org" "~/projects/org/tickler.org" "~/projects/org/reminders.org" "~/projects/org/someday.org" "~/projects/org/journal.org" "~/projects/org/habits.org"))
  '(package-selected-packages
-   '(bats-mode zig-mode monokai-theme doom-themes typescript-mode terraform-mode nix-mode adoc-mode helm-lsp protobuf-mode git-link yasnippet powerline helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
+   '(rego-mode bats-mode zig-mode monokai-theme doom-themes typescript-mode terraform-mode nix-mode adoc-mode helm-lsp protobuf-mode git-link yasnippet powerline helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)

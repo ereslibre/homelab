@@ -95,3 +95,6 @@ export EDITOR='emacs'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
+
+keychain ~/.ssh/id_rsa
+. ~/.keychain/${HOST}-sh

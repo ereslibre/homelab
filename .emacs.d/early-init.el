@@ -32,9 +32,6 @@
 ;; misc
 (global-unset-key (kbd "C-z"))
 
-;; default browser
-(setq browse-url-browser-function 'browse-url-xdg-open)
-
 ;; no welcome screen
 (setq-default inhibit-startup-message t)
 
