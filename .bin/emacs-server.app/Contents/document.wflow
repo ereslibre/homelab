@@ -60,14 +60,14 @@
 				<dict>
 					<key>COMMAND_STRING</key>
 					<string>export GO111MODULE=on
-export GOPATH=$(/opt/homebrew/bin/go env GOPATH)
-export GOROOT=$(/opt/homebrew/bin/go env GOROOT)
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOPATH=$(go env GOPATH)
+export GOROOT=$(go env GOROOT)
+export PATH=$PATH:$HOME/.nix-profile/bin:$HOME/.$GOPATH/bin:$GOROOT/bin
 /Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>shell</key>
 					<string>/bin/sh</string>
 					<key>source</key>

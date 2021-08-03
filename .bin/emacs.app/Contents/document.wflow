@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=air -c ~ &amp;&gt; /dev/null &amp;</string>
+					<string>/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --socket-name=air -c -F "'(fullscreen . maximized)" ~/projects &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -95,6 +95,8 @@
 				</array>
 				<key>OutputUUID</key>
 				<string>2792C72A-ECD3-4F3D-A973-49CB6352CC8C</string>
+				<key>ShowWhenRun</key>
+				<false/>
 				<key>UUID</key>
 				<string>8E0A1A68-DD88-43B1-9630-FCF0A283EC07</string>
 				<key>UnlocalizedApplications</key>
