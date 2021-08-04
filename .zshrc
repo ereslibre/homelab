@@ -80,7 +80,15 @@ export EDITOR='emacs'
 
 # Source some tools
 
+# nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
+# keychain
 keychain ~/.ssh/id_rsa
 . ~/.keychain/${HOST}-sh
+
+# fzf
+if [ -n "${commands[fzf-share]}" ]; then
+  . "$(fzf-share)/key-bindings.zsh"
+  . "$(fzf-share)/completion.zsh"
+fi
