@@ -96,5 +96,9 @@ export EDITOR='emacs'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias k="kubectl"
 
+# Source some tools
+
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
 keychain ~/.ssh/id_rsa
 . ~/.keychain/${HOST}-sh
