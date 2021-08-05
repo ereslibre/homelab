@@ -84,7 +84,11 @@ export EDITOR='emacs'
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # keychain
-keychain ~/.ssh/id_rsa
+if [ -f ~/.ssh/id_rsa ]; then
+    keychain ~/.ssh/id_rsa
+else
+    keychain --inherit any
+fi
 . ~/.keychain/${HOST}-sh
 
 # fzf
