@@ -100,3 +100,8 @@ if [ -n "${commands[fzf-share]}" ]; then
   . "$(fzf-share)/key-bindings.zsh"
   . "$(fzf-share)/completion.zsh"
 fi
+
+# Go
+export GOPATH=$(go env GOPATH)
+export GOROOT=$(go env GOROOT)
+export GO111MODULE=on
