@@ -1,8 +1,8 @@
 awscli-1.19.97
 bat-0.18.2
 cabal-install-3.4.0.0
-cabal2nix-2.17.0
-cachix-0.6.0
+cabal2nix-2.18.0
+cachix-0.6.1
 cargo-1.53.0
 clippy-1.53.0
 coreutils-8.32
@@ -26,6 +26,6 @@ qmk-0.0.52
 ripgrep-13.0.0
 rnix-lsp-0.1.0
 rustc-1.53.0
-terraform-1.0.3
+terraform-1.0.4
 tmux-3.2a
 tree-1.8.0
