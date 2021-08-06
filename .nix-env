@@ -30,6 +30,7 @@ open-policy-agent-0.31.0
 qmk-0.0.52
 ripgrep-13.0.0
 rnix-lsp-0.1.0
+rust-analyzer-2021-08-02
 rustc-1.53.0
 terraform-1.0.4
 tmux-3.2a
