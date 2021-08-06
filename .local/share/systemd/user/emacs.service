@@ -5,7 +5,7 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 [Service]
 Type=simple
 ExecStart=/home/ereslibre/.nix-profile/bin/emacs --fg-daemon=air
-ExecStop=/home/ereslibre/.nix-profile/bin//emacsclient --socket-name=air --eval "(kill-emacs)"
+ExecStop=/home/ereslibre/.nix-profile/bin/emacsclient --socket-name=air --eval "(kill-emacs)"
 Restart=on-failure
 
 [Install]
