@@ -59,12 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>export PATH=$PATH:$HOME/.nix-profile/bin
-export GO111MODULE=on
-export GOPATH=$(go env GOPATH)
-export GOROOT=$(go env GOROOT)
-export PATH=$PATH:$HOME/.$GOPATH/bin:$GOROOT/bin
-/Applications/Emacs.app/Contents/MacOS/Emacs --bg-daemon=air &amp;&gt; /dev/null &amp;</string>
+					<string>~/.nix-profile/bin/emacs --bg-daemon=air &amp;&gt; /dev/null</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>

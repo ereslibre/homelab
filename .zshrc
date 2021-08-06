@@ -78,17 +78,12 @@ source $ZSH/oh-my-zsh.sh
 export LANG='en_US.UTF-8'
 export EDITOR='emacs'
 
-# nix fixes
-
-## nix programs: use the system locale archive
-LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
-
 # Source some tools
 
-## nix
+# nix
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-## keychain
+# keychain
 if [ -f ~/.ssh/id_rsa ]; then
     keychain ~/.ssh/id_rsa
 else
