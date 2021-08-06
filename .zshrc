@@ -76,7 +76,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export LANG='en_US.UTF-8'
-export EDITOR='emacs'
+export EDITOR='~/.bin/emacsclient'
 
 # Source some tools
 
