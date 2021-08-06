@@ -6,6 +6,7 @@ cachix-0.6.1
 cargo-1.53.0
 clippy-1.53.0
 coreutils-8.32
+fluxcd-0.16.1
 fzf-0.27.2
 ghc-8.10.4
 git-2.32.0
@@ -19,9 +20,11 @@ htop-3.0.5
 jq-1.6
 keychain-2.8.5
 kubectl-1.21.3
+kubeseal-0.16.0
 nix-2.3.15
 nix-prefetch-git
 nss-cacert-3.66
+open-policy-agent-0.31.0
 qmk-0.0.52
 ripgrep-13.0.0
 rnix-lsp-0.1.0
@@ -29,3 +32,5 @@ rustc-1.53.0
 terraform-1.0.4
 tmux-3.2a
 tree-1.8.0
+trivy-0.19.2
+velero-1.6.2
