@@ -1,3 +1,6 @@
+;; exec path
+(setq exec-path (append exec-path '("~/.nix-profile/bin")))
+
 ;; general shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
 
