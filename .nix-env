@@ -6,6 +6,7 @@ cachix-0.6.1
 cargo-1.53.0
 clippy-1.53.0
 coreutils-8.32
+emacs-27.2
 fluxcd-0.16.1
 fzf-0.27.2
 ghc-8.10.4
@@ -14,7 +15,6 @@ git-repo-2.16
 gnupg-2.2.27
 gnupg-pkcs11-scd-0.9.2
 go-1.16.6
-gopls-0.7.0
 helm-3.6.3
 htop-3.0.5
 jq-1.6
