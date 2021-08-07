@@ -2,7 +2,7 @@
 (setenv "PATH"
   (concat
    (expand-file-name "~/.nix-profile/bin") ":"
-   (getenv "PATH"))))
+   (getenv "PATH")))
 (setq exec-path (append exec-path ((expand-file-name "~/.nix-profile/bin"))))
 
 ;; general shortcuts
