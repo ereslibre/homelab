@@ -3,7 +3,7 @@
   (concat
    (expand-file-name "~/.nix-profile/bin") ":"
    (getenv "PATH")))
-(setq exec-path (append exec-path ((expand-file-name "~/.nix-profile/bin"))))
+(add-to-list 'exec-path (expand-file-name "~/.nix-profile/bin"))
 
 ;; general shortcuts
 (global-set-key (kbd "M-i") 'helm-imenu)
