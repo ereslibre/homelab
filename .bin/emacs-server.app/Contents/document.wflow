@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>~/.nix-profile/bin/emacs --bg-daemon=air &amp;&gt; /dev/null</string>
+					<string>~/.nix-profile/bin/emacs --bg-daemon=main &amp;&gt; /dev/null</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>

@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>~/.nix-profile/bin/emacsclient --socket-name=air -c -F "'(fullscreen . maximized)" ~/projects &amp;&gt; /dev/null &amp;</string>
+					<string>~/.nix-profile/bin/emacsclient --socket-name=main -c -F "'(fullscreen . maximized)" ~/projects &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
