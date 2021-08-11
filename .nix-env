@@ -33,7 +33,7 @@ qmk-0.0.52
 reg-0.16.1
 ripgrep-13.0.0
 rnix-lsp-0.1.0
-rust-analyzer-2021-08-02
+rust-analyzer-2021-08-09
 rustc-1.53.0
 rustfmt-1.53.0
 terraform-1.0.4
