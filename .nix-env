@@ -4,6 +4,7 @@ cabal-install-3.4.0.0
 cabal2nix-2.18.0
 cachix-0.6.1
 cargo-1.53.0
+cargo-audit-0.15.0
 clippy-1.53.0
 coreutils-8.32
 emacs-27.2
