@@ -22,7 +22,7 @@
 
 ;; line numbers
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 't)
 
 ;; calendar
 (setq calendar-week-start-day 1)
