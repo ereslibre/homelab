@@ -113,6 +113,6 @@ nix-build-derivation() {
 }
 
 nix-shell-derivation() {
-    local expression="${1:-default.nix}"
-    nix-shell -E "with import <nixpkgs> {}; callPackage ./${expression} {}"
+    local expression="${2:-default.nix}"
+    nix-shell -A "${1}" -E "with import <nixpkgs> {}; callPackage ./${expression} {}" -I nixpkgs=.
 }
