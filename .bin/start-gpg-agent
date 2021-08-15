@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-gpg-agent --homedir ${HOME}/.gnupg --use-standard-socket --daemon
