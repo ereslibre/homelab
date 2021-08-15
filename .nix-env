@@ -36,6 +36,7 @@ rnix-lsp-0.1.0
 rust-analyzer-2021-08-09
 rustc-1.53.0
 rustfmt-1.53.0
+stack-2.7.3
 terraform-1.0.4
 tmux-3.2a
 tree-1.8.0
