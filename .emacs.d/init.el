@@ -126,8 +126,6 @@
     (setq read-process-output-max (* 1024 1024))
     (setq lsp-auto-configure t)
     (setq lsp-restart 'auto-restart)
-    (add-to-list 'lsp-language-id-configuration
-      '(emacs-lisp-mode . "el"))
     (add-hook 'prog-mode-hook 'lsp))
 
   ;; undo tree
