@@ -95,3 +95,7 @@
 ;; programming helpers
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
+
+;; custom file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
