@@ -6,8 +6,9 @@
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-  (package-install 'use-package)
-  (package-install 'doom-themes))
+  (dolist (package package-selected-packages)
+    (unless (package-installed-p package)
+      (package-install package))))
 
 (eval-when-compile
   (require 'use-package)
