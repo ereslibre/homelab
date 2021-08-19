@@ -96,6 +96,11 @@
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
 
+;; font
+(set-frame-font "Fira Code-13:Regular")
+(add-to-list 'default-frame-alist '(font . "Fira Code-13:Regular"))
+(set-face-attribute 'default t :font "Fira Code-13:Regular")
+
 ;; custom file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
