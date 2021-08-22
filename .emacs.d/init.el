@@ -76,6 +76,7 @@
   :config
   (helm-mode 1)
   (helm-autoresize-mode t)
+  (global-set-key (kbd "M-i") 'helm-imenu)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z")  'helm-select-action))

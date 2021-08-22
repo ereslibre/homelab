@@ -5,9 +5,6 @@
    (getenv "PATH")))
 (add-to-list 'exec-path (expand-file-name "~/.nix-profile/bin"))
 
-;; general shortcuts
-(global-set-key (kbd "M-i") 'helm-imenu)
-
 ;; terminal tweaks
 (add-hook 'term-mode-hook '(lambda () (setq-local global-hl-line-mode nil)))
 
