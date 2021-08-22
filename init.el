@@ -20,7 +20,8 @@
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
 
-(use-package magit)
+(use-package magit
+  :defer 3)
 
 (use-package yasnippet
   :config
@@ -32,6 +33,7 @@
   (setq git-link-use-commit t))
 
 (use-package company
+  :demand
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -65,19 +67,23 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package helm
-  :bind (("C-i" . helm-execute-persistent-action)
-         ("C-z" . helm-select-action)
-         ("C-x C-f" . helm-find-files)
+  :demand
+  :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
          ([remap occur] . helm-occur)
          ([remap list-buffers] . helm-buffers-list)
          ([remap dabbrev-expand] . helm-dabbrev))
   :config
   (helm-mode 1)
-  (helm-autoresize-mode t))
+  (helm-autoresize-mode t)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-z")  'helm-select-action))
 
 (use-package projectile
-  :bind (("C-c p" . projectile-command-map))
+  :demand
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :after (helm)
   :config
   (projectile-mode +1)
   (setq projectile-completion-system 'helm)
