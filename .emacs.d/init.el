@@ -27,16 +27,15 @@
   (yas-global-mode 1))
 
 (use-package git-link
+  :bind ("C-c g l" . git-link)
   :init
-  (setq git-link-use-commit t)
-  :config
-  (global-set-key (kbd "C-c g l") 'git-link))
+  (setq git-link-use-commit t))
 
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode)
-  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
+  :bind (("C-n" . company-select-next-or-abort)
+         ("C-p" . company-select-previous-or-abort)))
 
 (use-package yafolding
   :config
@@ -68,37 +67,38 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package helm
+  :bind (("<tab>" . helm-execute-persistent-action)
+         ("C-i" . helm-execute-persistent-action)
+         ("C-z" . helm-select-action)
+         ("C-x C-f" . helm-find-files)
+         ("M-x" . helm-M-x)
+         ([remap occur] . helm-occur)
+         ([remap list-buffers] . helm-buffers-list)
+         ([remap dabbrev-expand] . helm-dabbrev))
   :config
   (helm-mode 1)
   (helm-autoresize-mode t)
   (setq helm-split-window-inside-p t)
   (setq helm-find-files-ignore-thing-at-point t) ; Ignore ffap
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z")  'helm-select-action)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (define-key global-map [remap occur] 'helm-occur)
-  (define-key global-map [remap list-buffers] 'helm-buffers-list)
-  (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-  (global-set-key (kbd "M-x") 'helm-M-x)
   (unless (boundp 'completion-in-region-function)
     (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
     (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
 
 (use-package helm-lsp
-  :config
-  (global-set-key (kbd "C-c w s") 'helm-lsp-workspace-symbol)
-  (global-set-key (kbd "C-c w g") 'helm-lsp-global-workspace-symbol))
+  :bind (("C-c w s" . helm-lsp-workspace-symbol)
+         ("C-c w g" . helm-lsp-global-workspace-symbol)))
 
 (use-package projectile
+  :bind (("C-c p" . projectile-command-map))
   :config
   (projectile-mode +1)
   (setq projectile-completion-system 'helm)
   (setq projectile-enable-caching t)
-  (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories))
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories)))
 
 (use-package neotree
+  :bind (("C-c n" . neotree-toggle)
+         ("C-c t" . neotree-find))
   :config
   (setq neo-autorefresh t)
   (setq neo-theme 'ascii)
@@ -131,12 +131,17 @@
 		          (progn
 		            (neotree-dir project-dir)
 		            (neotree-find file-name)))
-	      (message "Could not find git project root."))))
-  (global-set-key (kbd "C-c n") 'neotree-toggle)
-  (global-set-key (kbd "C-c t") 'neotree-find))
+	      (message "Could not find git project root.")))))
 
-(require 'org)
-(with-eval-after-load 'org
+(use-package ace-window
+  :bind ("M-o" . ace-window))
+
+(use-package org
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         ("C-c C-o" . org-open-at-point))
+  :config
   (setq org-agenda-files '("~/org/habits.org"
 			                     "~/org/inbox.org"
 			                     "~/org/journal.org"
@@ -148,10 +153,6 @@
   (setq org-agenda-text-search-extra-files
 	      (append (directory-files-recursively "~/org" "\.org$")
 		            (directory-files-recursively "~/org" "\.org_archive$")))
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key (kbd "C-c C-o") 'org-open-at-point)
   (setq org-log-done t)
   (setq org-log-repeat 'note)
   (setq org-agenda-span 'day)
