@@ -30,6 +30,7 @@ nix-2.3.15
 nix-prefetch-git
 nss-cacert-3.66
 open-policy-agent-0.31.0
+otpauth-0.3.4
 python3.9-yubikey-manager-4.0.5
 qmk-0.0.52
 reg-0.16.1
