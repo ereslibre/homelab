@@ -1,27 +1,27 @@
 [user]
-	name = Rafael Fernández López
-	email = ereslibre@ereslibre.es
-	signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
+  name = Rafael Fernández López
+  email = ereslibre@ereslibre.es
+  signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
 [alias]
-	ci = commit
-	st = status
-	co = checkout
-	br = branch
+  ci = commit
+  st = status
+  co = checkout
+  br = branch
 [color]
-	ui = auto
+  ui = auto
 [push]
-	default = matching
+  default = matching
 [commit]
-	gpgsign = true
+  gpgsign = true
 [github]
-	user = ereslibre
+  user = ereslibre
 [pull]
-	ff = only
-	rebase = true
+  ff = only
+  rebase = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [includeIf "gitdir:~/projects/suse/"]
   path = ~/.gitconfig.suse
 [includeIf "gitdir:~/projects/kubewarden/"]
