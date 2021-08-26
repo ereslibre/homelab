@@ -18,7 +18,7 @@
 [github]
   user = ereslibre
 [gpg]
-  program = "/home/ereslibre/.bin/gpg-no-autostart"
+  program = "gpg-no-autostart"
 [pull]
   ff = only
   rebase = true
