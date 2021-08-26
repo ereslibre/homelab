@@ -155,7 +155,7 @@
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-targets '(("~/org/habits.org" :maxlevel . 1)
-                             ("~/org/notes.org" :maxlevel . 2)
+                             ("~/org/notes.org" :maxlevel . 3)
 			                       ("~/org/projects.org" :maxlevel . 3)
 			                       ("~/org/someday.org" :maxlevel . 3)
 			                       ("~/org/tickler.org" :maxlevel . 3)
