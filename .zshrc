@@ -5,7 +5,7 @@ export PATH=${HOME}/.bin:${HOME}/.cargo/bin:${HOME}/go/bin:/usr/local/bin:${PATH
 export ZSH="${HOME}/.oh-my-zsh"
 
 if [ -f /etc/os-release ]; then
-    mkdir -p /run/user/$(id -u)/gnupg
+    mkdir -p ${XDG_RUNTIME_DIR}/gnupg
 fi
 
 # Set name of the theme to load --- if set to "random", it will
