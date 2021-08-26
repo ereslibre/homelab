@@ -206,3 +206,9 @@
 	          (tags "+someday" ((org-agenda-files '("~/org/someday.org"))))))))
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
+
+(use-package sublimity
+  :demand
+  :config
+  (require 'sublimity-attractive)
+  (sublimity-mode 1))
