@@ -207,10 +207,17 @@
 	          (tags-todo "+hacking" ((org-agenda-files '("~/org/projects.org"))))
 	          (tags "+someday" ((org-agenda-files '("~/org/someday.org"))))))))
   (add-to-list 'org-modules 'org-habit)
-  (add-hook 'before-save-hook (lambda () (when (eq major-mode 'org-mode) (org-align-tags t)))))
+  (add-hook 'before-save-hook (lambda ()
+                                (when (eq major-mode 'org-mode) (org-align-tags t)))))
 
 (use-package sublimity
   :demand
   :config
   (require 'sublimity-attractive)
-  (sublimity-mode 1))
+  (sublimity-mode 1)
+  ;; When on org-agenda-mode, tags are aligned first, then sublimity
+  ;; resizes and centers, and tags are left out of screen. Redo the
+  ;; agenda.
+  (add-hook 'sublimity--window-change-functions
+            (lambda ()
+              (when (eq major-mode 'org-agenda-mode) (org-agenda-redo)))))
