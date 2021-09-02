@@ -8,6 +8,7 @@ cargo-audit-0.15.0
 cargo-deny-0.9.1
 cargo-edit-0.7.0
 clippy-1.53.0
+conmon-2.0.29
 coreutils-8.32
 dive-0.10.0
 emacs-27.2
