@@ -10,6 +10,7 @@ cargo-edit-0.7.0
 clippy-1.53.0
 conmon-2.0.29
 coreutils-8.32
+cosign-1.1.0
 dive-0.10.0
 emacs-27.2
 fluxcd-0.16.2
@@ -34,7 +35,7 @@ nix-prefetch-git
 nss-cacert-3.66
 open-policy-agent-0.31.0
 otpauth-0.3.5
-podman-3.3.0
+podman-3.3.1
 python3.9-yubikey-manager-4.0.5
 qmk-0.0.52
 reg-0.16.1
