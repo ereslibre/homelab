@@ -13,9 +13,9 @@ coreutils-8.32
 cosign-1.1.0
 dive-0.10.0
 emacs-27.2
-fluxcd-0.16.2
+fluxcd-0.17.0
 fzf-0.27.2
-ghc-8.10.6
+ghc-8.10.7
 git-2.32.0
 git-repo-2.16
 gnupg-2.2.27
@@ -41,11 +41,11 @@ qmk-0.0.52
 reg-0.16.1
 ripgrep-13.0.0
 rnix-lsp-0.1.0
-rust-analyzer-2021-08-23
+rust-analyzer-2021-09-06
 rustc-1.53.0
 rustfmt-1.53.0
 stack-2.7.3
-terraform-1.0.5
+terraform-1.0.6
 tmux-3.2a
 tree-1.8.0
 trivy-0.19.2
