@@ -60,11 +60,11 @@
 	<key>DTPlatformName</key>
 	<string>macosx</string>
 	<key>DTPlatformVersion</key>
-	<string>11.5</string>
+	<string>11.6</string>
 	<key>DTSDKBuild</key>
-	<string>20G50</string>
+	<string>20G162c</string>
 	<key>DTSDKName</key>
-	<string>macosx11.5internal</string>
+	<string>macosx11.6internal</string>
 	<key>DTXcode</key>
 	<string>1240</string>
 	<key>DTXcodeBuild</key>
