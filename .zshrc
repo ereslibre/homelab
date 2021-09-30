@@ -73,7 +73,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export LANG='en_US.UTF-8'
-export EDITOR="${HOME}/.bin/emacsclient"
+export VISUAL="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron -w"
+export EDITOR="/Users/ereslibre/.nix-profile/bin/emacsclient --socket-name=main -t"
 
 # Source some tools
 
