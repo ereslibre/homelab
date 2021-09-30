@@ -1,5 +1,4 @@
 alias dir='dir --color=auto'
-alias egrep='egrep --color=auto'
 alias emacs='~/.nix-profile/bin/emacsclient --socket-name=main -t'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
