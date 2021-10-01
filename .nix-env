@@ -23,6 +23,7 @@ gnupg-pkcs11-scd-0.9.2
 go-1.17.1
 gopls-0.7.1
 gotools-unstable-2021-01-13
+haskell-language-server-1.4.0.0
 helm-3.6.3
 htop-3.0.5
 jq-1.6
