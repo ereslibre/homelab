@@ -32,6 +32,7 @@ keychain-2.8.5
 kind-0.11.1
 kubectl-1.22.2
 kubeseal-0.16.0
+niv-0.2.19
 nix-2.4pre20210922_bcd73eb
 nix-prefetch-git
 nss-cacert-3.66
