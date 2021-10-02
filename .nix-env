@@ -11,6 +11,7 @@ clippy-1.55.0
 conmon-2.0.30
 coreutils-8.32
 cosign-1.2.1
+direnv-2.28.0
 dive-0.10.0
 emacs-27.2
 fluxcd-0.17.2

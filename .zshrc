@@ -100,6 +100,9 @@ export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
 export GO111MODULE=on
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # Helper functions
 nix-build-derivation() {
     local expression="${1:-default.nix}"
