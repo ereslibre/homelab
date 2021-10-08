@@ -1,6 +1,5 @@
 awscli-1.20.31
 bat-0.18.3
-cabal-install-3.6.0.0
 cabal2nix-2.18.0
 cachix-0.6.1
 conmon-2.0.30
