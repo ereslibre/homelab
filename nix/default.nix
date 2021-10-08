@@ -1,0 +1,57 @@
+let
+  pkgs = import <nixpkgs> {};
+  base = with pkgs;
+    [
+      awscli
+      bat
+      cabal-install
+      cabal2nix
+      cacert
+      cachix
+      cargo
+      cargo-audit
+      cargo-deny
+      cargo-edit
+      clippy
+      coreutils
+      dive
+      emacs
+      fluxcd
+      fzf
+      ghc
+      git
+      gitRepo
+      gnupg
+      gnupg-pkcs11-scd
+      go
+      gopls
+      gotools
+      kubernetes-helm
+      htop
+      jq
+      keychain
+      kind
+      kubectl
+      kubeseal
+      open-policy-agent
+      otpauth
+      podman
+      yubikey-manager
+      qmk
+      reg
+      ripgrep
+      rnix-lsp
+      rust-analyzer
+      rustc
+      rustfmt
+      stack
+      terraform
+      tmux
+      tree
+      trivy
+      velero
+      yq
+      zbar
+    ];
+in
+  base
