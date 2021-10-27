@@ -25,6 +25,7 @@ keychain-2.8.5
 kind-0.11.1
 kubectl-1.22.2
 kubeseal-0.16.0
+mtr-0.94
 niv-0.2.19
 nix-2.5pre20211007_844dd90
 nix-prefetch-git
