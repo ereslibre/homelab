@@ -4,22 +4,20 @@ let
     [
       awscli
       bat
-      cabal-install
       cabal2nix
       cacert
       cachix
-      cargo
-      cargo-audit
-      cargo-deny
-      cargo-edit
-      clippy
+      conmon
+      coreutils
+      cosign
+      direnv
       coreutils
       dive
       emacs
       fluxcd
       fzf
-      ghc
       git
+      git-chglog
       gitRepo
       gnupg
       gnupg-pkcs11-scd
@@ -30,9 +28,10 @@ let
       htop
       jq
       keychain
-      kind
       kubectl
       kubeseal
+      mtr
+      niv
       open-policy-agent
       otpauth
       podman
@@ -41,15 +40,14 @@ let
       reg
       ripgrep
       rnix-lsp
-      rust-analyzer
-      rustc
-      rustfmt
+      rustup
       stack
       terraform
       tmux
       tree
       trivy
       velero
+      wget
       yq
       zbar
     ];
