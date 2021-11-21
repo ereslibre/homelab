@@ -1,7 +1,7 @@
 [user]
   name = Rafael Fernández López
   email = ereslibre@ereslibre.es
-  signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
+#  signingkey = 13C970729837C532A9DAEED43AD066E839DFBB2C
 [core]
   excludesfile = ~/.gitignore
 [alias]
@@ -14,11 +14,9 @@
 [push]
   default = matching
 [commit]
-  gpgsign = true
+#  gpgsign = true
 [github]
   user = ereslibre
-[gpg]
-  program = "gpg-no-autostart"
 [pull]
   ff = only
   rebase = true
