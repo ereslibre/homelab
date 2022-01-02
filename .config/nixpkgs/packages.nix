@@ -1,6 +1,5 @@
 { pkgs, ... }:
-{
-  home.packages = with pkgs; [
+with pkgs; [
     awscli
     bat
     cabal2nix
@@ -50,5 +49,4 @@
     wget
     yq
     zbar
-  ];
-}
+];
