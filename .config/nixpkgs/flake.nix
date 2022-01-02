@@ -9,20 +9,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager }: {
-    defaultApp.x86_64-darwin = {
-      type = "app";
-      program = "${nixpkgs.legacyPackages.x86_64-darwin.home-manager}/bin/home-manager";
-    };
-
+  outputs = inputs: {
     homeConfigurations = {
-      "ereslibre@Rafaels-MacBook-Air.local" = self.inputs.home-manager.lib.homeManagerConfiguration {
-        # system = "x86_64-darwin";
-        # homeDirectory = "/Users/ereslibre";
-        # username = "ereslibre";
-        # configuration = { config, pkgs, ... }: {
-        #   imports = [ ./common.nix ];
-        # };
+      "ereslibre@Rafaels-MacBook-Air.local" = inputs.home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-darwin";
+        homeDirectory = "/Users/ereslibre";
+        username = "ereslibre";
+        configuration = { config, pkgs, ... }: {
+          imports = [ ./common.nix ];
+        };
       };
     };
   };
