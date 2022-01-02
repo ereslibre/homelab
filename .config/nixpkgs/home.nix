@@ -1,4 +1,7 @@
+{ pkgs, ... }:
 {
+  home.packages = import ./packages.nix { inherit pkgs; };
+
   programs = {
     zsh = {
       enable = true;
