@@ -11,7 +11,6 @@ with pkgs; [
     direnv
     coreutils
     dive
-    emacs
     fluxcd
     fzf
     git
