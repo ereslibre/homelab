@@ -1,0 +1,7 @@
+{
+  programs = {
+    emacs = {
+      enable = true;
+    };
+  };
+};
