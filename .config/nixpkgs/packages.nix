@@ -1,6 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
-with pkgs;
-[
+home.packages = with pkgs; [
   awscli
   bat
   cabal2nix

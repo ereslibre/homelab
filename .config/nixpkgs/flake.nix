@@ -15,7 +15,9 @@
         system = "x86_64-darwin";
         homeDirectory = "/Users/ereslibre";
         username = "ereslibre";
-        configuration.imports = [ ./home.nix ];
+        configuration = { config, pkgs, ... }: {
+          imports = [ ./common.nix ];
+        };
       };
     };
   };
