@@ -1,2 +1,2 @@
 build:
-	nix run '.#homeConfigurations."ereslibre@Rafaels-MacBook-Air".activationPackage'
+	nix run '.#homeConfigurations."${USER}@$(shell hostname -s)".activationPackage'
