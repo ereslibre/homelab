@@ -31,7 +31,7 @@ with pkgs; [
     kubeseal
     mtr
     niv
-    open-policy-agent
+#    open-policy-agent
     otpauth
     podman
     yubikey-manager
