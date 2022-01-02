@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  home.packages = import ./packages.nix { inherit pkgs; };
+  home.packages = [
+    pkgs.bat
+  ];
 
   programs = {
     zsh = {
