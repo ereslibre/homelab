@@ -5,7 +5,7 @@ with pkgs; [
     cabal2nix
     cacert
     cachix
-    conmon
+#    conmon
     coreutils
     cosign
     direnv
@@ -49,4 +49,4 @@ with pkgs; [
     wget
     yq
     zbar
-];
+]
