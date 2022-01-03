@@ -23,11 +23,11 @@
       enable = true;
       envExtra = ''
         export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
-        export GOPATH=$(${pkgs.go}/bin/go env GOPATH)
-        export GOROOT=$(${pkgs.go}/bin/go env GOROOT)
-        export GO111MODULE=on
-        export LANG='en_US.UTF-8'
-        export PATH=''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}
+        export GOPATH="$(${pkgs.go}/bin/go env GOPATH)"
+        export GOROOT="$(${pkgs.go}/bin/go env GOROOT)"
+        export GO111MODULE="on"
+        export LANG="en_US.UTF-8"
+        export PATH="''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}"
       '';
       initExtra = ''
         token() {
