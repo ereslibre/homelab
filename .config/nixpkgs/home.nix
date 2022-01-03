@@ -5,6 +5,11 @@
   programs = {
     zsh = {
       enable = true;
+      oh-my-zsh = {
+        enable = true;
+        theme = "ereslibre-af-magic";
+        custom = "$HOME/dotfiles/.oh-my-zsh";
+      };
       shellAliases = {
         dir = "dir --color=auto";
         emacs = "${pkgs.emacs}/bin/emacsclient --socket-name=main -t";
