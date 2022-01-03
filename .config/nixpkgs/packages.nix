@@ -30,6 +30,7 @@ with pkgs; [
     kubeseal
     mtr
     niv
+    nix-linter
 #    open-policy-agent
     otpauth
     podman
