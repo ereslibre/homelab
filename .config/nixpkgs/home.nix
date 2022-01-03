@@ -3,6 +3,10 @@
   home.packages = import ./packages.nix { inherit pkgs; };
 
   programs = {
+    emacs = {
+      enable = true;
+    };
+
     zsh = {
       enable = true;
       oh-my-zsh = {
@@ -24,10 +28,6 @@
         ls = "ls --color=auto";
         vdir = "vdir --color=auto";
       };
-    };
-
-    emacs = {
-      enable = true;
     };
   };
 }
