@@ -8,6 +8,7 @@ with pkgs; [
 #    conmon
     coreutils
     cosign
+    curl
     direnv
     coreutils
     dive
