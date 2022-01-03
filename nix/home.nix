@@ -22,12 +22,12 @@
     zsh = {
       enable = true;
       envExtra = ''
-        EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
-        GOPATH=$(${pkgs.go}/bin/go env GOPATH)
-        GOROOT=$(${pkgs.go}/bin/go env GOROOT)
-        GO111MODULE=on
-        LANG='en_US.UTF-8'
-        PATH=''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}
+        export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
+        export GOPATH=$(${pkgs.go}/bin/go env GOPATH)
+        export GOROOT=$(${pkgs.go}/bin/go env GOROOT)
+        export GO111MODULE=on
+        export LANG='en_US.UTF-8'
+        export PATH=''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}
       '';
       initExtra = ''
         token() {
