@@ -30,15 +30,18 @@
         export PATH="''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}"
       '';
       initExtra = ''
+        tweak_prompt() {
+          RPROMPT="$RPROMPT $(kubectx_prompt_info)"
+        }
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
+        tweak_prompt
       '';
       oh-my-zsh = {
         enable = true;
-        theme = "ereslibre-af-magic";
-        custom = "$HOME/dotfiles/.oh-my-zsh";
-        plugins = ["git"];
+        theme = "bira";
+        plugins = ["git" "kubectx"];
       };
       shellAliases = {
         dir = "dir --color=auto";
