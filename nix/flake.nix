@@ -20,6 +20,12 @@
         username = "ereslibre";
         configuration.imports = [ ./home.nix ];
       };
+      "ereslibre@desktop" = home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux";
+        homeDirectory = "/home/ereslibre";
+        username = "ereslibre";
+        configuration.imports = [ ./home.nix ];
+      };
     };
   };
 }
