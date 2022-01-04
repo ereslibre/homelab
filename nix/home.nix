@@ -30,13 +30,10 @@
         export PATH="''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}"
       '';
       initExtra = ''
-        tweak_prompt() {
-          RPROMPT="$RPROMPT $(kubectx_prompt_info)"
-        }
+        RPROMPT="$RPROMPT $(kubectx_prompt_info)"
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
-        tweak_prompt
       '';
       oh-my-zsh = {
         enable = true;
