@@ -1,23 +1,14 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   home.packages = import ./packages.nix { inherit pkgs; };
 
   programs = {
-    direnv = {
-      enable = true;
-    };
+    direnv = { enable = true; };
 
-    emacs = {
-      enable = true;
-    };
+    emacs = { enable = true; };
 
-    fzf = {
-      enable = true;
-    };
+    fzf = { enable = true; };
 
-    keychain = {
-      enable = true;
-    };
+    keychain = { enable = true; };
 
     zsh = {
       enable = true;
@@ -39,7 +30,7 @@
       oh-my-zsh = {
         enable = true;
         theme = "bira";
-        plugins = ["git" "kubectx"];
+        plugins = [ "git" "kubectx" ];
       };
       shellAliases = {
         dir = "dir --color=auto";
