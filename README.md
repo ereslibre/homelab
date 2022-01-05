@@ -16,3 +16,5 @@ My dotfiles. Set as a [home-manager](https://github.com/nix-community/home-manag
    ```console
    $ make
    ```
+
+Done! :)
