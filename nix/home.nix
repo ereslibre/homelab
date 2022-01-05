@@ -1,5 +1,14 @@
 { config, pkgs, ... }: {
-  home.packages = import ./packages.nix { inherit pkgs; };
+  home = {
+    file = {
+      ".bash_profile".text = ''
+        if [ -e /home/ereslibre/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ereslibre/.nix-profile/etc/profile.d/nix.sh; fi
+        ${pkgs.zsh}/bin/zsh
+      '';
+    };
+
+    packages = import ./packages.nix { inherit pkgs; };
+  };
 
   programs = {
     direnv = { enable = true; };
