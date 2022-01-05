@@ -21,6 +21,7 @@
 
     zsh = {
       enable = true;
+      enableCompletion = false;
       envExtra = ''
         export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
         export GOPATH="$(${pkgs.go}/bin/go env GOPATH)"

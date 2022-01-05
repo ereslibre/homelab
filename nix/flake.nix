@@ -13,19 +13,23 @@
   outputs = { self, nixpkgs, flake-utils, home-manager }: {
     defaultApp.x86_64-darwin = flake-utils.lib.mkApp { drv = nixpkgs.legacyPackages.x86_64-darwin.home-manager; };
 
-    homeConfigurations = {
-      "ereslibre@Rafaels-MacBook-Air" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations = let
+      macbookConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-darwin";
         homeDirectory = "/Users/ereslibre";
         username = "ereslibre";
         configuration.imports = [ ./home.nix ];
       };
-      "ereslibre@desktop" = home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/ereslibre";
-        username = "ereslibre";
-        configuration.imports = [ ./home.nix ];
+      desktopConfiguration = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/ereslibre";
+          username = "ereslibre";
+          configuration.imports = [ ./home.nix ];
       };
+    in {
+      "ereslibre@Rafaels-Air" = macbookConfiguration;
+      "ereslibre@Rafaels-MacBook-Air" = macbookConfiguration;
+      "ereslibre@desktop" = desktopConfiguration;
     };
   };
 }
