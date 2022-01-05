@@ -1,0 +1,16 @@
+Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud
+    User                  ubuntu
+
+Host pinfra-*
+    User                  pi
+
+Host desktop
+    ForwardAgent          yes
+
+Host *
+    Compression           yes
+    ExitOnForwardFailure  yes
+    ForwardX11            no
+    ServerAliveCountMax   10
+    ServerAliveInterval   20
+    TCPKeepAlive          no

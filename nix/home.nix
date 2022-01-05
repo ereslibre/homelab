@@ -11,6 +11,7 @@
       };
       ".gitconfig".source = ./assets/git/gitconfig;
       ".gitconfig.suse".source = ./assets/git/gitconfig-suse;
+      ".ssh/config".source = ./assets/ssh/config;
       ".tmux.conf".source = ./assets/tmux.conf;
     };
 
