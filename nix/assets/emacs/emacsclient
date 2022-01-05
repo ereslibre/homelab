@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+~/.nix-profile/bin/emacsclient --socket-name=main -t -c "$@"

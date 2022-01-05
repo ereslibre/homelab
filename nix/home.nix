@@ -5,6 +5,10 @@
         if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
         exec ${pkgs.zsh}/bin/zsh
       '';
+      ".bin/emacsclient" = {
+        source = ./assets/emacs/emacsclient;
+        executable = true;
+      };
       ".emacs.d" = {
         source = ./assets/emacs/emacs.d;
         recursive = true;
