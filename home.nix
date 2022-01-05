@@ -49,14 +49,6 @@
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
-
-        keychain_inherit_if_needed() {
-          if [ ! -f ~/.ssh/id_rsa ]; then
-            ${pkgs.keychain}/bin/keychain --inherit any
-          fi
-        }
-
-        keychain_inherit_if_needed
       '';
       oh-my-zsh = {
         enable = true;
