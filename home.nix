@@ -28,13 +28,10 @@
   };
 
   programs = {
-    direnv = { enable = true; };
-
-    emacs = { enable = true; };
-
-    fzf = { enable = true; };
-
-    keychain = { enable = true; };
+    direnv.enable = true;
+    emacs.enable = true;
+    fzf.enable = true;
+    keychain.enable = true;
 
     zsh = {
       enable = true;
