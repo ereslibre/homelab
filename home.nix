@@ -2,7 +2,7 @@
   home = {
     file = {
       ".bash_profile".text = ''
-        if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+        if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh; fi
         exec ${pkgs.zsh}/bin/zsh
       '';
       ".bin/emacsclient" = {
@@ -37,6 +37,7 @@
       enable = true;
       enableCompletion = false;
       envExtra = ''
+        export PATH="${config.home.homeDirectory}/.bin:''${PATH}"
         export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
         export LANG="en_US.UTF-8"
       '';
