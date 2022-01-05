@@ -26,10 +26,12 @@
         system = "x86_64-linux";
         homeDirectory = "/home/ereslibre";
         username = "ereslibre";
-        configuration.imports = [ ./home.nix ];
-        configuration.programs.keychain = {
-          keys = [ ];
-          inheritType = "any";
+        configuration = {
+          imports = [ ./home.nix ];
+          programs.keychain = {
+            keys = [ ];
+            inheritType = "any";
+          };
         };
       };
     in {
