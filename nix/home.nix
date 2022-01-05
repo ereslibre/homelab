@@ -9,6 +9,11 @@
         source = ./assets/emacs/emacsclient;
         executable = true;
       };
+      # Make it conditional on Mac only
+      ".bin/rosetta" = {
+        source = ./assets/mac/rosetta;
+        executable = true;
+      };
       ".emacs.d" = {
         source = ./assets/emacs/emacs.d;
         recursive = true;
