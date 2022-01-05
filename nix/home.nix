@@ -9,10 +9,10 @@
         source = ./assets/emacs/emacs.d;
         recursive = true;
       };
-      ".gitconfig".source = ./assets/git/gitconfig;
-      ".gitconfig.suse".source = ./assets/git/gitconfig-suse;
+      ".gitconfig".source = ./assets/git/config;
+      ".gitconfig.suse".source = ./assets/git/config-suse;
       ".ssh/config".source = ./assets/ssh/config;
-      ".tmux.conf".source = ./assets/tmux.conf;
+      ".tmux.conf".source = ./assets/tmux/config;
     };
 
     packages = import ./packages.nix { inherit pkgs; };
