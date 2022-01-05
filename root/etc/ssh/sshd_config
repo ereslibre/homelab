@@ -1,9 +1,0 @@
-# Regular sshd configurations...
-
-ClientAliveInterval 20
-ClientAliveCountMax 10
-TCPKeepAlive        no
-
-# When forwarding the gpg agent, unlink() right before the bind(), so
-# the socket can be bound several times
-StreamLocalBindUnlink	yes
