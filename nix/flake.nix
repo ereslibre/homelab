@@ -27,7 +27,10 @@
         homeDirectory = "/home/ereslibre";
         username = "ereslibre";
         configuration.imports = [ ./home.nix ];
-        configuration.programs.keychain.inheritType = "any";
+        configuration.programs.keychain = {
+          keys = [ ];
+          inheritType = "any";
+        };
       };
     in {
       "ereslibre@Rafaels-Air" = macbookConfiguration;
