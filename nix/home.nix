@@ -2,9 +2,16 @@
   home = {
     file = {
       ".bash_profile".text = ''
-        if [ -e /home/ereslibre/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ereslibre/.nix-profile/etc/profile.d/nix.sh; fi
-        ${pkgs.zsh}/bin/zsh
+        if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+        exec ${pkgs.zsh}/bin/zsh
       '';
+      ".emacs.d" = {
+        source = ./assets/emacs/emacs.d;
+        recursive = true;
+      };
+      ".gitconfig".source = ./assets/git/gitconfig;
+      ".gitconfig.suse".source = ./assets/git/gitconfig-suse;
+      ".tmux.conf".source = ./assets/tmux.conf;
     };
 
     packages = import ./packages.nix { inherit pkgs; };
@@ -32,14 +39,23 @@
       '';
       initExtra = ''
         RPROMPT="$RPROMPT $(kubectx_prompt_info)"
+
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
+
+        init_subrogate_keychain() {
+          if [ ! -f ~/.ssh/id_rsa ]; then
+            ${pkgs.keychain}/bin/keychain --inherit any
+          fi
+        }
+
+        init_subrogate_keychain
       '';
       oh-my-zsh = {
         enable = true;
-        theme = "bira";
         plugins = [ "git" "kubectx" ];
+        theme = "bira";
       };
       shellAliases = {
         dir = "dir --color=auto";
