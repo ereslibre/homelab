@@ -31,11 +31,7 @@
       enableCompletion = false;
       envExtra = ''
         export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
-        export GOPATH="$(${pkgs.go}/bin/go env GOPATH)"
-        export GOROOT="$(${pkgs.go}/bin/go env GOROOT)"
-        export GO111MODULE="on"
         export LANG="en_US.UTF-8"
-        export PATH="''${HOME}/.bin:''${HOME}/.cargo/bin:''${HOME}/go/bin:/usr/local/bin:''${PATH}"
       '';
       initExtra = ''
         RPROMPT="$RPROMPT $(kubectx_prompt_info)"
@@ -44,13 +40,13 @@
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
 
-        init_subrogate_keychain() {
+        keychain_inherit_if_needed() {
           if [ ! -f ~/.ssh/id_rsa ]; then
             ${pkgs.keychain}/bin/keychain --inherit any
           fi
         }
 
-        init_subrogate_keychain
+        keychain_inherit_if_needed
       '';
       oh-my-zsh = {
         enable = true;
