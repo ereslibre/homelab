@@ -36,6 +36,10 @@ in {
         source = ./assets/emacs/emacsclient;
         executable = true;
       };
+      ".bin/gpg-no-autostart" = {
+        source = ./assets/gpg/gpg-no-autostart;
+        executable = true;
+      };
       ".emacs.d" = {
         source = ./assets/emacs/emacs.d;
         recursive = true;
