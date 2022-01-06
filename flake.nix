@@ -28,6 +28,19 @@
             keys = [ ];
             inheritType = "any";
           };
+          # Bash is required because is the hardcoded `runtimeShell`
+          # used by the emacs service user unit:
+          # https://github.com/nix-community/home-manager/blob/c751aeb19e84a0a777f36fd5ea73482a066bb406/modules/services/emacs.nix#L116.
+          #
+          # This is so the emacs service is started in a login shell
+          # that sources the PATH and the nix profile.
+          #
+          # It would be nice to generalize that and remove the hardcoded need for bash, coming from nixpkgs:
+          #
+          # ```nix
+          # runtimeShell = "${runtimeShellPackage}${runtimeShellPackage.shellPath}";
+          # runtimeShellPackage = bash;
+          # ```
           programs.bash = {
             enable = true;
             profileExtra = ''
