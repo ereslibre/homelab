@@ -65,8 +65,4 @@
       };
     };
   };
-
-  services = {
-    emacs.enable = true;
-  };
 }
