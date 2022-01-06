@@ -19,18 +19,6 @@
         configuration = {
           imports = [ ./home.nix ];
           home.file = {
-            ".bin/emacs.app" = {
-              source = ./assets/mac/emacs.app;
-              recursive = true;
-            };
-            ".bin/emacs-server.app" = {
-              source = ./assets/mac/emacs-server.app;
-              recursive = true;
-            };
-            ".bin/gpg-agent.app" = {
-              source = ./assets/mac/gpg-agent.app;
-              recursive = true;
-            };
             ".bin/rosetta" = {
               source = ./assets/mac/rosetta;
               executable = true;
