@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>~/.nix-profile/bin/gpg-agent --homedir ${HOME}/.gnupg --use-standard-socket --daemon --quiet &amp;&gt; /dev/null &amp;</string>
+					<string>~/.nix-profile/bin/gpg-agent --daemon --quiet &amp;&gt; /dev/null &amp;</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
