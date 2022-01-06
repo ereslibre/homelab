@@ -1,9 +1,6 @@
 { config, pkgs, ... }: {
   home = {
     file = {
-      ".bash_profile".text = ''
-        if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then source ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh; fi
-      '';
       ".bin/emacsclient" = {
         source = ./assets/emacs/emacsclient;
         executable = true;
@@ -27,6 +24,7 @@
   };
 
   programs = {
+    bash.enable = true;
     direnv.enable = true;
     emacs.enable = true;
     fzf.enable = true;

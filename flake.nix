@@ -28,8 +28,6 @@
             keys = [ ];
             inheritType = "any";
           };
-          # emacs unit requires bash for loading user environment
-          programs.bash.enable = true;
           services = {
             emacs = {
               enable = true;
