@@ -1,11 +1,11 @@
 { pkgs }:
-with pkgs; [
+with pkgs;
+[
   awscli
   bat
   cabal2nix
   cacert
   cachix
-  # conmon
   coreutils
   cosign
   curl
@@ -32,7 +32,6 @@ with pkgs; [
   mtr
   niv
   nixfmt
-  # open-policy-agent
   otpauth
   podman
   yubikey-manager
@@ -50,4 +49,4 @@ with pkgs; [
   wget
   yq
   zbar
-]
+] ++ (with pkgs; lib.optional stdenv.isLinux [ conmon open-policy-agent ])
