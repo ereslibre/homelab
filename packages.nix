@@ -49,4 +49,5 @@ with pkgs;
   wget
   yq
   zbar
-] ++ (with pkgs; lib.flatten (lib.optional stdenv.isLinux [ conmon open-policy-agent ]))
+] ++ (with pkgs;
+  lib.flatten (lib.optional stdenv.isLinux [ conmon open-policy-agent ]))
