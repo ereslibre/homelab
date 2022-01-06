@@ -1,8 +1,5 @@
 set-option -ga update-environment 'PTTY'
 
-setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
-set -g update-environment -r
-
 set -g default-terminal "screen-256color"
 
 set -g status on
@@ -35,7 +32,6 @@ setw -g mouse on
 setw -g mode-keys emacs
 set -g status-keys emacs
 
-# reload config file (change file location to your the tmux.conf you want to use)
 bind r source-file ~/.tmux.conf
 
 # switch panes using Alt-arrow without prefix
