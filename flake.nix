@@ -15,15 +15,7 @@
         system = "x86_64-darwin";
         homeDirectory = "/Users/ereslibre";
         username = "ereslibre";
-        configuration = {
-          imports = [ ./home.nix ];
-          home.file = {
-            ".bin/rosetta" = {
-              source = ./assets/mac/rosetta;
-              executable = true;
-            };
-          };
-        };
+        configuration.imports = [ ./home.nix ];
       };
       desktopConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
