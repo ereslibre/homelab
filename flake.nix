@@ -35,7 +35,7 @@
           # This is so the emacs service is started in a login shell
           # that sources the PATH and the nix profile.
           #
-          # It would be nice to generalize that and remove the hardcoded need for bash, coming from nixpkgs:
+          # It would be nice to generalize that and remove the hardcoded need for bash, coming from nixpkgs -- all-packages.nix --:
           #
           # ```nix
           # runtimeShell = "${runtimeShellPackage}${runtimeShellPackage.shellPath}";
