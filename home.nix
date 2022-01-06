@@ -5,7 +5,15 @@
         source = ./assets/emacs/emacsclient;
         executable = true;
       };
-      # Make it conditional on Mac only
+      ".emacs.d" = {
+        source = ./assets/emacs/emacs.d;
+        recursive = true;
+      };
+      ".gitconfig".source = ./assets/git/config;
+      ".gitconfig.suse".source = ./assets/git/config-suse;
+      ".ssh/config".source = ./assets/ssh/config;
+      ".tmux.conf".source = ./assets/tmux/config;
+    } // (if pkgs.stdenv.isDarwin then {
       "${config.home.homeDirectory}/Library/LaunchAgents/es.ereslibre.emacs.plist".text =
         ''
           <?xml version="1.0" encoding="UTF-8"?>
@@ -32,15 +40,8 @@
         source = ./assets/mac/rosetta;
         executable = true;
       };
-      ".emacs.d" = {
-        source = ./assets/emacs/emacs.d;
-        recursive = true;
-      };
-      ".gitconfig".source = ./assets/git/config;
-      ".gitconfig.suse".source = ./assets/git/config-suse;
-      ".ssh/config".source = ./assets/ssh/config;
-      ".tmux.conf".source = ./assets/tmux/config;
-    };
+    } else
+      { });
 
     packages = import ./packages.nix { inherit pkgs; };
   };
