@@ -28,17 +28,17 @@
             keys = [ ];
             inheritType = "any";
           };
-          services.emacs.enable = true;
-          services.bash = {
+          programs.bash = {
             enable = true;
             profileExtra = ''
-              if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh; fi
-              if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+              if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+              if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
             '';
             initExtra = ''
-              ${pkgs.zsh}/bin/zsh
+              exec ''${HOME}/.nix-profile/bin/zsh
             '';
           };
+          services.emacs.enable = true;
         };
       };
     in {
