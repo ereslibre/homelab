@@ -38,7 +38,7 @@
       enableCompletion = false;
       envExtra = ''
         export PATH="${config.home.homeDirectory}/.bin:''${PATH}"
-        export EDITOR="${pkgs.emacs}/bin/emacsclient --socket-name=main -t"
+        export EDITOR="${pkgs.emacs}/bin/emacsclient -t"
         export LANG="en_US.UTF-8"
       '';
       initExtra = ''
@@ -55,7 +55,7 @@
       };
       shellAliases = {
         dir = "dir --color=auto";
-        emacs = "${pkgs.emacs}/bin/emacsclient --socket-name=main -t";
+        emacs = "${pkgs.emacs}/bin/emacsclient -t";
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
         gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
