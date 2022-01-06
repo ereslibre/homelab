@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager }: {
+  outputs = { home-manager, ... }: {
     homeConfigurations = let
       macbookConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-darwin";

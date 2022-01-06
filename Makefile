@@ -8,3 +8,6 @@ install-nix:
 
 fmt:
 	find . -name "*.nix" | xargs nixfmt
+
+lint:
+	find . -name "*.nix" | xargs nix-linter

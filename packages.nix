@@ -32,6 +32,7 @@ with pkgs;
   mtr
   niv
   nixfmt
+  nix-linter
   otpauth
   podman
   yubikey-manager
