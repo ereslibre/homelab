@@ -1,10 +1,6 @@
 { config, pkgs, ... }: {
   home = {
     file = {
-      ".bash_profile".text = ''
-        if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh; fi
-        exec ${pkgs.zsh}/bin/zsh
-      '';
       ".bin/emacsclient" = {
         source = ./assets/emacs/emacsclient;
         executable = true;
@@ -68,5 +64,9 @@
         vdir = "vdir --color=auto";
       };
     };
+  };
+
+  services = {
+    emacs.enable = true;
   };
 }
