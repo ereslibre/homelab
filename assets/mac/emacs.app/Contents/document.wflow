@@ -59,13 +59,13 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>~/.nix-profile/bin/emacsclient &amp;&gt; /dev/null &amp;</string>
+					<string>emacsclient -t</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
-					<integer>1</integer>
+					<integer>0</integer>
 					<key>shell</key>
-					<string>/bin/zsh</string>
+					<string>/Users/ereslibre/.nix-profile/bin/zsh</string>
 					<key>source</key>
 					<string></string>
 				</dict>
@@ -84,7 +84,7 @@
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>A378959A-F539-4809-B0AE-BAC7869F67E6</string>
+				<string>399343AA-8082-42BA-8819-332C4F71AB01</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -94,11 +94,9 @@
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>2792C72A-ECD3-4F3D-A973-49CB6352CC8C</string>
-				<key>ShowWhenRun</key>
-				<false/>
+				<string>114BD6F1-CDFB-4763-936B-E4A5512BAE7B</string>
 				<key>UUID</key>
-				<string>8E0A1A68-DD88-43B1-9630-FCF0A283EC07</string>
+				<string>34BF9F11-3DD0-4032-B9F7-62F6A2E4DFE6</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -171,6 +169,8 @@
 						<string>4</string>
 					</dict>
 				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>

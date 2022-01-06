@@ -59,13 +59,13 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>~/.nix-profile/bin/gpg-agent --daemon --quiet &amp;&gt; /dev/null &amp;</string>
+					<string>gpg-agent --daemon</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
 					<integer>0</integer>
 					<key>shell</key>
-					<string>/bin/zsh</string>
+					<string>/Users/ereslibre/.nix-profile/bin/zsh</string>
 					<key>source</key>
 					<string></string>
 				</dict>
@@ -84,7 +84,7 @@
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>4B509933-5653-42AD-8245-4C95505873B2</string>
+				<string>17ACFC81-7160-4A05-A894-D4804D8B5ADC</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -94,9 +94,9 @@
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>F8A2D31D-9E18-4CD3-8946-C24D4996D27F</string>
+				<string>289C988F-C5C3-4060-9884-B523D967BE20</string>
 				<key>UUID</key>
-				<string>223FFCE8-CE3A-4690-A47E-C0674683A024</string>
+				<string>74C91138-B3E9-49D2-B49C-A75A1829B964</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -169,6 +169,8 @@
 						<string>4</string>
 					</dict>
 				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
