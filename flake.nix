@@ -28,6 +28,11 @@
             keys = [ ];
             inheritType = "any";
           };
+          services = {
+            emacs = {
+              enable = true;
+            };
+          };
         };
       };
     in {
