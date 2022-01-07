@@ -17,4 +17,14 @@ My dotfiles. Set as a [home-manager](https://github.com/nix-community/home-manag
    $ make
    ```
 
+> Note: on Mac OS X, run afterwards:
+>
+> ```bash
+> $ launchctl load ~/Library/LaunchAgents/es.ereslibre.emacs.plist
+> ```
+>
+> So the agent is loaded without the need to restart the session,
+> starting the emacs daemon.
+
+
 Done! :)
