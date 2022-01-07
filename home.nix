@@ -70,7 +70,7 @@ in {
         export LANG="en_US.UTF-8"
       '';
       initExtra = ''
-        RPROMPT="$RPROMPT $(kubectx_prompt_info &> /dev/null)"
+        RPROMPT="$RPROMPT $(kubectx_prompt_info 2> /dev/null)"
 
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
