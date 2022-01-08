@@ -14,6 +14,7 @@ with pkgs;
   dive
   fluxcd
   fzf
+  gdb
   git
   git-chglog
   gitRepo
@@ -51,4 +52,4 @@ with pkgs;
   yq
   zbar
 ] ++ (with pkgs;
-  lib.flatten (lib.optional stdenv.isLinux [ conmon open-policy-agent ]))
+  lib.flatten (lib.optional stdenv.isLinux [ conmon open-policy-agent valgrind ]))
