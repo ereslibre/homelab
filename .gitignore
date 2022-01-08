@@ -1,1 +1,3 @@
 *.elc
+assets/emacs/emacs.d/elpa/archives/
+assets/emacs/emacs.d/elpa/gnupg/
