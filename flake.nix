@@ -53,7 +53,7 @@
             };
             zsh = {
               shellAliases = {
-                gpg = "${nixpkgs.gnupg}/bin/gpg --no-autostart";
+                gpg = "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
             };
           };
