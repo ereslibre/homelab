@@ -44,16 +44,17 @@
             bash = {
               enable = true;
               profileExtra = ''
-              if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
-              if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
-            '';
+                if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+                if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+              '';
               initExtra = ''
-              exec ''${HOME}/.nix-profile/bin/zsh
-            '';
+                exec ''${HOME}/.nix-profile/bin/zsh
+              '';
             };
             zsh = {
               shellAliases = {
-                gpg = "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
+                gpg =
+                  "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
             };
           };
