@@ -82,7 +82,6 @@ in {
         emacs = "${pkgs.emacs}/bin/emacsclient -t";
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
-        gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
         grep = "grep --color=auto";
         k = "${pkgs.kubectl}/bin/kubectl";
         l = "ls --color=auto -CF";
