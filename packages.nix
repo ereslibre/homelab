@@ -14,6 +14,7 @@ with pkgs;
   dive
   fluxcd
   fzf
+  gcc
   gdb
   git
   git-chglog
