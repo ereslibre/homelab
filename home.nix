@@ -14,8 +14,9 @@
     zsh = {
       enable = true;
       enableCompletion = false;
-      envExtra = ''
-        export PATH="${config.home.homeDirectory}/.bin:''${PATH}"
+      envExtra = let homeDirectory = config.home.homeDirectory;
+      in ''
+        export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
         export EDITOR="${pkgs.emacs}/bin/emacsclient -t"
         export LANG="en_US.UTF-8"
       '';
