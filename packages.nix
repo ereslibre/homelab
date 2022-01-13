@@ -42,6 +42,7 @@ with pkgs;
   reg
   ripgrep
   rnix-lsp
+  rust-analyzer
   rustup
   stack
   terraform
