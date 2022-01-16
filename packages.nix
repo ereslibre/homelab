@@ -53,6 +53,7 @@ with pkgs;
   wget
   yq
   zbar
+  zstd
 ] ++ (with pkgs;
   lib.flatten
   (lib.optional stdenv.isLinux [ conmon kube3d open-policy-agent valgrind ]))
