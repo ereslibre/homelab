@@ -19,6 +19,8 @@
         export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
         export EDITOR="${pkgs.emacs}/bin/emacsclient -t"
         export LANG="en_US.UTF-8"
+        export LANGUAGE="en_US.UTF-8"
+        export LC_ALL="en_US.UTF-8"
       '';
       initExtra = ''
         RPROMPT="$RPROMPT $(kubectx_prompt_info 2> /dev/null)"
