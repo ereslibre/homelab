@@ -35,6 +35,10 @@
               '';
             };
             zsh = {
+              profileExtra = ''
+                if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+                if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+              '';
               shellAliases = {
                 gpg =
                   "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
