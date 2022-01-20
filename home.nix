@@ -11,9 +11,13 @@
     fzf.enable = true;
     keychain.enable = true;
 
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     zsh = {
       enable = true;
-      enableCompletion = false;
       envExtra = let homeDirectory = config.home.homeDirectory;
       in ''
         export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
@@ -23,17 +27,10 @@
         export LC_ALL="en_US.UTF-8"
       '';
       initExtra = ''
-        RPROMPT="$RPROMPT $(kubectx_prompt_info 2> /dev/null)"
-
         token() {
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
       '';
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ "git" "kubectx" ];
-        theme = "bira";
-      };
       shellAliases = {
         dir = "dir --color=auto";
         emacs = "${pkgs.emacs}/bin/emacsclient -t";
