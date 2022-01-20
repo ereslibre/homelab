@@ -18,6 +18,7 @@
 
     zsh = {
       enable = true;
+      enableCompletion = false;
       envExtra = let homeDirectory = config.home.homeDirectory;
       in ''
         export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
