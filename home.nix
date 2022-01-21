@@ -14,6 +14,11 @@
     starship = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        kubernetes = {
+          disabled = false;
+        };
+      };
     };
 
     zsh = {
