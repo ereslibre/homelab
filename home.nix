@@ -37,6 +37,7 @@
           ${pkgs.yubikey-manager}/bin/ykman oath accounts code | grep -i "$1"
         }
       '';
+      oh-my-zsh.enable = true;
       shellAliases = {
         dir = "dir --color=auto";
         emacs = "${pkgs.emacs}/bin/emacsclient -t";
