@@ -27,7 +27,7 @@
       envExtra = let homeDirectory = config.home.homeDirectory;
       in ''
         export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
-        export EDITOR="${pkgs.emacs}/bin/emacsclient -s $HOME/.emacs.d/emacs.sock -t"
+        export EDITOR="emacs"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
@@ -40,7 +40,10 @@
       oh-my-zsh.enable = true;
       shellAliases = {
         dir = "dir --color=auto";
-        emacs = "${pkgs.emacs}/bin/emacsclient -s $HOME/.emacs.d/emacs.sock -t";
+        emacs = if pkgs.stdenv.isLinux then
+          "${pkgs.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t"
+        else
+          "${pkgs.emacs}/bin/emacsclient -s ${config.home.homeDirectory}/.emacs.d/emacs.sock -t";
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
         grep = "grep --color=auto";
