@@ -45,7 +45,10 @@
               };
             };
           };
-          services.emacs.enable = true;
+          services.emacs = {
+            enable = true;
+            extraOptions = [ "--fg-daemon=$HOME/.emacs.d/emacs.sock" ];
+          };
         };
       };
     in {
