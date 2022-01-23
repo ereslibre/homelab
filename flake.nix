@@ -11,12 +11,25 @@
 
   outputs = { home-manager, nixpkgs, ... }: {
     homeConfigurations = let
-      macbookConfiguration = home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-darwin";
-        homeDirectory = "/Users/ereslibre";
-        username = "ereslibre";
-        configuration.imports = [ ./home.nix ];
-      };
+      macbookConfiguration = home-manager.lib.homeManagerConfiguration
+        (let homeDirectory = "/Users/ereslibre";
+        in {
+          system = "x86_64-darwin";
+          inherit homeDirectory;
+          username = "ereslibre";
+          configuration = {
+            imports = [ ./home.nix ];
+            programs.zsh = let
+              emacsClient =
+                "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+            in {
+              envExtra = ''
+                export EDITOR="${emacsClient}"
+              '';
+              shellAliases = { emacs = emacsClient; };
+            };
+          };
+        });
       desktopConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         homeDirectory = "/home/ereslibre";
@@ -34,12 +47,19 @@
                 if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
               '';
             };
-            zsh = {
+            zsh = let
+              emacsClient =
+                "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
+            in {
+              envExtra = ''
+                export EDITOR="${emacsClient}"
+              '';
               profileExtra = ''
                 if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
                 if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
               '';
               shellAliases = {
+                emacs = emacsClient;
                 gpg =
                   "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
