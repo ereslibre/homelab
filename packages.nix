@@ -34,6 +34,7 @@ with pkgs;
   mtr
   niv
   nixfmt
+  nixpkgs-review
   nix-linter
   otpauth
   podman
