@@ -6,6 +6,7 @@ Host pinfra-*
 
 Host desktop
     ForwardAgent          yes
+    RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/ereslibre/.gnupg/S.gpg-agent.extra
 
 Host *
     Compression           yes
