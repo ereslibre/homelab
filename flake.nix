@@ -73,6 +73,7 @@
       };
     in {
       "ereslibre@Rafaels-Air" = macbookConfiguration;
+      "ereslibre@MacBook-Air" = macbookConfiguration;
       "ereslibre@Rafaels-MacBook-Air" = macbookConfiguration;
       "ereslibre@desktop" = desktopConfiguration;
     };
