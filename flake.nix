@@ -43,15 +43,17 @@
           # can forward the GPG agent through SSH directly without
           # having a first failed connection due to a missing
           # `/run/user/<id>/gnupg`.
-          home.activation.linger = home-manager.lib.hm.dag.entryBefore ["reloadSystemd"] ''
-            loginctl enable-linger $USER
-          '';
+          home.activation.linger =
+            home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
+              loginctl enable-linger $USER
+            '';
           # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
           systemd.user.services = {
             "gpg-forward-agent-path" = {
               Unit.Description = "Create GnuPG socket directory";
               Service = {
-                ExecStart = "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpgconf --create-socketdir";
+                ExecStart =
+                  "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpgconf --create-socketdir";
                 ExecStop = "";
               };
               Install.WantedBy = [ "default.target" ];
