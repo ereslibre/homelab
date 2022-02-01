@@ -36,10 +36,14 @@
         username = "ereslibre";
         configuration = {
           imports = [ ./home.nix ];
-          home = {
-            file = {
-              ".config/systemd/user/gpg-forward-agent-path.service".source =
-                ./assets/gpg/gpg-forward-agent-path.service;
+          systemd.user.services = {
+            "gpg-forward-agent-path" = {
+              Unit.Description = "Create GnuPG socket directory";
+              Service = {
+                ExecStart = "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpgconf --create-socketdir";
+                ExecStop = "";
+              };
+              Install.WantedBy = [ "default.target" ];
             };
           };
           programs = {

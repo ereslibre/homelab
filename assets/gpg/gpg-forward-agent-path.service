@@ -1,9 +1,0 @@
-[Unit]
-Description=Create GnuPG socket directory
-
-[Service]
-ExecStart=/usr/bin/gpgconf --create-socketdir
-ExecStop=
-
-[Install]
-WantedBy=default.target
