@@ -36,6 +36,12 @@
         username = "ereslibre";
         configuration = {
           imports = [ ./home.nix ];
+          home = {
+            file = {
+              ".config/systemd/user/gpg-forward-agent-path.service".source =
+                ./assets/gpg/gpg-forward-agent-path.service;
+            };
+          };
           programs = {
             keychain = {
               keys = [ ];

@@ -54,4 +54,5 @@ with pkgs;
   yq
   zbar
   zstd
-] ++ (with pkgs; lib.optionals stdenv.isLinux [ conmon kube3d open-policy-agent valgrind ])
+] ++ (with pkgs;
+  lib.optionals stdenv.isLinux [ conmon kube3d open-policy-agent valgrind ])
