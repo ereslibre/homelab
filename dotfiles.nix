@@ -1,10 +1,6 @@
 { config, pkgs }:
 let macFiles = import ./mac.nix { inherit config pkgs; };
 in {
-  ".bin/emacsclient" = {
-    source = ./assets/emacs/emacsclient;
-    executable = true;
-  };
   ".emacs.d" = {
     source = ./assets/emacs/emacs.d;
     recursive = true;
