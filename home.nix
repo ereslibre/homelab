@@ -22,7 +22,9 @@
       enableCompletion = false;
       envExtra = let homeDirectory = config.home.homeDirectory;
       in ''
-        export PATH="${homeDirectory}/.bin:${homeDirectory}/.cargo/bin:''${PATH}"
+        export GOPATH="${homeDirectory}/.go"
+        export GO111MODULE="on"
+        export PATH="${homeDirectory}/.bin:${homeDirectory}/.go/bin:${homeDirectory}/.cargo/bin:''${PATH}"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
