@@ -14,7 +14,6 @@ with pkgs;
   dive
   fluxcd
   fzf
-  gcc
   gdb
   git
   git-chglog
@@ -55,4 +54,4 @@ with pkgs;
   zbar
   zstd
 ] ++ (with pkgs;
-  lib.optionals stdenv.isLinux [ conmon kube3d open-policy-agent valgrind ])
+  lib.optionals stdenv.isLinux [ conmon gcc kube3d open-policy-agent valgrind ])
