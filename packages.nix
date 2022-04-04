@@ -37,7 +37,6 @@ with pkgs;
   nix-linter
   otpauth
   podman
-  yubikey-manager
   qmk
   reg
   ripgrep
@@ -51,6 +50,7 @@ with pkgs;
   trivy
   velero
   wget
+  yubikey-manager
   yq
   zbar
   zstd
