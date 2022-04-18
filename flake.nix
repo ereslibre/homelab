@@ -11,24 +11,25 @@
 
   outputs = { home-manager, nixpkgs, ... }: {
     homeConfigurations = let
+      macbookSharedConfiguration = homeDirectory: {
+        imports = [ ./home.nix ];
+        programs.zsh = let
+          emacsClient =
+            "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+        in {
+          envExtra = ''
+            export EDITOR="${emacsClient}"
+          '';
+          shellAliases = { emacs = emacsClient; };
+        };
+      };
       macbookConfiguration = home-manager.lib.homeManagerConfiguration
         (let homeDirectory = "/Users/ereslibre";
         in {
           system = "x86_64-darwin";
           inherit homeDirectory;
           username = "ereslibre";
-          configuration = {
-            imports = [ ./home.nix ];
-            programs.zsh = let
-              emacsClient =
-                "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
-            in {
-              envExtra = ''
-                export EDITOR="${emacsClient}"
-              '';
-              shellAliases = { emacs = emacsClient; };
-            };
-          };
+          configuration = macbookSharedConfiguration homeDirectory;
         });
       macbookProConfiguration = home-manager.lib.homeManagerConfiguration
         (let homeDirectory = "/Users/ereslibre";
@@ -36,18 +37,7 @@
           system = "aarch64-darwin";
           inherit homeDirectory;
           username = "ereslibre";
-          configuration = {
-            imports = [ ./home.nix ];
-            programs.zsh = let
-              emacsClient =
-                "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
-            in {
-              envExtra = ''
-                export EDITOR="${emacsClient}"
-              '';
-              shellAliases = { emacs = emacsClient; };
-            };
-          };
+          configuration = macbookSharedConfiguration homeDirectory;
         });
       desktopConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
