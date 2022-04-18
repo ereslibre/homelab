@@ -30,6 +30,25 @@
             };
           };
         });
+      macbookProConfiguration = home-manager.lib.homeManagerConfiguration
+        (let homeDirectory = "/Users/ereslibre";
+        in {
+          system = "aarch64-darwin";
+          inherit homeDirectory;
+          username = "ereslibre";
+          configuration = {
+            imports = [ ./home.nix ];
+            programs.zsh = let
+              emacsClient =
+                "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+            in {
+              envExtra = ''
+                export EDITOR="${emacsClient}"
+              '';
+              shellAliases = { emacs = emacsClient; };
+            };
+          };
+        });
       desktopConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         homeDirectory = "/home/ereslibre";
@@ -99,6 +118,7 @@
       "ereslibre@MacBook-Air" = macbookConfiguration;
       "ereslibre@Rafaels-MacBook-Air" = macbookConfiguration;
       "ereslibre@desktop" = desktopConfiguration;
+      "ereslibre@Rafaels-Pro" = macbookProConfiguration;
     };
   };
 }

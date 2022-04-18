@@ -31,7 +31,6 @@ with pkgs;
   kubectl
   kubeseal
   mtr
-  niv
   nixfmt
   nix-linter
   otpauth
@@ -51,7 +50,11 @@ with pkgs;
   wget
   yubikey-manager
   yq
-  zbar
   zstd
 ] ++ (with pkgs;
   lib.optionals stdenv.isLinux [ conmon gcc kube3d open-policy-agent valgrind ])
+++ (with pkgs;
+  lib.optionals (!stdenv.isAarch64) [
+    # Qt does not build in aarch64
+    zbar
+  ])
