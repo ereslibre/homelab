@@ -10,6 +10,7 @@
    '("1c082c9b84449e54af757bcae23617d11f563fc9f33a832a8a2813c4d7dfb652" default))
  '(delete-selection-mode nil)
  '(fci-rule-color "#3C3D37")
+ '(undo-tree-auto-save-history nil)
  '(highlight-changes-colors '("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
    '(("#3C3D37" . 0)
