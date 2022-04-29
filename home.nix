@@ -36,6 +36,9 @@
         token() {
           key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
+        copy_gpg_pubring() {
+          scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
+        }
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
