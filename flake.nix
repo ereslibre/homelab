@@ -11,16 +11,23 @@
 
   outputs = { home-manager, nixpkgs, ... }: {
     homeConfigurations = let
-      macbookSharedConfiguration = homeDirectory: {
-        imports = [ ./home.nix ];
-        programs.zsh = let
-          emacsClient =
-            "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
-        in {
+      commonConfiguration = { emacsClient }: {
+        zsh = {
           envExtra = ''
             export EDITOR="${emacsClient}"
           '';
+          profileExtra = ''
+            if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+            if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+          '';
           shellAliases = { emacs = emacsClient; };
+        };
+      };
+      macbookSharedConfiguration = homeDirectory: {
+        imports = [ ./home.nix ];
+        programs = commonConfiguration {
+          emacsClient =
+            "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
         };
       };
       macbookConfiguration = home-manager.lib.homeManagerConfiguration
@@ -73,29 +80,15 @@
               keys = [ ];
               inheritType = "any";
             };
-            bash = {
-              profileExtra = ''
-                if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
-                if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
-              '';
-            };
-            zsh = let
-              emacsClient =
-                "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
-            in {
-              envExtra = ''
-                export EDITOR="${emacsClient}"
-              '';
-              profileExtra = ''
-                if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
-                if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
-              '';
+            zsh = {
               shellAliases = {
-                emacs = emacsClient;
                 gpg =
                   "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
             };
+          } // commonConfiguration {
+            emacsClient =
+              "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
           };
           services.emacs = {
             enable = true;
