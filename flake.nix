@@ -77,7 +77,10 @@
               Install.WantedBy = [ "default.target" ];
             };
           };
-          programs = nixpkgs.lib.recursiveUpdate ({
+          programs = nixpkgs.lib.recursiveUpdate (commonConfiguration {
+            emacsClient =
+              "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
+          }) {
             keychain = {
               keys = [ ];
               inheritType = "any";
@@ -88,10 +91,7 @@
                   "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
             };
-          }) (commonConfiguration {
-            emacsClient =
-              "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
-          });
+          };
           services.emacs = {
             enable = true;
             socketActivation.enable = true;
