@@ -18,9 +18,7 @@
               if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
               if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
             '';
-            sessionVariables = {
-              EDITOR = emacsClient;
-            };
+            sessionVariables = { EDITOR = emacsClient; };
             shellAliases = { emacs = emacsClient; };
           };
         in {
@@ -79,7 +77,7 @@
               Install.WantedBy = [ "default.target" ];
             };
           };
-          programs = {
+          programs = nixpkgs.lib.recursiveUpdate ({
             keychain = {
               keys = [ ];
               inheritType = "any";
@@ -90,10 +88,10 @@
                   "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpg --no-autostart";
               };
             };
-          } // commonConfiguration {
+          }) (commonConfiguration {
             emacsClient =
               "${nixpkgs.legacyPackages.x86_64-linux.emacs}/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -t";
-          };
+          });
           services.emacs = {
             enable = true;
             socketActivation.enable = true;
