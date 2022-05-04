@@ -11,18 +11,22 @@
 
   outputs = { home-manager, nixpkgs, ... }: {
     homeConfigurations = let
-      commonConfiguration = { emacsClient }: {
-        zsh = {
-          envExtra = ''
-            export EDITOR="${emacsClient}"
-          '';
-          profileExtra = ''
-            if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
-            if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
-          '';
-          shellAliases = { emacs = emacsClient; };
+      commonConfiguration = { emacsClient }:
+        let
+          shellExtras = {
+            profileExtra = ''
+              if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
+              if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+            '';
+            sessionVariables = {
+              EDITOR = emacsClient;
+            };
+            shellAliases = { emacs = emacsClient; };
+          };
+        in {
+          bash = shellExtras;
+          zsh = shellExtras;
         };
-      };
       macbookSharedConfiguration = homeDirectory: {
         imports = [ ./home.nix ];
         programs = commonConfiguration {
