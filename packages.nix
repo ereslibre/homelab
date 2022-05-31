@@ -35,7 +35,6 @@ with pkgs;
   nix-linter
   otpauth
   podman
-  qmk
   reg
   ripgrep
   rnix-lsp
