@@ -20,7 +20,7 @@ with pkgs;
   gitRepo
   gnupg
   gnupg-pkcs11-scd
-  go_1_17
+  go
   gopls
   gotools
   kubernetes-helm
