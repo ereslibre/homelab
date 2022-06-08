@@ -21,7 +21,7 @@ if pkgs.stdenv.isDarwin then {
         <true/>
       </dict>
       </plist>
-            '';
+    '';
   ".bin/rosetta" = {
     source = ./assets/mac/rosetta;
     executable = true;
