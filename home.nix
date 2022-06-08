@@ -31,6 +31,11 @@
       '';
       initExtra = ''
         key_token() {
+          {
+            # FIXME (gpg-agent/ykman on darwin): workaround to make `ykman` work when gpg-agent has started with
+            # the current `scdaemon.conf` configuration that forces `disable-ccid`
+            killall gpg-agent &> /dev/null
+          }
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         token() {
