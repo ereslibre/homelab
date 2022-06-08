@@ -1,7 +1,6 @@
 { config, pkgs }:
 if pkgs.stdenv.isDarwin then {
   ".gnupg/scdaemon.conf".text = ''
-    # FIXME (gpg-agent/ykman on darwin): is this really necessary?
     disable-ccid
   '';
   "Library/LaunchAgents/es.ereslibre.emacs.plist".text = ''
