@@ -1,7 +1,7 @@
 Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud
     User                  ubuntu
 
-Host pinfra-*
+Host pinfra-* surpillance-*
     User                  pi
 
 Host desktop
