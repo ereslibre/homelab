@@ -2,7 +2,7 @@
 if pkgs.stdenv.isDarwin then {
   ".gnupg/scdaemon.conf".text = ''
     disable-ccid
-    reader-port 1
+    reader-port 0
   '';
   "Library/LaunchAgents/es.ereslibre.emacs.plist".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
