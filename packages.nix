@@ -15,6 +15,7 @@ with pkgs;
   fluxcd
   fzf
   gdb
+  gh
   git
   git-chglog
   gitRepo
