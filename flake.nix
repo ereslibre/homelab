@@ -40,14 +40,6 @@
           username = "ereslibre";
           configuration = macbookSharedConfiguration homeDirectory;
         });
-      macbookProConfiguration = home-manager.lib.homeManagerConfiguration
-        (let homeDirectory = "/Users/ereslibre";
-        in {
-          system = "aarch64-darwin";
-          inherit homeDirectory;
-          username = "ereslibre";
-          configuration = macbookSharedConfiguration homeDirectory;
-        });
       desktopConfiguration = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         homeDirectory = "/home/ereslibre";
@@ -103,7 +95,6 @@
       "ereslibre@MacBook-Air" = macbookConfiguration;
       "ereslibre@Rafaels-MacBook-Air" = macbookConfiguration;
       "ereslibre@desktop" = desktopConfiguration;
-      "ereslibre@Rafaels-Pro" = macbookProConfiguration;
     };
   };
 }
