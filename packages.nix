@@ -5,7 +5,6 @@ with pkgs;
   bat
   cabal2nix
   cacert
-  cachix
   coreutils
   cosign
   curl
