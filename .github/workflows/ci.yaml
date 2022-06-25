@@ -22,8 +22,17 @@ jobs:
         run: |
           make lint
           git diff --exit-code
-  activate-Rafaels-MacBook-Air:
-    runs-on: macos-12
+  activate-machines:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            user: ereslibre
+            host: desktop
+          - os: macos-12
+            user: ereslibre
+            host: Rafaels-MacBook-Air
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -34,25 +43,8 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Activate
         env:
-          ACTIVATION_USER: ereslibre
-          ACTIVATION_HOST: Rafaels-MacBook-Air
-          HOME_MANAGER_BACKUP_EXT: hm-bak
-        run: |
-          make activate-user-at-host
-  activate-desktop:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install Nix
-        uses: cachix/install-nix-action@v17
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Activate
-        env:
-          ACTIVATION_USER: ereslibre
-          ACTIVATION_HOST: desktop
+          ACTIVATION_USER: ${{ matrix.user }}
+          ACTIVATION_HOST: ${{ matrix.host }}
           HOME_MANAGER_BACKUP_EXT: hm-bak
         run: |
           make activate-user-at-host
