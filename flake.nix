@@ -16,7 +16,7 @@
       in {
         devShell =
           pkgs.mkShell { buildInputs = with pkgs; [ nix-linter nixfmt ]; };
-
+      }) // {
         homeConfigurations = let
           commonConfiguration = { emacsClient }:
             let
@@ -103,5 +103,5 @@
           "ereslibre@Rafaels-MacBook-Air" = macbookConfiguration;
           "ereslibre@desktop" = desktopConfiguration;
         };
-      });
+      };
 }
