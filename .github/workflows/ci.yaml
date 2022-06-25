@@ -36,7 +36,7 @@ jobs:
         env:
           ACTIVATION_USER: ereslibre
           ACTIVATION_HOST: Rafaels-MacBook-Air
-          HOME_MANAGER_BACKUP_EXT: backup
+          HOME_MANAGER_BACKUP_EXT: hm-bak
         run: |
           make activate-user-at-host
   activate-desktop:
@@ -53,6 +53,6 @@ jobs:
         env:
           ACTIVATION_USER: ereslibre
           ACTIVATION_HOST: desktop
-          HOME_MANAGER_BACKUP_EXT: backup
+          HOME_MANAGER_BACKUP_EXT: hm-bak
         run: |
           make activate-user-at-host
