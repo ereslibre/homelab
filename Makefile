@@ -7,7 +7,7 @@ install-nix:
 	curl -L https://nixos.org/nix/install | sh
 
 fmt:
-	find . -name "*.nix" | xargs nixfmt
+	find . -name "*.nix" | xargs nix shell nixpkgs#nixfmt --command nixfmt -c
 
 lint:
-	find . -name "*.nix" | xargs nix-linter
+	nix shell nixpkgs#nix-linter --command nix-linter -r
