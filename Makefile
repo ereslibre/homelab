@@ -3,7 +3,7 @@
 switch:
 	nix run '.#homeConfigurations."${USER}@$(shell hostname -s)".activationPackage'
 
-switch-on-user-at-host:
+activate-user-at-host:
 	nix run '.#homeConfigurations.${ACTIVATION_USER}@${ACTIVATION_HOST}.activationPackage'
 
 install-nix:
