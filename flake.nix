@@ -15,7 +15,7 @@
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell =
-          pkgs.mkShell { buildInputs = with pkgs; [ nix-linter nixfmt ]; };
+          pkgs.mkShell { buildInputs = with pkgs; [ cachix nix-linter nixfmt ]; };
       }) // {
         homeConfigurations = let
           commonConfiguration = { emacsClient }:
