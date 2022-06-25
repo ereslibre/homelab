@@ -10,6 +10,11 @@
   };
 
   outputs = { home-manager, nixpkgs, ... }: {
+    devShell = let pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      x86_64-linux =
+        pkgs.mkShell { buildInputs = with pkgs; [ nix-linter nixfmt ]; };
+    };
     homeConfigurations = let
       commonConfiguration = { emacsClient }:
         let
