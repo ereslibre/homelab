@@ -22,7 +22,7 @@ jobs:
         run: |
           make lint
           git diff --exit-code
-  activate-machines:
+  activate-machine:
     strategy:
       matrix:
         include:
