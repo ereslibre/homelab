@@ -1,4 +1,4 @@
-;;; neotree-autoloads.el --- automatically extracted autoloads
+;;; neotree-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -41,7 +41,7 @@ Show the NeoTree window, and change root to PATH.
 (defalias 'neotree 'neotree-show "\
 Show the NeoTree window.")
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "neotree" '("neo" "off-p")))
+(register-definition-prefixes "neotree" '("neo" "off-p"))
 
 ;;;***
 

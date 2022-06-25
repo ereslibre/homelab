@@ -1,4 +1,4 @@
-;;; vue-mode-autoloads.el --- automatically extracted autoloads
+;;; vue-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -25,7 +25,7 @@ open.
 
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vue-mode" '("vue-")))
+(register-definition-prefixes "vue-mode" '("vue-"))
 
 ;;;***
 

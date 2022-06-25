@@ -1,4 +1,4 @@
-;;; vue-html-mode-autoloads.el --- automatically extracted autoloads
+;;; vue-html-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -14,7 +14,7 @@ Major mode for Vue.js templates.
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vue-html-mode" '("vue-html-")))
+(register-definition-prefixes "vue-html-mode" '("vue-html-"))
 
 ;;;***
 

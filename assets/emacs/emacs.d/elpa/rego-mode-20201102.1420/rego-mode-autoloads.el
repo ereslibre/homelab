@@ -1,4 +1,4 @@
-;;; rego-mode-autoloads.el --- automatically extracted autoloads
+;;; rego-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -16,7 +16,7 @@ Major mode for editing Rego files.
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rego-mode" '("rego-")))
+(register-definition-prefixes "rego-mode" '("rego-"))
 
 ;;;***
 

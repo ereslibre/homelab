@@ -1,4 +1,4 @@
-;;; protobuf-mode-autoloads.el --- automatically extracted autoloads
+;;; protobuf-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -21,7 +21,7 @@ Key bindings:
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "protobuf-mode" '("protobuf-")))
+(register-definition-prefixes "protobuf-mode" '("protobuf-"))
 
 ;;;***
 

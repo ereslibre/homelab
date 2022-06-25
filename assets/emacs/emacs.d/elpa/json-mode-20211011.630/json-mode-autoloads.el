@@ -1,4 +1,4 @@
-;;; json-mode-autoloads.el --- automatically extracted autoloads
+;;; json-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -52,7 +52,7 @@ Beautify / pretty-print the active region (or the entire buffer if no active reg
 
 \(fn BEGIN END)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "json-mode" '("json")))
+(register-definition-prefixes "json-mode" '("json"))
 
 ;;;***
 

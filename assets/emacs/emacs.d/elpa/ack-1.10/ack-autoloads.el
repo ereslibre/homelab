@@ -1,4 +1,4 @@
-;;; ack-autoloads.el --- automatically extracted autoloads
+;;; ack-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -21,7 +21,7 @@ minibuffer:
 
 \(fn COMMAND-ARGS &optional DIRECTORY)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ack" '("ack-")))
+(register-definition-prefixes "ack" '("ack-"))
 
 ;;;***
 
@@ -38,7 +38,7 @@ long options." nil nil)
 (autoload 'pcomplete/ag "pcmpl-ack" "\
 Completion for the `ag' command." nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pcmpl-ack" '("pcmpl-ack-")))
+(register-definition-prefixes "pcmpl-ack" '("pcmpl-ack-"))
 
 ;;;***
 

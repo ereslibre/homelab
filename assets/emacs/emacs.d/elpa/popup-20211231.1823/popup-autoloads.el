@@ -1,4 +1,4 @@
-;;; popup-autoloads.el --- automatically extracted autoloads
+;;; popup-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "popup" "popup.el" (0 0 0 0))
 ;;; Generated autoloads from popup.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "popup" '("popup-")))
+(register-definition-prefixes "popup" '("popup-"))
 
 ;;;***
 

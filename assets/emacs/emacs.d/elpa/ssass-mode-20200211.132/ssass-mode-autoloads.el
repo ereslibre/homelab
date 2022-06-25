@@ -1,4 +1,4 @@
-;;; ssass-mode-autoloads.el --- automatically extracted autoloads
+;;; ssass-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -14,7 +14,7 @@ Major mode for Sass
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ssass-mode" '("ssass-")))
+(register-definition-prefixes "ssass-mode" '("ssass-"))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; helm-lsp-autoloads.el --- automatically extracted autoloads
+;;; helm-lsp-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -29,7 +29,7 @@ Diagnostics using `helm'
 
 \(fn ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "helm-lsp" '("helm-lsp-")))
+(register-definition-prefixes "helm-lsp" '("helm-lsp-"))
 
 ;;;***
 

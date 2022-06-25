@@ -1,4 +1,4 @@
-;;; browse-kill-ring-autoloads.el --- automatically extracted autoloads
+;;; browse-kill-ring-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -19,7 +19,7 @@ behavior.  This function sets things up so that M-y will invoke
 (autoload 'browse-kill-ring "browse-kill-ring" "\
 Display items in the `kill-ring' in another buffer." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "browse-kill-ring" '("browse-kill-ring-")))
+(register-definition-prefixes "browse-kill-ring" '("browse-kill-ring-"))
 
 ;;;***
 

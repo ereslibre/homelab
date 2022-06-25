@@ -1,4 +1,4 @@
-;;; markup-faces-autoloads.el --- automatically extracted autoloads
+;;; markup-faces-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "markup-faces" "markup-faces.el" (0 0 0 0))
 ;;; Generated autoloads from markup-faces.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "markup-faces" '("markup-")))
+(register-definition-prefixes "markup-faces" '("markup-"))
 
 ;;;***
 

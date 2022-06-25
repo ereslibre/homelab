@@ -1,4 +1,4 @@
-;;; carbon-now-sh-autoloads.el --- automatically extracted autoloads
+;;; carbon-now-sh-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -12,7 +12,7 @@
 (autoload 'carbon-now-sh "carbon-now-sh" "\
 Open current region in carbon.now.sh." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "carbon-now-sh" '("carbon-now-sh-baseurl")))
+(register-definition-prefixes "carbon-now-sh" '("carbon-now-sh-baseurl"))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; ht-autoloads.el --- automatically extracted autoloads
+;;; ht-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "ht" "ht.el" (0 0 0 0))
 ;;; Generated autoloads from ht.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ht" 'nil))
+(register-definition-prefixes "ht" 'nil)
 
 ;;;***
 

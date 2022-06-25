@@ -1,4 +1,4 @@
-;;; groovy-mode-autoloads.el --- automatically extracted autoloads
+;;; groovy-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -16,10 +16,19 @@ With no argument, this command toggles the mode.  Non-null prefix
 argument turns on the mode.  Null prefix argument turns off the
 mode.
 
-If called interactively, enable Groovy-Electric mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Groovy-Electric mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `groovy-electric-mode'.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 When Groovy Electric mode is enabled, simple, double and back
 quotes as well as braces are paired auto-magically. Expansion
@@ -28,7 +37,7 @@ have Font Lock enabled. ${ } is expanded when in a GString
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "groovy-electric" '("groovy-electric-")))
+(register-definition-prefixes "groovy-electric" '("groovy-electric-"))
 
 ;;;***
 
@@ -52,7 +61,7 @@ Key bindings:
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "groovy-mode" '("groovy-")))
+(register-definition-prefixes "groovy-mode" '("groovy-"))
 
 ;;;***
 
@@ -111,7 +120,7 @@ process buffer for a list of commands.
 
 (eval-after-load 'groovy-mode (lambda nil (add-hook 'groovy-mode-hook 'inf-groovy-keys)))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "inf-groovy" '("groovy" "inf" "remove-in-string" "switch-to-groovy")))
+(register-definition-prefixes "inf-groovy" '("groovy" "inf" "remove-in-string" "switch-to-groovy"))
 
 ;;;***
 

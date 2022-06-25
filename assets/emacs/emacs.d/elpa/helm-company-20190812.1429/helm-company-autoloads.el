@@ -1,4 +1,4 @@
-;;; helm-company-autoloads.el --- automatically extracted autoloads
+;;; helm-company-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -13,7 +13,7 @@
 Select `company-complete' candidates by `helm'.
 It is useful to narrow candidates." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "helm-company" '("helm-")))
+(register-definition-prefixes "helm-company" '("helm-"))
 
 ;;;***
 

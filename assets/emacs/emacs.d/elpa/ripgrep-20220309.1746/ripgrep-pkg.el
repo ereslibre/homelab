@@ -1,2 +1,0 @@
-;;; Generated package description from ripgrep.el  -*- no-byte-compile: t -*-
-(define-package "ripgrep" "20220309.1746" "Front-end for ripgrep, a command line search tool" 'nil :commit "4ed5c741233a81d96115f556784269042070901e" :authors '(("Nicolas Lamirault" . "nicolas.lamirault@gmail.com")) :maintainer '("Nicolas Lamirault" . "nicolas.lamirault@gmail.com") :keywords '("ripgrep" "ack" "pt" "ag" "sift" "grep" "search") :url "https://github.com/nlamirault/ripgrep.el")

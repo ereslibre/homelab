@@ -1,4 +1,4 @@
-;;; google-translate-autoloads.el --- automatically extracted autoloads
+;;; google-translate-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -10,7 +10,7 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from google-translate-backend.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-backend" '("google-translate-backend-")))
+(register-definition-prefixes "google-translate-backend" '("google-translate-backend-"))
 
 ;;;***
 
@@ -18,7 +18,7 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from google-translate-core.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-core" '("google-translate-")))
+(register-definition-prefixes "google-translate-core" '("google-translate-"))
 
 ;;;***
 
@@ -26,7 +26,7 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from google-translate-core-ui.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-core-ui" '("google-translate-")))
+(register-definition-prefixes "google-translate-core-ui" '("google-translate-"))
 
 ;;;***
 
@@ -107,7 +107,7 @@ This command does NOT support document format like org-mode.
 
 \(fn &optional OVERRIDE-P REVERSE-P)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-default-ui" '("%google-translate-" "google-translate-")))
+(register-definition-prefixes "google-translate-default-ui" '("%google-translate-" "google-translate-"))
 
 ;;;***
 
@@ -135,7 +135,7 @@ minibuffer by means of key bindings such as C-n and C-p for
 changing to the next translation direction and to the previous
 one respectively." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-smooth-ui" '("google-translate-")))
+(register-definition-prefixes "google-translate-smooth-ui" '("google-translate-"))
 
 ;;;***
 
@@ -143,7 +143,7 @@ one respectively." t nil)
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from google-translate-tk.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-tk" '("google-translate--")))
+(register-definition-prefixes "google-translate-tk" '("google-translate--"))
 
 ;;;***
 

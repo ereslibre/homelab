@@ -1,4 +1,4 @@
-;;; bats-mode-autoloads.el --- automatically extracted autoloads
+;;; bats-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -20,7 +20,7 @@ See URL `https://github.com/sstephenson/bats'.
 
 (add-to-list 'auto-mode-alist '("\\.bats\\'" . bats-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bats-mode" '("bats-")))
+(register-definition-prefixes "bats-mode" '("bats-"))
 
 ;;;***
 

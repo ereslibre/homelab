@@ -1,4 +1,4 @@
-;;; hcl-mode-autoloads.el --- automatically extracted autoloads
+;;; hcl-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -18,7 +18,7 @@ Major mode for editing hcl configuration file
 
 (add-to-list 'auto-mode-alist '("\\.nomad\\'" . hcl-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "hcl-mode" '("hcl-")))
+(register-definition-prefixes "hcl-mode" '("hcl-"))
 
 ;;;***
 
