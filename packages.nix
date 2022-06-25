@@ -32,8 +32,6 @@ with pkgs;
   kubectl
   kubeseal
   mtr
-  nixfmt
-  nix-linter
   otpauth
   reg
   ripgrep
