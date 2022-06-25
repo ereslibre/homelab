@@ -1,4 +1,4 @@
-.PHONY: fmt install-nix switch
+.PHONY: activate-user-at-host fmt install-nix lint switch
 
 switch:
 	nix run '.#homeConfigurations."${USER}@$(shell hostname -s)".activationPackage'
