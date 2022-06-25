@@ -45,6 +45,7 @@ with pkgs;
   wget
   yubikey-manager
   yq
+  zbar
   zstd
 ] ++ (with pkgs;
   lib.optionals stdenv.isLinux [
@@ -55,8 +56,4 @@ with pkgs;
     podman
     trivy
     valgrind
-  ]) ++ (with pkgs;
-    lib.optionals (!stdenv.isAarch64) [
-      # Qt does not build in aarch64
-      zbar
-    ])
+  ])
