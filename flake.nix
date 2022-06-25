@@ -14,8 +14,9 @@
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
-        devShell =
-          pkgs.mkShell { buildInputs = with pkgs; [ cachix nix-linter nixfmt ]; };
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [ cachix nix-linter nixfmt ];
+        };
       }) // {
         homeConfigurations = let
           commonConfiguration = { emacsClient }:
