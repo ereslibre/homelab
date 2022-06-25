@@ -1,4 +1,4 @@
-{ config, pkgs }:
+{ pkgs }:
 if pkgs.stdenv.isDarwin then {
   ".gnupg/scdaemon.conf".text = ''
     disable-ccid

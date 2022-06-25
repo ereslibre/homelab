@@ -1,5 +1,5 @@
-{ config, pkgs }:
-let macFiles = import ./mac.nix { inherit config pkgs; };
+{ pkgs }:
+let macFiles = import ./mac.nix { inherit pkgs; };
 in {
   ".emacs.d" = {
     source = ./assets/emacs/emacs.d;

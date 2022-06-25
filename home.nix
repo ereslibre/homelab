@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   home = {
-    file = import ./dotfiles.nix { inherit config pkgs; };
+    file = import ./dotfiles.nix { inherit pkgs; };
     packages = import ./packages.nix { inherit pkgs; };
   };
 
