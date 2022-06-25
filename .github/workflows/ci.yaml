@@ -21,6 +21,3 @@ jobs:
         run: |
           make lint
           git diff --exit-code
-      - name: Install home-manager environment
-        run: |
-          make
