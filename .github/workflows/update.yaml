@@ -18,4 +18,5 @@ jobs:
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v10
         with:
+          branch: update-flake-lock
           pr-title: "Update flake.lock"
