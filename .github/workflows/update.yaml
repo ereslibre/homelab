@@ -20,3 +20,7 @@ jobs:
         with:
           branch: update-flake-lock
           pr-title: "Update flake.lock"
+          # By using a PAT, GitHub workflows will run on the opened
+          # PR. Otherwise, GitHub workflows won't run without human
+          # intervention on PR's opened by a GitHub action.
+          token: ${{ secrets.UPDATE_FLAKE_LOCK }}
