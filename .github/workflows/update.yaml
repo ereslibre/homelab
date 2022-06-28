@@ -27,6 +27,7 @@ jobs:
           token: ${{ secrets.UPDATE_FLAKE_LOCK }}
       - name: Enable pull request automerge
         uses: peter-evans/enable-pull-request-automerge@v2
+        if: ${{ steps.update-flake-lock.outputs.pull-request-number }}
         with:
           token: ${{ secrets.UPDATE_FLAKE_LOCK }}
           pull-request-number: ${{ steps.update-flake-lock.outputs.pull-request-number }}
