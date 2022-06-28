@@ -5,7 +5,7 @@ on:
     - cron: '0 6 * * *'
 
 jobs:
-  bump-flake-lock:
+  update-flake-lock:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
