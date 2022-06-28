@@ -16,6 +16,7 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update flake.lock
+        id: update-flake-lock
         uses: DeterminateSystems/update-flake-lock@v10
         with:
           branch: update-flake-lock
@@ -24,3 +25,8 @@ jobs:
           # PR. Otherwise, GitHub workflows won't run without human
           # intervention on PR's opened by a GitHub action.
           token: ${{ secrets.UPDATE_FLAKE_LOCK }}
+      - name: Enable pull request automerge
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.UPDATE_FLAKE_LOCK }}
+          pull-request-number: ${{ steps.update-flake-lock.outputs.pull-request-number }}
