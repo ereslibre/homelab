@@ -3,7 +3,6 @@ with pkgs;
 [
   awscli
   bat
-  cabal2nix
   cacert
   coreutils
   cosign
@@ -16,8 +15,6 @@ with pkgs;
   gdb
   gh
   git
-  git-chglog
-  gitRepo
   gnupg
   gnupg-pkcs11-scd
   go
@@ -52,7 +49,6 @@ with pkgs;
     conmon
     gcc
     kube3d
-    open-policy-agent
     podman
     trivy
     valgrind
