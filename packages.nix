@@ -45,11 +45,4 @@ with pkgs;
   zbar
   zstd
 ] ++ (with pkgs;
-  lib.optionals stdenv.isLinux [
-    conmon
-    gcc
-    kube3d
-    podman
-    trivy
-    valgrind
-  ])
+  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman trivy valgrind ])
