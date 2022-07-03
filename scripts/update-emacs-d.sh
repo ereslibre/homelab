@@ -11,5 +11,4 @@ make
 cp -r ~/.emacs.d/elpa assets/emacs/emacs.d
 rm -rf ~/.emacs.d/elpa
 git add assets/emacs
-git commit -m 'Update emacs packages'
 make
