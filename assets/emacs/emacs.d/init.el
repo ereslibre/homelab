@@ -15,7 +15,7 @@
   (require 'use-package-ensure)
   (setq use-package-always-ensure t))
 
-(load-theme 'doom-dracula t)
+(add-hook 'after-init-hook (lambda () (load-theme 'doom-dracula t)))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
