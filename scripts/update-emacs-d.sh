@@ -1,8 +1,12 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -x
 
-emacsclient -e "(kill-emacs)"
+SOCKPATH=""
+if [ -S ~/.emacs.d/emacs.sock ]; then
+    SOCKPATH="-f ~/.emacs.d/emacs.sock"
+fi
+emacsclient $SOCKPATH -f kill-emacs
 rm -rf assets/emacs/emacs.d/elpa
 mkdir -p assets/emacs/emacs.d/elpa
 make
