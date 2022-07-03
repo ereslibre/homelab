@@ -14,3 +14,6 @@ fmt:
 
 lint:
 	nix develop --command nix-linter -r
+
+update-emacs-d:
+	scripts/update-emacs-d.sh
