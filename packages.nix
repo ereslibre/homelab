@@ -5,7 +5,6 @@ with pkgs;
   bat
   cacert
   coreutils
-  cosign
   curl
   direnv
   coreutils
@@ -34,7 +33,6 @@ with pkgs;
   rnix-lsp
   rust-analyzer
   rustup
-  stack
   terraform
   tmux
   tree
@@ -45,4 +43,4 @@ with pkgs;
   zbar
   zstd
 ] ++ (with pkgs;
-  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman trivy valgrind ])
+  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman valgrind ])
