@@ -2,7 +2,7 @@
   '((s "1.12.0")
     (emacs "24.3")
     (dash "2.13.0"))
-  :commit "29210e5a969c02169b68e04f2e28e3bf2fc13363" :authors
+  :commit "c612ac1e9f742856914ad6e8eb9e9dc169f489ab" :authors
   '(("Russel Winder" . "russel@winder.org.uk")
     ("Jim Morris" . "morris@wolfman.com")
     ("Wilfred Hughes" . "me@wilfred.me.uk"))
