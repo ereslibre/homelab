@@ -26,7 +26,7 @@ File: compat.info,  Node: Top,  Next: Introduction,  Up: (dir)
 
 This manual documents the usage of the "Compat" Emacs lisp library, the
 forward-compatibility library for Emacs Lisp, corresponding to version
-28.1.1.0.
+28.1.2.0.
 
    Copyright © 2022 Free Software Foundation, Inc.
 
@@ -120,7 +120,7 @@ File: compat.info,  Node: Usage,  Next: Intentions,  Prev: Overview,  Up: Introd
 The intended use-case for this library is for package developers to add
 as a dependency in the header:
 
-     ;; Package-Requires: ((emacs "24.3") (compat "28.1.1.0"))
+     ;; Package-Requires: ((emacs "24.3") (compat "28.1.2.0"))
 
    and later on a
 
@@ -825,6 +825,12 @@ by Compat by default:
  -- Function: null-device
      Defined in ‘files.el’.
 
+ -- Function: decoded-time-period
+     Defined in ‘time-data.el’.
+
+ -- Function: subr-primitive-p
+     Defined in ‘subr.el’.
+
    These functions are prefixed with ‘compat’ prefix, and are only
 loaded when ‘compat-28’ is required:
 
@@ -951,14 +957,14 @@ Appendix A Function Index
 * compat-alist-get:                      Emacs 26.1.          (line 111)
 * compat-assoc:                          Emacs 26.1.          (line 101)
 * compat-assoc-delete-all:               Emacs 27.1.          (line 115)
-* compat-count-windows:                  Emacs 28.1.          (line 150)
+* compat-count-windows:                  Emacs 28.1.          (line 156)
 * compat-dired-get-marked-files:         Emacs 27.1.          (line 125)
 * compat-executable-find:                Emacs 27.1.          (line 120)
 * compat-file-size-human-readable:       Emacs 27.1.          (line 110)
-* compat-json-insert:                    Emacs 28.1.          (line 135)
-* compat-json-parse-buffer:              Emacs 28.1.          (line 145)
-* compat-json-parse-string:              Emacs 28.1.          (line 140)
-* compat-json-serialize:                 Emacs 28.1.          (line 130)
+* compat-json-insert:                    Emacs 28.1.          (line 141)
+* compat-json-parse-buffer:              Emacs 28.1.          (line 151)
+* compat-json-parse-string:              Emacs 28.1.          (line 146)
+* compat-json-serialize:                 Emacs 28.1.          (line 136)
 * compat-line-number-at-pos:             Emacs 26.1.          (line 106)
 * compat-lookup-key:                     Emacs 27.1.          (line  93)
 * compat-recenter:                       Emacs 27.1.          (line  88)
@@ -969,8 +975,8 @@ Appendix A Function Index
 * compat-string-trim:                    Emacs 26.1.          (line 127)
 * compat-string-trim-left:               Emacs 26.1.          (line 117)
 * compat-string-trim-right:              Emacs 26.1.          (line 122)
-* compat-string-width:                   Emacs 28.1.          (line 124)
-* compat-unlock-buffer:                  Emacs 28.1.          (line 119)
+* compat-string-width:                   Emacs 28.1.          (line 130)
+* compat-unlock-buffer:                  Emacs 28.1.          (line 125)
 * completion-table-merge:                Emacs 24.4.          (line  48)
 * completion-table-with-cache:           Emacs 24.4.          (line  51)
 * cXXXr:                                 Emacs 26.1.          (line  15)
@@ -981,6 +987,7 @@ Appendix A Function Index
 * decoded-time-hour:                     Emacs 27.1.          (line  50)
 * decoded-time-minute:                   Emacs 27.1.          (line  47)
 * decoded-time-month:                    Emacs 27.1.          (line  56)
+* decoded-time-period:                   Emacs 28.1.          (line 116)
 * decoded-time-second:                   Emacs 27.1.          (line  44)
 * decoded-time-weekday:                  Emacs 27.1.          (line  62)
 * decoded-time-year:                     Emacs 27.1.          (line  59)
@@ -1056,6 +1063,7 @@ Appendix A Function Index
 * string-replace:                        Emacs 28.1.          (line  27)
 * string-search:                         Emacs 28.1.          (line   9)
 * string-suffix-p:                       Emacs 24.4.          (line  18)
+* subr-primitive-p:                      Emacs 28.1.          (line 119)
 * temporary-file-directory:              Emacs 26.1.          (line  31)
 * thing-at-mouse:                        Emacs 28.1.          (line  86)
 * thread-first:                          Emacs 25.1.          (line  30)
@@ -1098,9 +1106,9 @@ Node: Emacs 25.110565
 Node: Emacs 26.113160
 Node: Emacs 27.118253
 Node: Emacs 28.122838
-Node: Development28727
-Node: Function Index29742
-Node: Variable Index40061
+Node: Development28861
+Node: Function Index29876
+Node: Variable Index40341
 
 End Tag Table
 

@@ -679,7 +679,7 @@ it is disabled.
 ;;;### (autoloads nil "lsp-openscad" "lsp-openscad.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-openscad.el
 
-(register-definition-prefixes "lsp-openscad" '("lsp-openscad-server"))
+(register-definition-prefixes "lsp-openscad" '("lsp-openscad-"))
 
 ;;;***
 
