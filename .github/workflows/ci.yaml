@@ -29,9 +29,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-22.04
-            user: ereslibre
-            host: desktop
           - os: macos-12
             user: ereslibre
             host: Rafaels-MacBook-Air
