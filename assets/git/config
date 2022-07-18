@@ -22,7 +22,3 @@
   rebase = true
 [init]
   defaultBranch = main
-[includeIf "gitdir:~/projects/suse/"]
-  path = ~/.gitconfig.suse
-[includeIf "gitdir:~/projects/kubewarden/"]
-  path = ~/.gitconfig.suse
