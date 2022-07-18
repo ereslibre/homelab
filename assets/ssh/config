@@ -4,10 +4,6 @@ Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud
 Host pinfra-* surpillance-*
     User                  pi
 
-Host desktop
-    ForwardAgent          yes
-    RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/ereslibre/.gnupg/S.gpg-agent.extra
-
 Host *
     Compression           yes
     ExitOnForwardFailure  yes
