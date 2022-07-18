@@ -31,7 +31,7 @@ jobs:
         include:
           - os: macos-12
             user: ereslibre
-            host: Rafaels-MacBook-Air
+            host: Rafaels-Air
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository

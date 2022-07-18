@@ -29,6 +29,4 @@ let
       username = "ereslibre";
       configuration = macbookSharedConfiguration homeDirectory;
     });
-in {
-  "ereslibre@Rafaels-Air" = macbookConfiguration;
-}
+in { "ereslibre@Rafaels-Air" = macbookConfiguration; }
