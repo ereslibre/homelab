@@ -38,6 +38,7 @@ with pkgs;
   tree
   velero
   wget
+  xxd
   yubikey-manager
   yq
   zbar
