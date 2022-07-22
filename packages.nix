@@ -30,6 +30,7 @@ with pkgs;
   otpauth
   reg
   ripgrep
+  rlwrap
   rnix-lsp
   rust-analyzer
   rustup
