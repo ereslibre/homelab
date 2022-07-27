@@ -39,6 +39,9 @@
         copy_gpg_pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
+        devshell() {
+          nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
+        }
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
