@@ -14,19 +14,35 @@ let
       bash = shellExtras;
       zsh = shellExtras;
     };
-  macbookSharedConfiguration = homeDirectory: {
+
+  sharedConfiguration = { homeDirectory }: {
     imports = [ ./home.nix ];
     programs = commonConfiguration {
       emacsClient =
         "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
     };
   };
-  macbookConfiguration = home-manager.lib.homeManagerConfiguration
-    (let homeDirectory = "/Users/ereslibre";
-    in {
-      system = "x86_64-darwin";
-      inherit homeDirectory;
-      username = "ereslibre";
-      configuration = macbookSharedConfiguration homeDirectory;
-    });
-in { "ereslibre@Rafaels-Air" = macbookConfiguration; }
+
+  macbookConfiguration = { system, username }:
+    home-manager.lib.homeManagerConfiguration rec {
+      inherit system username;
+      homeDirectory = "/Users/${username}";
+      configuration = sharedConfiguration { inherit homeDirectory; };
+    };
+
+  workstationConfiguration = { system, username }:
+    home-manager.lib.homeManagerConfiguration rec {
+      inherit system username;
+      homeDirectory = "/home/${username}";
+      configuration = sharedConfiguration { inherit homeDirectory; };
+    };
+in {
+  "ereslibre@Rafaels-Air" = macbookConfiguration {
+    system = "x86_64-darwin";
+    username = "ereslibre";
+  };
+  "ereslibre@cpi5.lab.ereslibre.local" = workstationConfiguration {
+    system = "aarch64-linux";
+    username = "ereslibre";
+  };
+}
