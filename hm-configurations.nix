@@ -1,6 +1,6 @@
 { home-manager, nixpkgs }:
 let
-  commonConfiguration = { emacsClient }:
+  programsConfiguration = { emacsClient }:
     let
       shellExtras = {
         profileExtra = ''
@@ -17,16 +17,18 @@ let
 
   sharedConfiguration = { system, homeDirectory }: {
     imports = [ ./home.nix ];
-    programs = commonConfiguration {
-      emacsClient = "${
+    programs = programsConfiguration {
+      emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
+        "${
           nixpkgs.legacyPackages.${system}.emacs
-        }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+        }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
+      else
+        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
     };
-    # TODO: check
-    home.stateVersion = "20.09";
+    home.stateVersion = "22.05";
   };
 
-  macbookRawConfiguration = { system, homeDirectory }: rec {
+  macbookRawConfiguration = { system, homeDirectory }: {
     configuration = sharedConfiguration { inherit system homeDirectory; };
   };
 
@@ -39,8 +41,35 @@ let
     };
   };
 
-  workstationRawConfiguration = { system, homeDirectory }: {
-    configuration = sharedConfiguration { inherit system homeDirectory; };
+  workstationRawConfiguration = { system, homeDirectory }: rec {
+    configuration = (nixpkgs.lib.mkMerge [
+      {
+        # Enabling linger makes the systemd user services start
+        # automatically. In this machine, I want to trigger the
+        # `gpg-forward-agent-path` service file automatically as
+        # systemd starts, so the socket dir is always created and I
+        # can forward the GPG agent through SSH directly without
+        # having a first failed connection due to a missing
+        # `/run/user/<id>/gnupg`.
+        home.activation.linger =
+          home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
+            loginctl enable-linger $USER
+          '';
+        # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
+        systemd.user.services = {
+          "gpg-forward-agent-path" = {
+            Unit.Description = "Create GnuPG socket directory";
+            Service = {
+              ExecStart =
+                "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpgconf --create-socketdir";
+              ExecStop = "";
+            };
+            Install.WantedBy = [ "default.target" ];
+          };
+        };
+      }
+      (sharedConfiguration { inherit system homeDirectory; })
+    ]);
   };
 
   workstationConfiguration = { system, username }: rec {
