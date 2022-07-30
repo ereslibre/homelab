@@ -15,11 +15,11 @@ let
       zsh = shellExtras;
     };
 
-  sharedConfiguration = { homeDirectory }: {
+  sharedConfiguration = { homeDirectory, system }: {
     imports = [ ./home.nix ];
     programs = commonConfiguration {
       emacsClient =
-        "${nixpkgs.legacyPackages.x86_64-darwin.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
     };
   };
 
@@ -27,14 +27,14 @@ let
     home-manager.lib.homeManagerConfiguration rec {
       inherit system username;
       homeDirectory = "/Users/${username}";
-      configuration = sharedConfiguration { inherit homeDirectory; };
+      configuration = sharedConfiguration { inherit homeDirectory system; };
     };
 
   workstationConfiguration = { system, username }:
     home-manager.lib.homeManagerConfiguration rec {
       inherit system username;
       homeDirectory = "/home/${username}";
-      configuration = sharedConfiguration { inherit homeDirectory; };
+      configuration = sharedConfiguration { inherit homeDirectory system; };
     };
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
