@@ -18,8 +18,9 @@ let
   sharedConfiguration = { homeDirectory, system }: {
     imports = [ ./home.nix ];
     programs = commonConfiguration {
-      emacsClient =
-        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
+      emacsClient = "${
+          nixpkgs.legacyPackages.${system}.emacs
+        }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
     };
   };
 
