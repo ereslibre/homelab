@@ -46,4 +46,9 @@ in {
     system = "aarch64-linux";
     username = "ereslibre";
   };
+
+  "ereslibre@nuc-1.lab.ereslibre.local" = workstationConfiguration {
+    system = "x86_64-linux";
+    username = "ereslibre";
+  };
 }
