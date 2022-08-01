@@ -42,7 +42,7 @@ in {
     system = "x86_64-darwin";
     username = "ereslibre";
   };
-  "ereslibre@cpi5.lab.ereslibre.local" = workstationConfiguration {
+  "ereslibre@cpi-5.lab.ereslibre.local" = workstationConfiguration {
     system = "aarch64-linux";
     username = "ereslibre";
   };
