@@ -37,7 +37,7 @@ let
     };
   };
 
-  workstationRawConfiguration = { system, homeDirectory }: rec {
+  workstationRawConfiguration = { system, homeDirectory }: {
     configuration = sharedConfiguration { inherit system homeDirectory; };
   };
 
