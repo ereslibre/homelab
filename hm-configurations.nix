@@ -15,7 +15,7 @@ let
       zsh = shellExtras;
     };
 
-  sharedConfiguration = { homeDirectory, system }: {
+  sharedConfiguration = { system, homeDirectory }: {
     imports = [ ./home.nix ];
     programs = commonConfiguration {
       emacsClient = "${
@@ -24,19 +24,31 @@ let
     };
   };
 
-  macbookConfiguration = { system, username }:
-    home-manager.lib.homeManagerConfiguration rec {
-      inherit system username;
-      homeDirectory = "/Users/${username}";
-      configuration = sharedConfiguration { inherit homeDirectory system; };
-    };
+  macbookRawConfiguration = { system, homeDirectory }: rec {
+    configuration = sharedConfiguration { inherit system homeDirectory; };
+  };
 
-  workstationConfiguration = { system, username }:
-    home-manager.lib.homeManagerConfiguration rec {
-      inherit system username;
-      homeDirectory = "/home/${username}";
-      configuration = sharedConfiguration { inherit homeDirectory system; };
+  macbookConfiguration = { system, username }: rec {
+    homeDirectory = "/Users/${username}";
+    inherit (macbookRawConfiguration { inherit system homeDirectory; })
+      configuration;
+    hm-config = home-manager.lib.homeManagerConfiguration {
+      inherit system username homeDirectory configuration;
     };
+  };
+
+  workstationRawConfiguration = { system, homeDirectory }: rec {
+    configuration = sharedConfiguration { inherit system homeDirectory; };
+  };
+
+  workstationConfiguration = { system, username }: rec {
+    homeDirectory = "/home/${username}";
+    inherit (workstationRawConfiguration { inherit system homeDirectory; })
+      configuration;
+    hm-config = home-manager.lib.homeManagerConfiguration {
+      inherit system username homeDirectory configuration;
+    };
+  };
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
     system = "x86_64-darwin";
@@ -46,7 +58,6 @@ in {
     system = "aarch64-linux";
     username = "ereslibre";
   };
-
   "ereslibre@nuc-1.lab.ereslibre.local" = workstationConfiguration {
     system = "x86_64-linux";
     username = "ereslibre";
