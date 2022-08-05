@@ -14,6 +14,7 @@ with pkgs;
   gdb
   gh
   git
+  gnumake
   gnupg
   gnupg-pkcs11-scd
   go
