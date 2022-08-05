@@ -22,6 +22,8 @@ let
           nixpkgs.legacyPackages.${system}.emacs
         }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t";
     };
+    # TODO: check
+    home.stateVersion = "20.09";
   };
 
   macbookRawConfiguration = { system, homeDirectory }: rec {
