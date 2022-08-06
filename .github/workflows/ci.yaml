@@ -34,9 +34,6 @@ jobs:
             host: Rafaels-Air
           - os: ubuntu-latest
             user: ereslibre
-            host: cpi-5
-          - os: ubuntu-latest
-            user: ereslibre
             host: nuc-1
     runs-on: ${{ matrix.os }}
     steps:
