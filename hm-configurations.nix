@@ -17,7 +17,7 @@ let
 
   sharedConfiguration = { system, homeDirectory }: {
     imports =
-      if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
+      if (builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
     modules =
       if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
     programs = programsConfiguration {
