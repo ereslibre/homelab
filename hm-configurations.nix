@@ -16,10 +16,7 @@ let
     };
 
   sharedConfiguration = { system, homeDirectory }: {
-    imports =
-      if (builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
-    modules =
-      if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
+    imports = [ ./home.nix ];
     programs = programsConfiguration {
       emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
         "${
