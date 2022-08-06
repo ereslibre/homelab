@@ -1,7 +1,8 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, stateVersion ? "22.05", ... }: {
   home = {
     file = import ./dotfiles.nix { inherit pkgs; };
     packages = import ./packages.nix { inherit pkgs; };
+    inherit stateVersion;
   };
 
   programs = {

@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs }:
+{ home-manager, nixpkgs, stateVersion ? "22.05" }:
 let
   programsConfiguration = { emacsClient }:
     let
@@ -33,7 +33,7 @@ let
         pkgs = nixpkgs.legacyPackages.${system};
       })
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // { home.stateVersion = "22.05"; };
+    ]) // { home.stateVersion = stateVersion; };
   };
 
   macbookConfiguration = { system, username }: rec {
@@ -43,7 +43,7 @@ let
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
-      stateVersion = "22.05";
+      inherit stateVersion;
     };
   };
 
@@ -79,7 +79,7 @@ let
         };
       }
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // { home.stateVersion = "22.05"; };
+    ]) // { home.stateVersion = stateVersion; };
   };
 
   workstationConfiguration = { system, username }: rec {
@@ -89,7 +89,7 @@ let
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
-      stateVersion = "22.05";
+      inherit stateVersion;
     };
   };
 in {
