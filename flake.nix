@@ -11,14 +11,14 @@
   };
 
   outputs = { flake-utils, home-manager, nixpkgs, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachSystem
+    (flake-utils.lib.defaultSystems ++ [ "aarch64-darwin" ]) (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [ cachix nix-linter nixfmt ];
         };
       }) // {
-        inherit home-manager;
         homeConfigurations =
           import ./hm-configurations.nix { inherit home-manager nixpkgs; };
       };
