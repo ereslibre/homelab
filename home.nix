@@ -63,5 +63,6 @@
   services.emacs = {
     enable = pkgs.stdenv.isLinux;
     socketActivation.enable = pkgs.stdenv.isLinux;
+    defaultEditor = pkgs.stdenv.isLinux;
   };
 }
