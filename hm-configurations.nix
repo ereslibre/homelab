@@ -8,6 +8,7 @@ let
           if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
           if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
         '';
+        sessionVariables = { EDITOR = emacsClient; };
         shellAliases = { emacs = emacsClient; };
       };
     in {
@@ -68,6 +69,7 @@ let
           home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
             loginctl enable-linger $USER
           '';
+
         # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
         systemd.user.services = {
           "gpg-forward-agent-path" = {
@@ -79,6 +81,16 @@ let
             };
             Install.WantedBy = [ "default.target" ];
           };
+        };
+
+        programs.keychain = {
+          keys = [ ];
+          inheritType = "any";
+        };
+
+        zsh.shellAliases = {
+          gpg =
+            "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpg --no-autostart";
         };
       }
       (sharedConfiguration { inherit system homeDirectory; })
