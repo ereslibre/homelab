@@ -88,7 +88,7 @@ let
           inheritType = "any";
         };
 
-        zsh.shellAliases = {
+        programs.zsh.shellAliases = {
           gpg =
             "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpg --no-autostart";
         };
