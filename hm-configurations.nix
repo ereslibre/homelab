@@ -16,6 +16,10 @@ let
     };
 
   sharedConfiguration = { system, homeDirectory }: {
+    imports =
+      if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
+    modules =
+      if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
     programs = programsConfiguration {
       emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
         "${
@@ -25,11 +29,6 @@ let
         "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
     };
   };
-
-  sharedConfiguration.imports =
-    if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
-  sharedConfiguration.modules =
-    if (!builtins.pathExists "/etc/NIXOS") then [ ./home.nix ] else null;
 
   macbookRawConfiguration = { system, homeDirectory }: {
     configuration = sharedConfiguration { inherit system homeDirectory; };
