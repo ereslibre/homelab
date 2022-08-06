@@ -15,21 +15,17 @@ let
       zsh = shellExtras;
     };
 
-  sharedConfiguration = { system, homeDirectory }:
-    {
-      programs = programsConfiguration {
-        emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
-          "${
-            nixpkgs.legacyPackages.${system}.emacs
-          }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
-        else
-          "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
-      };
-      home.stateVersion = "22.05";
-    } // (import ./home.nix {
-      config.home.homeDirectory = homeDirectory;
-      pkgs = nixpkgs.legacyPackages.${system};
-    });
+  sharedConfiguration = { system, homeDirectory }: {
+    imports = [ ./home.nix ];
+    programs = programsConfiguration {
+      emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
+        "${
+          nixpkgs.legacyPackages.${system}.emacs
+        }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
+      else
+        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
+    };
+  };
 
   macbookRawConfiguration = { system, homeDirectory }: {
     configuration = sharedConfiguration { inherit system homeDirectory; };
