@@ -27,7 +27,13 @@ let
   };
 
   macbookRawConfiguration = { system, homeDirectory }: {
-    configuration = sharedConfiguration { inherit system homeDirectory; };
+    configuration = (nixpkgs.lib.mkMerge [
+      (import ./home.nix {
+        config.home.homeDirectory = homeDirectory;
+        pkgs = nixpkgs.legacyPackages.${system};
+      })
+      (sharedConfiguration { inherit system homeDirectory; })
+    ]);
   };
 
   macbookConfiguration = { system, username }: rec {
@@ -42,6 +48,10 @@ let
 
   workstationRawConfiguration = { system, homeDirectory }: rec {
     configuration = (nixpkgs.lib.mkMerge [
+      (import ./home.nix {
+        config.home.homeDirectory = homeDirectory;
+        pkgs = nixpkgs.legacyPackages.${system};
+      })
       {
         # Enabling linger makes the systemd user services start
         # automatically. In this machine, I want to trigger the
