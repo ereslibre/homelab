@@ -43,6 +43,7 @@ let
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
+      stateVersion = "22.05";
     };
   };
 
@@ -88,6 +89,7 @@ let
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
+      stateVersion = "22.05";
     };
   };
 in {
