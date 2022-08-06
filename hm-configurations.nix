@@ -33,7 +33,9 @@ let
         pkgs = nixpkgs.legacyPackages.${system};
       })
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // { home.stateVersion = stateVersion; };
+    ]) // {
+      home.stateVersion = stateVersion;
+    };
   };
 
   macbookConfiguration = { system, username }: rec {
@@ -79,7 +81,9 @@ let
         };
       }
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // { home.stateVersion = stateVersion; };
+    ]) // {
+      home.stateVersion = stateVersion;
+    };
   };
 
   workstationConfiguration = { system, username }: rec {
