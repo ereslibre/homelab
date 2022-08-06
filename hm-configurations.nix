@@ -16,7 +16,6 @@ let
     };
 
   sharedConfiguration = { system, homeDirectory }: {
-    imports = [ ./home.nix ];
     programs = programsConfiguration {
       emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
         "${
@@ -37,6 +36,7 @@ let
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
+      extraModules = [ ./home.nix ];
     };
   };
 
@@ -77,6 +77,7 @@ let
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration;
+      extraModules = [ ./home.nix ];
     };
   };
 in {

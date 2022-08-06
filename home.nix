@@ -2,7 +2,6 @@
   home = {
     file = import ./dotfiles.nix { inherit pkgs; };
     packages = import ./packages.nix { inherit pkgs; };
-    stateVersion = "22.05";
   };
 
   programs = {
@@ -61,7 +60,7 @@
   };
 
   services.emacs = {
-    enable = true;
-    socketActivation.enable = true;
+    enable = pkgs.stdenv.isLinux;
+    socketActivation.enable = pkgs.stdenv.isLinux;
   };
 }
