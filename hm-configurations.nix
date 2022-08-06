@@ -15,18 +15,21 @@ let
       zsh = shellExtras;
     };
 
-  sharedConfiguration = { system, homeDirectory }: {
-    imports = [ ./home.nix ];
-    programs = programsConfiguration {
-      emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
-        "${
-          nixpkgs.legacyPackages.${system}.emacs
-        }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
-      else
-        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
-    };
-    home.stateVersion = "22.05";
-  };
+  sharedConfiguration = { system, homeDirectory }:
+    {
+      programs = programsConfiguration {
+        emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
+          "${
+            nixpkgs.legacyPackages.${system}.emacs
+          }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
+        else
+          "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
+      };
+      home.stateVersion = "22.05";
+    } // (import ./home.nix {
+      config.home.homeDirectory = homeDirectory;
+      pkgs = nixpkgs.legacyPackages.${system};
+    });
 
   macbookRawConfiguration = { system, homeDirectory }: {
     configuration = sharedConfiguration { inherit system homeDirectory; };
@@ -85,8 +88,16 @@ in {
     system = "x86_64-darwin";
     username = "ereslibre";
   };
+  "ereslibre@cpi-5" = workstationConfiguration {
+    system = "aarch64-linux";
+    username = "ereslibre";
+  };
   "ereslibre@cpi-5.lab.ereslibre.local" = workstationConfiguration {
     system = "aarch64-linux";
+    username = "ereslibre";
+  };
+  "ereslibre@nuc-1" = workstationConfiguration {
+    system = "x86_64-linux";
     username = "ereslibre";
   };
   "ereslibre@nuc-1.lab.ereslibre.local" = workstationConfiguration {
