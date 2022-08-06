@@ -22,7 +22,9 @@
         # Re-export home-manager as a usable output
         inherit home-manager;
         # Export home-manager configurations
-        homeConfigurations =
-          import ./hm-configurations.nix { inherit home-manager nixpkgs; };
+        homeConfigurations = import ./hm-configurations.nix {
+          inherit home-manager nixpkgs;
+          stateVersion = "22.05";
+        };
       };
 }

@@ -46,6 +46,7 @@ let
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
       inherit stateVersion;
+      extraSpecialArgs = { inherit stateVersion; };
     };
   };
 
@@ -94,6 +95,7 @@ let
       inherit system username homeDirectory configuration;
       extraModules = [ ./home.nix ];
       inherit stateVersion;
+      extraSpecialArgs = { inherit stateVersion; };
     };
   };
 in {
