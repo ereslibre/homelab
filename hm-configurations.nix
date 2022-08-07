@@ -75,8 +75,9 @@ let
           "gpg-forward-agent-path" = {
             Unit.Description = "Create GnuPG socket directory";
             Service = {
-              ExecStart =
-                "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpgconf --create-socketdir";
+              ExecStart = "${
+                  nixpkgs.legacyPackages.${system}.gnupg
+                }/bin/gpgconf --create-socketdir";
               ExecStop = "";
             };
             Install.WantedBy = [ "default.target" ];
