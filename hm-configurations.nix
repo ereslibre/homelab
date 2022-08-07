@@ -28,13 +28,10 @@ let
   };
 
   macbookRawConfiguration = { system, homeDirectory }: {
-    configuration = (nixpkgs.lib.mkMerge [
-      (import ./home.nix {
-        config.home.homeDirectory = homeDirectory;
-        pkgs = nixpkgs.legacyPackages.${system};
-      })
-      (sharedConfiguration { inherit system homeDirectory; })
-    ]) // {
+    configuration = (nixpkgs.lib.recursiveUpdate (import ./home.nix {
+      config.home.homeDirectory = homeDirectory;
+      pkgs = nixpkgs.legacyPackages.${system};
+    }) (sharedConfiguration { inherit system homeDirectory; })) // {
       home.stateVersion = stateVersion;
     };
   };
@@ -52,12 +49,11 @@ let
   };
 
   workstationRawConfiguration = { system, homeDirectory }: rec {
-    configuration = (nixpkgs.lib.mkMerge [
+    configuration = (nixpkgs.lib.recursiveUpdate (nixpkgs.lib.recursiveUpdate
       (import ./home.nix {
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
-      })
-      {
+      }) {
         # Enabling linger makes the systemd user services start
         # automatically. In this machine, I want to trigger the
         # `gpg-forward-agent-path` service file automatically as
@@ -93,11 +89,9 @@ let
           gpg =
             "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpg --no-autostart";
         };
-      }
-      (sharedConfiguration { inherit system homeDirectory; })
-    ]) // {
-      home.stateVersion = stateVersion;
-    };
+      }) (sharedConfiguration { inherit system homeDirectory; })) // {
+        home.stateVersion = stateVersion;
+      };
   };
 
   workstationConfiguration = { system, username }: rec {
