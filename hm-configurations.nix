@@ -44,10 +44,7 @@ let
     inherit (macbookRawConfiguration { inherit system homeDirectory; })
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory configuration;
-      extraModules = [ ./home.nix ];
-      inherit stateVersion;
-      extraSpecialArgs = { inherit stateVersion; };
+      inherit system username homeDirectory configuration stateVersion;
     };
   };
 
@@ -105,10 +102,7 @@ let
     inherit (workstationRawConfiguration { inherit system homeDirectory; })
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory configuration;
-      extraModules = [ ./home.nix ];
-      inherit stateVersion;
-      extraSpecialArgs = { inherit stateVersion; };
+      inherit system username homeDirectory configuration stateVersion;
     };
   };
 in {
