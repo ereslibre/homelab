@@ -4,9 +4,9 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/release-22.05";
-    # nixpkgs revision known to work with Raspberry Pi 4b/400
+    # nixpkgs revision known to work -- https://channels.nix.gsc.io
     nixpkgs-rpi.url =
-      "github:nixos/nixpkgs/c71f061c68ba8ce53471b767d5049cbd0f3d8490";
+      "github:nixos/nixpkgs/72f492e275fc29d44b3a4daf952fbeffc4aed5b8";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
