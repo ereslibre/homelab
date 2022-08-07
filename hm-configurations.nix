@@ -76,7 +76,7 @@ let
             Unit.Description = "Create GnuPG socket directory";
             Service = {
               ExecStart =
-                "${nixpkgs.legacyPackages.x86_64-linux.gnupg}/bin/gpgconf --create-socketdir";
+                "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpgconf --create-socketdir";
               ExecStop = "";
             };
             Install.WantedBy = [ "default.target" ];
