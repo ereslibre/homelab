@@ -25,6 +25,7 @@ let
       else
         "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
     };
+    home.stateVersion = stateVersion;
   };
 
   macbookRawConfiguration = { system, homeDirectory }: {
@@ -34,9 +35,7 @@ let
         pkgs = nixpkgs.legacyPackages.${system};
       })
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // {
-      home.stateVersion = stateVersion;
-    };
+    ]);
   };
 
   macbookConfiguration = { system, username }: rec {
@@ -92,9 +91,7 @@ let
         };
       }
       (sharedConfiguration { inherit system homeDirectory; })
-    ]) // {
-      home.stateVersion = stateVersion;
-    };
+    ]);
   };
 
   workstationConfiguration = { system, username }: rec {

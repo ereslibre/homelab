@@ -30,14 +30,11 @@
         # Re-export home-manager, home-manager-rpi, nixpkgs and nixpkgs-rpi as a usable output
         inherit home-manager home-manager-rpi nixpkgs nixpkgs-rpi;
         # Export home-manager configurations
-        homeConfigurations = import ./hm-configurations.nix {
-          inherit home-manager nixpkgs;
-          stateVersion = "22.05";
-        };
+        homeConfigurations =
+          import ./hm-configurations.nix { inherit home-manager nixpkgs; };
         homeConfigurationsRpi = import ./hm-configurations.nix {
           home-manager = home-manager-rpi;
           nixpkgs = nixpkgs-rpi;
-          stateVersion = "22.05";
         };
       };
 }
