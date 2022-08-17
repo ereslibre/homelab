@@ -3,6 +3,7 @@ with pkgs;
 [
   awscli
   bat
+  binutils
   cacert
   coreutils
   curl
