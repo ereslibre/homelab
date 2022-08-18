@@ -47,4 +47,4 @@ with pkgs;
   zbar
   zstd
 ] ++ (with pkgs;
-  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman valgrind ])
+  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman pkg-config valgrind ])
