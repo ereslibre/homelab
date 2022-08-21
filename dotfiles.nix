@@ -1,5 +1,5 @@
-{ pkgs }:
-let macFiles = import ./mac.nix { inherit pkgs; };
+{ username, pkgs }:
+let macFiles = import ./mac.nix { inherit username pkgs; };
 in {
   ".emacs.d" = {
     source = ./assets/emacs/emacs.d;
@@ -7,6 +7,6 @@ in {
   };
   ".gitconfig".source = ./assets/git/config;
   ".gitignore".source = ./assets/git/gitignore;
-  ".ssh/config".source = ./assets/ssh/config;
+  ".ssh/config".text = import ./assets/ssh/config.nix { inherit username; };
   ".tmux.conf".source = ./assets/tmux/config;
 } // macFiles

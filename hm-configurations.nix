@@ -28,9 +28,10 @@ let
     home.stateVersion = stateVersion;
   };
 
-  macbookRawConfiguration = { system, homeDirectory }: {
+  macbookRawConfiguration = { system, username, homeDirectory }: {
     configuration = (nixpkgs.lib.mkMerge [
       (import ./home.nix {
+        inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
       })
@@ -40,16 +41,17 @@ let
 
   macbookConfiguration = { system, username }: rec {
     homeDirectory = "/Users/${username}";
-    inherit (macbookRawConfiguration { inherit system homeDirectory; })
+    inherit (macbookRawConfiguration { inherit system username homeDirectory; })
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration stateVersion;
     };
   };
 
-  workstationRawConfiguration = { system, homeDirectory }: rec {
+  workstationRawConfiguration = { system, username, homeDirectory }: rec {
     configuration = (nixpkgs.lib.mkMerge [
       (import ./home.nix {
+        inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
       })
@@ -96,7 +98,9 @@ let
 
   workstationConfiguration = { system, username }: rec {
     homeDirectory = "/home/${username}";
-    inherit (workstationRawConfiguration { inherit system homeDirectory; })
+    inherit (workstationRawConfiguration {
+      inherit system username homeDirectory;
+    })
       configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory configuration stateVersion;
@@ -126,5 +130,9 @@ in {
   "ereslibre@nuc-1.lab.ereslibre.local" = workstationConfiguration {
     system = "x86_64-linux";
     username = "ereslibre";
+  };
+  "rfernandezl@rfernandezl-a01" = macbookConfiguration {
+    system = "aarch64-darwin";
+    username = "rfernandezl";
   };
 }

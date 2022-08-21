@@ -1,4 +1,4 @@
-{ pkgs }:
+{ username, pkgs }:
 if pkgs.stdenv.isDarwin then {
   ".gnupg/scdaemon.conf".text = ''
     disable-ccid
@@ -14,7 +14,7 @@ if pkgs.stdenv.isDarwin then {
       <key>ProgramArguments</key>
       <array>
         <string>${pkgs.emacs}/bin/emacs</string>
-        <string>--fg-daemon=/Users/ereslibre/.emacs.d/emacs.sock</string>
+        <string>--fg-daemon=/Users/${username}/.emacs.d/emacs.sock</string>
       </array>
       <key>RunAtLoad</key>
       <true/>
