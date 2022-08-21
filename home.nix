@@ -30,17 +30,18 @@
         export LC_ALL="en_US.UTF-8"
       '';
       initExtra = ''
-        key_token() {
-          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
-        }
-        token() {
-          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
-        }
         copy_gpg_pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
         devshell() {
           nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
+        }
+      '' + pkgs.lib.optionalString (pkgs.stdenv.system != "aarch64-darwin") ''
+        key_token() {
+          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
+        }
+        token() {
+          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
       '';
       oh-my-zsh.enable = true;

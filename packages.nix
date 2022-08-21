@@ -42,9 +42,8 @@ with pkgs;
   velero
   wget
   xxd
-  yubikey-manager
-  yq
-  zbar
   zstd
 ] ++ (with pkgs;
   lib.optionals stdenv.isLinux [ conmon gcc kube3d podman valgrind ])
+++ (with pkgs;
+  lib.optionals (stdenv.system != "aarch64-darwin") [ yubikey-manager yq zbar ])
