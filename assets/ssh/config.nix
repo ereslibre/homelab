@@ -10,6 +10,7 @@
       RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra
 
   Host *
+      User                  ereslibre
       Compression           yes
       ExitOnForwardFailure  yes
       ForwardX11            no
