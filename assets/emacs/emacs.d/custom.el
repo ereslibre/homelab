@@ -23,7 +23,7 @@
      ("#3C3D37" . 100)))
  '(magit-diff-use-overlays nil)
  '(org-agenda-files
-   '("~/org/inbox.org" "~/org/projects.org" "~/org/tickler.org" "~/org/reminders.org" "~/org/someday.org" "~/org/journal.org" "~/org/habits.org"))
+   '("~/.org/inbox.org" "~/.org/projects.org" "~/.org/tickler.org" "~/.org/reminders.org" "~/.org/someday.org" "~/.org/journal.org" "~/.org/habits.org"))
  '(package-selected-packages
    '(sublimity ace-window carbon-now-sh use-package rego-mode bats-mode zig-mode monokai-theme doom-themes typescript-mode terraform-mode nix-mode adoc-mode helm-lsp protobuf-mode git-link yasnippet powerline helm-projectile helm helm-company projectile groovy-mode lsp-mode company yaml-mode yafolding vue-mode undo-tree rust-mode rainbow-delimiters neotree markdown-mode magit json-mode haskell-mode google-translate go-mode browse-kill-ring ack ripgrep))
  '(pos-tip-background-color "#FFFACE")

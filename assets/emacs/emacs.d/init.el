@@ -139,73 +139,73 @@
          ("C-c c" . org-capture)
          ("C-c C-o" . org-open-at-point))
   :config
-  (setq org-agenda-files '("~/org/habits.org"
-			                     "~/org/inbox.org"
-			                     "~/org/journal.org"
-			                     "~/org/notes.org"
-			                     "~/org/projects.org"
-			                     "~/org/reminders.org"
-			                     "~/org/someday.org"
-			                     "~/org/tickler.org"))
+  (setq org-agenda-files '("~/.org/habits.org"
+			                     "~/.org/inbox.org"
+			                     "~/.org/journal.org"
+			                     "~/.org/notes.org"
+			                     "~/.org/projects.org"
+			                     "~/.org/reminders.org"
+			                     "~/.org/someday.org"
+			                     "~/.org/tickler.org"))
   (setq org-agenda-text-search-extra-files
-	      (append (directory-files-recursively "~/org" "\.org$")
-		            (directory-files-recursively "~/org" "\.org_archive$")))
+	      (append (directory-files-recursively "~/.org" "\.org$")
+		            (directory-files-recursively "~/.org" "\.org_archive$")))
   (setq org-log-done t)
   (setq org-log-repeat 'note)
   (setq org-agenda-span 'day)
   (setq org-agenda-start-on-weekday nil)
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '(("~/org/habits.org" :maxlevel . 1)
-                             ("~/org/notes.org" :maxlevel . 3)
-			                       ("~/org/projects.org" :maxlevel . 3)
-			                       ("~/org/someday.org" :maxlevel . 3)
-			                       ("~/org/tickler.org" :maxlevel . 3)
-			                       ("~/org/reminders.org" :maxlevel . 3)))
+  (setq org-refile-targets '(("~/.org/habits.org" :maxlevel . 1)
+                             ("~/.org/notes.org" :maxlevel . 3)
+			                       ("~/.org/projects.org" :maxlevel . 3)
+			                       ("~/.org/someday.org" :maxlevel . 3)
+			                       ("~/.org/tickler.org" :maxlevel . 3)
+			                       ("~/.org/reminders.org" :maxlevel . 3)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-capture-templates
 	      '(("t" "TODO"
-	         entry (file "~/org/inbox.org")
+	         entry (file "~/.org/inbox.org")
 	         "* TODO %i%?\n  %U"
 	         :empty-lines 0)
 	        ("T" "Tickler"
-	         entry (file "~/org/tickler.org")
+	         entry (file "~/.org/tickler.org")
 	         "* %i%?\n  %U"
 	         :empty-lines 0)
 	        ("n" "Note"
-	         entry (file "~/org/notes.org")
+	         entry (file "~/.org/notes.org")
 	         "* %?"
 	         :empty-lines 0)
 	        ("j" "Journal Entry"
-	         entry (file+datetree "~/org/journal.org")
+	         entry (file+datetree "~/.org/journal.org")
 	         "* %?"
 	         :empty-lines 0)
 	        ))
   (setq org-agenda-custom-commands
 	      '(("A" "All"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+personal" ((org-agenda-files '("~/org/projects.org"))))
-	          (tags-todo "+work" ((org-agenda-files '("~/org/projects.org"))))
-	          (tags-todo "+hacking" ((org-agenda-files '("~/org/projects.org"))))))
+	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
+	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org"))))
+	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))))
 	        ("o" "Office"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+work" ((org-agenda-files '("~/org/projects.org")))))
+	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org")))))
 	         ((org-agenda-tag-filter-preset '("+work"))))
 	        ("p" "Personal"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+personal" ((org-agenda-files '("~/org/projects.org")))))
+	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org")))))
 	         ((org-agenda-tag-filter-preset '("+personal"))))
 	        ("h" "Hacking"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+hacking" ((org-agenda-files '("~/org/projects.org")))))
+	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org")))))
 	         ((org-agenda-tag-filter-preset '("+hacking"))))
 	        ("w" "Weekly review"
 	         ((agenda "" ((org-agenda-start-day nil)
 			                  (org-agenda-span 'week)))
-	          (tags-todo "+work" ((org-agenda-files '("~/org/projects.org"))))
-	          (tags-todo "+personal" ((org-agenda-files '("~/org/projects.org"))))
-	          (tags-todo "+hacking" ((org-agenda-files '("~/org/projects.org"))))
-	          (tags "+someday" ((org-agenda-files '("~/org/someday.org"))))))))
+	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org"))))
+	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
+	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))
+	          (tags "+someday" ((org-agenda-files '("~/.org/someday.org"))))))))
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda ()
                                 (when (eq major-mode 'org-mode) (org-align-tags t)))))
