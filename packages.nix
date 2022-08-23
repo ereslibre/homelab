@@ -10,6 +10,7 @@ with pkgs;
   direnv
   coreutils
   dive
+  file
   fluxcd
   fzf
   gdb
