@@ -9,7 +9,7 @@
       ForwardAgent          yes
       RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra
 
-  Host *.ereslibre.local
+  Host *.ereslibre.local *.ereslibre.net
       ForwardAgent          yes
 
   Host 10.0.*
