@@ -44,7 +44,6 @@ with pkgs;
   wget
   xxd
   zstd
-] ++ (with pkgs;
-  lib.optionals stdenv.isLinux [ conmon gcc kube3d podman valgrind ])
+] ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d valgrind ])
 ++ (with pkgs;
   lib.optionals (stdenv.system != "aarch64-darwin") [ yubikey-manager yq zbar ])
