@@ -34,7 +34,7 @@ jobs:
             host: Rafaels-Air
           - os: ubuntu-latest
             user: ereslibre
-            host: nuc-1.lab.ereslibre.local
+            host: 'nuc-1.lab.ereslibre.local'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
