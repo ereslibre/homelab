@@ -46,6 +46,7 @@
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
+        diff = "diff -u --color=auto";
         dir = "dir --color=auto";
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
