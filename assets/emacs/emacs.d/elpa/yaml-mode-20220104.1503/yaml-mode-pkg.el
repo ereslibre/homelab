@@ -1,2 +1,0 @@
-;;; Generated package description from yaml-mode.el  -*- no-byte-compile: t -*-
-(define-package "yaml-mode" "20220104.1503" "Major mode for editing YAML files" '((emacs "24.1")) :commit "535273d5a1eb76999d20afbcf4d9f056d8ffd2da" :authors '(("Yoshiki Kurihara" . "clouder@gmail.com") ("Marshall T. Vandegrift" . "llasram@gmail.com")) :maintainer '("Vasilij Schneidermann" . "mail@vasilij.de") :keywords '("data" "yaml") :url "https://github.com/yoshiki/yaml-mode")
