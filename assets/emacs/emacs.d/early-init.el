@@ -40,7 +40,7 @@
 (setq-default inhibit-startup-message t)
 
 ;; do not break lines
-(setq-default truncate-lines t)
+(setq-default truncate-lines nil)
 (setq-default global-visual-line-mode t)
 
 ;; no backups
