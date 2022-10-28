@@ -55,6 +55,7 @@ let
         inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
+        pkgs-main = nixpkgs-main.legacyPackages.${system};
       })
       {
         # Enabling linger makes the systemd user services start
