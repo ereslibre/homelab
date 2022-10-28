@@ -1,7 +1,7 @@
-{ config, username, pkgs, ... }: {
+{ config, username, pkgs, pkgs-main, ... }: {
   home = {
     file = import ./dotfiles.nix { inherit username pkgs; };
-    packages = import ./packages.nix { inherit pkgs; };
+    packages = import ./packages.nix { inherit pkgs pkgs-main; };
   };
 
   programs = {
@@ -33,15 +33,14 @@
         copy_gpg_pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
-        devshell() {
-          nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
-        }
-      '' + pkgs.lib.optionalString (pkgs.stdenv.system != "aarch64-darwin") ''
         key_token() {
-          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
+          ${pkgs-main.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         token() {
-          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
+          key_token "$(${pkgs-main.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
+        }
+        devshell() {
+          nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
         }
       '';
       oh-my-zsh.enable = true;

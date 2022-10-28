@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs, stateVersion ? "22.05" }:
+{ home-manager, nixpkgs, nixpkgs-main, stateVersion ? "22.05" }:
 let
   programsConfiguration = { emacsClient }:
     let
@@ -34,6 +34,7 @@ let
         inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
+        pkgs-main = nixpkgs-main.legacyPackages.${system};
       })
       (sharedConfiguration { inherit system homeDirectory; })
     ]);

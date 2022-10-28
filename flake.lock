@@ -73,6 +73,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-main": {
+      "locked": {
+        "lastModified": 1666992249,
+        "narHash": "sha256-QLJVTKHS4FnvddbnrzUcyLAvUQaBRDl3uvwUMVjk9+s=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fbb042bc87bc92fc5296b8b151e36970dd996c64",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-rpi": {
       "locked": {
         "lastModified": 1659768833,
@@ -95,6 +110,7 @@
         "home-manager": "home-manager",
         "home-manager-rpi": "home-manager-rpi",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-main": "nixpkgs-main",
         "nixpkgs-rpi": "nixpkgs-rpi"
       }
     }
