@@ -46,11 +46,4 @@ with pkgs;
   zstd
 ] ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d valgrind ])
 ++ (with pkgs; lib.optionals (stdenv.system != "aarch64-darwin") [ yq zbar ])
-++ (with pkgs-main;
-  [
-    # pyOpenSSLSupport attribute is only present in the main branch of
-    # nixpkgs. Not ideal to mix, but use that instead.
-    (callPackage yubikey-manager.override {
-      pyOpenSSLSupport = (stdenv.system != "aarch64-darwin");
-    })
-  ])
+++ (with pkgs-main; [ yubikey-manager ])
