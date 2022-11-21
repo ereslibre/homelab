@@ -5,7 +5,7 @@
   Host pinfra-* surpillance-*
       User                  pi
 
-  Host nuc-1 cpi-5 pi-office
+  Host nuc-1 cpi-5
       ForwardAgent          yes
       RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra
 
