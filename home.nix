@@ -7,7 +7,10 @@
   programs = {
     bash.enable = true;
     direnv.enable = true;
-    emacs.enable = true;
+    emacs = {
+      enable = true;
+      package = pkgs.emacs-nox;
+    };
     fzf.enable = true;
     keychain.enable = true;
 

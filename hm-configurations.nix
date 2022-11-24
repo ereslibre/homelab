@@ -20,10 +20,10 @@ let
     programs = programsConfiguration {
       emacsClient = if nixpkgs.legacyPackages.${system}.stdenv.isDarwin then
         "${
-          nixpkgs.legacyPackages.${system}.emacs
+          nixpkgs.legacyPackages.${system}.emacs-nox
         }/bin/emacsclient -s ${homeDirectory}/.emacs.d/emacs.sock -t"
       else
-        "${nixpkgs.legacyPackages.${system}.emacs}/bin/emacsclient -t";
+        "${nixpkgs.legacyPackages.${system}.emacs-nox}/bin/emacsclient -t";
     };
     home.stateVersion = stateVersion;
   };

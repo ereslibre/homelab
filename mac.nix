@@ -13,7 +13,7 @@ if pkgs.stdenv.isDarwin then {
       <string>es.ereslibre.es.emacs</string>
       <key>ProgramArguments</key>
       <array>
-        <string>${pkgs.emacs}/bin/emacs</string>
+        <string>${pkgs.emacs-nox}/bin/emacs</string>
         <string>--fg-daemon=/Users/${username}/.emacs.d/emacs.sock</string>
       </array>
       <key>RunAtLoad</key>
