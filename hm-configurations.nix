@@ -113,7 +113,7 @@ in {
     system = "x86_64-darwin";
     username = "ereslibre";
   };
-  "ereslibre@pi-office.office.ereslibre.local" = workstationConfiguration {
+  "ereslibre@pi-office.lab.ereslibre.local" = workstationConfiguration {
     system = "aarch64-linux";
     username = "ereslibre";
   };
