@@ -2,7 +2,7 @@
   Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud strong-arm-1.oracle.cloud
       User                  ubuntu
 
-  Host pinfra-* surpillance-*
+  Host pi-office pinfra-* surpillance-*
       User                  pi
 
   Host nuc-1 cpi-5
