@@ -2,17 +2,17 @@
   Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud strong-arm-1.oracle.cloud
       User                  ubuntu
 
-  Host pi-office pinfra-* surpillance-*
+  Host pinfra-* surpillance-*
       User                  pi
 
-  Host nuc-1 cpi-5
+  Host cpi-5 nuc-1
       ForwardAgent          yes
       RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra
 
   Host *.ereslibre.local *.ereslibre.net
       ForwardAgent          yes
 
-  Host 10.0.*
+  Host pi-office 10.0.*
       ForwardAgent          yes
 
   Host *
