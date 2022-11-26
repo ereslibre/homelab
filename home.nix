@@ -45,6 +45,9 @@
         devshell() {
           nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
         }
+        ds() {
+          devshell clang pkg-config $*
+        }
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
