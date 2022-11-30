@@ -57,13 +57,6 @@
 ;; remove whitespaces at the end of line
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; graphical interface tweaks
-(if window-system
-    (progn
-      (menu-bar-mode -1)
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1)))
-
 ;; lines and columns
 (line-number-mode 1)
 (column-number-mode 1)

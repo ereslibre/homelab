@@ -15,7 +15,12 @@
   (require 'use-package-ensure)
   (setq use-package-always-ensure t))
 
-(add-hook 'after-init-hook (lambda () (load-theme 'doom-dracula t)))
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(add-hook 'after-init-hook (lambda ()
+                             (load-theme 'doom-dracula t)))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
