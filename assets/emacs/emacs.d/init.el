@@ -16,8 +16,6 @@
   (setq use-package-always-ensure t))
 
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 (add-hook 'after-init-hook (lambda ()
                              (load-theme 'doom-dracula t)))
