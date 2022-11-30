@@ -58,9 +58,11 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; graphical interface tweaks
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(if window-system
+    (progn
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)))
 
 ;; lines and columns
 (line-number-mode 1)
