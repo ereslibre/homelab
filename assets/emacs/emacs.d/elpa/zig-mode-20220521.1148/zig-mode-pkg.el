@@ -1,2 +1,0 @@
-;;; Generated package description from zig-mode.el  -*- no-byte-compile: t -*-
-(define-package "zig-mode" "20220521.1148" "A major mode for the Zig programming language" '((emacs "24.3")) :commit "dbc648f5bca8f3b9ca2cc7827f326f5530115144" :authors '(("Andrea Orru <andreaorru1991@gmail.com>, Andrew Kelley" . "superjoe30@gmail.com")) :maintainer '("Andrea Orru <andreaorru1991@gmail.com>, Andrew Kelley" . "superjoe30@gmail.com") :keywords '("zig" "languages") :url "https://github.com/zig-lang/zig-mode")
