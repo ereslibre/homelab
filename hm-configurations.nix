@@ -41,13 +41,12 @@ let
 
   macbookConfiguration = { system, username }: rec {
     homeDirectory = "/Users/${username}";
-    hm-config = home-manager.lib.homeManagerConfiguration {
+    hm-config = home-manager.lib.homeManagerConfiguration rec {
       pkgs = nixpkgs.legacyPackages.${system};
-      modules = let
-        configuration = (macbookRawConfiguration {
-          inherit system username homeDirectory;
-        }).configuration;
-      in [
+      configuration = (macbookRawConfiguration {
+        inherit system username homeDirectory;
+      }).configuration;
+      modules = [
         configuration
         { home = { inherit username homeDirectory stateVersion; }; }
       ];
@@ -104,13 +103,12 @@ let
 
   workstationConfiguration = { system, username }: rec {
     homeDirectory = "/home/${username}";
-    hm-config = home-manager.lib.homeManagerConfiguration {
+    hm-config = home-manager.lib.homeManagerConfiguration rec {
       pkgs = nixpkgs.legacyPackages.${system};
-      modules = let
-        configuration = (workstationRawConfiguration {
-          inherit system username homeDirectory;
-        }).configuration;
-      in [
+      configuration = (workstationRawConfiguration {
+        inherit system username homeDirectory;
+      }).configuration;
+      modules = [
         configuration
         { home = { inherit username homeDirectory stateVersion; }; }
       ];
