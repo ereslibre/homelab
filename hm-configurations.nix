@@ -72,7 +72,7 @@ let
         # `/run/user/<id>/gnupg`.
         home.activation.linger =
           home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
-            loginctl enable-linger $USER
+            sudo loginctl enable-linger $USER
           '';
 
         # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
