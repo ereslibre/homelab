@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs, nixpkgs-main, stateVersion ? "22.05" }:
+{ home-manager, nixpkgs, stateVersion ? "22.05" }:
 let
   programsConfiguration = { emacsClient }:
     let
@@ -34,7 +34,6 @@ let
         inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
-        pkgs-main = nixpkgs-main.legacyPackages.${system};
       })
       (sharedConfiguration { inherit system homeDirectory; })
     ]);
@@ -42,10 +41,16 @@ let
 
   macbookConfiguration = { system, username }: rec {
     homeDirectory = "/Users/${username}";
-    inherit (macbookRawConfiguration { inherit system username homeDirectory; })
-      configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory configuration stateVersion;
+      pkgs = nixpkgs.legacyPackages.${system};
+      modules = let
+        configuration = (macbookRawConfiguration {
+          inherit system username homeDirectory;
+        }).configuration;
+      in [
+        configuration
+        { home = { inherit username homeDirectory stateVersion; }; }
+      ];
     };
   };
 
@@ -55,7 +60,6 @@ let
         inherit username;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
-        pkgs-main = nixpkgs-main.legacyPackages.${system};
       })
       {
         # Enabling linger makes the systemd user services start
@@ -100,12 +104,16 @@ let
 
   workstationConfiguration = { system, username }: rec {
     homeDirectory = "/home/${username}";
-    inherit (workstationRawConfiguration {
-      inherit system username homeDirectory;
-    })
-      configuration;
     hm-config = home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory configuration stateVersion;
+      pkgs = nixpkgs.legacyPackages.${system};
+      modules = let
+        configuration = (workstationRawConfiguration {
+          inherit system username homeDirectory;
+        }).configuration;
+      in [
+        configuration
+        { home = { inherit username homeDirectory stateVersion; }; }
+      ];
     };
   };
 in {

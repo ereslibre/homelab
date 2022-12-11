@@ -1,4 +1,4 @@
-{ pkgs, pkgs-main }:
+{ pkgs }:
 with pkgs;
 [
   awscli
@@ -43,13 +43,7 @@ with pkgs;
   velero
   wget
   xxd
+  yubikey-manager
   zstd
 ] ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d valgrind ])
 ++ (with pkgs; lib.optionals (stdenv.system != "aarch64-darwin") [ yq zbar ])
-++ (with pkgs-main;
-  [
-    # Consume from release-22.11 when available. This resolves some
-    # derivation deps being marked as broken for aarch64-darwin on
-    # release-22.05
-    yubikey-manager
-  ])

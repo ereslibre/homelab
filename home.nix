@@ -1,7 +1,7 @@
-{ config, username, pkgs, pkgs-main, ... }: {
+{ config, username, pkgs, ... }: {
   home = {
     file = import ./dotfiles.nix { inherit username pkgs; };
-    packages = import ./packages.nix { inherit pkgs pkgs-main; };
+    packages = import ./packages.nix { inherit pkgs; };
   };
 
   programs = {
@@ -37,10 +37,10 @@
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
         key_token() {
-          ${pkgs-main.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
+          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         token() {
-          key_token "$(${pkgs-main.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
+          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
         devshell() {
           nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
