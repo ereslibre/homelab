@@ -39,19 +39,21 @@ let
     ]);
   };
 
-  macbookConfiguration = { system, username }: rec {
-    homeDirectory = "/Users/${username}";
-    hm-config = home-manager.lib.homeManagerConfiguration rec {
-      pkgs = nixpkgs.legacyPackages.${system};
-      configuration = (macbookRawConfiguration {
+  macbookConfiguration = { system, username }:
+    let homeDirectory = "/Users/${username}";
+    in rec {
+      inherit (macbookRawConfiguration {
         inherit system username homeDirectory;
-      }).configuration;
-      modules = [
-        configuration
-        { home = { inherit username homeDirectory stateVersion; }; }
-      ];
+      })
+        configuration;
+      hm-config = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [
+          configuration
+          { home = { inherit username homeDirectory stateVersion; }; }
+        ];
+      };
     };
-  };
 
   workstationRawConfiguration = { system, username, homeDirectory }: rec {
     configuration = (nixpkgs.lib.mkMerge [
@@ -101,19 +103,21 @@ let
     ]);
   };
 
-  workstationConfiguration = { system, username }: rec {
-    homeDirectory = "/home/${username}";
-    hm-config = home-manager.lib.homeManagerConfiguration rec {
-      pkgs = nixpkgs.legacyPackages.${system};
-      configuration = (workstationRawConfiguration {
+  workstationConfiguration = { system, username }:
+    let homeDirectory = "/home/${username}";
+    in rec {
+      inherit (workstationRawConfiguration {
         inherit system username homeDirectory;
-      }).configuration;
-      modules = [
-        configuration
-        { home = { inherit username homeDirectory stateVersion; }; }
-      ];
+      })
+        configuration;
+      hm-config = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [
+          configuration
+          { home = { inherit username homeDirectory stateVersion; }; }
+        ];
+      };
     };
-  };
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
     system = "x86_64-darwin";
