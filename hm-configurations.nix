@@ -70,14 +70,10 @@ let
         # can forward the GPG agent through SSH directly without
         # having a first failed connection due to a missing
         # `/run/user/<id>/gnupg`.
-        #
-        # FIXME: loginctl enable-linger is not allowed at the current
-        # NixOS release (22.11).
-        #
-        # home.activation.linger =
-        #   home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
-        #     loginctl enable-linger
-        #   '';
+        home.activation.linger =
+          home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
+            loginctl enable-linger
+          '';
 
         # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
         systemd.user.services = {
