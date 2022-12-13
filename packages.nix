@@ -7,8 +7,8 @@ with pkgs;
   cacert
   coreutils
   curl
+  diffutils
   direnv
-  coreutils
   dive
   file
   fluxcd
