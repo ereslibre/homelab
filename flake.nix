@@ -10,8 +10,7 @@
     };
   };
 
-  outputs =
-    { flake-utils, home-manager, nixpkgs, ... }:
+  outputs = { flake-utils, home-manager, nixpkgs, ... }:
     flake-utils.lib.eachSystem
     (flake-utils.lib.defaultSystems ++ [ "aarch64-darwin" ]) (system:
       let pkgs = nixpkgs.legacyPackages.${system};
