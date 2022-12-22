@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs, stateVersion ? "22.05" }:
+{ home-manager, nixpkgs, stateVersion ? "22.11" }:
 let
   programsConfiguration = { emacsClient }:
     let
@@ -28,10 +28,10 @@ let
     home.stateVersion = stateVersion;
   };
 
-  macbookRawConfiguration = { system, username, homeDirectory }: {
+  macbookRawConfiguration = { system, username, homeDirectory, profile }: {
     configuration = (nixpkgs.lib.mkMerge [
       (import ./home.nix {
-        inherit username;
+        inherit username profile;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
       })
@@ -39,11 +39,11 @@ let
     ]);
   };
 
-  macbookConfiguration = { system, username }:
+  macbookConfiguration = { system, username, profile }:
     let homeDirectory = "/Users/${username}";
     in rec {
       inherit (macbookRawConfiguration {
-        inherit system username homeDirectory;
+        inherit system username homeDirectory profile;
       })
         configuration;
       hm-config = home-manager.lib.homeManagerConfiguration rec {
@@ -55,59 +55,57 @@ let
       };
     };
 
-  workstationRawConfiguration = { system, username, homeDirectory }: rec {
-    configuration = (nixpkgs.lib.mkMerge [
-      (import ./home.nix {
-        inherit username;
-        config.home.homeDirectory = homeDirectory;
-        pkgs = nixpkgs.legacyPackages.${system};
-      })
-      {
-        # Enabling linger makes the systemd user services start
-        # automatically. In this machine, I want to trigger the
-        # `gpg-forward-agent-path` service file automatically as
-        # systemd starts, so the socket dir is always created and I
-        # can forward the GPG agent through SSH directly without
-        # having a first failed connection due to a missing
-        # `/run/user/<id>/gnupg`.
-        home.activation.linger =
-          home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
-            loginctl enable-linger $USER
-          '';
+  workstationRawConfiguration =
+    { system, username, homeDirectory, profile }: rec {
+      configuration = let pkgs = nixpkgs.legacyPackages.${system};
+      in (nixpkgs.lib.mkMerge [
+        (import ./home.nix {
+          inherit username profile pkgs;
+          config.home.homeDirectory = homeDirectory;
+        })
+        {
+          # Enabling linger makes the systemd user services start
+          # automatically. In this machine, I want to trigger the
+          # `gpg-forward-agent-path` service file automatically as
+          # systemd starts, so the socket dir is always created and I
+          # can forward the GPG agent through SSH directly without
+          # having a first failed connection due to a missing
+          # `/run/user/<id>/gnupg`.
+          home.activation.linger =
+            home-manager.lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
+              ${pkgs.systemd}/bin/loginctl enable-linger $USER
+            '';
 
-        # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
-        systemd.user.services = {
-          "gpg-forward-agent-path" = {
-            Unit.Description = "Create GnuPG socket directory";
-            Service = {
-              ExecStart = "${
-                  nixpkgs.legacyPackages.${system}.gnupg
-                }/bin/gpgconf --create-socketdir";
-              ExecStop = "";
+          # This service creates the GPG socket dir (`/run/user/<id>/gnupg`) automatically.
+          systemd.user.services = {
+            "gpg-forward-agent-path" = {
+              Unit.Description = "Create GnuPG socket directory";
+              Service = {
+                ExecStart = "${pkgs.gnupg}/bin/gpgconf --create-socketdir";
+                ExecStop = "";
+              };
+              Install.WantedBy = [ "default.target" ];
             };
-            Install.WantedBy = [ "default.target" ];
           };
-        };
 
-        programs.keychain = {
-          keys = [ ];
-          inheritType = "any";
-        };
+          programs.keychain = {
+            keys = [ ];
+            inheritType = "any";
+          };
 
-        programs.zsh.shellAliases = {
-          gpg =
-            "${nixpkgs.legacyPackages.${system}.gnupg}/bin/gpg --no-autostart";
-        };
-      }
-      (sharedConfiguration { inherit system homeDirectory; })
-    ]);
-  };
+          programs.zsh.shellAliases = {
+            gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
+          };
+        }
+        (sharedConfiguration { inherit system homeDirectory; })
+      ]);
+    };
 
-  workstationConfiguration = { system, username }:
+  workstationConfiguration = { system, username, profile }:
     let homeDirectory = "/home/${username}";
     in rec {
       inherit (workstationRawConfiguration {
-        inherit system username homeDirectory;
+        inherit system username homeDirectory profile;
       })
         configuration;
       hm-config = home-manager.lib.homeManagerConfiguration rec {
@@ -122,25 +120,26 @@ in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
     system = "x86_64-darwin";
     username = "ereslibre";
+    profile = "personal";
   };
-  "ereslibre@pi-office.lab.ereslibre.local" = workstationConfiguration {
+  "ereslibre@pi-office" = workstationConfiguration {
     system = "aarch64-linux";
     username = "ereslibre";
+    profile = "personal";
   };
-  "ereslibre@pi-desktop.lab.ereslibre.local" = workstationConfiguration {
+  "ereslibre@pi-desktop" = workstationConfiguration {
     system = "aarch64-linux";
     username = "ereslibre";
+    profile = "personal";
   };
   "ereslibre@nuc-1" = workstationConfiguration {
     system = "x86_64-linux";
     username = "ereslibre";
+    profile = "personal";
   };
-  "ereslibre@nuc-1.lab.ereslibre.local" = workstationConfiguration {
-    system = "x86_64-linux";
-    username = "ereslibre";
-  };
-  "rfernandezl@rfernandezl-a01" = macbookConfiguration {
+  "rfernandezl@rfernandezX6Y3X" = macbookConfiguration {
     system = "aarch64-darwin";
     username = "rfernandezl";
+    profile = "work";
   };
 }

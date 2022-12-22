@@ -1,6 +1,5 @@
 [user]
   name = Rafael Fernández López
-  email = ereslibre@ereslibre.es
 [core]
   excludesfile = ~/.gitignore
 [alias]

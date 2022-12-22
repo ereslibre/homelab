@@ -1,0 +1,6 @@
+{ homeDirectory }: ''
+  [user]
+    email = rfernandezl@vmware.com
+  [include]
+    path = ~/.gitconfig.shared
+''
