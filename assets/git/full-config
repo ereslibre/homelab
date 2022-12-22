@@ -1,10 +1,8 @@
-{ homeDirectory }: ''
-  [user]
-    email = ereslibre@ereslibre.es
-  [include]
-    path = ${homeDirectory}/.gitconfig.shared
-  [includeIf "gitdir:~/projects/vmware/"]
-    path = ${homeDirectory}/.gitconfig.vmware
-  [includeIf "gitdir:~/projects/vmware-labs/"]
-    path = ${homeDirectory}/.gitconfig.vmware
-''
+[user]
+  email = ereslibre@ereslibre.es
+[include]
+  path = ~/.gitconfig.shared
+[includeIf "gitdir:~/projects/vmware/"]
+  path = ~/.gitconfig.vmware
+[includeIf "gitdir:~/projects/vmware-labs/"]
+  path = ~/.gitconfig.vmware

@@ -1,6 +1,4 @@
-{ homeDirectory }: ''
-  [user]
-    email = rfernandezl@vmware.com
-  [include]
-    path = ~/.gitconfig.shared
-''
+[user]
+  email = rfernandezl@vmware.com
+[include]
+  path = ~/.gitconfig.shared

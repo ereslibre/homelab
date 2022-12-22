@@ -1,7 +1,6 @@
 { config, username, pkgs, profile, ... }: {
   home = {
     file = import ./dotfiles.nix {
-      inherit (config.home) homeDirectory;
       inherit username pkgs profile;
     };
     packages = import ./packages.nix { inherit pkgs; };
