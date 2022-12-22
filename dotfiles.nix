@@ -8,7 +8,7 @@ in {
   ".gitconfig".text = (if profile == "personal" then
     import ./assets/git/full-config
   else
-    import ./assets/git/full-config-work) { inherit homeDirectory; };
+    import ./assets/git/full-config-vmware) { inherit homeDirectory; };
   ".gitconfig.vmware".source = ./assets/git/config-vmware;
   ".gitconfig.shared".source = ./assets/git/shared-config;
   ".gitignore".source = ./assets/git/gitignore;
