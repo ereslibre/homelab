@@ -13,7 +13,6 @@
     file
     fluxcd
     fzf
-    gdb
     gh
     git
     gnumake
