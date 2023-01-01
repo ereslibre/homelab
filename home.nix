@@ -1,7 +1,7 @@
-{ config, username, pkgs, profile, ... }: {
+{ devenv, config, username, pkgs, profile, ... }: {
   home = {
     file = import ./dotfiles.nix { inherit username pkgs profile; };
-    packages = import ./packages.nix { inherit pkgs; };
+    packages = import ./packages.nix { inherit devenv pkgs; };
   };
 
   programs = {

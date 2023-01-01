@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs, stateVersion ? "22.11" }:
+{ devenv, home-manager, nixpkgs, stateVersion ? "22.11" }:
 let
   programsConfiguration = { emacsClient }:
     let
@@ -31,7 +31,7 @@ let
   macbookRawConfiguration = { system, username, homeDirectory, profile }: {
     configuration = (nixpkgs.lib.mkMerge [
       (import ./home.nix {
-        inherit username profile;
+        inherit devenv username profile;
         config.home.homeDirectory = homeDirectory;
         pkgs = nixpkgs.legacyPackages.${system};
       })
@@ -60,7 +60,7 @@ let
       configuration = let pkgs = nixpkgs.legacyPackages.${system};
       in (nixpkgs.lib.mkMerge [
         (import ./home.nix {
-          inherit username profile pkgs;
+          inherit devenv username profile pkgs;
           config.home.homeDirectory = homeDirectory;
         })
         {
