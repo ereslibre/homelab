@@ -19,6 +19,10 @@ Run a ripgrep search with `REGEXP' rooted at `DIRECTORY'.
 
 ;;;***
 
+;;;### (autoloads nil nil ("ripgrep-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

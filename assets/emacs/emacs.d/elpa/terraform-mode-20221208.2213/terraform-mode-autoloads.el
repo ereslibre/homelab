@@ -21,6 +21,10 @@ Major mode for editing terraform configuration file
 
 ;;;***
 
+;;;### (autoloads nil nil ("terraform-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

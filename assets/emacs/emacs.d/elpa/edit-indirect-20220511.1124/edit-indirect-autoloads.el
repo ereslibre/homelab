@@ -46,6 +46,10 @@ In any case, return the edit-indirect buffer.
 
 ;;;***
 
+;;;### (autoloads nil nil ("edit-indirect-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

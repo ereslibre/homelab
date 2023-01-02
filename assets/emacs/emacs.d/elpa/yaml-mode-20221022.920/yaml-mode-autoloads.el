@@ -26,6 +26,10 @@ Simple mode to edit YAML.
 
 ;;;***
 
+;;;### (autoloads nil nil ("yaml-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
