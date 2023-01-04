@@ -1,6 +1,7 @@
 { username, profile, pkgs }:
 let macFiles = import ./mac.nix { inherit username pkgs; };
 in {
+  ".config/nix/nix.conf".source = ./assets/nix/nix.conf;
   ".emacs.d" = {
     source = ./assets/emacs/emacs.d;
     recursive = true;
