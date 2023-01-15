@@ -5,6 +5,7 @@
     bat
     binutils
     cacert
+    clang-tools
     coreutils
     curl
     diffutils
