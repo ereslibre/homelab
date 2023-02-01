@@ -18,7 +18,7 @@
 (menu-bar-mode -1)
 
 (add-hook 'after-init-hook (lambda ()
-                             (load-theme 'doom-dracula t)))
+                             (load-theme 'dracula t)))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
