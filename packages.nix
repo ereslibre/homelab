@@ -38,7 +38,6 @@
     rust-analyzer
     rustup
     terraform
-    tmux
     tree
     velero
     wget
