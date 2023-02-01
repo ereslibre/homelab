@@ -14,5 +14,4 @@ in {
   ".gitconfig.shared".source = ./assets/git/shared-config;
   ".gitignore".source = ./assets/git/gitignore;
   ".ssh/config".text = import ./assets/ssh/config.nix { inherit username; };
-  ".tmux.conf".source = ./assets/tmux/config;
 } // macFiles

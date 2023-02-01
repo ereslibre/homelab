@@ -22,7 +22,9 @@
 
     tmux = {
       enable = true;
+      aggressiveResize = true;
       clock24 = true;
+      keyMode = "emacs";
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
@@ -36,7 +38,21 @@
         }
       ];
       extraConfig = ''
+        unbind C-b
+        set -g prefix C-z
+
         set -g mouse on
+
+        bind Space copy-mode
+        bind C-Space copy-mode
+        bind v split-window -h
+        bind C-v split-window -h
+        bind s split-window -v
+        bind C-s split-window -v
+        bind-key q kill-window
+        bind-key C-q kill-window
+        bind-key x kill-pane
+        bind-key C-x kill-pane
       '';
     };
 
