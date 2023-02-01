@@ -48,6 +48,9 @@
         ds() {
           devshell clang pkg-config $*
         }
+        fixssh() {
+          eval $(tmux show-env -s |grep '^SSH_')
+        }
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
