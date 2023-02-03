@@ -31,8 +31,12 @@
         {
           plugin = dracula;
           extraConfig = ''
+            set -g @dracula-show-fahrenheit false
+            set -g @dracula-show-location false
             set -g @dracula-show-battery false
             set -g @dracula-show-powerline true
+            set -g @dracula-cpu-display-load true
+            set -g @dracula-show-left-icon session
             set -g @dracula-refresh-rate 10
           '';
         }
