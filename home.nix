@@ -25,6 +25,7 @@
       aggressiveResize = true;
       clock24 = true;
       keyMode = "emacs";
+      shortcut = "z";
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
@@ -42,9 +43,6 @@
         }
       ];
       extraConfig = ''
-        unbind C-b
-        set -g prefix C-z
-
         set -g mouse on
 
         bind Space copy-mode
