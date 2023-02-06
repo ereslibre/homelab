@@ -38,6 +38,7 @@
             set -g @dracula-left-icon-padding 0
             set -g @dracula-show-location false
             set -g @dracula-show-fahrenheit false
+            set -g @dracula-show-flags true
             set -g @dracula-refresh-rate 10
           '';
         }
@@ -55,6 +56,7 @@
         bind-key C-q kill-window
         bind-key x kill-pane
         bind-key C-x kill-pane
+        bind-key z resize-pane -Z
       '';
     };
 
