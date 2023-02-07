@@ -20,8 +20,8 @@
           buildInputs = with pkgs; [ cachix nix-linter nixfmt ];
         };
       }) // {
-        # Re-export home-manager and nixpkgs as a usable output
-        inherit home-manager nixpkgs;
+        # Re-export devenv, home-manager and nixpkgs as usable outputs
+        inherit devenv home-manager nixpkgs;
         # Export home-manager configurations
         homeConfigurations = import ./hm-configurations.nix {
           inherit devenv home-manager nixpkgs;
