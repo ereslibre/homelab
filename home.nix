@@ -91,6 +91,9 @@
         fixssh() {
           eval $(tmux show-env -s |grep '^SSH_')
         }
+        deepclear() {
+          printf '\e[2J\e[3J\e[H'
+        }
       '';
       oh-my-zsh.enable = true;
       shellAliases = {
