@@ -18,10 +18,6 @@ Major mode for Vue.js templates.
 
 ;;;***
 
-;;;### (autoloads nil nil ("vue-html-mode-pkg.el") (0 0 0 0))
-
-;;;***
-
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

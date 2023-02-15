@@ -22,10 +22,6 @@ Major mode for editing hcl configuration file
 
 ;;;***
 
-;;;### (autoloads nil nil ("hcl-mode-pkg.el") (0 0 0 0))
-
-;;;***
-
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
