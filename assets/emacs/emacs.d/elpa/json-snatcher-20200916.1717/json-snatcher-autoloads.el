@@ -16,6 +16,10 @@ Print the path to the JSON value under point, and save it in the kill ring." t n
 
 ;;;***
 
+;;;### (autoloads nil nil ("json-snatcher-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
