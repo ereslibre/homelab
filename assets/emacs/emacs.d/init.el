@@ -17,8 +17,10 @@
 
 (menu-bar-mode -1)
 
-(add-hook 'after-init-hook (lambda ()
-                             (load-theme 'dracula t)))
+(use-package dracula-theme
+  :ensure t
+  :init
+  (load-theme 'dracula t))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
