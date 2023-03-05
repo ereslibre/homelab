@@ -91,6 +91,9 @@
         fixssh() {
           eval $(tmux show-env -s |grep '^SSH_')
         }
+        sri() {
+          nix hash to-sri "$1":$(nix-prefetch-url --type "$1" "$2")
+        }
         deepclear() {
           printf '\e[2J\e[3J\e[H'
         }
