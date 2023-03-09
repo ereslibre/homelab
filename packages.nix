@@ -3,6 +3,7 @@
   [
     awscli
     bat
+    binaryen
     binutils
     cacert
     clang-tools
@@ -40,6 +41,7 @@
     terraform
     tree
     velero
+    wabt
     wget
     xxd
     yubikey-manager
