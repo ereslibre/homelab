@@ -3,7 +3,6 @@
   [
     awscli
     bat
-    binaryen
     binutils
     cacert
     clang-tools
@@ -41,10 +40,9 @@
     terraform
     tree
     velero
-    wabt
     wget
     xxd
     yubikey-manager
     zstd
   ] ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d valgrind ])
-  ++ (with pkgs; lib.optionals (stdenv.system != "aarch64-darwin") [ yq zbar ]))
+  ++ (with pkgs; lib.optionals (stdenv.system != "aarch64-darwin") [ yq-go zbar ]))
