@@ -45,4 +45,5 @@
     yubikey-manager
     zstd
   ] ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d valgrind ])
-  ++ (with pkgs; lib.optionals (stdenv.system != "aarch64-darwin") [ yq-go zbar ]))
+  ++ (with pkgs;
+    lib.optionals (stdenv.system != "aarch64-darwin") [ yq-go zbar ]))
