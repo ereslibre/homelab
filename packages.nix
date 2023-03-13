@@ -26,7 +26,7 @@
   kubectl
   kubeseal
   mtr
-  # otpauth
+  otpauth
   reg
   ripgrep
   rlwrap
