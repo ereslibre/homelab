@@ -88,6 +88,12 @@
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
 
+;; local variables
+(dir-locals-set-class-variables 'php-project
+   '((nil . ((indent-tabs-mode . t)))))
+(dir-locals-set-directory-class
+   "~/projects/php" 'php-project)
+
 ;; font
 (set-frame-font "Iosevka-13:Regular")
 (add-to-list 'default-frame-alist '(font . "Iosevka-13:Regular"))
