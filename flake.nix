@@ -2,7 +2,7 @@
   description = "Home Sweet Home";
 
   inputs = {
-    devenv.url = "github:cachix/devenv/v0.5";
+    devenv.url = "github:cachix/devenv/v0.6.2";
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/release-22.11";
     home-manager = {
