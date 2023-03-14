@@ -6,7 +6,7 @@
 (add-to-list 'exec-path (expand-file-name "~/.nix-profile/bin"))
 
 ;; terminal tweaks
-(add-hook 'term-mode-hook '(lambda () (setq-local global-hl-line-mode nil)))
+(add-hook 'term-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
 
 ;; imenu
 (set-default
