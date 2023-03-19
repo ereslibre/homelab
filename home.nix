@@ -76,26 +76,21 @@
         copy_gpg_pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
-        key_token() {
-          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
-        }
-        token() {
-          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
-        }
-        devshell() {
-          nix develop --impure --expr "with import <nixpkgs> {}; pkgs.mkShell { packages = with pkgs; [ $* ]; }"
-        }
-        ds() {
-          devshell clang pkg-config $*
+        deepclear() {
+          printf '\e[2J\e[3J\e[H'
         }
         fixssh() {
           eval $(tmux show-env -s |grep '^SSH_')
         }
-        sri() {
-          nix hash to-sri "$1":$(nix-prefetch-url --type "$1" "$2")
+        key_token() {
+          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
-        deepclear() {
-          printf '\e[2J\e[3J\e[H'
+        sri() {
+          local algo="${2:-sha256}"
+          nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
+        }
+        token() {
+          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
       '';
       oh-my-zsh.enable = true;
