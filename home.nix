@@ -85,6 +85,16 @@
         key_token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
+        nixity-shell() {
+          shell_args=()
+          for arg in "$@"; do
+            shell_args+=("~/projects/nixities#nixpkgs.$arg")
+          done
+          nix shell "''${shell_args[@]}"
+        }
+        nixity-develop() {
+          nix develop ~/projects/nixities#nixpkgs.$1
+        }
         sri() {
           local algo="''${2:-sha256}"
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
