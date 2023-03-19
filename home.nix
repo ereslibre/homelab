@@ -88,12 +88,12 @@
         nixity-shell() {
           shell_args=()
           for arg in "$@"; do
-            shell_args+=("~/projects/nixities#nixpkgs.$arg")
+            shell_args+=("$HOME/projects/nixities#nixpkgs.$arg")
           done
           nix shell "''${shell_args[@]}"
         }
         nixity-develop() {
-          nix develop ~/projects/nixities#nixpkgs.$1
+          nix develop $HOME/projects/nixities#nixpkgs.$1
         }
         sri() {
           local algo="''${2:-sha256}"
