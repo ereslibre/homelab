@@ -86,7 +86,7 @@
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         sri() {
-          local algo="${2:-sha256}"
+          local algo="''${2:-sha256}"
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
         }
         token() {
