@@ -1,2 +1,0 @@
-;;; Generated package description from adoc-mode.el  -*- no-byte-compile: t -*-
-(define-package "adoc-mode" "20230311.946" "a major-mode for editing AsciiDoc files" '((emacs "26")) :commit "19f7f655b78ae68418cd45037887e1a831e02765" :authors '(("Florian Kaufmann" . "sensorflo@gmail.com")) :maintainer '("Bozhidar Batsov" . "bozhidar@batsov.dev") :keywords '("docs" "wp") :url "https://github.com/bbatsov/adoc-mode")
