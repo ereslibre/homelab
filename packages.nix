@@ -7,6 +7,7 @@
   curl
   diffutils
   direnv
+  distrobox
   dive
   file
   fluxcd
