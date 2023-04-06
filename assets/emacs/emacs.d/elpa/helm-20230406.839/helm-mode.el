@@ -883,8 +883,8 @@ that use `helm-comp-read'.  See `helm-M-x' for example."
                          :history (and (symbolp input-history) input-history)
                          :buffer buffer))
         (remove-hook 'helm-after-update-hook 'helm-comp-read--move-to-first-real-candidate))
-      ;; If `history' is a symbol save it.
-      (when (and result history (symbolp history))
+      ;; If `history' is a symbol save it, except when it is t.
+      (when (and result history (symbolp history) (not (eq history t)))
         (set history
              ;; RESULT may be a a string or a list of strings bug #2461.
              (delete-dups (append (mapcar #'substring-no-properties (helm-mklist result))
@@ -1684,7 +1684,6 @@ The `helm-find-files' history `helm-ff-history' is used here."
         (helm-split-window-default-side
          (if (eq helm-split-window-default-side 'same)
              'below helm-split-window-default-side))
-        helm-split-window-inside-p
         helm-reuse-last-window-split-state
         ;; Helm handlers should always have a non nil INITIAL arg.
         (init (or initial dir default-directory)))

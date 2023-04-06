@@ -309,6 +309,16 @@ This doesn't include the margins and the scroll bar."
   :type 'boolean
   :package-version '(company . "0.8.1"))
 
+(defcustom company-tooltip-annotation-padding nil
+  "Non-nil to specify the padding before annotation.
+
+Depending on the value of `company-tooltip-align-annotations', the default
+padding is either 0 or 1 space.  This variable allows to override that
+value to increase the padding.  When annotations are right-aligned, it sets
+the minimum padding, and otherwise just the constant one."
+  :type 'number
+  :package-version '(company "0.9.14"))
+
 (defvar company-safe-backends
   '((company-abbrev . "Abbrev")
     (company-bbdb . "BBDB")
@@ -3085,21 +3095,23 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
          (_ (setq value (company-reformat (company--pre-render value))
                   annotation (and annotation (company--pre-render annotation t))))
          (ann-ralign company-tooltip-align-annotations)
+         (ann-padding (or company-tooltip-annotation-padding 0))
          (ann-truncate (< width
                           (+ (length value) (length annotation)
-                             (if ann-ralign 1 0))))
+                             ann-padding)))
          (ann-start (+ margin
                        (if ann-ralign
                            (if ann-truncate
-                               (1+ (length value))
+                               (+ (length value) ann-padding)
                              (- width (length annotation)))
-                         (length value))))
+                         (+ (length value) ann-padding))))
          (ann-end (min (+ ann-start (length annotation)) (+ margin width)))
          (line (concat left
                        (if (or ann-truncate (not ann-ralign))
                            (company-safe-substring
                             (concat value
-                                    (when (and annotation ann-ralign) " ")
+                                    (when annotation
+                                      (company-space-string ann-padding))
                                     annotation)
                             0 width)
                          (concat
@@ -3327,6 +3339,9 @@ but adjust the expected values appropriately."
 (defun company--create-lines (selection limit)
   (let ((len company-candidates-length)
         (window-width (company--window-width))
+        (company-tooltip-annotation-padding
+         (or company-tooltip-annotation-padding
+             (if company-tooltip-align-annotations 1 0)))
         left-margins
         left-margin-size
         lines
@@ -3399,8 +3414,9 @@ but adjust the expected values appropriately."
             (setq annotation (string-trim-left annotation))))
         (push (list value annotation left) items)
         (setq width (max (+ (length value)
-                            (if (and annotation company-tooltip-align-annotations)
-                                (1+ (length annotation))
+                            (if annotation
+                                (+ (length annotation)
+                                   company-tooltip-annotation-padding)
                               (length annotation)))
                          width))))
 
