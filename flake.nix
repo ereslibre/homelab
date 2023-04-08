@@ -12,8 +12,7 @@
   };
 
   outputs = { devenv, flake-utils, home-manager, nixpkgs, ... }:
-    flake-utils.lib.eachSystem
-    (flake-utils.lib.defaultSystems ++ [ "aarch64-darwin" ]) (system:
+    flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell = pkgs.mkShell {
