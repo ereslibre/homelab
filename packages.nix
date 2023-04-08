@@ -1,44 +1,43 @@
 { devenv, pkgs }:
-[ devenv.packages.${pkgs.stdenv.system}.devenv ] ++ (with pkgs; [
-  bat
-  binutils
-  cacert
-  coreutils
-  curl
-  diffutils
-  direnv
-  distrobox
-  dive
-  file
-  fluxcd
-  fzf
-  gh
-  git
-  gnumake
-  gnupg
-  gnupg-pkcs11-scd
-  gopls
-  gotools
-  kubernetes-helm
-  htop
-  jq
-  just
-  keychain
-  kubectl
-  kubeseal
-  mtr
-  otpauth
-  reg
-  ripgrep
-  rlwrap
-  rnix-lsp
-  rust-analyzer
-  rustup
-  terraform
-  tree
-  velero
-  wget
-  xxd
-  yubikey-manager
-  zstd
-]) ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d ])
+let
+  container-tools = with pkgs; [ distrobox dive reg ];
+  core-tools = with pkgs; [
+    bat
+    binutils
+    coreutils
+    curl
+    diffutils
+    direnv
+    file
+    fzf
+    git
+    gnumake
+    gnupg
+    gnupg-pkcs11-scd
+    htop
+    jq
+    just
+    keychain
+    mtr
+    otpauth
+    ripgrep
+    rlwrap
+    tree
+    wget
+    xxd
+    yubikey-manager
+    zstd
+  ];
+  global-language-tools = with pkgs; [
+    gopls
+    gotools
+    rnix-lsp
+    rust-analyzer
+    rustup
+  ];
+  platform-tools = with pkgs; [ gh terraform ];
+  kubernetes-tools = with pkgs;
+    [ fluxcd kubectl kubernetes-helm kubeseal velero ]
+    ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d ]);
+in container-tools ++ core-tools ++ global-language-tools ++ platform-tools
+++ kubernetes-tools

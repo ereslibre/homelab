@@ -106,6 +106,7 @@
       oh-my-zsh.enable = true;
       shellAliases = {
         diff = "${pkgs.diffutils}/bin/diff -u --color=auto";
+        dive = "dive --source=podman";
         dir = "dir --color=auto";
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
