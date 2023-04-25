@@ -156,7 +156,7 @@
   (setq org-agenda-text-search-extra-files
 	      (append (directory-files-recursively "~/.org" "\.org$")
 		            (directory-files-recursively "~/.org" "\.org_archive$")))
-  (setq org-log-done t)
+  (setq org-log-done 'note)
   (setq org-log-repeat 'note)
   (setq org-agenda-span 'day)
   (setq org-agenda-start-on-weekday nil)
