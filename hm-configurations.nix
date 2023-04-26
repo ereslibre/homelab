@@ -137,6 +137,11 @@ in {
     username = "ereslibre";
     profile = "personal";
   };
+  "ereslibre@nuc-2" = workstationConfiguration {
+    system = "x86_64-linux";
+    username = "ereslibre";
+    profile = "personal";
+  };
   "rfernandezl@rfernandezX6Y3X" = macbookConfiguration {
     system = "aarch64-darwin";
     username = "rfernandezl";
