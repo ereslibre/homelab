@@ -6,7 +6,11 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/release-22.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      # Use master, given it is the only branch that contains
+      # f69816489d5bcd1329c50fb4a7035a9a9dc19a3b. This commit is
+      # necessary for dotfiles pass CI, because it creates missing
+      # directories that are not longer created by Nix 2.14.
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
