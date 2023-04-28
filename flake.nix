@@ -5,6 +5,7 @@
     devenv.url = "github:cachix/devenv/v0.6.2";
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs-release-22-11.url = "github:nixos/nixpkgs/release-22.11";
     home-manager = {
       # Use master, given it is the only branch that contains
       # f69816489d5bcd1329c50fb4a7035a9a9dc19a3b. This commit is
@@ -15,12 +16,17 @@
     };
   };
 
-  outputs = { devenv, flake-utils, home-manager, nixpkgs, ... }:
+  outputs =
+    { devenv, flake-utils, home-manager, nixpkgs, nixpkgs-release-22-11, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ cachix nix-linter nixfmt ];
+          buildInputs = with nixpkgs-release-22-11.legacyPackages.${system}; [
+            cachix
+            nix-linter
+            nixfmt
+          ];
         };
       }) // {
         # Re-export devenv, home-manager and nixpkgs as usable outputs
