@@ -4,7 +4,7 @@
   inputs = {
     devenv.url = "github:cachix/devenv/v0.6.2";
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs/release-22.11";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
     home-manager = {
       # Use master, given it is the only branch that contains
       # f69816489d5bcd1329c50fb4a7035a9a9dc19a3b. This commit is
