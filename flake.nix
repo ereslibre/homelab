@@ -30,7 +30,7 @@
         };
       }) // {
         # Re-export devenv, home-manager and nixpkgs as usable outputs
-        inherit devenv home-manager nixpkgs;
+        inherit devenv home-manager nixpkgs nixpkgs-release-22-11;
         # Export home-manager configurations
         homeConfigurations = import ./hm-configurations.nix {
           inherit devenv home-manager nixpkgs;
