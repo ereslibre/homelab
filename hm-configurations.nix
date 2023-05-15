@@ -31,15 +31,17 @@ let
       { home.stateVersion = stateVersion; }
     ];
 
-  macbookConfiguration = { system, username, profile }:
+  macbookConfiguration = { system, username, profile, hmRaw ? false }:
     machineConfiguration {
+      inherit hmRaw;
       homeDirectory = "/Users/${username}";
       inherit system username profile;
     };
 
-  workstationConfiguration = { system, username, profile }:
+  workstationConfiguration = { system, username, profile, hmRaw ? false }:
     let pkgs = nixpkgs.legacyPackages.${system};
     in machineConfiguration {
+      inherit hmRaw;
       homeDirectory = "/home/${username}";
       hmModules = [{
         # Enabling linger makes the systemd user services start
@@ -122,5 +124,13 @@ in {
     system = "aarch64-darwin";
     username = "rfernandezl";
     profile = "work";
+  };
+  raw = {
+    "ereslibre@nuc-2" = workstationConfiguration {
+      hmRaw = true;
+      system = "x86_64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
   };
 }
