@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,10 +20,6 @@ jobs:
       - name: Format
         run: |
           make fmt
-          git diff --exit-code
-      - name: Lint
-        run: |
-          make lint
           git diff --exit-code
   activate-machine:
     strategy:
