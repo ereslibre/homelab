@@ -83,16 +83,15 @@ let
   machineConfiguration = { system, username, homeDirectory, profile
     , hmModules ? [ ], hmRaw ? false }:
     let
-      configuration = rec {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit devenv username profile pkgs; };
-        modules = hmModules
-          ++ (sharedConfiguration { inherit system homeDirectory; })
-          ++ [{ home = { inherit username homeDirectory stateVersion; }; }];
-      };
-    in (if hmRaw then
-      configuration
-    else
+      pkgs = nixpkgs.legacyPackages.${system};
+      extraSpecialArgs = { inherit devenv username profile pkgs; };
+      modules = hmModules
+        ++ (sharedConfiguration { inherit system homeDirectory; })
+        ++ [{ home = { inherit username homeDirectory stateVersion; }; }];
+      configuration = rec { inherit pkgs extraSpecialArgs modules; };
+    in (if hmRaw then {
+      inherit extraSpecialArgs modules;
+    } else
       home-manager.lib.homeManagerConfiguration configuration);
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
