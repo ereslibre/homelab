@@ -88,11 +88,12 @@ let
       modules = hmModules
         ++ (sharedConfiguration { inherit system homeDirectory; })
         ++ [{ home = { inherit username homeDirectory stateVersion; }; }];
-      configuration = rec { inherit pkgs extraSpecialArgs modules; };
-    in (if hmRaw then {
-      inherit extraSpecialArgs modules;
-    } else
-      home-manager.lib.homeManagerConfiguration configuration);
+      configuration = { inherit extraSpecialArgs modules; };
+    in (if hmRaw then
+      configuration
+    else
+      home-manager.lib.homeManagerConfiguration
+      (configuration // { inherit pkgs; }));
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {
     system = "x86_64-darwin";
