@@ -32,7 +32,6 @@ let
     gopls
     gotools
     rnix-lsp
-    rust-analyzer
     rustup
   ];
   kubernetes-tools = with pkgs;
