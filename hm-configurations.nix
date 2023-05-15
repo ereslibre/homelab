@@ -98,7 +98,7 @@ let
   mapMachineConfigurations = configurations:
     nixpkgs.lib.attrsets.mapAttrs (name: value: {
       config = value.factoryFn value.config;
-      rawConfig = value.config;
+      rawConfig = value.factoryFn (value.config // { hmRaw = true; });
     }) configurations;
 
 in mapMachineConfigurations {
