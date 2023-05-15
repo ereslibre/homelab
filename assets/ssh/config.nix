@@ -1,4 +1,4 @@
-{ username }: ''
+{username}: ''
   Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud
       User                  ubuntu
 

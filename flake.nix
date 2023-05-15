@@ -11,23 +11,29 @@
     };
   };
 
-  outputs = { devenv, flake-utils, home-manager, nixpkgs, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShell = pkgs.mkShell {
-          buildInputs = with nixpkgs.legacyPackages.${system}; [
-            cachix
-            nix-linter
-            nixfmt
-          ];
-        };
-      }) // {
-        # Re-export devenv, home-manager and nixpkgs as usable outputs
-        inherit devenv home-manager nixpkgs;
-        # Export home-manager configurations
-        homeConfigurations = import ./hm-configurations.nix {
-          inherit devenv home-manager nixpkgs;
-        };
+  outputs = {
+    devenv,
+    flake-utils,
+    home-manager,
+    nixpkgs,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShell = pkgs.mkShell {
+        buildInputs = with nixpkgs.legacyPackages.${system}; [
+          alejandra
+          cachix
+        ];
       };
+    })
+    // {
+      # Re-export devenv, home-manager and nixpkgs as usable outputs
+      inherit devenv home-manager nixpkgs;
+      # Export home-manager configurations
+      homeConfigurations = import ./hm-configurations.nix {
+        inherit devenv home-manager nixpkgs;
+      };
+    };
 }

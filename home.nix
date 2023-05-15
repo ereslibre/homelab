@@ -1,7 +1,14 @@
-{ devenv, config, username, pkgs, profile, ... }: {
+{
+  devenv,
+  config,
+  username,
+  pkgs,
+  profile,
+  ...
+}: {
   home = {
-    file = import ./dotfiles.nix { inherit username pkgs profile; };
-    packages = import ./packages.nix { inherit devenv pkgs; };
+    file = import ./dotfiles.nix {inherit username pkgs profile;};
+    packages = import ./packages.nix {inherit devenv pkgs;};
   };
 
   programs = {
@@ -17,7 +24,7 @@
     starship = {
       enable = true;
       enableZshIntegration = true;
-      settings = { kubernetes = { disabled = false; }; };
+      settings = {kubernetes = {disabled = false;};};
     };
 
     tmux = {
@@ -63,7 +70,8 @@
     zsh = {
       enable = true;
       enableCompletion = false;
-      envExtra = let homeDirectory = config.home.homeDirectory;
+      envExtra = let
+        homeDirectory = config.home.homeDirectory;
       in ''
         export GOPATH="${homeDirectory}/.go"
         export GO111MODULE="on"
