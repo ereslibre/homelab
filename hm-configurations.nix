@@ -94,43 +94,60 @@ let
     else
       home-manager.lib.homeManagerConfiguration
       (configuration // { inherit pkgs; }));
-in {
-  "ereslibre@Rafaels-Air" = macbookConfiguration {
-    system = "x86_64-darwin";
-    username = "ereslibre";
-    profile = "personal";
+
+  mapMachineConfigurations = configurations:
+    nixpkgs.lib.attrsets.mapAttrs (name: value: {
+      config = value.factoryFn value.config;
+      rawConfig = value.config;
+    }) configurations;
+
+in mapMachineConfigurations {
+  "ereslibre@Rafaels-Air" = {
+    factoryFn = macbookConfiguration;
+    config = {
+      system = "x86_64-darwin";
+      username = "ereslibre";
+      profile = "personal";
+    };
   };
-  "ereslibre@pi-office" = workstationConfiguration {
-    system = "aarch64-linux";
-    username = "ereslibre";
-    profile = "personal";
+  "ereslibre@pi-office" = {
+    factoryFn = workstationConfiguration;
+    config = {
+      system = "aarch64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
   };
-  "ereslibre@pi-desktop" = workstationConfiguration {
-    system = "aarch64-linux";
-    username = "ereslibre";
-    profile = "personal";
+  "ereslibre@pi-desktop" = {
+    factoryFn = workstationConfiguration;
+    config = {
+      system = "aarch64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
   };
-  "ereslibre@nuc-1" = workstationConfiguration {
-    system = "x86_64-linux";
-    username = "ereslibre";
-    profile = "personal";
-  };
-  "ereslibre@nuc-2" = workstationConfiguration {
-    system = "x86_64-linux";
-    username = "ereslibre";
-    profile = "personal";
-  };
-  "rfernandezl@rfernandezX6Y3X" = macbookConfiguration {
-    system = "aarch64-darwin";
-    username = "rfernandezl";
-    profile = "work";
-  };
-  raw = {
-    "ereslibre@nuc-2" = workstationConfiguration {
-      hmRaw = true;
+  "ereslibre@nuc-1" = {
+    factoryFn = workstationConfiguration;
+    config = {
       system = "x86_64-linux";
       username = "ereslibre";
       profile = "personal";
+    };
+  };
+  "ereslibre@nuc-2" = {
+    factoryFn = workstationConfiguration;
+    config = {
+      system = "x86_64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
+  };
+  "rfernandezl@rfernandezX6Y3X" = {
+    factoryFn = macbookConfiguration;
+    config = {
+      system = "aarch64-darwin";
+      username = "rfernandezl";
+      profile = "work";
     };
   };
 }
