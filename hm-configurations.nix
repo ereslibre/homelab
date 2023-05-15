@@ -79,14 +79,13 @@ let
     };
 
   machineConfiguration =
-    { system, username, homeDirectory, profile, hmModules ? [ ] }: {
-      hm-config = home-manager.lib.homeManagerConfiguration rec {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit devenv username profile pkgs; };
-        modules = hmModules
-          ++ (sharedConfiguration { inherit system homeDirectory; })
-          ++ [{ home = { inherit username homeDirectory stateVersion; }; }];
-      };
+    { system, username, homeDirectory, profile, hmModules ? [ ] }:
+    home-manager.lib.homeManagerConfiguration rec {
+      pkgs = nixpkgs.legacyPackages.${system};
+      extraSpecialArgs = { inherit devenv username profile pkgs; };
+      modules = hmModules
+        ++ (sharedConfiguration { inherit system homeDirectory; })
+        ++ [{ home = { inherit username homeDirectory stateVersion; }; }];
     };
 in {
   "ereslibre@Rafaels-Air" = macbookConfiguration {

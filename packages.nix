@@ -28,12 +28,7 @@ let
     yubikey-manager
     zstd
   ];
-  global-language-tools = with pkgs; [
-    gopls
-    gotools
-    rnix-lsp
-    rustup
-  ];
+  global-language-tools = with pkgs; [ gopls gotools rnix-lsp rustup ];
   kubernetes-tools = with pkgs;
     [ fluxcd kubectl kubernetes-helm kubeseal velero ]
     ++ (with pkgs; lib.optionals stdenv.isLinux [ kube3d ]);
