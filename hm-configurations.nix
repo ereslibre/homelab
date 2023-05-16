@@ -99,31 +99,31 @@
       inherit system username profile;
     };
 
-  machineConfiguration = let
-    pkgs = nixpkgs.legacyPackages.${system};
-  in
-    {
-      system,
-      username,
-      homeDirectory,
-      profile,
-      extraSpecialArgs ? {inherit devenv username profile pkgs;},
-      hmModules ? [],
-      hmRaw ? false,
-    }: let
+  machineConfiguration = {
+    system,
+    username,
+    homeDirectory,
+    profile,
+    extraSpecialArgs ? {
+      inherit devenv username profile;
       pkgs = nixpkgs.legacyPackages.${system};
-      modules =
-        hmModules
-        ++ (sharedConfiguration {inherit system homeDirectory;})
-        ++ [{home = {inherit username homeDirectory stateVersion;};}];
-      configuration = {inherit extraSpecialArgs modules;};
-    in (
-      if hmRaw
-      then configuration
-      else
-        home-manager.lib.homeManagerConfiguration
-        (configuration // {inherit pkgs;})
-    );
+    },
+    hmModules ? [],
+    hmRaw ? false,
+  }: let
+    pkgs = nixpkgs.legacyPackages.${system};
+    modules =
+      hmModules
+      ++ (sharedConfiguration {inherit system homeDirectory;})
+      ++ [{home = {inherit username homeDirectory stateVersion;};}];
+    configuration = {inherit extraSpecialArgs modules;};
+  in (
+    if hmRaw
+    then configuration
+    else
+      home-manager.lib.homeManagerConfiguration
+      (configuration // {inherit pkgs;})
+  );
 
   mapMachineConfigurations = configurations:
     nixpkgs.lib.attrsets.mapAttrs (name: value: {
