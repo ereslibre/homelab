@@ -132,7 +132,12 @@
     })
     configurations;
 in
-  {"hmExtraSpecialArgs@global" = {inherit devenv username profile pkgs;};}
+  {
+    "hmExtraSpecialArgs@global" = {
+      inherit devenv username profile;
+      pkgs = nixpkgs.legacyPackages.${system};
+    };
+  }
   // (mapMachineConfigurations {
     "ereslibre@Rafaels-Air" = {
       factoryFn = macbookConfiguration;
