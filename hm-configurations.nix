@@ -135,7 +135,6 @@ in
   {
     "hmExtraSpecialArgs@global" = {
       inherit devenv username profile;
-      pkgs = nixpkgs.legacyPackages.${system};
     };
   }
   // (mapMachineConfigurations {
