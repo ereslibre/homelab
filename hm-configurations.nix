@@ -104,11 +104,11 @@
     username,
     homeDirectory,
     profile,
+    extraSpecialArgs ? {inherit devenv username profile pkgs;},
     hmModules ? [],
     hmRaw ? false,
   }: let
     pkgs = nixpkgs.legacyPackages.${system};
-    extraSpecialArgs = {inherit devenv username profile pkgs;};
     modules =
       hmModules
       ++ (sharedConfiguration {inherit system homeDirectory;})
@@ -129,7 +129,8 @@
     })
     configurations;
 in
-  mapMachineConfigurations {
+  {"hmExtraSpecialArgs@global" = {inherit devenv username profile pkgs;};}
+  // (mapMachineConfigurations {
     "ereslibre@Rafaels-Air" = {
       factoryFn = macbookConfiguration;
       config = {
@@ -178,4 +179,4 @@ in
         profile = "work";
       };
     };
-  }
+  })
