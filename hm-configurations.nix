@@ -140,14 +140,6 @@ in (mapMachineConfigurations {
       profile = "personal";
     };
   };
-  "ereslibre@pi-office" = {
-    factoryFn = workstationConfiguration;
-    config = {
-      system = "aarch64-linux";
-      username = "ereslibre";
-      profile = "personal";
-    };
-  };
   "ereslibre@pi-desktop" = {
     factoryFn = workstationConfiguration;
     config = {
