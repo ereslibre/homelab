@@ -2,7 +2,7 @@
   devenv,
   pkgs,
 }: let
-  container-tools = with pkgs; [distrobox dive reg];
+  container-tools = with pkgs; [distrobox dive reg regctl];
   core-tools = with pkgs; [
     bat
     binutils
