@@ -104,7 +104,7 @@
           nix develop github:ereslibre/nixities#$1
         }
         nixity-run() {
-          nix run github:ereslibre/nixities#$1 -- "''${@:2}"
+          nix run github:ereslibre/nixities#$1 ''${@:2}
         }
         sri() {
           local algo="''${2:-sha256}"
