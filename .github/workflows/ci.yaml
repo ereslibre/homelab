@@ -45,10 +45,10 @@ jobs:
         with:
           name: workstations
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      # - name: Activate
-      #   env:
-      #     ACTIVATION_USER: ${{ matrix.user }}
-      #     ACTIVATION_HOST: ${{ matrix.host }}
-      #     HOME_MANAGER_BACKUP_EXT: hm-bak
-      #   run: |
-      #     make activate-user-at-host
+      - name: Activate
+        env:
+          ACTIVATION_USER: ${{ matrix.user }}
+          ACTIVATION_HOST: ${{ matrix.host }}
+          HOME_MANAGER_BACKUP_EXT: hm-bak
+        run: |
+          make activate-user-at-host
