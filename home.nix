@@ -103,6 +103,9 @@
         nixity-develop() {
           nix develop github:ereslibre/nixities#$1
         }
+        nixity-run() {
+          nix run github:ereslibre/nixities#$1
+        }
         sri() {
           local algo="''${2:-sha256}"
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
