@@ -96,12 +96,12 @@
         nixity-shell() {
           shell_args=()
           for arg in "$@"; do
-            shell_args+=("$HOME/projects/nixities#$arg")
+            shell_args+=("github:ereslibre/nixities#$arg")
           done
           nix shell "''${shell_args[@]}"
         }
         nixity-develop() {
-          nix develop $HOME/projects/nixities#$1
+          nix develop github:ereslibre/nixities#$1
         }
         sri() {
           local algo="''${2:-sha256}"
