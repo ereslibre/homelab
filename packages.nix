@@ -22,6 +22,8 @@
     keychain
     mtr
     otpauth
+    # Markdown preview
+    pandoc
     ripgrep
     rlwrap
     tree
