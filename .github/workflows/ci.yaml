@@ -31,6 +31,12 @@ jobs:
           - os: ubuntu-latest
             user: ereslibre
             host: nuc-1
+          - os: ubuntu-latest
+            user: ereslibre
+            host: nuc-2
+          - os: ubuntu-latest
+            user: ereslibre
+            host: nuc-3
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
