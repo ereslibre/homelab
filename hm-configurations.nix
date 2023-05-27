@@ -164,6 +164,14 @@ in (mapMachineConfigurations {
       profile = "personal";
     };
   };
+  "ereslibre@nuc-3" = {
+    factoryFn = workstationConfiguration;
+    config = {
+      system = "x86_64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
+  };
   "rfernandezl@rfernandezX6Y3X" = {
     factoryFn = macbookConfiguration;
     config = {
