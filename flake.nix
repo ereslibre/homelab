@@ -22,10 +22,14 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShell = pkgs.mkShell {
-        buildInputs = with nixpkgs.legacyPackages.${system}; [
+        buildInputs = with pkgs; [
           alejandra
           cachix
         ];
+      };
+      defaultApp = {
+        type = "app";
+        program = "${home-manager.packages.${system}.default}/bin/home-manager";
       };
     })
     // {
