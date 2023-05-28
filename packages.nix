@@ -16,7 +16,6 @@
     gnumake
     gnupg
     gnupg-pkcs11-scd
-    htop
     jq
     just
     keychain
