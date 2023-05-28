@@ -79,6 +79,8 @@
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
+        # Check true color mode comment later on.
+        export PAGER="TERM=xterm-256color ${pkgs.less}/bin/less"
       '';
       initExtra = ''
         copy_gpg_pubring() {
@@ -124,6 +126,15 @@
         grep = "grep --color=auto";
         k = "${pkgs.kubectl}/bin/kubectl";
         l = "ls --color=auto -CF";
+        # In order to support true color mode, the TERM envvar is set
+        # to xterm-direct. This is not supported by less at this time,
+        # and it warnings:
+        #
+        #  WARNING: terminal is not fully functional
+        #
+        # Let's make less use a well known TERM to get rid of the
+        # warning message.
+        less = "TERM=xterm-256color ${pkgs.less}/bin/less";
         ll = "ls --color=auto -alF";
         la = "ls --color=auto -A";
         ls = "ls --color=auto";
