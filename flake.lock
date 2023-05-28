@@ -109,7 +109,7 @@
       },
       "original": {
         "owner": "nix-community",
-        "ref": "master",
+        "ref": "release-23.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -204,11 +204,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1685234975,
-        "narHash": "sha256-VGMIM7T1aJSnlcgC68jkkCxo3hd/ltgbUJjEokhpQBA=",
+        "lastModified": 1685272473,
+        "narHash": "sha256-oHNi6BgcGquKDkVN1/awsh+KLBey+Nj3ejTVH585upU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0123c9a0378832dea31dfbfea1e6d88978a541e0",
+        "rev": "a7adeadc7d4033048592fac7c87ca888d2a99d31",
         "type": "github"
       },
       "original": {
