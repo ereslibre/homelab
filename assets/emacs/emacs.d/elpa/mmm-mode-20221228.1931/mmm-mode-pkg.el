@@ -3,6 +3,8 @@
     (cl-lib "0.2"))
   :commit "171bf6395b8a95a2d08d41fa38cc1799025d3916" :authors
   '(("Michael Abraham Shulman" . "viritrilbia@gmail.com"))
+  :maintainers
+  '(("Dmitry Gutov" . "dgutov@yandex.ru"))
   :maintainer
   '("Dmitry Gutov" . "dgutov@yandex.ru")
   :keywords

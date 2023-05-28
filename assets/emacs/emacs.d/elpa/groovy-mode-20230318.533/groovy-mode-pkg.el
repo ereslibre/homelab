@@ -6,6 +6,8 @@
   '(("Russel Winder" . "russel@winder.org.uk")
     ("Jim Morris" . "morris@wolfman.com")
     ("Wilfred Hughes" . "me@wilfred.me.uk"))
+  :maintainers
+  '(("Russel Winder" . "russel@winder.org.uk"))
   :maintainer
   '("Russel Winder" . "russel@winder.org.uk")
   :keywords

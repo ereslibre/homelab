@@ -4,6 +4,8 @@
     (dash "2.2.0"))
   :commit "8a70ba3002197e3c6421181492b60b37d4d4af7b" :authors
   '(("Johan Andersson" . "johan.rejeep@gmail.com"))
+  :maintainers
+  '(("Lucien Cartier-Tilet" . "lucien@phundrak.com"))
   :maintainer
   '("Lucien Cartier-Tilet" . "lucien@phundrak.com")
   :keywords

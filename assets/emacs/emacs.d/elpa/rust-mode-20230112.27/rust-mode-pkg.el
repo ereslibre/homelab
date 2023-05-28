@@ -2,6 +2,8 @@
   '((emacs "25.1"))
   :commit "c12348e40531fc7e7325368621a0e5f8031d99b2" :authors
   '(("Mozilla"))
+  :maintainers
+  '(("Mozilla"))
   :maintainer
   '("Mozilla")
   :keywords

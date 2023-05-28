@@ -2,6 +2,8 @@
   '((emacs "26.1"))
   :commit "8e2ffc4d62194106130014531e7b54fc9b4b9e6c" :authors
   '(("zk_phi"))
+  :maintainers
+  '(("zk_phi"))
   :maintainer
   '("zk_phi")
   :url "https://github.com/zk-phi/sublimity")
