@@ -22,11 +22,13 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShell = pkgs.mkShell {
-        buildInputs = with nixpkgs.legacyPackages.${system}; [
+        buildInputs = with pkgs; [
           alejandra
           cachix
         ];
       };
+
+      packages.default = home-manager.packages.${system}.default;
     })
     // {
       # Re-export devenv, home-manager and nixpkgs as usable outputs
