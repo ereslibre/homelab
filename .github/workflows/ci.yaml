@@ -23,20 +23,13 @@ jobs:
           git diff --exit-code
   activate-machine:
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - os: macos-12
-            user: ereslibre
-            host: Rafaels-Air
           - os: ubuntu-latest
             user: ereslibre
+            homeDirectory: /home/ereslibre
             host: nuc-1
-          - os: ubuntu-latest
-            user: ereslibre
-            host: nuc-2
-          - os: ubuntu-latest
-            user: ereslibre
-            host: nuc-3
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -51,10 +44,7 @@ jobs:
         with:
           name: workstations
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Activate
-        env:
-          ACTIVATION_USER: ${{ matrix.user }}
-          ACTIVATION_HOST: ${{ matrix.host }}
-          HOME_MANAGER_BACKUP_EXT: hm-bak
+      - name: Format
         run: |
-          make activate-user-at-host
+          make fmt
+          git diff --exit-code
