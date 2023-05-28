@@ -84,7 +84,7 @@
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
         # Check true color mode comment later on.
-        export PAGER="TERM=xterm-256color ${pkgs.less}/bin/less"
+        export PAGER="sh -c 'TERM=xterm-256color ${pkgs.less}/bin/less'"
       '';
       initExtra = ''
         copy_gpg_pubring() {
@@ -138,7 +138,7 @@
         #
         # Let's make less use a well known TERM to get rid of the
         # warning message.
-        less = "TERM=xterm-256color ${pkgs.less}/bin/less";
+        less = "sh -c 'TERM=xterm-256color ${pkgs.less}/bin/less'";
         ll = "ls --color=auto -alF";
         la = "ls --color=auto -A";
         ls = "ls --color=auto";
