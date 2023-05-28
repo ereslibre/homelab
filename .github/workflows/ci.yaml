@@ -21,30 +21,3 @@ jobs:
         run: |
           make fmt
           git diff --exit-code
-  activate-machine:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-latest
-            user: ereslibre
-            homeDirectory: /home/ereslibre
-            host: nuc-1
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install Nix
-        uses: cachix/install-nix-action@v20
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Configure cachix
-        uses: cachix/cachix-action@v12
-        with:
-          name: workstations
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Format
-        run: |
-          make fmt
-          git diff --exit-code
