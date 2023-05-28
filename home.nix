@@ -19,7 +19,10 @@
       package = pkgs.emacs-nox;
     };
     fzf.enable = true;
-    htop.settings.color_scheme = 6;
+    htop = {
+      enable = true;
+      settings.color_scheme = 6;
+    };
     keychain.enable = true;
 
     starship = {
