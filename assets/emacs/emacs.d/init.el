@@ -82,6 +82,7 @@
          ([remap list-buffers] . helm-buffers-list)
          ([remap dabbrev-expand] . helm-dabbrev))
   :config
+  (require 'helm-imenu)
   (helm-mode 1)
   (helm-autoresize-mode t)
   (global-set-key (kbd "M-i") 'helm-imenu)
