@@ -118,6 +118,13 @@
           key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
       '';
+      initExtraFirst = ''
+        # This avoids MacOS from destroying Nix on every OS update.
+        #
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fi
+      '';
       oh-my-zsh.enable = true;
       shellAliases = {
         diff = "${pkgs.diffutils}/bin/diff -u --color=auto";
