@@ -24,7 +24,7 @@
       settings.color_scheme = 6;
     };
     keychain.enable = true;
-
+    less.enable = true;
     starship = {
       enable = true;
       enableZshIntegration = true;
