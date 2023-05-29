@@ -18,7 +18,6 @@
     gnupg-pkcs11-scd
     jq
     just
-    keychain
     mtr
     otpauth
     # Markdown preview
