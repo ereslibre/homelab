@@ -32,9 +32,6 @@ jobs:
           - os: macos-latest
             user: ereslibre
             host: Rafaels-Air
-          - os: macos-latest
-            user: rfernandezl
-            host: rfernandezX6Y3X
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
