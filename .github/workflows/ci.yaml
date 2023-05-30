@@ -29,7 +29,7 @@ jobs:
         user: [ereslibre]
         host: [nuc-1, nuc-2, nuc-3]
         include:
-          - os: macos-12
+          - os: macos-latest
             user: ereslibre
             host: Rafaels-Air
     runs-on: ${{ matrix.os }}
