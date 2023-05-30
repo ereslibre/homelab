@@ -1,6 +1,13 @@
+ACTIVATION_USER ?= ${USER}
+ACTIVATION_HOST ?= $(shell hostname -s)
+
 .PHONY: switch
 switch:
-	nix run '.#homeConfigurations."${USER}@$(shell hostname -s)".config.activationPackage'
+	nix run '.#homeConfigurations."${ACTIVATION_USER}@${ACTIVATION_HOST}".config.activationPackage'
+
+.PHONY: build
+build:
+	nix build '.#homeConfigurations."${ACTIVATION_USER}@${ACTIVATION_HOST}".config.activationPackage'
 
 .PHONY: install-nix
 install-nix:
