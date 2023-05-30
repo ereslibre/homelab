@@ -42,6 +42,7 @@
       clock24 = true;
       keyMode = "emacs";
       shortcut = "z";
+      terminal = "xterm-direct";
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
@@ -52,10 +53,9 @@
             set -g @dracula-cpu-display-load true
             set -g @dracula-show-left-icon λ
             set -g @dracula-left-icon-padding 0
-            set -g @dracula-show-location false
-            set -g @dracula-show-fahrenheit false
             set -g @dracula-show-flags true
             set -g @dracula-refresh-rate 10
+            set -g @dracula-plugins "cpu-usage ram-usage time"
           '';
         }
       ];
