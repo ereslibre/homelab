@@ -68,6 +68,7 @@
         bind C-v split-window -h
         bind s split-window -v
         bind C-s split-window -v
+        bind-key b choose-tree
         bind-key q kill-window
         bind-key C-q kill-window
         bind-key x kill-pane
