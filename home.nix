@@ -55,7 +55,7 @@
             set -g @dracula-left-icon-padding 0
             set -g @dracula-show-flags true
             set -g @dracula-refresh-rate 10
-            set -g @dracula-plugins "cpu-usage ram-usage time"
+            set -g @dracula-plugins "time"
           '';
         }
       ];
