@@ -8,6 +8,7 @@ on:
 
 jobs:
   format:
+    name: Format
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,6 +23,7 @@ jobs:
           make fmt
           git diff --exit-code
   build:
+    name: Build
     strategy:
       fail-fast: false
       matrix:
