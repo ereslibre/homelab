@@ -157,7 +157,6 @@
   (setq org-agenda-text-search-extra-files
 	      (append (directory-files-recursively "~/.org" "\.org$")
 		            (directory-files-recursively "~/.org" "\.org_archive$")))
-  (setq org-log-done 'note)
   (setq org-log-repeat 'note)
   (setq org-agenda-span 'day)
   (setq org-agenda-start-on-weekday nil)
@@ -169,7 +168,7 @@
 			                       ("~/.org/someday.org" :maxlevel . 3)
 			                       ("~/.org/tickler.org" :maxlevel . 3)
 			                       ("~/.org/reminders.org" :maxlevel . 3)))
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCELLED(c@/!)")))
   (setq org-capture-templates
 	      '(("t" "TODO"
 	         entry (file "~/.org/inbox.org")
