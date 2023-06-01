@@ -1,7 +1,5 @@
 [user]
   email = ereslibre@ereslibre.es
-[include]
-  path = ~/.gitconfig.shared
 [includeIf "gitdir:~/projects/vmware/"]
   path = ~/.gitconfig.vmware
 [includeIf "gitdir:~/projects/vmware-labs/"]

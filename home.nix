@@ -13,6 +13,7 @@
 
   programs = {
     bash.enable = true;
+    bat.enable = true;
     direnv.enable = true;
     emacs = {
       enable = true;
@@ -23,10 +24,52 @@
       tmux.enableShellIntegration = true;
       enableZshIntegration = true;
     };
+    git = {
+      enable = true;
+      delta.enable = true;
+      aliases = {
+        ci = "commit";
+        st = "status";
+        co = "checkout";
+        br = "branch";
+      };
+      userName = "Rafael Fernández López";
+      extraConfig = {
+        color = {
+          ui = "auto";
+        };
+        commit = {
+          gpgsign = true;
+        };
+        core = {
+          excludesfile = "~/.gitignore";
+        };
+        github = {
+          user = "ereslibre";
+        };
+        init = {
+          defaultBranch = "main";
+        };
+        pull = {
+          ff = "only";
+          rebase = true;
+        };
+        push = {
+          default = "matching";
+        };
+      };
+    };
+    gpg = {
+      enable = true;
+      scdaemonSettings = {
+        disable-ccid = true;
+      };
+    };
     htop = {
       enable = true;
       settings.color_scheme = 6;
     };
+    jq.enable = true;
     keychain = {
       enable = true;
       enableZshIntegration = true;
@@ -34,12 +77,12 @@
       keys = ["id_ed25519" "id_rsa"];
     };
     less.enable = true;
+    pandoc.enable = true;
     starship = {
       enable = true;
       enableZshIntegration = true;
       settings = {kubernetes = {disabled = false;};};
     };
-
     tmux = {
       enable = true;
       aggressiveResize = true;

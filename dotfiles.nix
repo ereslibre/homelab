@@ -16,7 +16,6 @@ in
       then ./assets/git/full-config
       else ./assets/git/full-config-vmware;
     ".gitconfig.vmware".source = ./assets/git/config-vmware;
-    ".gitconfig.shared".source = ./assets/git/shared-config;
     ".gitignore".source = ./assets/git/gitignore;
     ".ssh/config".text = import ./assets/ssh/config.nix {inherit username;};
   }

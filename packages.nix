@@ -4,24 +4,15 @@
 }: let
   container-tools = with pkgs; [distrobox dive reg regctl];
   core-tools = with pkgs; [
-    bat
     binutils
     coreutils
     curl
     diffutils
-    direnv
     file
-    fzf
-    git
     gnumake
-    gnupg
-    gnupg-pkcs11-scd
-    jq
     just
     mtr
     otpauth
-    # Markdown preview
-    pandoc
     ripgrep
     rlwrap
     tree
