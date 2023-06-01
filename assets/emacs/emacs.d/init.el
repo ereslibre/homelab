@@ -52,6 +52,7 @@
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-auto-configure t)
   (setq lsp-restart 'interactive)
+  (setq lsp-warn-no-matched-clients nil)
   (add-to-list 'lsp-language-id-configuration '(rego-mode . "rego"))
   (add-to-list 'lsp-language-id-configuration '(emacs-lisp-mode . "el"))
   (add-hook 'prog-mode-hook 'lsp))
