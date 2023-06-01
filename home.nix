@@ -59,12 +59,6 @@
         };
       };
     };
-    gpg = {
-      enable = true;
-      scdaemonSettings = {
-        disable-ccid = true;
-      };
-    };
     htop = {
       enable = true;
       settings.color_scheme = 6;

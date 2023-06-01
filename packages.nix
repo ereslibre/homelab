@@ -10,6 +10,8 @@
     diffutils
     file
     gnumake
+    gnupg
+    gnupg-pkcs11-scd
     just
     mtr
     otpauth
