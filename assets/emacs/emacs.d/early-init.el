@@ -17,10 +17,6 @@
 ;; word wrap
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; line numbers
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setq display-line-numbers-type 't)
-
 ;; calendar
 (setq calendar-week-start-day 1)
 
