@@ -18,7 +18,11 @@
       enable = true;
       package = pkgs.emacs-nox;
     };
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      tmux.enableShellIntegration = true;
+      enableZshIntegration = true;
+    };
     htop = {
       enable = true;
       settings.color_scheme = 6;
@@ -54,8 +58,11 @@
             set -g @dracula-show-left-icon λ
             set -g @dracula-left-icon-padding 0
             set -g @dracula-show-flags true
-            set -g @dracula-refresh-rate 10
+            set -g @dracula-refresh-rate 60
             set -g @dracula-plugins "time"
+            set -g @dracula-show-timezone false
+            set -g @dracula-military-time true
+            set -g @dracula-time-format "%a %m/%d %H:%M"
           '';
         }
       ];
