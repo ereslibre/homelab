@@ -4,6 +4,7 @@
 }: let
   container-tools = with pkgs; [distrobox dive reg regctl];
   core-tools = with pkgs; [
+    age
     binutils
     coreutils
     curl
