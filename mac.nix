@@ -29,5 +29,9 @@ then {
     source = ./assets/mac/rosetta;
     executable = true;
   };
+  ".config/alacritty" = {
+    source = ./assets/alacritty;
+    recursive = true;
+  };
 }
 else {}
