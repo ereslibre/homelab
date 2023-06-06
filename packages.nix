@@ -8,6 +8,7 @@
     coreutils
     curl
     diffutils
+    dig
     file
     gnumake
     gnupg
