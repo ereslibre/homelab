@@ -29,9 +29,38 @@ then {
     source = ./assets/mac/rosetta;
     executable = true;
   };
-  ".config/alacritty" = {
-    source = ./assets/alacritty;
-    recursive = true;
+  ".config/alacritty/alacritty.yml".text = ''
+    import:
+      - ./dracula.yml
+    env:
+      TERM: xterm-direct
+    font:
+      normal:
+        family: Fira Code
+        style: Regular
+      bold:
+        family: Fira Code
+        style: Bold
+      italic:
+        family: Fira Code
+        style: Italic
+      bold_italic:
+        family: Fira Code
+        style: Bold Italic
+      size: 12
+    shell:
+      program: /Users/${username}/.nix-profile/bin/zsh
+      args:
+        - --login
+    window:
+      decorations: full
+      decorations_theme_variant: Dark
+      dynamic_padding: true
+      opacity: 0.9
+      option_as_alt: Both
+  '';
+  ".config/alacritty/dracula.yml" = {
+    source = ./assets/alacritty/dracula.yml;
   };
 }
 else {}
