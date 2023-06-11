@@ -142,7 +142,7 @@
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
         fixssh() {
-          eval $(tmux show-env -s |grep '^SSH_')
+          eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
         }
         key_token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
