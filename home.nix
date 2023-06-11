@@ -138,9 +138,6 @@
         copy_gpg_pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
-        deepclear() {
-          printf '\e[2J\e[3J\e[H'
-        }
         fixssh() {
           eval $(tmux show-env -s |grep '^SSH_')
         }
