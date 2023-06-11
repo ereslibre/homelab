@@ -20,6 +20,10 @@ Major mode for editing Rego files.
 
 ;;;***
 
+;;;### (autoloads nil nil ("rego-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

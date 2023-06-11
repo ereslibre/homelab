@@ -16,6 +16,10 @@ Open current region in carbon.now.sh." t nil)
 
 ;;;***
 
+;;;### (autoloads nil nil ("carbon-now-sh-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

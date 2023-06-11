@@ -6,8 +6,6 @@
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; Maintainer: Steve Purcell <steve@sanityinc.com>
 ;; URL: https://github.com/purcell/emacs-hcl-mode
-;; Package-Version: 20230302.1029
-;; Package-Commit: 35784854efd29fa8c9fe827654d747a2ace5cb19
 ;; Version: 0.03
 ;; Package-Requires: ((emacs "24.3"))
 

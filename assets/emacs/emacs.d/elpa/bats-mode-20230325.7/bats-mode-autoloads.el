@@ -24,6 +24,10 @@ See URL `https://github.com/sstephenson/bats'.
 
 ;;;***
 
+;;;### (autoloads nil nil ("bats-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

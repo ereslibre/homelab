@@ -4,8 +4,6 @@
 ;;
 ;; Author: Nicolas Lamirault <nicolas.lamirault@gmail.com>
 ;; Version: 0.4.0
-;; Package-Version: 20220520.1410
-;; Package-Commit: 872e250e8f93b8bb0a8a1de8bde17fd9bd116e31
 ;; Keywords : ripgrep ack pt ag sift grep search
 ;; Homepage: https://github.com/nlamirault/ripgrep.el
 

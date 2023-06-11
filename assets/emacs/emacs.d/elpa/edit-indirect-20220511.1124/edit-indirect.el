@@ -2,8 +2,6 @@
 
 ;; Author: Fanael Linithien <fanael4@gmail.com>
 ;; URL: https://github.com/Fanael/edit-indirect
-;; Package-Version: 20220511.1124
-;; Package-Commit: f80f63822ffae78de38dbe72cacaeb1aaa96c732
 ;; Version: 0.1.10
 ;; Package-Requires: ((emacs "24.3"))
 

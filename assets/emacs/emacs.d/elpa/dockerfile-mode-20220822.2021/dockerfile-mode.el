@@ -2,8 +2,6 @@
 
 ;; Copyright (c) 2013 Spotify AB
 ;; Package-Requires: ((emacs "24"))
-;; Package-Version: 20220822.2021
-;; Package-Commit: 52c6c00da1d31c0b6c29c74335b3af63ed6bf06c
 ;; Homepage: https://github.com/spotify/dockerfile-mode
 ;; URL: https://github.com/spotify/dockerfile-mode
 ;; Version: 1.7

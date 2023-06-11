@@ -6,8 +6,6 @@
 ;; Maintainer: browse-kill-ring <browse-kill-ring@tonotdo.com>
 ;; Created: 7 Apr 2001
 ;; Version: 2.0.0
-;; Package-Version: 20220410.1509
-;; Package-Commit: 6e06736a8245a8cdf436f6585c71439239219836
 ;; URL: https://github.com/browse-kill-ring/browse-kill-ring
 ;; Keywords: convenience
 

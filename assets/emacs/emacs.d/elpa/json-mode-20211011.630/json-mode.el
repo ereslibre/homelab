@@ -4,8 +4,6 @@
 
 ;; Author: Josh Johnston
 ;; URL: https://github.com/joshwnj/json-mode
-;; Package-Version: 20211011.630
-;; Package-Commit: eedb4560034f795a7950fa07016bd4347c368873
 ;; Version: 1.6.0
 ;; Package-Requires: ((json-snatcher "1.0.0") (emacs "24.4"))
 

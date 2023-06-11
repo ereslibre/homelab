@@ -93,6 +93,10 @@ Display all the personal keybindings defined by `bind-key'." t nil)
 
 ;;;***
 
+;;;### (autoloads nil nil ("bind-key-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

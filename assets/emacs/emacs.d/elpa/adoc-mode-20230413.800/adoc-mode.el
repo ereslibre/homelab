@@ -5,8 +5,6 @@
 ;;
 ;; Author: Florian Kaufmann <sensorflo@gmail.com>
 ;; URL: https://github.com/bbatsov/adoc-mode
-;; Package-Version: 20230413.800
-;; Package-Commit: a7691c8b9a738fd724007a2a283ed2c20684a7e5
 ;; Maintainer: Bozhidar Batsov <bozhidar@batsov.dev>
 ;; Created: 2009
 ;; Version: 0.8.0-snapshot

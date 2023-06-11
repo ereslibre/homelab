@@ -6,8 +6,6 @@
 ;; Maintainer: John Wiegley <johnw@newartisans.com>
 ;; Created: 16 Jun 2012
 ;; Version: 2.4.1
-;; Package-Version: 20230203.2004
-;; Package-Commit: 77945e002f11440eae72d8730d3de218163d551e
 ;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: keys keybinding config dotemacs extensions
 ;; URL: https://github.com/jwiegley/use-package

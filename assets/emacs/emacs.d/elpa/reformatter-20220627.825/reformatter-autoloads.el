@@ -110,6 +110,10 @@ EXIT-CODE-SUCCESS-P
 
 ;;;***
 
+;;;### (autoloads nil nil ("reformatter-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

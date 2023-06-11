@@ -5,8 +5,6 @@
 ;; Author: Yasuyuki Oka <yasuyk@gmail.com>
 ;; Maintainer: Daniel Ralston <Sodel-the-Vociferous@users.noreply.github.com>
 ;; Version: 0.2.5
-;; Package-Version: 20190812.1429
-;; Package-Commit: 6eb5c2d730a60e394e005b47c1db018697094dde
 ;; URL: https://github.com/Sodel-the-Vociferous/helm-company
 ;; Package-Requires: ((helm "1.5.9") (company "0.6.13"))
 

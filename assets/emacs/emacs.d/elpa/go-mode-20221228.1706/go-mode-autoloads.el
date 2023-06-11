@@ -109,6 +109,10 @@ A major mode for editor go.work files.
 
 ;;;***
 
+;;;### (autoloads nil nil ("go-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t

@@ -3,8 +3,6 @@
 ;; Copyright (C) 2013-2022 Skye Shaw and others
 ;; Author: Skye Shaw <skye.shaw@gmail.com>
 ;; Version: 0.9.0
-;; Package-Version: 20230518.204
-;; Package-Commit: aded95807f277f30e1607313bdf9ac9a016a2305
 ;; Keywords: git, vc, github, bitbucket, gitlab, sourcehut, aws, azure, convenience
 ;; URL: http://github.com/sshaw/git-link
 ;; Package-Requires: ((emacs "24.3"))

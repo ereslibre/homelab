@@ -3,8 +3,6 @@
 ;; Copyright © 2018 Vitalii Elenhaupt <velenhaupt@gmail.com>
 ;; Author: Vitalii Elenhaupt
 ;; URL: https://github.com/veelenga/carbon-now-sh.el
-;; Package-Version: 20220701.332
-;; Package-Commit: e66f2e43e288f35ad9075f5fc84d59ad348efc88
 ;; Keywords: convenience
 ;; Version: 0
 ;; Package-Requires: ((emacs "24.4"))

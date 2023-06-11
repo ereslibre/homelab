@@ -5,8 +5,10 @@ set -x
 SOCKPATH=""
 if [ -S ~/.emacs.d/emacs.sock ]; then
     SOCKPATH="-f ~/.emacs.d/emacs.sock"
+elif [ -S /run/user/$(id -u)/emacs/server ]; then
+    SOCKPATH="-f /run/user/$(id -u)/emacs/server"
 fi
-emacsclient $SOCKPATH -f kill-emacs
+emacsclient -s $SOCKPATH --eval '(kill-emacs)'
 rm -rf assets/emacs/emacs.d/elpa
 mkdir -p assets/emacs/emacs.d/elpa
 make
