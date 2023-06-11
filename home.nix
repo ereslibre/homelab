@@ -14,7 +14,10 @@
   programs = {
     bash.enable = true;
     bat.enable = true;
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     emacs = {
       enable = true;
       package = pkgs.emacs-nox;
