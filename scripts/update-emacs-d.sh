@@ -3,12 +3,15 @@
 set -x
 
 SOCKPATH=""
-if [ -S ~/.emacs.d/emacs.sock ]; then
-    SOCKPATH="-f ~/.emacs.d/emacs.sock"
+if [ -S $HOME/.emacs.d/emacs.sock ]; then
+    SOCKPATH="$HOME/.emacs.d/emacs.sock"
 elif [ -S /run/user/$(id -u)/emacs/server ]; then
-    SOCKPATH="-f /run/user/$(id -u)/emacs/server"
+    SOCKPATH="/run/user/$(id -u)/emacs/server"
+else
+    echo "could not find emacs server socket"
+    exit 1
 fi
-emacsclient -s $SOCKPATH --eval '(kill-emacs)'
+emacsclient -s "$SOCKPATH" --eval '(kill-emacs)'
 rm -rf assets/emacs/emacs.d/elpa
 mkdir -p assets/emacs/emacs.d/elpa
 make
