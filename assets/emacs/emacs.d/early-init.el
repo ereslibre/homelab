@@ -5,6 +5,9 @@
    (getenv "PATH")))
 (add-to-list 'exec-path (expand-file-name "~/.nix-profile/bin"))
 
+;; custom modes based on file extensions
+(add-to-list 'auto-mode-alist '("\\.wat\\'" . lisp-mode))
+
 ;; terminal tweaks
 (add-hook 'term-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
 
