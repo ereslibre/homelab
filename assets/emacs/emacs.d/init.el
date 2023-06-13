@@ -163,12 +163,10 @@
   (setq org-agenda-start-on-weekday nil)
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '(("~/.org/habits.org" :maxlevel . 1)
-                             ("~/.org/notes.org" :maxlevel . 3)
-			                       ("~/.org/projects.org" :maxlevel . 3)
-			                       ("~/.org/someday.org" :maxlevel . 3)
-			                       ("~/.org/tickler.org" :maxlevel . 3)
-			                       ("~/.org/reminders.org" :maxlevel . 3)))
+  (defun update-org-refile-files (ignored)
+    (setq org-refile-files (file-expand-wildcards "~/.org/*.org")))
+  (update-org-refile-files nil)
+  (setq org-refile-targets '((org-refile-files :maxlevel . 3)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCELLED(c@/!)")))
   (setq org-capture-templates
 	      '(("t" "TODO"
