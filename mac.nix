@@ -52,6 +52,10 @@ then {
       program: /Users/${username}/.nix-profile/bin/zsh
       args:
         - --login
+    cursor:
+      style:
+        shape: Block
+        blinking: Never
     window:
       decorations: full
       decorations_theme_variant: Dark
