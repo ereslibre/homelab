@@ -138,13 +138,16 @@
         export LC_ALL="en_US.UTF-8"
       '';
       initExtra = ''
-        copy_gpg_pubring() {
+        copy-gpg-pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
         fixssh() {
           eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
         }
-        key_token() {
+        hm-upgrade() {
+          nix run github:ereslibre/dotfiles#homeConfigurations."''${USER}@''${HOST}".config.activationPackage
+        }
+        key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         nixity-shell() {
@@ -165,7 +168,7 @@
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
         }
         token() {
-          key_token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
+          key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
       '';
       initExtraFirst = ''
@@ -178,24 +181,22 @@
       oh-my-zsh.enable = true;
       shellAliases = {
         diff = "${pkgs.diffutils}/bin/diff -u --color=auto";
-        dive = "dive --source=podman";
-        dir = "dir --color=auto";
-        egrep = "egrep --color=auto";
-        fgrep = "fgrep --color=auto";
-        grep = "grep --color=auto";
+        dive = "${pkgs.dive}/bin/dive --source=podman";
+        dir = "${pkgs.coreutils}/bin/dir --color=auto";
+        grep = "${pkgs.gnugrep}/bin/grep --color=auto";
         k = "${pkgs.kubectl}/bin/kubectl";
-        l = "ls --color=auto -CF";
-        ll = "ls --color=auto -alF";
-        la = "ls --color=auto -A";
-        ls = "ls --color=auto";
-        vdir = "vdir --color=auto";
+        l = "${pkgs.coreutils}/bin/ls --color=auto -CF";
+        ll = "${pkgs.coreutils}/bin/ls --color=auto -alF";
+        la = "${pkgs.coreutils}/bin/ls --color=auto -A";
+        ls = "${pkgs.coreutils}/bin/ls --color=auto";
+        vdir = "${pkgs.coreutils}/bin/vdir --color=auto";
       };
     };
   };
 
-  services.emacs = {
-    enable = pkgs.stdenv.isLinux;
-    socketActivation.enable = pkgs.stdenv.isLinux;
-    defaultEditor = pkgs.stdenv.isLinux;
+  services.emacs = with pkgs.stdenv; {
+    enable = isLinux;
+    socketActivation.enable = isLinux;
+    defaultEditor = isLinux;
   };
 }
