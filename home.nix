@@ -155,10 +155,10 @@
           for arg in "$@"; do
             shell_args+=("github:ereslibre/nixities#$arg")
           done
-          nix shell "''${shell_args[@]}"
+          nix shell "''${shell_args[@]}" -c zsh
         }
         nixity-develop() {
-          nix develop github:ereslibre/nixities#$1
+          nix develop github:ereslibre/nixities#$1 -c zsh
         }
         nixity-run() {
           nix run github:ereslibre/nixities#$1 ''${@:2}
