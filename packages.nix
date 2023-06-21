@@ -15,6 +15,7 @@
     gnupg
     gnupg-pkcs11-scd
     just
+    mosh
     mtr
     otpauth
     ripgrep
