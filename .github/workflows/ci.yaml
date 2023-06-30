@@ -13,12 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/nix-installer-action@v4
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Format
         run: |
           make fmt
@@ -30,7 +26,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         user: [ereslibre]
-        host: [nuc-1, nuc-2, nuc-3]
+        host: [hulk, nuc-1, nuc-2, nuc-3]
         include:
           - os: macos-latest
             user: ereslibre
@@ -39,17 +35,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-      - name: Configure cachix
-        uses: cachix/cachix-action@v12
-        with:
-          name: workstations
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - uses: DeterminateSystems/nix-installer-action@v4
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Build
         run: |
           make build \
