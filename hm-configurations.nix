@@ -132,18 +132,10 @@
     })
     configurations;
 in (mapMachineConfigurations {
-  "ereslibre@Rafaels-Air" = {
-    factoryFn = macbookConfiguration;
-    config = {
-      system = "x86_64-darwin";
-      username = "ereslibre";
-      profile = "personal";
-    };
-  };
-  "ereslibre@pi-desktop" = {
+  "ereslibre@hulk" = {
     factoryFn = workstationConfiguration;
     config = {
-      system = "aarch64-linux";
+      system = "x86_64-linux";
       username = "ereslibre";
       profile = "personal";
     };
@@ -168,6 +160,22 @@ in (mapMachineConfigurations {
     factoryFn = workstationConfiguration;
     config = {
       system = "x86_64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
+  };
+  "ereslibre@pi-desktop" = {
+    factoryFn = workstationConfiguration;
+    config = {
+      system = "aarch64-linux";
+      username = "ereslibre";
+      profile = "personal";
+    };
+  };
+  "ereslibre@Rafaels-Air" = {
+    factoryFn = macbookConfiguration;
+    config = {
+      system = "x86_64-darwin";
       username = "ereslibre";
       profile = "personal";
     };
