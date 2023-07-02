@@ -21,6 +21,7 @@
     ripgrep
     rlwrap
     tree
+    watch
     wget
     xxd
     yubikey-manager
