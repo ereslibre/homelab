@@ -27,6 +27,7 @@
     zstd
   ];
   global-language-tools = with pkgs; [gopls gotools rnix-lsp rustup];
+  infra-tools = with pkgs; [ipmitool];
   kubernetes-tools = with pkgs;
     [fluxcd kubectl kubernetes-helm kubeseal velero]
     ++ (with pkgs; lib.optionals stdenv.isLinux [kube3d]);
