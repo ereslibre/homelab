@@ -156,6 +156,9 @@
         ipmi-chassis-power-on() {
           ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power on
         }
+        ipmi-chassis-power-off() {
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power soft
+        }
         ipmi-chassis-status() {
           ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis status
         }
