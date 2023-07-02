@@ -150,6 +150,9 @@
         ipmi-temperature() {
           ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sdr type temperature
         }
+        ipmi-watch-temperature() {
+          ${pkgs.watch}/bin/watch -n1 -c "zsh -l -c 'source ~/.zshrc; ipmi-temperature \"$1\" \"$2\" \"$3\"'"
+        }
         ipmi-chassis-power-on() {
           ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power on
         }
