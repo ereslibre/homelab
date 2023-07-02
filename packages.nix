@@ -37,6 +37,7 @@ in
   container-tools
   ++ core-tools
   ++ global-language-tools
+  ++ infra-tools
   ++ kubernetes-tools
   ++ nix-tools
   ++ platform-tools
