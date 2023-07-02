@@ -148,13 +148,13 @@
           nix run github:ereslibre/dotfiles#homeConfigurations."''${USER}@''${HOST}".config.activationPackage
         }
         ipmi-temperature() {
-          ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sdr type temperature
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sdr type temperature
         }
         ipmi-chassis-power-on() {
-          ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power on
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power on
         }
         ipmi-chassis-status() {
-          ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis status
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis status
         }
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
