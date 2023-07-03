@@ -32,7 +32,7 @@
   kubernetes-tools = with pkgs;
     [fluxcd kubectl kubernetes-helm kubeseal velero]
     ++ (with pkgs; lib.optionals stdenv.isLinux [kube3d]);
-  nix-tools = [devenv.defaultPackage.${pkgs.stdenv.system}];
+  nix-tools = [devenv.packages.${pkgs.stdenv.system}.default];
   platform-tools = with pkgs; [gh terraform];
 in
   container-tools
