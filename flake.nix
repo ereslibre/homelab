@@ -22,10 +22,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          alejandra
-          cachix
-        ];
+        buildInputs = with pkgs; [alejandra];
       };
       defaultApp = {
         type = "app";
