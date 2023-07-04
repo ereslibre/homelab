@@ -147,10 +147,16 @@
         hm-upgrade() {
           nix run github:ereslibre/dotfiles#homeConfigurations."''${USER}@''${HOST}".config.activationPackage
         }
-        ipmi-temperature() {
+        ipmi-temperatures() {
           ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sdr type temperature
         }
-        ipmi-watch-temperature() {
+        ipmi-cpu-temperature() {
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sensor get 'CPU Temp.'
+        }
+        ipmi-cpu-temperature-reading() {
+          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sensor reading 'CPU Temp.'
+        }
+        ipmi-watch-temperatures() {
           ${pkgs.watch}/bin/watch -n1 -c "zsh -l -c 'source ~/.zshrc; ipmi-temperature \"$1\" \"$2\" \"$3\"'"
         }
         ipmi-chassis-power-on() {
