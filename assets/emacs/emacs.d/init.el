@@ -183,7 +183,7 @@
 	         :empty-lines 0)
 	        ("j" "Journal Entry"
 	         entry (file+datetree "~/.org/journal.org")
-	         "* %?"
+	         "* %<%H:%M> %?"
 	         :empty-lines 0)
 	        ))
   (setq org-agenda-custom-commands
@@ -211,6 +211,7 @@
 	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
 	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))
 	          (tags "+someday" ((org-agenda-files '("~/.org/someday.org"))))))))
+  (require 'org-journal)
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda ()
                                 (when (eq major-mode 'org-mode) (org-align-tags t)))))
