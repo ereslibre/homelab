@@ -147,27 +147,6 @@
         hm-upgrade() {
           nix run github:ereslibre/dotfiles#homeConfigurations."''${USER}@''${HOST}".config.activationPackage
         }
-        ipmi-temperatures() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sdr type temperature
-        }
-        ipmi-cpu-temperature() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sensor get 'CPU Temp.'
-        }
-        ipmi-cpu-temperature-reading() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" sensor reading 'CPU Temp.'
-        }
-        ipmi-watch-temperatures() {
-          ${pkgs.watch}/bin/watch -n1 -c "zsh -l -c 'source ~/.zshrc; ipmi-temperature \"$1\" \"$2\" \"$3\"'"
-        }
-        ipmi-chassis-power-on() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power on
-        }
-        ipmi-chassis-power-off() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis power soft
-        }
-        ipmi-chassis-status() {
-          ${pkgs.ipmitool}/bin/ipmitool -H "$1" -I lanplus -U "$2" -P "$3" chassis status
-        }
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
