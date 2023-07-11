@@ -160,7 +160,7 @@
         }
         nixity-develop() {
           EXTRA_ARGS="''${EXTRA_ARGS:---offline}"
-          nix develop $EXTRA_ARGS github:ereslibre/nixities#$1 -c zsh
+          nix develop $EXTRA_ARGS github:ereslibre/nixities#$1
         }
         nixity-run() {
           EXTRA_ARGS="''${EXTRA_ARGS:---offline}"
