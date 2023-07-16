@@ -147,6 +147,7 @@
          ("C-c c" . org-capture)
          ("C-c C-o" . org-open-at-point))
   :config
+  (setq org-directory "~/.org")
   (setq org-agenda-files '("~/.org/habits.org"
 			                     "~/.org/inbox.org"
 			                     "~/.org/journal.org"
@@ -167,7 +168,7 @@
     (setq org-refile-files (file-expand-wildcards "~/.org/*.org")))
   (update-org-refile-files nil)
   (setq org-refile-targets '((org-refile-files :maxlevel . 3)))
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCELLED(c@/!)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "DOING(g!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "CANCELLED(c@/!)")))
   (setq org-capture-templates
 	      '(("t" "TODO"
 	         entry (file "~/.org/inbox.org")
