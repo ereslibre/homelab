@@ -29,11 +29,13 @@
   (add-hook 'before-save-hook 'gofmt-before-save))
 (add-hook 'go-mode-hook 'go-mode-custom)
 
-;; winner mode
-(winner-mode 1)
-
 ;; misc
 (global-unset-key (kbd "C-z"))
+
+;; no menubar, scrollbar or toolbar
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; no welcome screen
 (setq-default inhibit-startup-message t)
