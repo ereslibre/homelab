@@ -33,9 +33,9 @@
 (global-unset-key (kbd "C-z"))
 
 ;; no menubar, scrollbar or toolbar
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;; no welcome screen
 (setq-default inhibit-startup-message t)
