@@ -151,20 +151,26 @@
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
         nixity-shell() {
-          EXTRA_ARGS="''${EXTRA_ARGS:---offline}"
           shell_args=()
           for arg in "$@"; do
             shell_args+=("github:ereslibre/nixities#$arg")
           done
           nix shell $EXTRA_ARGS "''${shell_args[@]}" -c zsh
         }
+        nixity-shell-offline() {
+          EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-shell $1 ''${@:2}
+        }
         nixity-develop() {
-          EXTRA_ARGS="''${EXTRA_ARGS:---offline}"
           nix develop $EXTRA_ARGS github:ereslibre/nixities#$1
         }
+        nixity-develop-offline() {
+          EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-develop $1 ''${@:2}
+        }
         nixity-run() {
-          EXTRA_ARGS="''${EXTRA_ARGS:---offline}"
           nix run $EXTRA_ARGS github:ereslibre/nixities#$1 ''${@:2}
+        }
+        nixity-run-offline() {
+          EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-run $1 ''${@:2}
         }
         sri() {
           local algo="''${2:-sha256}"
