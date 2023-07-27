@@ -11,7 +11,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@v4
-      - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Update flake.lock
         id: update-flake-lock
         uses: DeterminateSystems/update-flake-lock@v19
