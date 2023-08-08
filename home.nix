@@ -121,6 +121,7 @@
         bind-key x kill-pane
         bind-key C-x kill-pane
         bind-key z resize-pane -Z
+        bind-key C-z send-prefix
       '';
     };
 
