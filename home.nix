@@ -93,34 +93,37 @@
         {
           plugin = dracula;
           extraConfig = ''
-            set -g @dracula-show-powerline true
-            set -g @dracula-cpu-display-load true
-            set -g @dracula-show-left-icon λ
+            set -g @dracula-show-powerline    true
+            set -g @dracula-cpu-display-load  true
+            set -g @dracula-show-left-icon    λ
             set -g @dracula-left-icon-padding 0
-            set -g @dracula-show-flags true
-            set -g @dracula-refresh-rate 60
-            set -g @dracula-plugins "time"
-            set -g @dracula-show-timezone false
-            set -g @dracula-military-time true
-            set -g @dracula-time-format "%a %m/%d %H:%M"
+            set -g @dracula-show-flags        true
+            set -g @dracula-refresh-rate      60
+            set -g @dracula-plugins           "time"
+            set -g @dracula-show-timezone     false
+            set -g @dracula-military-time     true
+            set -g @dracula-time-format       "%a %m/%d %H:%M"
           '';
         }
       ];
       extraConfig = ''
+        set-window-option -g window-active-style bg=terminal
+        set-window-option -g window-style        bg=black
+
         set -g mouse on
 
-        bind Space copy-mode
+        bind Space   copy-mode
         bind C-Space copy-mode
-        bind v split-window -h
-        bind C-v split-window -h
-        bind s split-window -v
-        bind C-s split-window -v
-        bind-key b choose-tree
-        bind-key q kill-window
+        bind v       split-window -h
+        bind C-v     split-window -h
+        bind s       split-window -v
+        bind C-s     split-window -v
+        bind-key b   choose-tree
+        bind-key q   kill-window
         bind-key C-q kill-window
-        bind-key x kill-pane
+        bind-key x   kill-pane
         bind-key C-x kill-pane
-        bind-key z resize-pane -Z
+        bind-key z   resize-pane -Z
         bind-key C-z send-prefix
       '';
     };
