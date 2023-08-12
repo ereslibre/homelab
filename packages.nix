@@ -1,6 +1,7 @@
 {
   devenv,
   pkgs,
+  ...
 }: let
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
@@ -32,11 +33,13 @@
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals stdenv.isLinux [kind kube3d]));
   nix-tools = [devenv.packages.${pkgs.stdenv.system}.default];
   platform-tools = with pkgs; [gh terraform];
-in
-  container-tools
-  ++ core-tools
-  ++ global-language-tools
-  ++ infra-tools
-  ++ kubernetes-tools
-  ++ nix-tools
-  ++ platform-tools
+in {
+  home.packages =
+    container-tools
+    ++ core-tools
+    ++ global-language-tools
+    ++ infra-tools
+    ++ kubernetes-tools
+    ++ nix-tools
+    ++ platform-tools;
+}

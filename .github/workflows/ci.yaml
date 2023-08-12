@@ -37,6 +37,8 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v4
       - name: Build
         run: |
+          # Force the creation of the profile dir
+          nix profile list
           make build \
             ACTIVATION_USER=${{ matrix.user }} \
             ACTIVATION_HOST=${{ matrix.host }}
