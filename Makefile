@@ -3,11 +3,11 @@ ACTIVATION_HOST ?= $(shell hostname -s)
 
 .PHONY: switch
 switch:
-	nix run '.#homeConfigurations."${ACTIVATION_USER}@${ACTIVATION_HOST}".config.activationPackage'
+	nix run . -- switch --flake .#"${ACTIVATION_USER}@${ACTIVATION_HOST}"
 
 .PHONY: build
 build:
-	nix build '.#homeConfigurations."${ACTIVATION_USER}@${ACTIVATION_HOST}".config.activationPackage'
+	nix run . -- build --flake .#"${ACTIVATION_USER}@${ACTIVATION_HOST}"
 
 .PHONY: install-nix
 install-nix:
