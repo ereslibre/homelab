@@ -13,13 +13,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v5
       - uses: DeterminateSystems/nix-installer-action@v4
       - name: Format
         run: |
           make fmt
           git diff --exit-code
+  flake-check:
+    name: Flake Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v5
   build:
     name: Build
     strategy:
