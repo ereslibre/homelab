@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v5
       - uses: DeterminateSystems/nix-installer-action@v4
       - name: Build
         run: |
