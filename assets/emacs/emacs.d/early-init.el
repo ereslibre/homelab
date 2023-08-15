@@ -89,7 +89,7 @@
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
 
-;; local variables
+;; specific directory settings
 (dir-locals-set-class-variables 'php-project
    '((nil . ((indent-tabs-mode . t)))))
 (dir-locals-set-directory-class

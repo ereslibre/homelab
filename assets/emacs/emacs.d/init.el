@@ -4,8 +4,7 @@
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
+  (package-refresh-contents)
   (dolist (package package-selected-packages)
     (unless (package-installed-p package)
       (package-install package))))
@@ -24,6 +23,12 @@
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
+
+(use-package project
+  :bind-keymap
+  (("C-c p" . project-prefix-map))
+  :config
+  (setq project-switch-commands 'helm-project))
 
 (use-package magit
   :defer 3)
@@ -91,55 +96,12 @@
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z")  'helm-select-action))
 
-(use-package projectile
-  :demand
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :after (helm)
-  :config
-  (projectile-mode +1)
-  (setq projectile-completion-system 'helm)
-  (setq projectile-enable-caching t)
-  (setq projectile-globally-ignored-directories (append '(".svn" ".git" ".hg" ".repo" ".vagrant" "build") projectile-globally-ignored-directories)))
-
 (use-package neotree
   :bind (("C-c n" . neotree-toggle)
          ("C-c t" . neotree-find))
   :config
   (setq neo-autorefresh t)
-  (setq neo-theme 'ascii)
-  (defun neo-window--init (window buffer)
-    (neo-buffer--with-resizable-window
-     (switch-to-buffer buffer)
-     (set-window-parameter window 'no-delete-other-windows t)
-     (set-window-parameter window 'no-other-window t)
-     (set-window-dedicated-p window t))
-    window)
-  (defun neo-global--attach ()
-    (when neo-global--autorefresh-timer
-	    (cancel-timer neo-global--autorefresh-timer))
-    (when neo-autorefresh
-	    (setq neo-global--autorefresh-timer
-	          (run-with-idle-timer 0.1 10 'neo-global--do-autorefresh)))
-    (setq neo-global--buffer (get-buffer neo-buffer-name))
-    (setq neo-global--window (get-buffer-window
-				                      neo-global--buffer))
-    (neo-global--with-buffer
-      (neo-buffer--lock-width))
-    (run-hook-with-args 'neo-after-create-hook '(window)))
-  (defun neotree-project-dir ()
-    (interactive)
-    (let ((project-dir (projectile-project-root))
-	        (file-name (buffer-file-name)))
-	    (neotree-show)
-	    (if project-dir
-	        (if (neo-global--window-exists-p)
-		          (progn
-		            (neotree-dir project-dir)
-		            (neotree-find file-name)))
-	      (message "Could not find git project root.")))))
-
-(use-package ace-window
-  :bind ("M-o" . ace-window))
+  (setq neo-theme 'ascii))
 
 (use-package org
   :bind (("C-c l" . org-store-link)
