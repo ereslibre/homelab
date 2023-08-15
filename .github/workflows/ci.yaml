@@ -13,7 +13,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: DeterminateSystems/nix-installer-action@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Setup the magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Format
         run: |
           make fmt
@@ -42,11 +45,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: DeterminateSystems/nix-installer-action@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Setup the magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Build
         run: |
           # Force the creation of the profile dir
           nix profile list
+          # Build
           make build \
             ACTIVATION_USER=${{ matrix.user }} \
             ACTIVATION_HOST=${{ matrix.host }}
