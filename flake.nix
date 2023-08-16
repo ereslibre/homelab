@@ -12,6 +12,7 @@
   };
 
   outputs = {
+    self,
     devenv,
     flake-utils,
     home-manager,
