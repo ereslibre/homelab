@@ -45,7 +45,7 @@
         })
       ];
 
-      homeManagerConfigurations = {
+      rawHomeManagerConfigurations = {
         "ereslibre@hulk" = {
           system = "x86_64-linux";
           username = "ereslibre";
@@ -120,11 +120,11 @@
         });
     in {
       # Export home-manager configurations
-      inherit homeManagerConfigurations;
+      inherit rawHomeManagerConfigurations;
       homeConfigurations =
         nixpkgs.lib.attrsets.mapAttrs
         (userAndHost: userAndHostConfig: homeManagerConfiguration userAndHostConfig)
-        homeManagerConfigurations;
+        rawHomeManagerConfigurations;
     })
     // {
       # Re-export devenv, flake-utils, home-manager and nixpkgs as usable outputs
