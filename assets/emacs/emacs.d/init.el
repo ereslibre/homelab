@@ -114,6 +114,7 @@
 			                     "~/.org/inbox.org"
 			                     "~/.org/journal.org"
 			                     "~/.org/notes.org"
+			                     "~/.org/papers.org"
 			                     "~/.org/projects.org"
 			                     "~/.org/reminders.org"
 			                     "~/.org/someday.org"
