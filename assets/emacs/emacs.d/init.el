@@ -178,7 +178,11 @@
   (require 'org-journal)
   (add-to-list 'org-modules 'org-habit)
   (add-hook 'before-save-hook (lambda ()
-                                (when (eq major-mode 'org-mode) (org-align-tags t)))))
+                                (when (eq major-mode 'org-mode) (org-align-tags t))))
+  (require 'ob-shell)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t))))
 
 (use-package sublimity
   :demand
