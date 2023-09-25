@@ -16,6 +16,11 @@
 
 (menu-bar-mode -1)
 
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window)
+         ("M-O" . ace-swap-window)))
+
 (use-package dracula-theme
   :ensure t
   :init
