@@ -206,6 +206,8 @@ in {
           ll = "${pkgs.coreutils}/bin/ls --color=auto -alF";
           la = "${pkgs.coreutils}/bin/ls --color=auto -A";
           ls = "${pkgs.coreutils}/bin/ls --color=auto";
+          # xterm-direct is not in terminfo for MacOS
+          reset = "reset xterm";
           vdir = "${pkgs.coreutils}/bin/vdir --color=auto";
         }
         // shellExtras.shellAliases;
