@@ -180,6 +180,12 @@ in {
         token() {
           key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
+        ,() {
+          nixity-run $1 -- ''${@:2}
+        }
+        ,,() {
+          nixity-develop $@
+        }
       '';
       initExtraFirst = ''
         # This avoids MacOS from destroying Nix on every OS update.
