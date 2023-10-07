@@ -17,76 +17,95 @@
 (menu-bar-mode -1)
 
 (use-package ace-window
-  :ensure t
+  :ensure
   :bind (("M-o" . ace-window)
          ("M-O" . ace-swap-window)))
 
 (use-package dracula-theme
-  :ensure t
-  :init
+  :ensure
+  :config
   (load-theme 'dracula t))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
 
 (use-package project
+  :ensure
   :bind-keymap
   (("C-c p" . project-prefix-map))
   :config
   (setq project-switch-commands 'helm-project))
 
 (use-package magit
+  :ensure
   :defer 3)
 
 (use-package yasnippet
+  :ensure
   :config
   (yas-global-mode 1))
 
 (use-package git-link
+  :ensure
   :bind ("C-c g l" . git-link)
   :init
   (setq git-link-use-commit t))
 
 (use-package company
-  :demand
+  :ensure
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yafolding
+  :ensure
   :config
   (add-hook 'prog-mode-hook 'yafolding-mode))
 
 (use-package lsp-mode
-  :config
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 1024))
-  (setq lsp-auto-configure t)
+  :ensure
+  :custom
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
+  (lsp-inlay-hint-enable t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
+  :init
   (setq lsp-restart 'interactive)
-  (setq lsp-warn-no-matched-clients nil)
+  :config
   (add-to-list 'lsp-language-id-configuration '(rego-mode . "rego"))
   (add-to-list 'lsp-language-id-configuration '(emacs-lisp-mode . "el"))
-  (add-hook 'prog-mode-hook 'lsp))
+  (add-hook 'prog-mode-hook #'lsp))
 
 (use-package undo-tree
+  :ensure
   :config
   (setq undo-tree-auto-save-history nil)
+  :custom
   (global-undo-tree-mode 1))
 
 (use-package browse-kill-ring
+  :ensure
   :config
   (browse-kill-ring-default-keybindings))
 
 (use-package powerline
+  :ensure
   :config
   (setq powerline-default-separator 'wave)
   (powerline-default-theme))
 
 (use-package rainbow-delimiters
+  :ensure
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package helm
-  :demand
+  :ensure
   :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
          ([remap occur] . helm-occur)
@@ -102,6 +121,7 @@
   (define-key helm-map (kbd "C-z")  'helm-select-action))
 
 (use-package neotree
+  :ensure
   :bind (("C-c n" . neotree-toggle)
          ("C-c t" . neotree-find))
   :config
@@ -190,10 +210,11 @@
    '((shell . t))))
 
 (use-package sublimity
-  :demand
+  :ensure
+  :custom
+  (sublimity-mode 1)
   :config
   (require 'sublimity-attractive)
-  (sublimity-mode 1)
   ;; When on org-agenda-mode, tags are aligned first, then sublimity
   ;; resizes and centers, and tags are left out of screen. Redo the
   ;; agenda.
