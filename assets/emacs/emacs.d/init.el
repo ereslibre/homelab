@@ -23,6 +23,7 @@
 
 (use-package dracula-theme
   :ensure
+  :demand t
   :config
   (load-theme 'dracula t))
 
@@ -31,6 +32,7 @@
 
 (use-package project
   :ensure
+  :demand t
   :bind-keymap
   (("C-c p" . project-prefix-map))
   :config
@@ -38,10 +40,12 @@
 
 (use-package magit
   :ensure
+  :demand t
   :defer 3)
 
 (use-package yasnippet
   :ensure
+  :demand t
   :config
   (yas-global-mode 1))
 
@@ -53,16 +57,19 @@
 
 (use-package company
   :ensure
+  :demand t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yafolding
   :ensure
+  :demand t
   :config
   (add-hook 'prog-mode-hook 'yafolding-mode))
 
 (use-package lsp-mode
   :ensure
+  :demand t
   :custom
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-eldoc-render-all t)
@@ -83,6 +90,7 @@
 
 (use-package undo-tree
   :ensure
+  :demand t
   :config
   (setq undo-tree-auto-save-history nil)
   :custom
@@ -90,22 +98,26 @@
 
 (use-package browse-kill-ring
   :ensure
+  :demand t
   :config
   (browse-kill-ring-default-keybindings))
 
 (use-package powerline
   :ensure
+  :demand t
   :config
   (setq powerline-default-separator 'wave)
   (powerline-default-theme))
 
 (use-package rainbow-delimiters
   :ensure
+  :demand t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package helm
   :ensure
+  :demand t
   :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
          ([remap occur] . helm-occur)
@@ -129,6 +141,7 @@
   (setq neo-theme 'ascii))
 
 (use-package org
+  :demand t
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -211,6 +224,7 @@
 
 (use-package sublimity
   :ensure
+  :demand t
   :custom
   (sublimity-mode 1)
   :config
