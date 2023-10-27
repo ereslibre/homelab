@@ -142,6 +142,9 @@ in {
         copy-gpg-pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
         }
+        refresh-gpg-card() {
+          gpg-connect-agent "scd serialno" "learn --force" /bye
+        }
         fixssh() {
           eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
         }
