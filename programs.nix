@@ -192,7 +192,7 @@ in {
         ,,,() {
           local targetdir=$(mktemp -d)
           pushd "$targetdir"
-          cat <<'EOF' > flake.nix
+        cat <<'EOF' > flake.nix
         {
           inputs = {
             nixities.url = "github:ereslibre/nixities";
@@ -209,10 +209,10 @@ in {
                   devShells.default = nixities.nixpkgs.legacyPackages.''${system}.mkShell {
                     buildInputs = [
         EOF
-          cat <<EOF >> flake.nix
+        cat <<EOF >> flake.nix
                       $@
         EOF
-          cat <<'EOF' >> flake.nix
+        cat <<'EOF' >> flake.nix
                     ];
                   };
                 }
