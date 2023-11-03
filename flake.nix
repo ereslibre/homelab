@@ -49,7 +49,6 @@
         "ereslibre@hulk" = {
           system = "x86_64-linux";
           username = "ereslibre";
-          host = "hulk";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
           stateVersion = "23.05";
@@ -57,7 +56,6 @@
         "ereslibre@nuc-1" = {
           system = "x86_64-linux";
           username = "ereslibre";
-          host = "nuc-1";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
           stateVersion = "22.11";
@@ -65,7 +63,6 @@
         "ereslibre@nuc-2" = {
           system = "x86_64-linux";
           username = "ereslibre";
-          host = "nuc-2";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
           stateVersion = "22.11";
@@ -73,7 +70,6 @@
         "ereslibre@nuc-3" = {
           system = "x86_64-linux";
           username = "ereslibre";
-          host = "nuc-3";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
           stateVersion = "23.05";
@@ -81,7 +77,6 @@
         "ereslibre@pi-desktop" = {
           system = "aarch64-linux";
           username = "ereslibre";
-          host = "pi-desktop";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
           stateVersion = "22.11";
@@ -89,15 +84,13 @@
         "ereslibre@Rafaels-Air" = {
           system = "x86_64-darwin";
           username = "ereslibre";
-          host = "Rafaels-Air";
           homeDirectory = "/Users/ereslibre";
           profile = "personal";
           stateVersion = "22.11";
         };
-        "rfernandezl@rfernandezX6Y3X" = {
+        "rfernandezl@rfernandezX6Y3X.vmware.com" = {
           system = "aarch64-darwin";
           username = "rfernandezl";
-          host = "rfernandezX6Y3X";
           homeDirectory = "/Users/rfernandezl";
           profile = "work";
           stateVersion = "22.11";
@@ -107,7 +100,6 @@
       homeManagerConfiguration = {
         system,
         username,
-        host,
         homeDirectory,
         profile,
         stateVersion,

@@ -1,5 +1,5 @@
 ACTIVATION_USER ?= ${USER}
-ACTIVATION_HOST ?= $(shell hostname -s)
+ACTIVATION_HOST ?= $(shell hostname)
 
 .PHONY: switch
 switch:

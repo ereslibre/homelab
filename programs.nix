@@ -149,7 +149,7 @@ in {
           eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
         }
         hm-upgrade() {
-          nix run github:ereslibre/dotfiles#homeConfigurations."''${USER}@''${HOST}".config.activationPackage
+          nix run github:ereslibre/dotfiles -- build --flake .#"''${USER}@''${HOST}"
         }
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
