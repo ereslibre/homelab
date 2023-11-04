@@ -1,4 +1,4 @@
-(define-package "protobuf-mode" "20230506.330" "major mode for editing protocol buffers." 'nil :commit "0d3b0c61f4f44c3d8770b89edffe481aaf56f4f1" :authors
+(define-package "protobuf-mode" "20231101.2003" "major mode for editing protocol buffers." 'nil :commit "6b5d8db01fe47478e8d400f550e797e6230d464e" :authors
   '(("Alexandre Vassalotti" . "alexandre@peadrop.com"))
   :maintainers
   '(("Alexandre Vassalotti" . "alexandre@peadrop.com"))

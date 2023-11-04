@@ -726,6 +726,13 @@ it is disabled.
 
 ;;;***
 
+;;;### (autoloads nil "lsp-mojo" "lsp-mojo.el" (0 0 0 0))
+;;; Generated autoloads from lsp-mojo.el
+
+(register-definition-prefixes "lsp-mojo" '("lsp-mojo-executable"))
+
+;;;***
+
 ;;;### (autoloads nil "lsp-move" "lsp-move.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-move.el
 
@@ -979,6 +986,13 @@ it is disabled.
 ;;; Generated autoloads from lsp-solargraph.el
 
 (register-definition-prefixes "lsp-solargraph" '("lsp-solargraph-"))
+
+;;;***
+
+;;;### (autoloads nil "lsp-solidity" "lsp-solidity.el" (0 0 0 0))
+;;; Generated autoloads from lsp-solidity.el
+
+(register-definition-prefixes "lsp-solidity" '("lsp-client--solidity-"))
 
 ;;;***
 

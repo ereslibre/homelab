@@ -1,6 +1,6 @@
 ;;; writeroom-mode.el --- Minor mode for distraction-free writing  -*- lexical-binding: t -*-
 
-;; Copyright (c) 2012-2022 Joost Kremers
+;; Copyright (c) 2012-2023 Joost Kremers
 
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
@@ -56,7 +56,7 @@ The global effects only apply to this frame.")
 (defvar writeroom--local-variables '(mode-line-format
                                      header-line-format
                                      line-spacing)
-  "Local variables whose values need to be saved when `writeroom-mode' is activated.")
+  "Local variables whose values are saved when `writeroom-mode' is activated.")
 
 (defvar writeroom--saved-data nil
   "Buffer-local data to be stored when `writeroom-mode' is activated.
@@ -142,8 +142,8 @@ When the mode line is disabled, the function
 option determines whether it is shown as the mode line or as the
 header line."
   :group 'writeroom
-  :type '(choice (const :tag "Use the mode line" 'mode-line-format)
-                 (const :tag "Use the header line" 'header-line-format)))
+  :type '(choice (const :tag "Use the mode line" mode-line-format)
+                 (const :tag "Use the header line" header-line-format)))
 
 (defcustom writeroom-bottom-divider-width 1
   "Width of the bottom window divider in pixels."

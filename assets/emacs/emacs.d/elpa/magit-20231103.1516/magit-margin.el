@@ -165,14 +165,15 @@ does not carry to other options."
                                (list (list 'margin 'right-margin)
                                      (or string " ")))))))
 
+(defvar magit-margin-overlay-conditions
+  '( unpulled unpushed recent stashes local cherries
+     [remote branchbuf]
+     [tags branchbuf]
+     topics issues pullreqs))
+
 (defun magit-maybe-make-margin-overlay ()
-  (when (or (magit-section-match
-             '(unpulled unpushed recent stashes local cherries)
-             magit-insert-section--current)
-            (and (eq major-mode 'magit-refs-mode)
-                 (magit-section-match
-                  '(remote commit tags)
-                  magit-insert-section--current)))
+  (when (magit-section-match magit-margin-overlay-conditions
+                             magit-insert-section--current)
     (magit-make-margin-overlay nil t)))
 
 ;;; Custom Support
