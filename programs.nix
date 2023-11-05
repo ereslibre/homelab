@@ -191,7 +191,7 @@ in {
         }
         ,,,() {
           local targetdir=$(mktemp -d)
-          pushd "$targetdir"
+          pushd "$targetdir" > /dev/null
         cat <<'EOF' > flake.nix
         {
           inputs = {
@@ -219,7 +219,7 @@ in {
               );
         }
         EOF
-          popd
+          popd > /dev/null
           nix develop $EXTRA_ARGS "$targetdir"
           rm -rf "$targetdir"
         }
