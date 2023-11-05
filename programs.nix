@@ -192,33 +192,7 @@ in {
         ,,,() {
           local targetdir=$(mktemp -d)
           pushd "$targetdir" > /dev/null
-        cat <<'EOF' > flake.nix
-        {
-          inputs = {
-            nixities.url = "github:ereslibre/nixities";
-            flake-utils.url = "github:numtide/flake-utils";
-          };
-
-          outputs = { self, nixities, flake-utils }:
-            flake-utils.lib.eachDefaultSystem
-              (system:
-                let
-                  pkgs = nixities.packages.''${system};
-                  nixpkgs = nixities.nixpkgs.legacyPackages.''${system};
-                in {
-                  devShells.default = nixities.nixpkgs.legacyPackages.''${system}.mkShell {
-                    buildInputs = [
-        EOF
-        cat <<EOF >> flake.nix
-                      $@
-        EOF
-        cat <<'EOF' >> flake.nix
-                    ];
-                  };
-                }
-              );
-        }
-        EOF
+          ${pkgs.dhall}/bin/dhall text <<< "${./assets/config.dhall} { derivations = \"$@\" }" > flake.nix
           popd > /dev/null
           nix develop $EXTRA_ARGS "$targetdir"
           rm -rf "$targetdir"
