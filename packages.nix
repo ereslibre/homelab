@@ -25,22 +25,17 @@
     watch
     wget
     xxd
-    yubikey-manager
     zstd
   ];
   global-language-tools = with pkgs; [gopls gotools rnix-lsp rustup];
-  infra-tools = with pkgs; [ipmitool];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals stdenv.isLinux [kind kube3d]));
-  nix-tools =
-    (with pkgs; [nix-init])
-    ++ [devenv.packages.${pkgs.stdenv.system}.default];
-  platform-tools = with pkgs; [gh terraform];
+  nix-tools = [devenv.packages.${pkgs.stdenv.system}.default];
+  platform-tools = with pkgs; [gh opentofu];
 in {
   home.packages =
     container-tools
     ++ core-tools
     ++ global-language-tools
-    ++ infra-tools
     ++ kubernetes-tools
     ++ nix-tools
     ++ platform-tools;
