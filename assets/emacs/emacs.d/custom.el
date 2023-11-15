@@ -25,7 +25,7 @@
  '(org-agenda-files
    '("~/.org/inbox.org" "~/.org/projects.org" "~/.org/tickler.org" "~/.org/reminders.org" "~/.org/someday.org" "~/.org/journal.org" "~/.org/habits.org"))
  '(package-selected-packages
-   '(ace-window ack adoc-mode bats-mode browse-kill-ring carbon-now-sh company dockerfile-mode doom-themes git-link go-mode google-translate groovy-mode haskell-mode helm helm-company helm-lsp helm-project json-mode lsp-mode magit markdown-mode monokai-theme neotree nix-mode org-journal powerline protobuf-mode rainbow-delimiters rego-mode ripgrep rust-mode sublimity terraform-mode typescript-mode undo-tree use-package writeroom-mode yafolding yaml-mode yasnippet zig-mode))
+   '(ace-window ack adoc-mode bats-mode browse-kill-ring carbon-now-sh company dockerfile-mode doom-themes elm-mode git-link go-mode google-translate groovy-mode haskell-mode helm helm-company helm-lsp helm-project json-mode lsp-mode magit markdown-mode monokai-theme neotree nix-mode org-journal powerline protobuf-mode rainbow-delimiters rego-mode ripgrep rust-mode sublimity terraform-mode typescript-mode undo-tree use-package writeroom-mode yafolding yaml-mode yasnippet zig-mode))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
