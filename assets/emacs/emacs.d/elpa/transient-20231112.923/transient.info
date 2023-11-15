@@ -1358,12 +1358,8 @@ transient’s infix and suffix commands.
    The behavior can be changed for all suffixes of a particular prefix
 and/or for individual suffixes.  The values should nearly always be
 booleans, but certain functions, called “pre-commands”, can also be
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.info
-used.
-========
 used.  These functions are named ‘transient--do-VERB’, and the symbol
 ‘VERB’ can be used as a shorthand.
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.info
 
    A boolean is interpreted as answering the question "does the
 transient stay active, when this command is invoked?"  ‘t’ means that
@@ -1475,11 +1471,7 @@ slot for the sub-prefix itself.
 
      Whether we actually return to the parent transient is ultimately
      under the control of each invoked suffix.  The difference between
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.info
-     this pre-command and ‘transient--do-replace’ is that it changes the
-========
      this pre-command and ‘transient--do-stack’ is that it changes the
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.info
      value of the ‘transient-suffix’ slot to ‘t’.
 
      If there is no parent transient, then only call this command and
@@ -2268,21 +2260,6 @@ Appendix C Command and Function Index
  [index ]
 * Menu:
 
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.info
-* transient--do-call:                    Transient State.     (line 124)
-* transient--do-exit:                    Transient State.     (line 116)
-* transient--do-leave:                   Transient State.     (line 183)
-* transient--do-quit-all:                Transient State.     (line 195)
-* transient--do-quit-one:                Transient State.     (line 190)
-* transient--do-recurse:                 Transient State.     (line 132)
-* transient--do-replace:                 Transient State.     (line 144)
-* transient--do-return:                  Transient State.     (line 119)
-* transient--do-stay:                    Transient State.     (line 104)
-* transient--do-stay <1>:                Transient State.     (line 180)
-* transient--do-suspend:                 Transient State.     (line 151)
-* transient--do-suspend <1>:             Transient State.     (line 200)
-* transient--do-warn:                    Transient State.     (line 177)
-========
 * transient--do-call:                    Transient State.     (line 125)
 * transient--do-exit:                    Transient State.     (line 117)
 * transient--do-leave:                   Transient State.     (line 193)
@@ -2297,7 +2274,6 @@ Appendix C Command and Function Index
 * transient--do-suspend:                 Transient State.     (line 161)
 * transient--do-suspend <1>:             Transient State.     (line 210)
 * transient--do-warn:                    Transient State.     (line 187)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.info
 * transient--history-init:               Prefix Classes.      (line  10)
 * transient--insert-group:               Group Methods.       (line  19)
 * transient-append-suffix:               Modifying Existing Transients.
@@ -3203,40 +3179,6 @@ Node: Suffix Specifications48135
 Node: Defining Suffix and Infix Commands52348
 Node: Using Infix Arguments55554
 Node: Transient State58388
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.info
-Ref: Pre-commands for Infixes63064
-Ref: Pre-commands for Suffixes63584
-Ref: Pre-commands for Non-Suffixes65636
-Ref: Special Pre-Commands66782
-Node: Classes and Methods67290
-Node: Group Classes69474
-Node: Group Methods71401
-Node: Prefix Classes72654
-Node: Suffix Classes73745
-Node: Suffix Methods76832
-Node: Suffix Value Methods77153
-Node: Suffix Format Methods79911
-Node: Prefix Slots81360
-Ref: Internal Prefix Slots83495
-Node: Suffix Slots84752
-Ref: Slots of transient-suffix85120
-Ref: Slots of transient-infix86257
-Ref: Slots of transient-variable89553
-Ref: Slots of transient-switches89655
-Node: Predicate Slots90018
-Node: FAQ91453
-Ref: Can I control how the popup buffer is displayed?91582
-Ref: How can I copy text from the popup buffer?91763
-Ref: How does Transient compare to prefix keys and universal arguments?92235
-Ref: How does Transient compare to Magit-Popup and Hydra?92478
-Ref: Why did some of the key bindings change?92672
-Ref: Why does q not quit popups anymore?95025
-Node: Keystroke Index96118
-Node: Command and Function Index97983
-Node: Variable Index104502
-Node: Concept Index106775
-Node: GNU General Public License109519
-========
 Ref: Pre-commands for Infixes63171
 Ref: Pre-commands for Suffixes63691
 Ref: Pre-commands for Non-Suffixes66141
@@ -3269,7 +3211,6 @@ Node: Command and Function Index98488
 Node: Variable Index105080
 Node: Concept Index107353
 Node: GNU General Public License110097
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.info
 
 End Tag Table
 

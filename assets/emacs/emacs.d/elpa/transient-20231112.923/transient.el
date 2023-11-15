@@ -1416,11 +1416,6 @@ variable instead.")
 
 (defvar transient--all-levels-p nil
   "Whether temporary display of suffixes on all levels is active.")
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-
-(defvar transient--active-infix nil "The active infix awaiting user input.")
-========
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
 
 (defvar transient--timer nil)
 
@@ -1763,12 +1758,8 @@ of the corresponding object."
     map))
 
 (defun transient--make-predicate-map ()
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-  (let* ((default (oref transient--prefix transient-suffix))
-========
   (let* ((default (transient--resolve-pre-command
                    (oref transient--prefix transient-suffix)))
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
          (return (eq default t))
          (map (make-sparse-keymap)))
     (set-keymap-parent map transient-predicate-map)
@@ -1785,17 +1776,11 @@ of the corresponding object."
           (define-key map (vector cmd) #'transient--do-warn-inapt))
          ((slot-boundp obj 'transient)
           (define-key map (vector cmd)
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-            (pcase (list kind (oref obj transient) return)
-              (`(prefix   t ,_) #'transient--do-recurse)
-              (`(prefix nil ,_) #'transient--do-replace)
-========
             (pcase (list kind
                          (transient--resolve-pre-command (oref obj transient))
                          return)
               (`(prefix   t ,_) #'transient--do-recurse)
               (`(prefix nil ,_) #'transient--do-stack)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
               (`(infix    t ,_) #'transient--do-stay)
               (`(suffix   t ,_) #'transient--do-call)
               ('(suffix nil  t) #'transient--do-return)
@@ -1807,11 +1792,7 @@ of the corresponding object."
               (`(prefix ,(or 'transient--do-stay 'transient--do-call) ,_)
                #'transient--do-recurse)
               (`(prefix   t ,_) #'transient--do-recurse)
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-              (`(prefix  ,_ ,_) #'transient--do-replace)
-========
               (`(prefix  ,_ ,_) #'transient--do-stack)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
               (`(infix   ,_ ,_) #'transient--do-stay)
               (`(suffix   t ,_) #'transient--do-call)
               ('(suffix nil  t) #'transient--do-return)
@@ -3673,15 +3654,9 @@ Optional support for popup buttons is also implemented here."
 
 (cl-defmethod transient-format-key :around ((obj transient-suffix))
   (let ((str (cl-call-next-method)))
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-    (when (oref obj inapt)
-      (add-face-text-property 0 (length str) 'transient-inapt-suffix nil str))
-    str))
-========
     (if (oref obj inapt)
         (transient--add-face str 'transient-inapt-suffix)
       str)))
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
 
 (cl-defmethod transient-format-key ((obj transient-suffix))
   "Format OBJ's `key' for display and return the result."
@@ -3752,24 +3727,12 @@ called inside the correct buffer (see `transient--insert-group')
 and its value is returned to the caller."
   (and-let* ((desc (oref obj description))
              (desc (if (functionp desc)
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-                       (transient-with-shadowed-buffer
-                         (if (= (car (func-arity desc)) 1)
-                             (funcall desc obj)
-                           (funcall desc)))
-                     desc)))
-    (progn ; work around debbugs#31840
-      (when-let* ((face (and (slot-exists-p obj 'face) (oref obj face)))
-                  (face (if (functionp face) (funcall face) face)))
-        (add-face-text-property 0 (length desc) face t desc))
-========
                        (if (= (car (func-arity desc)) 1)
                            (funcall desc obj)
                          (funcall desc))
                      desc)))
     (if-let* ((face (transient--get-face obj 'face)))
         (transient--add-face desc face t)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
       desc)))
 
 (cl-defmethod transient-format-description ((obj transient-group))
@@ -3791,25 +3754,6 @@ If the OBJ's `key' is currently unreachable, then apply the face
                        (funcall (oref transient--prefix suffix-description)
                                 obj))
                   (propertize "(BUG: no description)" 'face 'error))))
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/transient-20231103.2312/transient.el
-    (cond ((oref obj inapt)
-           (when-let ((face (oref obj inapt-face)))
-             (add-face-text-property 0 (length desc) face nil desc))
-           desc)
-          ((and (slot-boundp obj 'key)
-                (transient--key-unreachable-p obj))
-           (propertize desc 'face 'transient-unreachable))
-          ((if transient--all-levels-p
-               (> (oref obj level) transient--default-prefix-level)
-             (and transient-highlight-higher-levels
-                  (> (max (oref obj level) transient--max-group-level)
-                     transient--default-prefix-level)))
-           (add-face-text-property
-            0 (length desc) 'transient-higher-level nil desc)
-           desc)
-          (t
-           desc))))
-========
     (cond
      ((oref obj inapt)
       (if-let ((face (transient--get-face obj 'inapt-face)))
@@ -3825,7 +3769,6 @@ If the OBJ's `key' is currently unreachable, then apply the face
                 transient--default-prefix-level)))
       (transient--add-face desc 'transient-higher-level))
      (desc))))
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/transient-20231112.923/transient.el
 
 (cl-defgeneric transient-format-value (obj)
   "Format OBJ's value for display and return the result.")

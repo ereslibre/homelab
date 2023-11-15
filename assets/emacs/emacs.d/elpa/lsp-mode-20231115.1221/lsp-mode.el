@@ -1148,11 +1148,7 @@ calling `remove-overlays'.")
 
 (defvar-local lsp--virtual-buffer-point-max nil)
 
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/lsp-mode-20231103.1522/lsp-mode.el
-(cl-defmethod lsp-execute-command (server command arguments)
-========
 (cl-defmethod lsp-execute-command (_server _command _arguments)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/lsp-mode-20231115.1221/lsp-mode.el
   "Ask SERVER to execute COMMAND with ARGUMENTS.")
 
 (defun lsp-elt (sequence n)
@@ -7397,12 +7393,9 @@ Originally coppied from eglot."
                          " "))
     program))
 
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/lsp-mode-20231103.1522/lsp-mode.el
-========
 (defvar tramp-use-ssh-controlmaster-options)
 (defvar tramp-ssh-controlmaster-options)
 
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/lsp-mode-20231115.1221/lsp-mode.el
 (defun lsp-stdio-connection (command &optional test-command)
   "Returns a connection property list using COMMAND.
 COMMAND can be: A string, denoting the command to launch the
@@ -8098,18 +8091,11 @@ nil."
   ;; typescript-language-server). This is why we check for existence and not
   ;; that the path is executable.
   (let ((path (lsp-resolve-value path)))
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/lsp-mode-20231103.1522/lsp-mode.el
-    (if (and (f-absolute? path)
-             (f-exists? path))
-        path
-      (executable-find path t))))
-========
     (cond
      ((and (f-absolute? path)
            (f-exists? path))
       path)
      ((executable-find path t) path))))
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/lsp-mode-20231115.1221/lsp-mode.el
 
 (defun lsp-package-path (dependency)
   "Path to the DEPENDENCY each of the registered providers."
@@ -8456,11 +8442,7 @@ the next question until the queue is empty."
                                                    (format "%s-tramp"
                                                            (lsp--client-server-id client)))
             ;; disable automatic download
-<<<<<<<< Updated upstream:assets/emacs/emacs.d/elpa/lsp-mode-20231103.1522/lsp-mode.el
-            (lsp--client-download-server-fn client) nil)
-========
             (lsp--client-download-server-fn remote-client) nil)
->>>>>>>> Stashed changes:assets/emacs/emacs.d/elpa/lsp-mode-20231115.1221/lsp-mode.el
       (lsp-register-client remote-client))))
 
 (defun lsp--create-initialization-options (_session client)
