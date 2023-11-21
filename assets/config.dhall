@@ -11,7 +11,10 @@
         (system:
           let
             pkgs = nixities.packages.''${system};
-            nixpkgs = nixities.nixpkgs.legacyPackages.''${system};
+            nixpkgs = (import nixities.nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            });
           in {
             devShells.default = nixities.nixpkgs.legacyPackages.''${system}.mkShell {
               buildInputs = [
