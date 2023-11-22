@@ -15,6 +15,13 @@
               inherit system;
               config.allowUnfree = true;
             });
+            nixpkgs-cuda = (import nixities.nixpkgs {
+              inherit system;
+              config = {
+                allowUnfree = true;
+                cudaSupport = true;
+              };
+            });
           in {
             devShells.default = nixities.nixpkgs.legacyPackages.''${system}.mkShell {
               buildInputs = [
