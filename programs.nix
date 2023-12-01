@@ -154,6 +154,9 @@ in {
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
+        nixity-new() {
+          nix flake new -t github:ereslibre/nixities#"$1" .
+        }
         nixity-shell() {
           shell_args=()
           for arg in "$@"; do
