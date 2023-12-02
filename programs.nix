@@ -134,6 +134,7 @@ in {
         export GOPATH="${config.home.homeDirectory}/.go"
         export GO111MODULE="on"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
+        export PYTHONPATH="${config.home.homeDirectory}/.pip:${PYTHONPATH}"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
