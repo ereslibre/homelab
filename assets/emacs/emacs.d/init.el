@@ -71,10 +71,10 @@
   :ensure
   :demand t
   :custom
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-eldoc-render-all t)
   (lsp-idle-delay 0.6)
   (lsp-inlay-hint-enable t)
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
@@ -83,10 +83,8 @@
   (lsp-rust-analyzer-display-reborrow-hints nil)
   :init
   (setq lsp-restart 'interactive)
-  :config
-  (add-to-list 'lsp-language-id-configuration '(rego-mode . "rego"))
-  (add-to-list 'lsp-language-id-configuration '(emacs-lisp-mode . "el"))
-  (add-hook 'prog-mode-hook #'lsp))
+  :hook (
+         (rust-mode . lsp)))
 
 (use-package undo-tree
   :ensure
