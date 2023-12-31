@@ -530,6 +530,13 @@ Start `iedit-mode'. for `textDocument/linkedEditingRange'" t nil)
 
 ;;;***
 
+;;;### (autoloads nil "lsp-jsonnet" "lsp-jsonnet.el" (0 0 0 0))
+;;; Generated autoloads from lsp-jsonnet.el
+
+(register-definition-prefixes "lsp-jsonnet" '("lsp-clients-jsonnet-server-executable"))
+
+;;;***
+
 ;;;### (autoloads nil "lsp-kotlin" "lsp-kotlin.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-kotlin.el
 

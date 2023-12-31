@@ -441,11 +441,11 @@ i.e. the loop is not entered after running COMMAND."
     (define-key map (kbd "C-r")        #'undefined)
     (define-key map (kbd "C-M-r")      #'undefined)
     (define-key map (kbd "C-M-s")      #'undefined)
-    (define-key map (kbd "C-z")        #'undefined)
     (define-key map (kbd "C-}")        #'helm-narrow-window)
     (define-key map (kbd "C-{")        #'helm-enlarge-window)
     (define-key map (kbd "C-c -")      #'helm-swap-windows)
     (define-key map (kbd "C-c _")      #'helm-toggle-full-frame)
+    (define-key map (kbd "C-z")        #'helm-toggle-full-frame)
     (define-key map (kbd "C-c %")      #'helm-exchange-minibuffer-and-header-line)
     (define-key map (kbd "C-c C-y")    #'helm-yank-selection)
     (define-key map (kbd "C-c C-k")    #'helm-kill-selection-and-quit)
@@ -742,7 +742,9 @@ handle this."
   :type 'symbol)
 
 (defcustom helm-split-window-other-side-when-one-window 'below
-  "The default side to display `helm-buffer' when (1)
+  "Place for `helm-window' when `helm-split-window-default-side' is \\='other.
+
+The default side to display `helm-buffer' when (1)
 `helm-split-window-default-side' is \\='other and (2)
 the current frame only has one window. Possible values
 are acceptable args for `split-window' SIDE, that is `below',

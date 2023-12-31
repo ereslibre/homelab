@@ -18,8 +18,8 @@
 
 (use-package ace-window
   :ensure
-  :bind (("M-o" . ace-window)
-         ("M-O" . ace-swap-window)))
+  :bind (("C-x o" . ace-window)
+         ("C-x O" . ace-swap-window)))
 
 (use-package dracula-theme
   :ensure
@@ -33,8 +33,6 @@
 (use-package project
   :ensure
   :demand t
-  :bind-keymap
-  (("C-c p" . project-prefix-map))
   :config
   (setq project-switch-commands 'helm-project))
 

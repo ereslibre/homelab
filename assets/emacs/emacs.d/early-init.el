@@ -29,7 +29,7 @@
   (add-hook 'before-save-hook 'gofmt-before-save))
 (add-hook 'go-mode-hook 'go-mode-custom)
 
-;; misc
+;; misc -- tmux prefix
 (global-unset-key (kbd "C-z"))
 
 ;; no menubar, scrollbar or toolbar
