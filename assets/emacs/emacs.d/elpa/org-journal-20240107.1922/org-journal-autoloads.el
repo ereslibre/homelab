@@ -18,10 +18,6 @@ Mode for writing or viewing entries written in the journal.
 
 \(fn)" t nil)
 
-(define-obsolete-function-alias 'org-journal-open-next-entry 'org-journal-next-entry "2.1.0")
-
-(define-obsolete-function-alias 'org-journal-open-previous-entry 'org-journal-previous-entry "2.1.0")
-
 (autoload 'org-journal-convert-created-property-timestamps "org-journal" "\
 Convert format of CREATED property timestamps.
 Convert OLD-FORMAT or input to `org-journal-created-property-timestamp-format'.
@@ -41,7 +37,7 @@ belonging to yesterday if smaller than `org-extend-today-until').
 Whenever a journal entry is created the `org-journal-after-entry-create-hook'
 hook is run.
 
-\(fn PREFIX &optional TIME)" t nil)
+\(fn PREFIX &optional TIME NO-TIMESTAMP)" t nil)
 
 (autoload 'org-journal-new-date-entry "org-journal" "\
 Open the journal for the date indicated by point and start a new entry.

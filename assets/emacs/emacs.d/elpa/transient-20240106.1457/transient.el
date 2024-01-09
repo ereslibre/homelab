@@ -1516,7 +1516,7 @@ invoked from.
 Regular suffix commands, which are not prefixes, do not have to
 concern themselves with this distinction, so they can use this
 function instead.  In the context of a plain suffix, it always
-returns the value of the appropiate variable."
+returns the value of the appropriate variable."
   (or transient--prefix transient-current-prefix))
 
 (defun transient-suffix-object (&optional command)
@@ -2231,14 +2231,14 @@ value.  Otherwise return CHILDREN as is."
   (when (window-live-p transient--window)
     (let ((remain-in-minibuffer-window
            (and (minibuffer-selected-window)
-                (selected-window)))
-          (buf (window-buffer transient--window)))
+                (selected-window))))
       ;; Only delete the window if it has never shown another buffer.
       (unless (eq (car (window-parameter transient--window 'quit-restore))
                   'other)
         (with-demoted-errors "Error while exiting transient: %S"
           (delete-window transient--window)))
-      (kill-buffer buf)
+      (when-let ((buffer (get-buffer transient--buffer-name)))
+        (kill-buffer buffer))
       (when remain-in-minibuffer-window
         (select-window remain-in-minibuffer-window)))))
 
