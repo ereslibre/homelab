@@ -1025,17 +1025,17 @@ Only async sources than use a sentinel calling
 
 If nil don't split and replace helm-buffer by the action buffer
 in same window.
-If left display the action buffer at the left of helm-buffer.
-If right or any other value, split at right.
-
+Possible value are left, right, below and above.
 Note that this may not fit well with some Helm window
-configurations, so it have only effect when
+configurations, so it has effect only when
 `helm-always-two-windows' is non-nil."
   :group 'helm
   :type '(choice
           (const :tag "Split at left" left)
-          (const :tag "Don't split" nil)
-          (other :tag "Split at right" right)))
+          (const :tag "Split at right" right)
+          (const :tag "Split below" below)
+          (const :tag "Split above" above)
+          (const :tag "Don't split" nil)))
 
 (defcustom helm-cycle-resume-delay 1.0
   "Delay used before resuming in `helm-run-cycle-resume'."
@@ -3716,10 +3716,14 @@ Argument SAVE-OR-RESTORE is either save or restore."
   (unless (and (or helm-split-window-state
                    helm--window-side-state)
                helm-reuse-last-window-split-state)
+    ;; `helm-split-window-state' should be the contrary of what we currently
+    ;; have to allow toggling windows with C-t.
     (setq helm-split-window-state
-          (if (or (null split-width-threshold)
-                  (and (integerp split-width-threshold)
-                       (>= split-width-threshold (+ (frame-width) 4))))
+          (if (or (null helm-split-window-default-side) ; same as below.
+                  (memq helm-split-window-default-side '(below above))
+                  (null helm-split-width-threshold)
+                  (and (integerp helm-split-width-threshold)
+                       (>= helm-split-width-threshold (+ (frame-width) 4))))
               'vertical 'horizontal))
     (setq helm--window-side-state
           (or helm-split-window-default-side 'below)))
@@ -5561,10 +5565,14 @@ Coerce source with coerce function."
     action))
 
 (defun helm--show-action-window-other-window-p ()
-  (and helm-show-action-window-other-window
-       (or helm-always-two-windows
-           helm--buffer-in-new-frame-p)
-       (eq helm-split-window-state 'vertical)))
+  (when (and helm-show-action-window-other-window
+             (or helm-always-two-windows
+                 helm--buffer-in-new-frame-p)
+             (eq helm-split-window-state 'vertical))
+    (if (< (window-width (helm-window))
+           (or split-width-threshold 160))
+        'below
+      helm-show-action-window-other-window)))
 
 (defun helm-select-action ()
   "Select an action for the currently selected candidate.
@@ -5577,13 +5585,20 @@ If action buffer is selected, back to the Helm buffer."
       (with-selected-frame (with-helm-window (selected-frame))
         (prog1
             (helm-acond ((get-buffer-window helm-action-buffer 'visible)
-                         (set-window-buffer it helm-buffer)
-                         (helm--set-action-prompt 'restore)
-                         (when (helm--show-action-window-other-window-p)
-                           (delete-window it))
-                         (kill-buffer helm-action-buffer)
-                         (setq helm-saved-selection nil)
-                         (helm-set-pattern helm-input 'noupdate))
+                         (let ((delta (window-total-height it)))
+                           (set-window-buffer it helm-buffer)
+                           (helm--set-action-prompt 'restore)
+                           (when (helm--show-action-window-other-window-p)
+                             (delete-window it))
+                           (when (memq helm-show-action-window-other-window '(below above))
+                             (window-resize (get-buffer-window helm-buffer) delta))
+                           (kill-buffer helm-action-buffer)
+                           (setq helm-saved-selection nil)
+                           (helm-set-pattern helm-input 'noupdate)
+                           ;; Maybe hide minibuffer if helm was showing
+                           ;; minibuffer in header-line and we are just toggling
+                           ;; menu [1].
+                           (helm-hide-minibuffer-maybe)))
                         (helm-saved-selection
                          (setq helm-saved-current-source src)
                          (let ((actions (helm-get-actions-from-current-source src))
@@ -5597,6 +5612,9 @@ If action buffer is selected, back to the Helm buffer."
                              (helm-show-action-buffer actions)
                              ;; Be sure the minibuffer is entirely deleted (bug#907).
                              (helm--delete-minibuffer-contents-from "")
+                             ;; Unhide minibuffer to make visible action prompt [1].
+                             (with-selected-window (minibuffer-window)
+                               (remove-overlays) (setq cursor-type t))
                              (helm--set-action-prompt)
                              (helm-check-minibuffer-input))))
                         (t (message "No Actions available")))
@@ -5644,9 +5662,8 @@ If action buffer is selected, back to the Helm buffer."
     (erase-buffer)
     (buffer-disable-undo)
     (setq cursor-type nil)
-    (set-window-buffer (if (helm--show-action-window-other-window-p)
-                           (split-window (get-buffer-window helm-buffer)
-                                         nil helm-show-action-window-other-window)
+    (set-window-buffer (helm-aif (helm--show-action-window-other-window-p)
+                           (split-window (get-buffer-window helm-buffer) nil it)
                          (get-buffer-window helm-buffer))
                        helm-action-buffer)
     (set (make-local-variable 'helm-sources)

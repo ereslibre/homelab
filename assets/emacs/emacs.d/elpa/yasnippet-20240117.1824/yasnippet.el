@@ -554,9 +554,12 @@ conditions.
     sexp))
 
 (defcustom yas-keymap-disable-hook nil
-  "The `yas-keymap' bindings are disabled if any function in this list returns non-nil.
+  "Abnormal hook run to decide when `yas-keymap' bindings are enabled.
+The bindings are disabled whenever any function in this list returns non-nil.
 This is useful to control whether snippet navigation bindings
-override bindings from other packages (e.g., `company-mode')."
+override bindings from other packages (e.g., `company-mode').
+This is run (several times) every time we perform a key lookup, so
+it has to be fast."
   :type 'hook)
 
 (defcustom yas-overlay-priority 100
@@ -828,8 +831,12 @@ which decides on the snippet to expand.")
                                       (mapcar #'yas--all-parents
                                               (gethash parent yas--parents))))
                                    ap)))
-                     (yas--merge-ordered-lists
-                      (cons (append ap '(fundamental-mode)) extras)))
+                     (cl-assert (eq mode (car ap)))
+                     (cons mode
+                           (yas--merge-ordered-lists
+                            (cons (if (eq mode 'fundamental-mode) ()
+                                    (append (cdr ap) '(fundamental-mode)))
+                                  extras))))
                  (cons mode
                        (yas--merge-ordered-lists
                         (mapcar #'yas--all-parents
@@ -842,22 +849,22 @@ which decides on the snippet to expand.")
                                            (when (symbolp alias) alias))
                                         ,@(gethash mode yas--parents)))))))))
           (dolist (parent all-parents)
-            (cl-pushnew mode (get parent 'yas--all-children)))
+            (cl-pushnew mode (get parent 'yas--cached-children)))
           (put mode 'yas--all-parents all-parents)))))
 
 (defun yas--modes-to-activate (&optional mode)
   "Compute list of mode symbols that are active for `yas-expand' and friends."
   (let* ((modes
           (delete-dups
-           (remq nil `(,(or mode major-mode)
+           (remq nil `(,@(unless mode yas--extra-modes)
+                       ,(or mode major-mode)
                        ;; FIXME: Alternative major modes should use
                        ;; `derived-mode-add-parents', but until that
                        ;; becomes common, use `major-mode-remap-alist'
                        ;; as a crutch to supplement the mode hierarchy.
                        ,(and (boundp 'major-mode-remap-alist)
                              (car (rassq (or mode major-mode)
-                                         major-mode-remap-alist)))
-                       ,@(unless mode (reverse yas--extra-modes)))))))
+                                         major-mode-remap-alist))))))))
     (yas--merge-ordered-lists
      (mapcar #'yas--all-parents modes))))
 
@@ -1279,7 +1286,7 @@ Return TEMPLATE."
       (cl-assert menu-keymap)
       (yas--delete-from-keymap menu-keymap (yas--template-uuid template))
 
-      ;; Add necessary subgroups as necessary.
+      ;; Add subgroups as necessary.
       ;;
       (dolist (subgroup group)
         (let ((subgroup-keymap (lookup-key menu-keymap (vector (make-symbol subgroup)))))
@@ -1489,7 +1496,7 @@ Also tries to work around Emacs Bug#30931."
   (yas--safely-call-fun (apply-partially #'eval form)))
 
 (defun yas--read-lisp (string &optional nil-on-error)
-  "Read STRING as a elisp expression and return it.
+  "Read STRING as an Elisp expression and return it.
 
 In case STRING in an invalid expression and NIL-ON-ERROR is nil,
 return an expression that when evaluated will issue an error."
@@ -1857,8 +1864,9 @@ the current buffers contents."
 
 (defun yas--define-parents (mode parents)
   "Add PARENTS to the list of MODE's parents."
-  (dolist (child (get mode 'yas--all-children))
-    (put child 'yas--all-parents nil))  ;Flush the cache for all children.
+  (dolist (child (get mode 'yas--cached-children))
+    (put child 'yas--all-parents nil))  ;Flush the cache for children.
+  (put 'mode 'yas--cached-children nil)
   (puthash mode (cl-remove-duplicates
                  (append parents
                          (gethash mode yas--parents)))
@@ -3601,8 +3609,8 @@ If so cleans up the whole snippet up."
                  (yas--commit-snippet snippet)
                  (setq exited-snippets-p t))
                 ((and active-field
-                      (or (not yas--active-field-overlay)
-                          (not (overlay-buffer yas--active-field-overlay))))
+                      (not (and yas--active-field-overlay
+                                (overlay-buffer yas--active-field-overlay))))
                  ;;
                  ;; stacked expansion: this case is mainly for recent
                  ;; snippet exits that place us back int the field of
@@ -3716,7 +3724,7 @@ Otherwise deletes a character normally by calling `delete-char'."
         (t (call-interactively 'delete-char))))
 
 (defun yas--skip-and-clear (field &optional from)
-  "Deletes the region of FIELD and sets it's modified state to t.
+  "Delete the region of FIELD and set its modified state to t.
 If given, FROM indicates position to start at instead of FIELD's beginning."
   ;; Just before skipping-and-clearing the field, mark its children
   ;; fields as modified, too. If the children have mirrors-in-fields
@@ -3933,12 +3941,13 @@ Move the overlays, or create them if they do not exit."
              ;; (overlay-put ov 'evaporate t)
              (overlay-put ov 'modification-hooks '(yas--on-protection-overlay-modification)))))))
 
-(defun yas--on-protection-overlay-modification (_overlay after? beg end &optional length)
+(defun yas--on-protection-overlay-modification (overlay after? beg end &optional length)
   "Commit the snippet if the protection overlay is being killed."
   (unless (or yas--inhibit-overlay-hooks
               yas-inhibit-overlay-modification-protection
               (not after?)
               (= length (- end beg)) ; deletion or insertion
+              (>= beg (overlay-start overlay)) ;Emacs=29.1 bug#65929
               (yas--undo-in-progress))
     (let ((snippets (yas-active-snippets)))
       (yas--message 2 "Committing snippets. Action would destroy a protection overlay.")
@@ -3989,9 +3998,7 @@ for normal snippets, and a list for command snippets)."
   (run-hooks 'yas-before-expand-snippet-hook)
 
   (let* ((clear-field
-          (let ((field (and yas--active-field-overlay
-                            (overlay-buffer yas--active-field-overlay)
-                            (overlay-get yas--active-field-overlay 'yas--field))))
+          (let ((field (yas-current-field)))
             (and field (yas--skip-and-clear-field-p
                         field (point) (point) 0)
                  field)))
@@ -4038,9 +4045,7 @@ for normal snippets, and a list for command snippets)."
 
              ;; Stacked-expansion: This checks for stacked expansion, save the
              ;; `yas--previous-active-field' and advance its boundary.
-             (let ((existing-field (and yas--active-field-overlay
-                                        (overlay-buffer yas--active-field-overlay)
-                                        (overlay-get yas--active-field-overlay 'yas--field))))
+             (let ((existing-field (yas-current-field)))
                (when existing-field
                  (setf (yas--snippet-previous-active-field snippet) existing-field)
                  (yas--advance-end-maybe-previous-fields

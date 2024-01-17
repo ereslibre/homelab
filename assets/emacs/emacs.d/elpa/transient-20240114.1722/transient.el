@@ -728,7 +728,8 @@ slot is non-nil."
   :abstract t)
 
 (defclass transient-suffix (transient-child)
-  ((key         :initarg :key)
+  ((definition  :allocation :class    :initform nil)
+   (key         :initarg :key)
    (command     :initarg :command)
    (transient   :initarg :transient)
    (format      :initarg :format      :initform " %k %d")
@@ -949,7 +950,10 @@ ARGLIST.  The infix arguments are usually accessed by using
   (pcase-let ((`(,class ,slots ,_ ,docstr ,body)
                (transient--expand-define-args args arglist)))
     `(progn
-       (defalias ',name (lambda ,arglist ,@body))
+       (defalias ',name
+         ,(if (and (not body) class (oref-default class definition))
+              `(oref-default ',class definition)
+            `(lambda ,arglist ,@body)))
        (put ',name 'interactive-only t)
        (put ',name 'function-documentation ,docstr)
        (put ',name 'transient--suffix
@@ -1475,7 +1479,8 @@ drawing in the transient buffer.")
 
 (defvar transient--pending-suffix nil
   "The suffix that is currently being processed.
-This is bound while the suffix predicate is being evaluated.")
+This is bound while the suffix predicate is being evaluated,
+and while functions that return faces are being evaluated.")
 
 (defvar transient--pending-group nil
   "The group that is currently being processed.
@@ -1558,33 +1563,35 @@ probably use this instead:
   (get COMMAND \\='transient--suffix)"
   (when command
     (cl-check-type command command))
-  (if (or transient--prefix
-          transient-current-prefix)
-      (let ((suffixes
-             (cl-remove-if-not
-              (lambda (obj)
-                (eq (oref obj command)
-                    (or command
-                        (if (eq this-command 'transient-set-level)
-                            ;; This is how it can look up for which
-                            ;; command it is setting the level.
-                            this-original-command
-                          this-command))))
-              (or transient--suffixes
-                  transient-current-suffixes))))
-        (or (and (cdr suffixes)
-                 (cl-find-if
-                  (lambda (obj)
-                    (equal (listify-key-sequence (transient--kbd (oref obj key)))
-                           (listify-key-sequence (this-command-keys))))
-                  suffixes))
-            (car suffixes)))
-    (and-let* ((obj (transient--suffix-prototype (or command this-command)))
+  (cond
+   (transient--pending-suffix)
+   ((or transient--prefix
+        transient-current-prefix)
+    (let ((suffixes
+           (cl-remove-if-not
+            (lambda (obj)
+              (eq (oref obj command)
+                  (or command
+                      (if (eq this-command 'transient-set-level)
+                          ;; This is how it can look up for which
+                          ;; command it is setting the level.
+                          this-original-command
+                        this-command))))
+            (or transient--suffixes
+                transient-current-suffixes))))
+      (or (and (cdr suffixes)
+               (cl-find-if
+                (lambda (obj)
+                  (equal (listify-key-sequence (transient--kbd (oref obj key)))
+                         (listify-key-sequence (this-command-keys))))
+                suffixes))
+          (car suffixes))))
+   ((and-let* ((obj (transient--suffix-prototype (or command this-command)))
                (obj (clone obj)))
       (progn ; work around debbugs#31840
         (transient-init-scope obj)
         (transient-init-value obj)
-        obj))))
+        obj)))))
 
 (defun transient--suffix-prototype (command)
   (or (get command 'transient--suffix)
@@ -3179,8 +3186,10 @@ The last value is \"don't use any of these switches\"."
   "Elsewhere use the reader of the infix command COMMAND.
 Use this if you want to share an infix's history with a regular
 stand-alone command."
-  (cl-letf (((symbol-function #'transient--show) #'ignore))
-    (transient-infix-read (transient--suffix-prototype command))))
+  (if-let ((obj (transient--suffix-prototype command)))
+      (cl-letf (((symbol-function #'transient--show) #'ignore))
+        (transient-infix-read obj))
+    (error "Not a suffix command: `%s'" command)))
 
 ;;;; Readers
 
@@ -3912,7 +3921,10 @@ If the OBJ's `key' is currently unreachable, then apply the face
              (face (slot-value obj slot)))
     (if (and (not (facep face))
              (functionp face))
-        (funcall face)
+        (let ((transient--pending-suffix obj))
+          (if (= (car (func-arity face)) 1)
+              (funcall face obj)
+            (funcall face)))
       face)))
 
 (defun transient--key-face (&optional cmd enforce-type)

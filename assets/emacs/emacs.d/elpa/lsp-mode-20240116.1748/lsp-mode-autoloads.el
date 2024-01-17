@@ -111,6 +111,12 @@ Show a test tree and focus on it if IGNORE-FOCUS? is nil.
 
 \(fn IGNORE-FOCUS\\=\\?)" t nil)
 
+(autoload 'lsp-clojure-show-project-tree "lsp-clojure" "\
+Show a project tree with source-paths and dependencies.
+Focus on it if IGNORE-FOCUS? is nil.
+
+\(fn IGNORE-FOCUS\\=\\?)" t nil)
+
 (register-definition-prefixes "lsp-clojure" '("lsp-clojure-"))
 
 ;;;***

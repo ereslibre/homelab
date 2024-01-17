@@ -71,12 +71,16 @@ and typing \\[eval-last-sexp].
 
 Once you have done that, you have to explicitly upgrade `%s':
 
-  \\[package-upgrade] %s \\`RET'
+  \\[package-install] %s \\`RET'
 
 Then you also must make sure the updated version is loaded,
 by evaluating this form:
 
-  (progn (unload-feature '%s t) (require '%s))
+  (progn (unload-feature \\='%s t) (require \\='%s))
+
+If this does not work, then try uninstalling Magit and all of its
+dependencies.  After that exit and restart Emacs, and only then
+reinstalling Magit.
 
 If you don't use the `package' package manager but still get
 this warning, then your chosen package manager likely has a
@@ -2028,27 +2032,29 @@ If optional CONDITION is non-nil, then the selection not only
 has to be valid; all selected sections additionally have to match
 CONDITION, or nil is returned.  See `magit-section-match' for the
 forms CONDITION can take."
-  (when (region-active-p)
-    (let* ((rbeg (region-beginning))
-           (rend (region-end))
-           (sbeg (magit-section-at rbeg))
-           (send (magit-section-at rend)))
-      (when (and send
-                 (not (eq send magit-root-section))
-                 (not (and multiple (eq send sbeg))))
-        (let ((siblings (cons sbeg (magit-section-siblings sbeg 'next)))
-              sections)
-          (when (and (memq send siblings)
+  (and (region-active-p)
+       (let* ((rbeg (region-beginning))
+              (rend (region-end))
+              (sbeg (magit-section-at rbeg))
+              (send (magit-section-at rend)))
+         (and send
+              (not (eq send magit-root-section))
+              (not (and multiple (eq send sbeg)))
+              (let ((siblings (cons sbeg (magit-section-siblings sbeg 'next)))
+                    (sections ()))
+                (and (memq send siblings)
                      (magit-section-position-in-heading-p sbeg rbeg)
-                     (magit-section-position-in-heading-p send rend))
-            (while siblings
-              (push (car siblings) sections)
-              (when (eq (pop siblings) send)
-                (setq siblings nil)))
-            (setq sections (nreverse sections))
-            (when (or (not condition)
-                      (--all-p (magit-section-match condition it) sections))
-              sections)))))))
+                     (magit-section-position-in-heading-p send rend)
+                     (progn
+                       (while siblings
+                         (push (car siblings) sections)
+                         (when (eq (pop siblings) send)
+                           (setq siblings nil)))
+                       (setq sections (nreverse sections))
+                       (and (or (not condition)
+                                (--all-p (magit-section-match condition it)
+                                         sections))
+                            sections))))))))
 
 (defun magit-map-sections (function &optional section)
   "Apply FUNCTION to all sections for side effects only, depth first.
