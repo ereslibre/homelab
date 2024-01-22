@@ -182,7 +182,7 @@ in {
         }
         sri() {
           local algo="''${2:-sha256}"
-          nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" "$1")
+          nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" $EXTRA_ARGS "$1")
         }
         token() {
           key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
