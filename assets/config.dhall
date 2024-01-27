@@ -10,12 +10,11 @@
       flake-utils.lib.eachDefaultSystem
         (system:
           let
-            pkgs = nixities.packages.''${system};
-            nixpkgs = (import nixities.nixpkgs {
+            pkgs = (import nixities.nixpkgs {
               inherit system;
               config.allowUnfree = true;
             });
-            nixpkgs-cuda = (import nixities.nixpkgs {
+            pkgs-cuda = (import nixities.nixpkgs {
               inherit system;
               config = {
                 allowUnfree = true;
