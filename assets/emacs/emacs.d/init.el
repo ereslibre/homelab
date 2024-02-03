@@ -141,7 +141,8 @@
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c C-o" . org-open-at-point))
+         ("C-c C-o" . org-open-at-point)
+         ("C-c ," . org-insert-structure-template))
   :config
   (setq org-directory "~/.org")
   (setq org-agenda-files '("~/.org/habits.org"
