@@ -1,16 +1,3 @@
-;; exec path
-(setenv "PATH"
-  (concat
-   (expand-file-name "~/.nix-profile/bin") ":"
-   (getenv "PATH")))
-(add-to-list 'exec-path (expand-file-name "~/.nix-profile/bin"))
-
-;; custom modes based on file extensions
-(add-to-list 'auto-mode-alist '("\\.wat\\'" . lisp-mode))
-
-;; terminal tweaks
-(add-hook 'term-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
-
 ;; imenu
 (set-default
  'imenu-after-jump-hook (recenter (/ (window-height) 2)))
@@ -22,12 +9,6 @@
 
 ;; calendar
 (setq calendar-week-start-day 1)
-
-;; go
-(defun go-mode-custom ()
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save))
-(add-hook 'go-mode-hook 'go-mode-custom)
 
 ;; misc -- tmux prefix
 (global-unset-key (kbd "C-z"))
@@ -88,12 +69,6 @@
 ;; programming helpers
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
-
-;; specific directory settings
-(dir-locals-set-class-variables 'php-project
-   '((nil . ((indent-tabs-mode . t)))))
-(dir-locals-set-directory-class
-   "~/projects/php" 'php-project)
 
 ;; font
 (set-frame-font "Iosevka-13:Regular")
