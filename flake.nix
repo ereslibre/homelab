@@ -36,12 +36,14 @@
         username,
         homeDirectory,
         profile,
+        mainlyRemote,
         stateVersion,
       }: let
         pkgs = nixpkgs.legacyPackages.${system};
       in [
+        {nixpkgs.config.allowUnfree = true;}
         (import ./home.nix {
-          inherit username homeDirectory stateVersion pkgs nixpkgs profile devenv home-manager;
+          inherit username homeDirectory stateVersion pkgs nixpkgs profile mainlyRemote devenv home-manager;
         })
       ];
 
@@ -51,6 +53,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
+          mainlyRemote = true;
           stateVersion = "23.05";
         };
         "ereslibre@nuc-1" = {
@@ -58,6 +61,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
+          mainlyRemote = true;
           stateVersion = "22.11";
         };
         "ereslibre@nuc-2" = {
@@ -65,6 +69,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
+          mainlyRemote = true;
           stateVersion = "22.11";
         };
         "ereslibre@nuc-3" = {
@@ -72,6 +77,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
+          mainlyRemote = true;
           stateVersion = "23.05";
         };
         "ereslibre@pi-desktop" = {
@@ -79,6 +85,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
+          mainlyRemote = false;
           stateVersion = "22.11";
         };
         "ereslibre@Rafaels-Air" = {
@@ -86,6 +93,7 @@
           username = "ereslibre";
           homeDirectory = "/Users/ereslibre";
           profile = "personal";
+          mainlyRemote = false;
           stateVersion = "22.11";
         };
         "rfernandezl@rfernandezX6Y3X.vmware.com" = {
@@ -93,6 +101,7 @@
           username = "rfernandezl";
           homeDirectory = "/Users/rfernandezl";
           profile = "work";
+          mainlyRemote = false;
           stateVersion = "22.11";
         };
       };
@@ -102,13 +111,16 @@
         username,
         homeDirectory,
         profile,
+        mainlyRemote,
         stateVersion,
       }: (let
         pkgs = nixpkgs.legacyPackages.${system};
       in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = homeManagerModules {inherit system username homeDirectory profile stateVersion;};
+          modules = homeManagerModules {
+            inherit system username homeDirectory profile mainlyRemote stateVersion;
+          };
         });
     in {
       # Export home-manager configurations

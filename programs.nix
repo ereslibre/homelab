@@ -1,4 +1,4 @@
-{
+{mainlyRemote}: {
   config,
   pkgs,
   ...
@@ -126,6 +126,8 @@ in {
         bind-key z resize-pane -Z
       '';
     };
+
+    vscode.enable = !mainlyRemote;
 
     zsh = {
       enable = true;

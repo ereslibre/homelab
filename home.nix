@@ -5,6 +5,7 @@
   pkgs,
   nixpkgs,
   profile,
+  mainlyRemote,
   devenv,
   home-manager,
   ...
@@ -13,7 +14,7 @@
     [
       (import ./dotfiles.nix {inherit username profile pkgs;})
       (import ./packages.nix {inherit devenv pkgs;})
-      ./programs.nix
+      (import ./programs.nix {inherit mainlyRemote;})
     ]
     ++ nixpkgs.lib.optionals pkgs.stdenv.isDarwin [
       (import ./mac.nix {inherit username pkgs;})
