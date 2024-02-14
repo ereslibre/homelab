@@ -3,22 +3,22 @@
   pkgs,
   ...
 }: let
-  emacsBinary =
+  emacsBinary = {wait}:
     if mainlyRemote
     then "${pkgs.emacs-nox}/bin/emacsclient --tty"
-    else "${pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
-  emacs =
+    else ("${pkgs.emacs}/bin/emacsclient --create-frame " + (pkgs.lib.optionalString (!wait) "--no-wait"));
+  emacs = {wait}:
     if pkgs.stdenv.isDarwin
-    then "${emacsBinary} -s $HOME/.emacs.d/emacs.sock"
-    else "${emacsBinary}";
+    then "${emacsBinary {inherit wait;}} -s $HOME/.emacs.d/emacs.sock"
+    else "${emacsBinary {inherit wait;}}";
   shellExtras = {
     profileExtra = ''
-      EDITOR="${emacs}"
+      EDITOR="${emacs {wait = true;}}}"
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
-    sessionVariables = {EDITOR = emacs;};
-    shellAliases = {emacs = emacs;};
+    sessionVariables = {EDITOR = emacs {wait = true;};};
+    shellAliases = {emacs = emacs {wait = true;};};
   };
 in {
   programs = {
@@ -33,7 +33,10 @@ in {
     };
     emacs = {
       enable = true;
-      package = if mainlyRemote then pkgs.emacs-nox else pkgs.emacs;
+      package =
+        if mainlyRemote
+        then pkgs.emacs-nox
+        else pkgs.emacs;
     };
     fzf = {
       enable = true;
@@ -137,6 +140,7 @@ in {
       enable = true;
       enableCompletion = false;
       envExtra = ''
+        export GIT_EDITOR="${emacs {wait = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export GO111MODULE="on"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
