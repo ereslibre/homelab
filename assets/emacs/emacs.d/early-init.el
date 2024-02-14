@@ -53,6 +53,10 @@
 (setq-default show-paren-delay 0)
 (setq-default show-paren-style 'mixed)
 
+;; programming helpers
+(add-hook 'prog-mode-hook
+          (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
+
 ;; font
 (set-frame-font "Iosevka-13:Regular")
 (add-to-list 'default-frame-alist '(font . "Iosevka-13:Regular"))
