@@ -1,9 +1,3 @@
-;; imenu
-(set-default
- 'imenu-after-jump-hook (recenter (/ (window-height) 2)))
-(set-default
- 'imenu-auto-rescan t)
-
 ;; word wrap
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -51,24 +45,13 @@
 (electric-indent-mode 1)
 
 ;; writing style
-(setq-default c-basic-indent 2)
-(setq-default js-indent-level 2)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
-
-;; hide-show mode
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-(global-set-key (kbd "C-c H") 'hs-hide-block)
-(global-set-key (kbd "C-c S") 'hs-show-block)
 
 ;; syntax highlighting
 (show-paren-mode 1)
 (setq-default show-paren-delay 0)
-(setq-default show-paren-style 'parenthesis)
-
-;; programming helpers
-(add-hook 'prog-mode-hook
-          (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
+(setq-default show-paren-style 'mixed)
 
 ;; font
 (set-frame-font "Iosevka-13:Regular")

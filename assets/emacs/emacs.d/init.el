@@ -15,6 +15,7 @@
   (setq use-package-always-ensure t))
 
 (menu-bar-mode -1)
+(setq package-install-upgrade-built-in t)
 
 (use-package ace-window
   :ensure
@@ -26,9 +27,6 @@
   :demand t
   :config
   (load-theme 'dracula t))
-
-(with-eval-after-load 'doc-view
-  (setq doc-view-resolution 300))
 
 (use-package project
   :ensure
