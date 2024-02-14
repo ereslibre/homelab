@@ -3,10 +3,14 @@
   pkgs,
   ...
 }: let
+  emacsBinary =
+    if mainlyRemote
+    then "${pkgs.emacs-nox}/bin/emacsclient --tty"
+    else "${pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
   emacs =
     if pkgs.stdenv.isDarwin
-    then "${pkgs.emacs-nox}/bin/emacsclient -s $HOME/.emacs.d/emacs.sock -t"
-    else "${pkgs.emacs-nox}/bin/emacsclient -t";
+    then "${emacsBinary} -s $HOME/.emacs.d/emacs.sock"
+    else "${emacsBinary}";
   shellExtras = {
     profileExtra = ''
       EDITOR="${emacs}"
@@ -29,7 +33,7 @@ in {
     };
     emacs = {
       enable = true;
-      package = pkgs.emacs-nox;
+      package = if mainlyRemote then pkgs.emacs-nox else pkgs.emacs;
     };
     fzf = {
       enable = true;
