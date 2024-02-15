@@ -6,3 +6,5 @@
 [*]
 .svn
 .DS_Store
+.devenv
+.direnv
