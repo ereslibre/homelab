@@ -85,6 +85,7 @@ in {
     jq.enable = true;
     less.enable = true;
     pandoc.enable = true;
+    ripgrep.enable = true;
     starship = {
       enable = true;
       enableZshIntegration = true;
