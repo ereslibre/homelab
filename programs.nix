@@ -135,10 +135,7 @@ in {
       '';
     };
 
-    vscode = {
-      enable = !mainlyRemote;
-      package = pkgs.vscode.fhs;
-    };
+    vscode.enable = !mainlyRemote;
 
     zsh = {
       enable = true;
