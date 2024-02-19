@@ -10,12 +10,12 @@
       source = ./assets/emacs/emacs.d;
       recursive = true;
     };
-    ".gitconfig.vmware".source = ./assets/git/config-vmware;
+    ".gitconfig.broadcom".source = ./assets/git/config-broadcom;
     ".gitignore".source = ./assets/git/gitignore;
     ".gitconfig".source =
       if profile == "personal"
       then ./assets/git/full-config
-      else ./assets/git/full-config-vmware;
+      else ./assets/git/full-config-broadcom;
     ".ssh/config".text = import ./assets/ssh/config.nix {inherit username;};
   };
 }
