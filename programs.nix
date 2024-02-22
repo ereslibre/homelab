@@ -18,7 +18,10 @@
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
     sessionVariables = {EDITOR = emacs {nox = true;};};
-    shellAliases = {emacs = emacs {nox = mainlyRemote;};};
+    shellAliases = {
+      emacs = emacs {nox = mainlyRemote;};
+      emacs-nox = emacs {nox = true;};
+    };
   };
 in {
   programs = {
