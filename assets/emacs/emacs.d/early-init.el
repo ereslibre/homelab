@@ -37,6 +37,9 @@
 (line-number-mode 1)
 (column-number-mode 1)
 
+;; winner mode
+(winner-mode 1)
+
 ;; cursor
 (blink-cursor-mode 0)
 
