@@ -27,7 +27,7 @@
     xxd
     zstd
   ];
-  global-language-tools = with pkgs; [gopls gotools rnix-lsp rustup];
+  global-language-tools = with pkgs; [gopls gotools rustup];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals stdenv.isLinux [kind kube3d]));
   nix-tools = [devenv.packages.${pkgs.stdenv.system}.default];
   platform-tools = with pkgs; [gh opentofu];
