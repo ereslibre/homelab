@@ -39,7 +39,8 @@
       import:
         - ./dracula.yml
       env:
-        TERM: xterm-direct
+        TERM: xterm
+        COLORTERM: truecolor
       font:
         normal:
           family: Fira Code

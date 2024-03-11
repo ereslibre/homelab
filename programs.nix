@@ -100,7 +100,7 @@ in {
       clock24 = true;
       keyMode = "emacs";
       shortcut = "z";
-      terminal = "xterm-direct";
+      terminal = "xterm";
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
