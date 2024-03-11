@@ -144,6 +144,7 @@ in {
       enable = true;
       enableCompletion = false;
       envExtra = ''
+        export COLORTERM=truecolor
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export GO111MODULE="on"

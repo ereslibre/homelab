@@ -38,9 +38,6 @@
     ".config/alacritty/alacritty.yml".text = ''
       import:
         - ./dracula.yml
-      env:
-        TERM: xterm
-        COLORTERM: truecolor
       font:
         normal:
           family: Fira Code
