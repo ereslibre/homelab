@@ -31,22 +31,6 @@
       };
     }))
     // (let
-      homeManagerModules = {
-        system,
-        username,
-        homeDirectory,
-        profile,
-        mainlyRemote,
-        stateVersion,
-      }: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in [
-        {nixpkgs.config.allowUnfree = true;}
-        (import ./home.nix {
-          inherit username homeDirectory stateVersion pkgs nixpkgs profile mainlyRemote devenv home-manager;
-        })
-      ];
-
       rawHomeManagerConfigurations = {
         "ereslibre@hulk" = {
           system = "x86_64-linux";
@@ -113,15 +97,18 @@
         profile,
         mainlyRemote,
         stateVersion,
-      }: (let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
+      }:
         home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = homeManagerModules {
-            inherit system username homeDirectory profile mainlyRemote stateVersion;
+          pkgs = import nixpkgs {
+            inherit system;
           };
-        });
+          modules = [
+            {nixpkgs.config.allowUnfree = true;}
+            (import ./home.nix {
+              inherit system username homeDirectory stateVersion profile mainlyRemote devenv home-manager;
+            })
+          ];
+        };
     in {
       # Export home-manager configurations
       inherit rawHomeManagerConfigurations;

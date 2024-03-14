@@ -1,8 +1,4 @@
-{
-  username,
-  pkgs,
-  ...
-}: {
+{username}: {pkgs, ...}: {
   programs.keychain = {
     enable = true;
     enableZshIntegration = true;

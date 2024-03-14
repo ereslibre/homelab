@@ -2,27 +2,33 @@
   username,
   homeDirectory,
   stateVersion,
-  pkgs,
-  nixpkgs,
   profile,
+  system,
   mainlyRemote,
   devenv,
   home-manager,
+}: {
+  pkgs,
+  lib,
   ...
 }: {
   imports =
     [
-      (import ./dotfiles.nix {inherit username profile pkgs;})
-      (import ./packages.nix {inherit devenv pkgs;})
+      (import ./dotfiles.nix {inherit username profile;})
+      (import ./packages.nix {inherit devenv;})
       (import ./programs.nix {inherit mainlyRemote;})
     ]
-    ++ nixpkgs.lib.optionals pkgs.stdenv.isDarwin [
-      (import ./mac.nix {inherit username pkgs;})
-    ]
-    ++ nixpkgs.lib.optionals pkgs.stdenv.isLinux [
-      (import ./node.nix {inherit home-manager pkgs;})
-      ./systemd.nix
-    ];
+    ++ (
+      lib.optionals (system == "x86_64-linux")
+      [
+        (import ./node.nix {inherit home-manager;})
+        (import ./systemd.nix)
+      ]
+    )
+    ++ (
+      lib.optionals (system == "x86_64-darwin")
+      [(import ./mac.nix {inherit username;})]
+    );
 
   home = {inherit username homeDirectory stateVersion;};
 }

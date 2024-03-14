@@ -1,5 +1,6 @@
 {mainlyRemote}: {
   config,
+  lib,
   pkgs,
   ...
 }: let

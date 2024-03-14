@@ -1,9 +1,5 @@
-{
-  devenv,
-  pkgs,
-  ...
-}: let
-  container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals stdenv.isLinux [distrobox]);
+{devenv}: {pkgs, ...}: let
+  container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     alacritty
     binutils
@@ -28,7 +24,7 @@
     zstd
   ];
   global-language-tools = with pkgs; [gopls gotools rustup];
-  kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals stdenv.isLinux [kind kube3d]));
+  kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.isLinux [kind kube3d]));
   nix-tools = [devenv.packages.${pkgs.stdenv.system}.default];
   platform-tools = with pkgs; [gh opentofu];
 in {
