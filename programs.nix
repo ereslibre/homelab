@@ -145,10 +145,9 @@ in {
       enable = true;
       enableCompletion = false;
       envExtra = ''
-        export COLORTERM=truecolor
+        export TERM=xterm-direct
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
-        export GO111MODULE="on"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
         export PYTHONPATH="${config.home.homeDirectory}/.pip:$PYTHONPATH"
         export LANG="en_US.UTF-8"
