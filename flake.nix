@@ -2,15 +2,20 @@
   description = "Home lab";
 
   inputs = {
-    dotfiles.url = "github:ereslibre/dotfiles";
+    nixpkgs.url = "github:ereslibre/nixpkgs/cdi-add-nvidia-docker-1-directories";
+    # nixpkgs.url = "git+file:///home/ereslibre/projects/NixOS/nixpkgs";
+    dotfiles = {
+      url = "github:ereslibre/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     microvm = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
