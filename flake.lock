@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710624238,
-        "narHash": "sha256-HRCfANlTzX2yp5Wmaj3vtMd9/vsaSmwWZ+/7G/ZyvMI=",
+        "lastModified": 1710703251,
+        "narHash": "sha256-8APAFM93AG2QS31VgMxGxputcVPOcerwzYtxXFTknRY=",
         "owner": "ereslibre",
         "repo": "dotfiles",
-        "rev": "7e02af717023ca48a22d9dfad8948ff19f2c1f3e",
+        "rev": "2fd8ea4fda5e315a1dc04626b3420a12dd713d47",
         "type": "github"
       },
       "original": {
@@ -300,18 +300,17 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1710608260,
-        "narHash": "sha256-vktbbOp+sR/8rM9rkHnHwdNFuzoF8OGp/7UJpUnBRKw=",
-        "owner": "ereslibre",
-        "repo": "nixpkgs",
-        "rev": "678d3bde9daf2f2932b8457f7d23d06e9ff7e594",
-        "type": "github"
+        "lastModified": 1710676994,
+        "narHash": "sha256-tLoaiytHx1kZg75JaNZdkbZAKnMM1I0BLWPVzRAjcMY=",
+        "ref": "refs/heads/cdi-add-nvidia-docker-1-directories",
+        "rev": "a43aac8d399c44ae2b76dc320269cebb68b1c78d",
+        "revCount": 597366,
+        "type": "git",
+        "url": "file:///home/ereslibre/projects/NixOS/nixpkgs"
       },
       "original": {
-        "owner": "ereslibre",
-        "ref": "cdi-add-nvidia-docker-1-directories",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/ereslibre/projects/NixOS/nixpkgs"
       }
     },
     "pre-commit-hooks": {

@@ -64,8 +64,5 @@
     serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
   };
 
-  virtualisation.containers.cdi.dynamic.nvidia = {
-    enable = true;
-    mount-nvidia-docker-1-directories = true;
-  };
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 }

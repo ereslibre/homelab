@@ -2,8 +2,8 @@
   description = "Home lab";
 
   inputs = {
-    nixpkgs.url = "github:ereslibre/nixpkgs/cdi-add-nvidia-docker-1-directories";
-    # nixpkgs.url = "git+file:///home/ereslibre/projects/NixOS/nixpkgs";
+    #nixpkgs.url = "github:ereslibre/nixpkgs/cdi-add-nvidia-docker-1-directories";
+    nixpkgs.url = "git+file:///home/ereslibre/projects/NixOS/nixpkgs";
     dotfiles = {
       url = "github:ereslibre/dotfiles";
       inputs.nixpkgs.follows = "nixpkgs";
