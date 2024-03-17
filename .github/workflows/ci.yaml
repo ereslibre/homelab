@@ -60,6 +60,5 @@ jobs:
           # Force the creation of the profile dir
           nix profile list
           # Build
-          make build \
-            ACTIVATION_USER=${{ matrix.user }} \
-            ACTIVATION_HOST=${{ matrix.host }}
+          just build \
+            ${{ matrix.user }}@${{ matrix.host }}
