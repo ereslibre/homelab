@@ -19,7 +19,7 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v3
       - name: Format
         run: |
-          nix develop --command "just fmt"
+          nix develop --command just fmt
           git diff --exit-code
   flake-check:
     name: Flake Check
@@ -60,4 +60,4 @@ jobs:
           # Force the creation of the profile dir
           nix profile list
           # Build
-          nix develop --command "just build ${{ matrix.user }}@${{ matrix.host }}"
+          nix develop --command just build ${{ matrix.user }}@${{ matrix.host }}
