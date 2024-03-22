@@ -202,6 +202,15 @@ in {
         token() {
           key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
+        shiori-list() {
+          k exec deployment/shiori -n shiori -- shiori print $1
+        }
+        shiori-search-unread() {
+          k exec deployment/shiori -n shiori -- shiori print -s "$1" -t "-tag:read"
+        }
+        shiori-search-all() {
+          k exec deployment/shiori -n shiori -- shiori print -s "$1"
+        }
         ,() {
           nixity-run $1 -- ''${@:2}
         }
