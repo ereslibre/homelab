@@ -17,7 +17,6 @@ Major mode for editing terraform configuration file
 (fn)" t)
 (add-to-list 'auto-mode-alist '("\\.tf\\(vars\\)?\\'" . terraform-mode))
 (register-definition-prefixes "terraform-mode" '("terraform-"))
-
 
 ;;; End of scraped data
 

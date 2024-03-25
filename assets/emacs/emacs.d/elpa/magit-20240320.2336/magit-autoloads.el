@@ -2237,7 +2237,6 @@ Move WORKTREE to PATH.
 
 (fn WORKTREE PATH)" t)
 (register-definition-prefixes "magit-worktree" '("magit-"))
-
 
 ;;; End of scraped data
 

@@ -19,7 +19,6 @@
                   fundamental-mode
                   git-commit-elisp-text-mode))))
 (register-definition-prefixes "git-commit" '("git-commit-" "global-git-commit-mode"))
-
 
 ;;; End of scraped data
 

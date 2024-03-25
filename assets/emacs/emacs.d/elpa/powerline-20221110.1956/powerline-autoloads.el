@@ -64,7 +64,6 @@ Setup a Vim-like mode-line." t)
 (autoload 'powerline-nano-theme "powerline-themes" "\
 Setup a nano-like mode-line." t)
 (register-definition-prefixes "powerline-themes" '("powerline-"))
-
 
 ;;; End of scraped data
 

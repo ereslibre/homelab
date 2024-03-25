@@ -12,7 +12,6 @@
 ;;; Generated autoloads from magit-section.el
 
 (register-definition-prefixes "magit-section" '("isearch-clean-overlays@magit-mode" "magit-"))
-
 
 ;;; End of scraped data
 

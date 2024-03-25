@@ -37,7 +37,6 @@ Show the NeoTree window, and change root to PATH.
 (defalias 'neotree 'neotree-show "\
 Show the NeoTree window.")
 (register-definition-prefixes "neotree" '("neo" "off-p"))
-
 
 ;;; End of scraped data
 

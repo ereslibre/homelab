@@ -53,7 +53,6 @@ it is disabled.
 ;;; Generated autoloads from sublimity-scroll.el
 
 (register-definition-prefixes "sublimity-scroll" '("sublimity-scroll-"))
-
 
 ;;; End of scraped data
 

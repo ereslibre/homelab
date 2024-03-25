@@ -17,7 +17,6 @@ Run a ripgrep search with `REGEXP' rooted at `DIRECTORY'.
 
 (fn REGEXP DIRECTORY &optional ARGS)" t)
 (register-definition-prefixes "ripgrep" '("ripgrep"))
-
 
 ;;; End of scraped data
 

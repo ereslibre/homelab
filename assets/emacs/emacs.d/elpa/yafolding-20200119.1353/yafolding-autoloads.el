@@ -31,7 +31,6 @@ it is disabled.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "yafolding" '("yafolding-"))
-
 
 ;;; End of scraped data
 
