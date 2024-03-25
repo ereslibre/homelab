@@ -4,11 +4,15 @@
   pkgs,
   ...
 }: let
+  wrappedEmacsClient = emacs:
+    pkgs.writeShellScriptBin "emacsclient" ''
+      TMPDIR="''${TMPDIR}" exec ${emacs}/bin/emacsclient "$@"
+    '';
   emacsBinary = {nox}:
     if mainlyRemote || nox
-    then "${pkgs.emacs-nox}/bin/emacsclient --tty"
-    else "${pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
-  emacs = {nox}: "${emacsBinary {inherit nox;}}";
+    then "${wrappedEmacsClient pkgs.emacs-nox}/bin/emacsclient --tty"
+    else "${wrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
+  emacs = {nox}: emacsBinary {inherit nox;};
   shellExtras = {
     profileExtra = ''
       EDITOR="${emacs {nox = true;}}"
