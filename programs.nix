@@ -1,17 +1,23 @@
-{mainlyRemote}: {
+{
+  mainlyRemote,
+  isDarwin,
+}: {
   config,
   lib,
   pkgs,
   ...
 }: let
-  wrappedEmacsClient = emacs:
-    pkgs.writeShellScriptBin "emacsclient" ''
-      TMPDIR="''${TMPDIR}" exec ${emacs}/bin/emacsclient "$@"
-    '';
+  maybeWrappedEmacsClient = emacs:
+    if isDarwin
+    then
+      (pkgs.writeShellScriptBin "emacsclient" ''
+        XDG_RUNTIME_DIR="$HOME/.emacs.d" exec ${emacs}/bin/emacsclient "$@"
+      '')
+    else emacs;
   emacsBinary = {nox}:
     if mainlyRemote || nox
-    then "${wrappedEmacsClient pkgs.emacs-nox}/bin/emacsclient --tty"
-    else "${wrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
+    then "${maybeWrappedEmacsClient pkgs.emacs-nox}/bin/emacsclient --tty"
+    else "${maybeWrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
   emacs = {nox}: emacsBinary {inherit nox;};
   k = "${pkgs.kubectl}/bin/kubectl";
   shellExtras = {

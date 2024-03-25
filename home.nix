@@ -20,7 +20,10 @@ in {
       (import ./dotfiles.nix {inherit username profile;})
       ./fonts.nix
       (import ./packages.nix {inherit devenv;})
-      (import ./programs.nix {inherit mainlyRemote;})
+      (import ./programs.nix {
+        inherit mainlyRemote;
+        isDarwin = systemMatchesPredicate system "isDarwin";
+      })
     ]
     ++ (
       lib.optionals (systemMatchesPredicate system "isLinux")

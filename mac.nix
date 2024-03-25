@@ -11,6 +11,11 @@
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
       <dict>
+        <key>EnvironmentVariables</key>
+        <dict>
+          <key>XDG_RUNTIME_DIR</key>
+          <string>/Users/${username}/.emacs.d</string>
+        </dict>
         <key>Label</key>
         <string>es.ereslibre.es.emacs</string>
         <key>ProgramArguments</key>
