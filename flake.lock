@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710703251,
-        "narHash": "sha256-8APAFM93AG2QS31VgMxGxputcVPOcerwzYtxXFTknRY=",
+        "lastModified": 1711171162,
+        "narHash": "sha256-DE3NfBS1SHgXEVrz8WyB58cH0ip7homC4/+tzPGEZHU=",
         "owner": "ereslibre",
         "repo": "dotfiles",
-        "rev": "2fd8ea4fda5e315a1dc04626b3420a12dd713d47",
+        "rev": "d28c11f212b8d2c288be5f2ddd23e6e6c951d8eb",
         "type": "github"
       },
       "original": {
@@ -143,11 +143,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710532761,
-        "narHash": "sha256-SUXGZNrXX05YA9G6EmgupxhOr3swI1gcxLUeDMUhrEY=",
+        "lastModified": 1711133180,
+        "narHash": "sha256-WJOahf+6115+GMl3wUfURu8fszuNeJLv9qAWFQl3Vmo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "206f457fffdb9a73596a4cb2211a471bd305243d",
+        "rev": "1c2c5e4cabba4c43504ef0f8cc3f3dfa284e2dbb",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1710327053,
-        "narHash": "sha256-5S3jnObtWfXlTx00KzsPwpJtDoyfa1WpZnCrWnxovcw=",
+        "lastModified": 1711159783,
+        "narHash": "sha256-nwl2Cygq7NrV9QcebJE/T/vXv7w+zLERD7ygHz0F5g8=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "d535b9b6c9f6612e323d4504660ebbdcd1bd79bd",
+        "rev": "d31f7c7d3194c51372134832a3a2a256773c161a",
         "type": "github"
       },
       "original": {
@@ -221,11 +221,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1710622004,
-        "narHash": "sha256-6zR642tXcZzzk3C8BHxlCrR0yh8z8zMXLiuXpWDIpX0=",
+        "lastModified": 1710783728,
+        "narHash": "sha256-eIsfu3c9JUBgm3cURSKTXLEI9Dlk1azo+MWKZVqrmkc=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "968952f950a59dee9ed1e8799dda38c6dfa1bad3",
+        "rev": "1e679b9a9970780cd5d4dfe755a74a8f96d33388",
         "type": "github"
       },
       "original": {
@@ -300,10 +300,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1710676994,
-        "narHash": "sha256-tLoaiytHx1kZg75JaNZdkbZAKnMM1I0BLWPVzRAjcMY=",
+        "lastModified": 1711237839,
+        "narHash": "sha256-mhSd6an2v3UNja85khgCfnPZcqqu6bdDN92FB2JaC5o=",
         "ref": "refs/heads/cdi-add-nvidia-docker-1-directories",
-        "rev": "a43aac8d399c44ae2b76dc320269cebb68b1c78d",
+        "rev": "9c73be80540018940c6295d53a22a1678273635f",
         "revCount": 597366,
         "type": "git",
         "url": "file:///home/ereslibre/projects/NixOS/nixpkgs"
