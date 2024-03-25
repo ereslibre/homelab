@@ -18,6 +18,7 @@ in {
   imports =
     [
       (import ./dotfiles.nix {inherit username profile;})
+      ./fonts.nix
       (import ./packages.nix {inherit devenv;})
       (import ./programs.nix {inherit mainlyRemote;})
     ]
@@ -25,7 +26,7 @@ in {
       lib.optionals (systemMatchesPredicate system "isLinux")
       [
         (import ./node.nix {inherit home-manager;})
-        (import ./systemd.nix)
+        ./systemd.nix
       ]
     )
     ++ (
