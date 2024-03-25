@@ -46,6 +46,7 @@ If the region is not active, beautify the entire buffer .
 
 (fn BEGIN END)" t)
 (register-definition-prefixes "json-mode" '("json"))
+
 
 ;;; End of scraped data
 

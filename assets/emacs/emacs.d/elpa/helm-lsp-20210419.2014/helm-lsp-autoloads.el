@@ -28,6 +28,7 @@ Diagnostics using `helm'
 
 (fn ARG)" t)
 (register-definition-prefixes "helm-lsp" '("helm-lsp-"))
+
 
 ;;; End of scraped data
 

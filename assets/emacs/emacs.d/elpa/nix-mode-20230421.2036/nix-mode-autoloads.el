@@ -270,6 +270,7 @@ ATTR an attribute of the Nix file to use.
 ;;; Generated autoloads from nix-store.el
 
 (register-definition-prefixes "nix-store" '("nix-"))
+
 
 ;;; End of scraped data
 

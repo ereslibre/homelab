@@ -61,6 +61,7 @@ this time, in which case it won't display at all.
 
 (fn &optional TYPE-OR-OBJECT FPS DELAY)")
 (register-definition-prefixes "spinner" '("spinner-"))
+
 
 ;;; End of scraped data
 

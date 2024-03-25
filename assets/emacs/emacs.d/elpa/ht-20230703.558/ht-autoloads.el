@@ -12,6 +12,7 @@
 ;;; Generated autoloads from ht.el
 
 (register-definition-prefixes "ht" 'nil)
+
 
 ;;; End of scraped data
 

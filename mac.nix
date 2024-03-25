@@ -16,7 +16,7 @@
         <key>ProgramArguments</key>
         <array>
           <string>${pkgs.emacs}/bin/emacs</string>
-          <string>--fg-daemon=/Users/${username}/.emacs.d/emacs.sock</string>
+          <string>--fg-daemon</string>
         </array>
         <key>RunAtLoad</key>
         <true/>

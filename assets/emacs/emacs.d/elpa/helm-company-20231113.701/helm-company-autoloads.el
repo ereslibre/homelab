@@ -15,6 +15,7 @@
 Select `company-complete' candidates by `helm'.
 It is useful to narrow candidates." t)
 (register-definition-prefixes "helm-company" '("helm-"))
+
 
 ;;; End of scraped data
 

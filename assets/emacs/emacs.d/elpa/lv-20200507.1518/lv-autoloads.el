@@ -12,6 +12,7 @@
 ;;; Generated autoloads from lv.el
 
 (register-definition-prefixes "lv" '("lv-"))
+
 
 ;;; End of scraped data
 

@@ -18,6 +18,7 @@ Major mode for editing hcl configuration file
 (add-to-list 'auto-mode-alist '("\\.hcl\\'" . hcl-mode))
 (add-to-list 'auto-mode-alist '("\\.nomad\\'" . hcl-mode))
 (register-definition-prefixes "hcl-mode" '("hcl-"))
+
 
 ;;; End of scraped data
 

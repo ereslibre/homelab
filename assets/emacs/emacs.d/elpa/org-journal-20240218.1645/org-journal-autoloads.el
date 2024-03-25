@@ -110,6 +110,7 @@ Search for a string within all future entries.
 (autoload 'org-journal-search-future-scheduled "org-journal" "\
 Search for TODOs within all future entries." t)
 (register-definition-prefixes "org-journal" '("org-journal-"))
+
 
 ;;; End of scraped data
 
