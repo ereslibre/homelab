@@ -210,16 +210,16 @@ in {
           key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
         shiori-list() {
-          ${k} exec deployment/shiori -n shiori -- shiori print
+          ${k} exec deployment/shiori -n shiori -- shiori print -l "$@"
         }
         shiori-search() {
-          ${k} exec deployment/shiori -n shiori -- shiori print -l -s "$1"
+          ${k} exec deployment/shiori -n shiori -- shiori print -l "''${@:2}" -s "$1"
         }
         ,() {
-          nixity-run $1 -- ''${@:2}
+          nixity-run $1 -- "''${@:2}"
         }
         ,,() {
-          nixity-develop $@
+          nixity-develop "$@"
         }
         ,,,() {
           local targetdir=$(mktemp -d)
