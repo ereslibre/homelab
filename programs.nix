@@ -13,23 +13,25 @@
     then "${wrappedEmacsClient pkgs.emacs-nox}/bin/emacsclient --tty"
     else "${wrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait";
   emacs = {nox}: emacsBinary {inherit nox;};
+  k = "${pkgs.kubectl}/bin/kubectl";
   shellExtras = {
     profileExtra = ''
-      EDITOR="${emacs {nox = true;}}"
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
-    sessionVariables = {EDITOR = emacs {nox = true;};};
     shellAliases = {
       emacs = emacs {nox = mainlyRemote;};
       emacs-nox = emacs {nox = true;};
     };
   };
 in {
+  home.sessionVariables = {
+    EDITOR = emacs {nox = mainlyRemote;};
+  };
   programs = {
     bash = {
       enable = true;
-      inherit (shellExtras) profileExtra sessionVariables shellAliases;
+      inherit (shellExtras) profileExtra shellAliases;
     };
     bat.enable = true;
     direnv = {
@@ -208,13 +210,10 @@ in {
           key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
         }
         shiori-list() {
-          k exec deployment/shiori -n shiori -- shiori print $1
+          ${k} exec deployment/shiori -n shiori -- shiori print
         }
-        shiori-search-unread() {
-          k exec deployment/shiori -n shiori -- shiori print -s "$1" -t "-tag:read"
-        }
-        shiori-search-all() {
-          k exec deployment/shiori -n shiori -- shiori print -s "$1"
+        shiori-search() {
+          ${k} exec deployment/shiori -n shiori -- shiori print -l -s "$1"
         }
         ,() {
           nixity-run $1 -- ''${@:2}
@@ -241,11 +240,12 @@ in {
       oh-my-zsh.enable = true;
       shellAliases =
         {
+          inherit k;
+
           diff = "${pkgs.diffutils}/bin/diff -u --color=auto";
           dive = "${pkgs.dive}/bin/dive --source=podman";
           dir = "${pkgs.coreutils}/bin/dir --color=auto";
           grep = "${pkgs.gnugrep}/bin/grep --color=auto";
-          k = "${pkgs.kubectl}/bin/kubectl";
           l = "${pkgs.coreutils}/bin/ls --color=auto -CF";
           ll = "${pkgs.coreutils}/bin/ls --color=auto -alF";
           la = "${pkgs.coreutils}/bin/ls --color=auto -A";
@@ -255,13 +255,12 @@ in {
           vdir = "${pkgs.coreutils}/bin/vdir --color=auto";
         }
         // shellExtras.shellAliases;
-      inherit (shellExtras) profileExtra sessionVariables;
+      inherit (shellExtras) profileExtra;
     };
   };
 
   services.emacs = with pkgs.stdenv; {
     enable = isLinux;
     socketActivation.enable = isLinux;
-    defaultEditor = isLinux;
   };
 }
