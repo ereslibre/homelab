@@ -1,7 +1,7 @@
-(define-package "zig-mode" "20240301.1618" "A major mode for the Zig programming language"
+(define-package "zig-mode" "20240325.2248" "A major mode for the Zig programming language"
   '((emacs "26.1")
     (reformatter "0.6"))
-  :commit "b6f5375efeb97026410190f352f1044214fa0289" :authors
+  :commit "5be43db4db8e4af98bb70e47b1a9d3b2428d4f35" :authors
   '(("Andrea Orru" . "andreaorru1991@gmail.com")
     ("Andrew Kelley" . "superjoe30@gmail.com"))
   :maintainers

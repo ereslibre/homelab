@@ -22,6 +22,11 @@
   :bind (("C-x o" . ace-window)
          ("C-x O" . ace-swap-window)))
 
+(use-package dumb-jump
+  :ensure
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
 (use-package dracula-theme
   :ensure
   :demand t
