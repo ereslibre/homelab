@@ -8,12 +8,12 @@
       source = ./assets/emacs/emacs.d;
       recursive = true;
     };
-    ".gitconfig.broadcom".source = ./assets/git/config-broadcom;
+    ".gitconfig.work".source = ./assets/git/config-work;
     ".gitignore".source = ./assets/git/gitignore;
     ".gitconfig".source =
       if profile == "personal"
       then ./assets/git/full-config
-      else ./assets/git/full-config-broadcom;
+      else ./assets/git/full-config-work;
     ".ssh/config".text = import ./assets/ssh/config.nix {inherit username;};
   };
 }

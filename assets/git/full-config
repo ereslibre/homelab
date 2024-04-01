@@ -1,6 +1,4 @@
 [user]
   email = ereslibre@ereslibre.es
-[includeIf "gitdir:~/projects/broadcom/"]
-  path = ~/.gitconfig.broadcom
-[includeIf "gitdir:~/projects/vmware-labs/"]
-  path = ~/.gitconfig.broadcom
+[includeIf "gitdir:~/projects/work/"]
+  path = ~/.gitconfig.work

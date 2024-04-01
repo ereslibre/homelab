@@ -80,14 +80,6 @@
           mainlyRemote = false;
           stateVersion = "22.11";
         };
-        "rfernandezl@rfernandezX6Y3X.vmware.com" = {
-          system = "aarch64-darwin";
-          username = "rfernandezl";
-          homeDirectory = "/Users/rfernandezl";
-          profile = "work";
-          mainlyRemote = false;
-          stateVersion = "22.11";
-        };
       };
 
       homeManagerConfiguration = {
