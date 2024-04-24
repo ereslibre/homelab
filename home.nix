@@ -5,7 +5,6 @@
   profile,
   system,
   mainlyRemote,
-  devenv,
   home-manager,
 }: {
   pkgs,
@@ -19,7 +18,7 @@ in {
     [
       (import ./dotfiles.nix {inherit username profile;})
       ./fonts.nix
-      (import ./packages.nix {inherit devenv;})
+      ./packages.nix
       (import ./programs.nix {
         inherit mainlyRemote;
         isDarwin = systemMatchesPredicate system "isDarwin";

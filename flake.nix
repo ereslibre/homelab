@@ -2,7 +2,6 @@
   description = "Home Sweet Home";
 
   inputs = {
-    devenv.url = "github:cachix/devenv/v0.6.3";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -13,7 +12,6 @@
 
   outputs = {
     self,
-    devenv,
     flake-utils,
     home-manager,
     nixpkgs,
@@ -97,7 +95,7 @@
           modules = [
             {nixpkgs.config.allowUnfree = true;}
             (import ./home.nix {
-              inherit system username homeDirectory stateVersion profile mainlyRemote devenv home-manager;
+              inherit system username homeDirectory stateVersion profile mainlyRemote home-manager;
             })
           ];
         };
@@ -110,7 +108,7 @@
         rawHomeManagerConfigurations;
     })
     // {
-      # Re-export devenv, flake-utils, home-manager and nixpkgs as usable outputs
-      inherit devenv flake-utils home-manager nixpkgs;
+      # Re-export flake-utils, home-manager and nixpkgs as usable outputs
+      inherit flake-utils home-manager nixpkgs;
     };
 }
