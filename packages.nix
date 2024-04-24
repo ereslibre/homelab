@@ -5,6 +5,7 @@
     binutils
     coreutils
     curl
+    devenv
     diffutils
     dig
     file
