@@ -32,10 +32,6 @@
       </dict>
       </plist>
     '';
-    ".bin/rosetta" = {
-      source = ./assets/mac/rosetta;
-      executable = true;
-    };
     ".config/alacritty/alacritty.yml".text = ''
       import:
         - ./dracula.yml
@@ -53,10 +49,6 @@
           family: Fira Code
           style: Bold Italic
         size: 12
-      shell:
-        program: /Users/${username}/.nix-profile/bin/zsh
-        args:
-          - --login
       cursor:
         style:
           shape: Block
