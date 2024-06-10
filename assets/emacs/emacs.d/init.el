@@ -16,7 +16,7 @@
 
 ;; specially on darwin with yabai: this helps identifying the window
 ;; in order to tile
-(menu-bar-mode t)
+(menu-bar-mode -1)
 (setq package-install-upgrade-built-in t)
 
 (use-package ace-window
