@@ -63,5 +63,8 @@
     ".config/alacritty/dracula.yml" = {
       source = ./assets/alacritty/dracula.yml;
     };
+    ".config/karabiner" = {
+      source = ./assets/mac/karabiner;
+    };
   };
 }
