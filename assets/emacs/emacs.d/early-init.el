@@ -7,8 +7,9 @@
 ;; misc -- tmux prefix
 (global-unset-key (kbd "C-z"))
 
-;; no menubar, scrollbar or toolbar
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+;; no scrollbar or toolbar; menubar just because it works better with
+;; yabai and tiling on darwin
+(if (fboundp 'menu-bar-mode) (menu-bar-mode t))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
