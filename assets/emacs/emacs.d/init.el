@@ -14,7 +14,9 @@
   (require 'use-package-ensure)
   (setq use-package-always-ensure t))
 
-(menu-bar-mode -1)
+;; specially on darwin with yabai: this helps identifying the window
+;; in order to tile
+(menu-bar-mode t)
 (setq package-install-upgrade-built-in t)
 
 (use-package ace-window
