@@ -7,14 +7,21 @@
   pkgs,
   ...
 }: let
+  maybeWrappedEmacsClient = emacs:
+    if isDarwin
+    then
+      (pkgs.writeShellScriptBin "emacsclient" ''
+        XDG_RUNTIME_DIR="$HOME/.emacs.d" exec ${emacs}/bin/emacsclient "$@"
+      '')
+    else emacs;
   emacsBinary = {nox}:
     if mainlyRemote || nox
-    then "${pkgs.emacs-nox}/bin/emacsclient --tty"
+    then "${maybeWrappedEmacsClient pkgs.emacs-nox}/bin/emacsclient --tty"
     else
       (let
         script = pkgs.writeShellScriptBin "emacsclient" ''
           #! ${pkgs.runtimeShell} -e
-          exec ${pkgs.emacs}/bin/emacsclient --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))"
+          exec ${maybeWrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))"
         '';
       in "${script}/bin/emacsclient");
   emacs = {nox}: emacsBinary {inherit nox;};
@@ -25,7 +32,7 @@
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
     shellAliases = {
-      emacs = emacs {nox = mainlyRemote || isDarwin;};
+      emacs = emacs {nox = mainlyRemote;};
       emacs-nox = emacs {nox = true;};
     };
   };
@@ -37,7 +44,7 @@ in {
       "/run/current-system/sw/bin"
     ];
     sessionVariables = {
-      EDITOR = emacs {nox = mainlyRemote || isDarwin;};
+      EDITOR = emacs {nox = mainlyRemote;};
     };
   };
   programs = {
