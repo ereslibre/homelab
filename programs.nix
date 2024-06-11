@@ -11,7 +11,7 @@
     if isDarwin
     then
       (pkgs.writeShellScriptBin "emacsclient" ''
-        XDG_RUNTIME_DIR="$HOME/.emacs.d" exec ${emacs}/bin/emacsclient "$@"
+        exec env XDG_RUNTIME_DIR="$HOME/.emacs.d" ${emacs}/bin/emacsclient "$@"
       '')
     else emacs;
   emacsBinary = {nox}:
@@ -32,7 +32,7 @@
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
     shellAliases = {
-      emacs = emacs {nox = mainlyRemote;};
+      emacs = emacs {nox = mainlyRemote || isDarwin;};
       emacs-nox = emacs {nox = true;};
     };
   };
@@ -44,7 +44,7 @@ in {
       "/run/current-system/sw/bin"
     ];
     sessionVariables = {
-      EDITOR = emacs {nox = mainlyRemote;};
+      EDITOR = emacs {nox = mainlyRemote || isDarwin;};
     };
   };
   programs = {
