@@ -32,8 +32,7 @@
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
     shellAliases = {
-      emacs = emacs {nox = mainlyRemote || isDarwin;};
-      emacs-nox = emacs {nox = true;};
+      emacs = emacs {nox = true;};
     };
   };
 in {
@@ -44,7 +43,8 @@ in {
       "/run/current-system/sw/bin"
     ];
     sessionVariables = {
-      EDITOR = emacs {nox = mainlyRemote || isDarwin;};
+      EDITOR = emacs {nox = true;};
+      TERM = "xterm-direct";
     };
   };
   programs = {
