@@ -16,7 +16,7 @@ jobs:
       #   uses: DeterminateSystems/magic-nix-cache-action@v6
       - name: Update flake.lock
         id: update-flake-lock
-        uses: DeterminateSystems/update-flake-lock@v21
+        uses: DeterminateSystems/update-flake-lock@v23
         with:
           branch: update-flake-lock
           pr-title: "Update flake.lock"
