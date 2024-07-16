@@ -70,7 +70,7 @@ in {
             family = "Fira Code";
             style = "Bold Italic";
           };
-          size = "12";
+          size = 12;
           cursor = {
             style = {
               shape = "Block";
@@ -80,8 +80,8 @@ in {
           window = {
             decorations = "full";
             decorations_theme_variant = "Dark";
-            dynamic_padding = "true";
-            opacity = "0.9";
+            dynamic_padding = true;
+            opacity = 0.9;
             option_as_alt = "Both";
           };
         };
