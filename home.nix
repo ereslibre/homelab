@@ -16,11 +16,11 @@
 in {
   imports =
     [
-      (import ./dotfiles.nix {inherit username profile;})
+      (import ./dotfiles.nix {inherit profile;})
       ./fonts.nix
       ./packages.nix
       (import ./programs.nix {
-        inherit mainlyRemote;
+        inherit username mainlyRemote profile;
         isDarwin = systemMatchesPredicate system "isDarwin";
       })
     ]

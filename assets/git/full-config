@@ -1,4 +1,0 @@
-[user]
-  email = ereslibre@ereslibre.es
-[includeIf "gitdir:~/projects/work/"]
-  path = ~/.gitconfig.work

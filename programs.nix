@@ -1,4 +1,6 @@
 {
+  username,
+  profile,
   mainlyRemote,
   isDarwin,
 }: {
@@ -120,28 +122,20 @@ in {
       };
       userName = "Rafael Fernández López";
       extraConfig = {
-        color = {
-          ui = "auto";
-        };
-        commit = {
-          gpgsign = true;
-        };
-        core = {
-          excludesfile = "~/.gitignore";
-        };
-        github = {
-          user = "ereslibre";
-        };
-        init = {
-          defaultBranch = "main";
-        };
+        userEmail =
+          if profile == "personal"
+          then "ereslibre@ereslibre.es"
+          else "ereslibre@curried.software";
+        color.ui = "auto";
+        commit.gpgsign = true;
+        core.excludesfile = "~/.gitignore";
+        github.user = "ereslibre";
+        init.defaultBranch = "main";
         pull = {
           ff = "only";
           rebase = true;
         };
-        push = {
-          default = "matching";
-        };
+        push.default = "matching";
       };
     };
     htop = {
@@ -150,8 +144,39 @@ in {
     };
     jq.enable = true;
     less.enable = true;
+    nix.settings = {
+      experimental-features = ["nix-command" "flakes"];
+      trusted-substituters = ["https://cache.nixos.org" "https://workstations.cachix.org"];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "workstations.cachix.org-1:TlKBVmTpyH8ZdRAW8h5WhhZUAlZrRT1/eDnkxx0yhAE="
+      ];
+    };
     pandoc.enable = true;
     ripgrep.enable = true;
+    ssh.extraConfig = ''
+      Host ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud
+          User                  ubuntu
+
+      Host hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net
+          ForwardAgent          yes
+          RemoteForward         /run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra
+
+      Host *.ereslibre.local *.ereslibre.net
+          ForwardAgent          yes
+
+      Host 10.0.*
+          ForwardAgent          yes
+
+      Host *
+          User                  ereslibre
+          Compression           yes
+          ExitOnForwardFailure  yes
+          ForwardX11            no
+          ServerAliveCountMax   10
+          ServerAliveInterval   20
+          TCPKeepAlive          no
+    '';
     starship = {
       enable = true;
       enableZshIntegration = true;
@@ -211,7 +236,6 @@ in {
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
-        export PYTHONPATH="${config.home.homeDirectory}/.pip:$PYTHONPATH"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
