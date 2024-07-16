@@ -136,7 +136,7 @@ in {
       extraConfig = {
         color.ui = "auto";
         commit.gpgsign = true;
-        core.excludesfile = ./assets/git/gitignore;
+        core.excludesfile = "${./assets/git/gitignore}";
         github.user = "ereslibre";
         init.defaultBranch = "main";
         pull = {
