@@ -32,7 +32,8 @@
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
     '';
     shellAliases = {
-      emacs = emacs {nox = true;};
+      emacs = emacs {nox = false;};
+      emacs-nox = emacs {nox = true;};
     };
   };
 in {
