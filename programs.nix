@@ -314,7 +314,7 @@ in {
   };
 
   services.emacs = with pkgs.stdenv; {
-    enable = true;
+    enable = isLinux;
     socketActivation.enable = isLinux;
   };
 }
