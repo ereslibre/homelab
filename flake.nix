@@ -30,6 +30,14 @@
     }))
     // (let
       rawHomeManagerConfigurations = {
+        "ereslibre@devbox" = {
+          system = "aarch64-linux";
+          username = "ereslibre";
+          homeDirectory = "/home/ereslibre";
+          profile = "personal";
+          mainlyRemote = true;
+          stateVersion = "24.05";
+        };
         "ereslibre@hulk" = {
           system = "x86_64-linux";
           username = "ereslibre";
