@@ -129,14 +129,14 @@ in {
         br = "branch";
       };
       userName = "Rafael Fernández López";
+      userEmail =
+        if profile == "personal"
+        then "ereslibre@ereslibre.es"
+        else "ereslibre@curried.software";
       extraConfig = {
-        userEmail =
-          if profile == "personal"
-          then "ereslibre@ereslibre.es"
-          else "ereslibre@curried.software";
         color.ui = "auto";
         commit.gpgsign = true;
-        core.excludesfile = "~/.gitignore";
+        core.excludesfile = ./assets/git/gitignore;
         github.user = "ereslibre";
         init.defaultBranch = "main";
         pull = {

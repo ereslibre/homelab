@@ -4,6 +4,5 @@
       source = ./assets/emacs/emacs.d;
       recursive = true;
     };
-    ".gitignore".source = ./assets/git/gitignore;
   };
 }
