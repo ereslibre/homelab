@@ -79,7 +79,7 @@
           stateVersion = "22.11";
         };
         "ereslibre@Rafaels-Air" = {
-          system = "x86_64-darwin";
+          system = "aarch64-darwin";
           username = "ereslibre";
           homeDirectory = "/Users/ereslibre";
           profile = "personal";
