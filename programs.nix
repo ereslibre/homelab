@@ -58,10 +58,6 @@ in {
             family = "Fira Code";
             style = "Regular";
           };
-          normal = {
-            family = "Fira Code";
-            style = "Regular";
-          };
           bold = {
             family = "Fira Code";
             style = "Bold";
