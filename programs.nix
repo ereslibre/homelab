@@ -71,19 +71,19 @@ in {
             style = "Bold Italic";
           };
           size = 12;
-          cursor = {
-            style = {
-              shape = "Block";
-              blinking = "Never";
-            };
+        };
+        cursor = {
+          style = {
+            shape = "Block";
+            blinking = "Never";
           };
-          window = {
-            decorations = "full";
-            decorations_theme_variant = "Dark";
-            dynamic_padding = true;
-            opacity = 0.9;
-            option_as_alt = "Both";
-          };
+        };
+        window = {
+          decorations = "full";
+          decorations_theme_variant = "Dark";
+          dynamic_padding = true;
+          opacity = 0.9;
+          option_as_alt = "Both";
         };
       };
     };
