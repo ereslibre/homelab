@@ -49,13 +49,16 @@ in {
       EDITOR = emacs {nox = true;};
     };
   };
-  nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
-    trusted-substituters = ["https://cache.nixos.org" "https://workstations.cachix.org"];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "workstations.cachix.org-1:TlKBVmTpyH8ZdRAW8h5WhhZUAlZrRT1/eDnkxx0yhAE="
-    ];
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      trusted-substituters = ["https://cache.nixos.org" "https://workstations.cachix.org"];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "workstations.cachix.org-1:TlKBVmTpyH8ZdRAW8h5WhhZUAlZrRT1/eDnkxx0yhAE="
+      ];
+    };
   };
   programs = {
     alacritty = {
