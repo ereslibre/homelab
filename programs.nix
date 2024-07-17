@@ -3,6 +3,7 @@
   profile,
   mainlyRemote,
   isDarwin,
+  isLinux,
 }: {
   config,
   lib,
