@@ -333,8 +333,11 @@ in {
     };
   };
 
-  services.emacs = with pkgs.stdenv; {
-    enable = isLinux;
-    socketActivation.enable = isLinux;
+  services = {
+    emacs = with pkgs.stdenv; {
+      enable = isLinux;
+      socketActivation.enable = isLinux;
+    };
+    ssh-agent.enable = true;
   };
 }
