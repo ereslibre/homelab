@@ -159,11 +159,9 @@ in {
         };
         "*" = {
           compression = "yes";
-          exitOnForwardFailure = "yes";
           forwardX11 = "no";
           serverAliveCountMax = "10";
           serverAliveInterval = "20";
-          tcpKeepAlive = "no";
         };
       };
     };
