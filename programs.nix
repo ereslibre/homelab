@@ -160,10 +160,10 @@ in {
           };
         };
         "*" = {
-          compression = "yes";
-          forwardX11 = "no";
-          serverAliveCountMax = "10";
-          serverAliveInterval = "20";
+          compression = true;
+          forwardX11 = false;
+          serverAliveCountMax = 10;
+          serverAliveInterval = 20;
         };
       };
     };
