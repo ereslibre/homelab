@@ -338,6 +338,6 @@ in {
       enable = isLinux;
       socketActivation.enable = isLinux;
     };
-    ssh-agent.enable = true;
+    ssh-agent.enable = isLinux;
   };
 }
