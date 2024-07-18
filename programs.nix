@@ -2,6 +2,8 @@
   username,
   profile,
   mainlyRemote,
+  isDarwin,
+  isLinux,
 }: {
   config,
   lib,
@@ -9,7 +11,7 @@
   ...
 }: let
   maybeWrappedEmacsClient = emacs:
-    if pkgs.stdenv.isDarwin
+    if isDarwin
     then
       (pkgs.writeShellScriptBin "emacsclient" ''
         exec env XDG_RUNTIME_DIR="$HOME/.emacs.d" ${emacs}/bin/emacsclient "$@"
@@ -326,8 +328,11 @@ in {
     };
   };
 
-  services = with pkgs.stdenv; {
-    emacs.enable = isLinux;
+  services = {
+    emacs = with pkgs.stdenv; {
+      enable = isLinux;
+      socketActivation.enable = isLinux;
+    };
     ssh-agent.enable = isLinux;
   };
 }

@@ -21,17 +21,19 @@ in {
       ./packages.nix
       (import ./programs.nix {
         inherit username mainlyRemote profile;
+        isDarwin = systemMatchesPredicate system "isDarwin";
+        isLinux = systemMatchesPredicate system "isLinux";
       })
     ]
     ++ (
-      lib.optionals pkgs.stdenv.isLinux
+      lib.optionals (systemMatchesPredicate system "isLinux")
       [
         (import ./node.nix {inherit home-manager;})
         ./systemd.nix
       ]
     )
     ++ (
-      lib.optionals pkgs.stdenv.isDarwin
+      lib.optionals (systemMatchesPredicate system "isDarwin")
       [(import ./mac.nix {inherit username;})]
     );
 
