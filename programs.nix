@@ -24,7 +24,7 @@
       (let
         script = pkgs.writeShellScriptBin "emacsclient" ''
           #! ${pkgs.runtimeShell} -e
-          exec env GDK_SCALE=1 env GDK_DPI_SCALE=1 ${maybeWrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))"
+          exec ${maybeWrappedEmacsClient pkgs.emacs}/bin/emacsclient --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))"
         '';
       in "${script}/bin/emacsclient");
   emacs = {nox}: emacsBinary {inherit nox;};
