@@ -35,7 +35,7 @@
           username = "ereslibre";
           homeDirectory = "/home/ereslibre";
           profile = "personal";
-          mainlyRemote = true;
+          mainlyRemote = false;
           stateVersion = "24.05";
         };
         "ereslibre@hulk" = {
