@@ -74,7 +74,7 @@ in {
             family = "Fira Code";
             style = "Bold Italic";
           };
-          size = 7;
+          size = 12;
         };
         cursor = {
           style = {
