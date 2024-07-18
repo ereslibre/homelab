@@ -1,6 +1,9 @@
 ;; word wrap
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; ignore .Xresources that mess up font size
+(setq-default inhibit-x-resources t)
+
 ;; calendar
 (setq calendar-week-start-day 1)
 
