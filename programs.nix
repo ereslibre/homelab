@@ -329,10 +329,7 @@ in {
   };
 
   services = {
-    emacs = with pkgs.stdenv; {
-      enable = isLinux;
-      socketActivation.enable = isLinux;
-    };
+    emacs.enable = isLinux;
     ssh-agent.enable = isLinux;
   };
 }
