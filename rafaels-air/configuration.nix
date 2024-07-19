@@ -5,11 +5,11 @@
 }: {
   imports = [
     ../common/nixos
+    ../common/tailscale
   ];
 
   environment = {
     shells = with pkgs; [zsh];
-    systemPackages = with pkgs; [tailscale];
   };
 
   fonts.packages = with pkgs; [fira-code];
@@ -47,11 +47,5 @@
     settings.trusted-users = ["@admin"];
   };
 
-  services = {
-    nix-daemon.enable = true;
-    tailscale = {
-      enable = true;
-      overrideLocalDns = true;
-    };
-  };
+  services.nix-daemon.enable = true;
 }

@@ -1,4 +1,8 @@
 {lib, ...}: {
+  imports = [
+    ../tailscale
+  ];
+
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -28,10 +32,6 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
-  };
-
-  services = {
-    tailscale.enable = true;
   };
 
   time.timeZone = "Europe/Madrid";

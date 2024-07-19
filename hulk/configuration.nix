@@ -10,7 +10,6 @@
     ../common/programs
     ../common/remote-builder
     ../common/services
-    ../common/tailscale
     ../common/users
     ../common/vendor/amd
   ];

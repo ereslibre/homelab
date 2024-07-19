@@ -12,7 +12,6 @@
     ../common/programs
     ../common/remote-builds
     ../common/services
-    ../common/tailscale
     ../common/users
     ../common/vendor/intel
   ];

@@ -10,6 +10,7 @@
     ../common/podman
     ../common/programs
     ../common/services
+    ../common/tailscale
     ../common/users
   ];
 
@@ -41,17 +42,12 @@
   };
 
   home-manager.users.ereslibre = {
-    home = {
-      file = {
-        ".ssh/id_rsa".source = /Users/ereslibre/.ssh/id_rsa;
-      };
-      pointerCursor = {
-        name = "Vanilla-DMZ";
-        package = pkgs.vanilla-dmz;
-        x11.enable = true;
-        gtk.enable = true;
-        size = 16;
-      };
+    home.pointerCursor = {
+      name = "Vanilla-DMZ";
+      package = pkgs.vanilla-dmz;
+      x11.enable = true;
+      gtk.enable = true;
+      size = 32;
     };
     programs = {
       alacritty.settings.font.size = lib.mkForce 7;
@@ -81,7 +77,7 @@
           profiles = {
             default = {
               use_system_font = false;
-              font = "Fira Code 9";
+              font = "Fira Code 10";
               cursor_blink = false;
               scrollbar_position = "disabled";
               show_titlebar = false;
@@ -106,6 +102,10 @@
   };
 
   services = {
+    xserver = {
+      dpi = 192;
+      upscaleDefaultCursor = true;
+    };
     displayManager = {
       defaultSession = "none+i3";
       autoLogin = {
@@ -119,6 +119,7 @@
     };
     spice-autorandr.enable = true;
     spice-vdagentd.enable = true;
+    qemuGuest.enable = true;
     xserver = {
       enable = true;
       windowManager.i3 = {
@@ -144,7 +145,7 @@
 
           # Font for window titles. Will also be used by the bar unless a different font
           # is used in the bar {} block below.
-          font xft:Fira Code Retina 7
+          font xft:Fira Code Retina 10
 
           # Start XDG autostart .desktop files using dex. See also
           # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -191,7 +192,7 @@
           bindsym $mod+Shift+q kill
 
           # start dmenu (a program launcher)
-          bindsym $mod+d exec --no-startup-id dmenu_run -fn 'FiraCode-7 -h 24'
+          bindsym $mod+d exec --no-startup-id dmenu_run -fn 'FiraCode-10 -h 24'
           # A more modern dmenu replacement is rofi:
           # bindsym $mod+d exec "rofi -modi drun,run -show drun"
           # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -332,7 +333,7 @@
                   status_command i3status
           }
 
-          exec --no-startup-id xrandr --output Virtual-1 --primary --auto
+          exec --no-startup-id xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
 
           # Scroll speed
           exec --no-startup-id xset 26/10 4
