@@ -239,9 +239,6 @@ in {
         fixssh() {
           eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
         }
-        hm-upgrade() {
-          nix run github:ereslibre/dotfiles -- switch --flake .#"''${USER}@''${HOST}"
-        }
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
         }
