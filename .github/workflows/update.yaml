@@ -2,7 +2,7 @@ name: update-flake-lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   update-flake-lock:
@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v11
+        uses: DeterminateSystems/nix-installer-action@v12
       # - name: Setup the magic Nix cache
       #   uses: DeterminateSystems/magic-nix-cache-action@v6
       - name: Update flake.lock

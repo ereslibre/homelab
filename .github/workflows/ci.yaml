@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v11
+        uses: DeterminateSystems/nix-installer-action@v12
       # - name: Setup the magic Nix cache
       #   uses: DeterminateSystems/magic-nix-cache-action@v6
       - name: Format
@@ -28,19 +28,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v7
+        uses: DeterminateSystems/flake-checker-action@v8
   build:
     name: Build
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        user: [ereslibre]
         host: [hulk, nuc-1, nuc-2, nuc-3]
-        include:
-          - os: macos-latest
-            user: ereslibre
-            host: Rafaels-Air
     runs-on: ${{ matrix.os }}
     steps:
       - name: Free space
@@ -52,7 +47,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v11
+        uses: DeterminateSystems/nix-installer-action@v12
       # - name: Setup the magic Nix cache
       #   uses: DeterminateSystems/magic-nix-cache-action@v6
       - name: Build
@@ -60,4 +55,4 @@ jobs:
           # Force the creation of the profile dir
           nix profile list
           # Build
-          nix develop --command just build ${{ matrix.user }}@${{ matrix.host }}
+          nix develop --command just build ${{ matrix.host }}
