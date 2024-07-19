@@ -98,6 +98,42 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1719708727,
+        "narHash": "sha256-XFNKtyirrGNdehpg7lMNm1skEcBApjqGhaHc/OI95HY=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "1bba8a624b3b9d4f68db94fb63aaeb46039ce9e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720859326,
+        "narHash": "sha256-i8BiZj5faQS6gsupE0S9xtiyZmWinGpVLwxXWV342aQ=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "076ea5b672bb1ea535ee84cfdabd0c2f0b7f20c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1721331912,
@@ -151,6 +187,7 @@
         "home-manager": "home-manager",
         "microvm": "microvm",
         "nix-darwin": "nix-darwin",
+        "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"

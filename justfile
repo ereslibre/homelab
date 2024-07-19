@@ -1,4 +1,5 @@
 defaultHost := "$(hostname -s)"
+defaultQcowHost := "devbox"
 
 switch host=defaultHost:
   @./.switch.sh {{host}}
@@ -6,8 +7,8 @@ switch host=defaultHost:
 build host=defaultHost:
   nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
 
-build-iso host=defaultHost:
-  nix build --impure .#nixosConfigurations.{{host}}.config.system.build.isoImage
+qcow host=defaultQcowHost:
+  nix build --impure .#nixosConfigurations.{{host}}
 
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra

@@ -16,9 +16,6 @@
   # Temporary due to spice-autorandr
   nixpkgs.config.allowUnsupportedSystem = true;
 
-  # Faster ISO creation
-  isoImage.squashfsCompression = "gzip -Xcompression-level 1";
-
   environment.variables = {
     TERMINAL = "terminator";
   };
