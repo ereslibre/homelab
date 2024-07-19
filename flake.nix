@@ -56,7 +56,7 @@
                 {
                   home-manager = {
                     users.${configuration.user} = import ./dotfiles/home.nix {
-                      inherit (dotfiles) home-manager;
+                      inherit home-manager;
                       inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote;
                     };
                     useGlobalPkgs = true;
