@@ -1,0 +1,27 @@
+keys:
+  - &ereslibre age137w3427xc70f65mchg658ak3tsrym2rdh5tm7yun0e2tmf5pr5rsa64zv8
+  - &host-nuc-1 age1jsrzvlyj5fzf6c3rysd79f68drmpgvh4myxqsl7mlm7gyhfunywq573mss
+  - &host-nuc-2 age1ph4vt4lhrw4q974gm2g0xue3y8swy8qw9k8kg68hzxs7s04cxyzs5jujvs
+  - &host-nuc-3 age1jt7ucv03v82ccuwwhaulgywswsc5h2uxauyrdmra8gsd47ajfyasyp4r9q
+  - &host-pi-desktop age1vlf2h45puhwd8zms7l0nnhk3m2w0l6meejhz8pdgduqw5ljleujqyp8l0h
+creation_rules:
+  - path_regex: nuc-1/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *host-nuc-1
+  - path_regex: nuc-2/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *host-nuc-2
+  - path_regex: nuc-3/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *host-nuc-3
+  - path_regex: pi-desktop/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *host-pi-desktop

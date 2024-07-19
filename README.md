@@ -1,30 +1,33 @@
-# dotfiles
+# Personal homelab
 
-My dotfiles. Set as a [home-manager](https://github.com/nix-community/home-manager)
-[flake](https://nixos.wiki/wiki/Flakes).
+## Bootstrap a machine
 
-## Configure
+```
+# sudo nixos-install --flake "github:ereslibre/homelab#<hostname>"
+```
 
-1. Install the [`nix`](https://nixos.org/) package manager.
+## Update a machine
 
-   ```console
-   $ make install-nix
-   ```
+```
+# sudo nixos-rebuild --flake "github:ereslibre/homelab#$(hostname)" switch
+```
 
-1. Activate the home-manager profile matching the machine you are at.
+## Specific node tailscale configuration
 
-   ```console
-   $ make
-   ```
+### nuc-1
 
-> Note: on Mac OS X, run afterwards:
->
-> ```bash
-> $ launchctl load ~/Library/LaunchAgents/es.ereslibre.emacs.plist
-> ```
->
-> So the agent is loaded without the need to restart the session,
-> starting the emacs daemon.
+```
+# sudo tailscale up --accept-dns=false --accept-routes --advertise-routes=10.0.1.0/24,10.0.2.0/24,10.0.3.0/24,10.0.4.0/24
+```
 
+### nuc-2
 
-Done! :)
+```
+# sudo tailscale up --accept-dns=false
+```
+
+### nuc-3
+
+```
+# sudo tailscale up --accept-dns=false
+```

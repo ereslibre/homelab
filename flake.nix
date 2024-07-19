@@ -1,5 +1,5 @@
 {
-  description = "Home Sweet Home";
+  description = "Home lab";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
@@ -7,116 +7,141 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     flake-utils,
     home-manager,
+    microvm,
+    nix-darwin,
+    nixos-hardware,
     nixpkgs,
+    sops-nix,
     ...
-  }:
-    (flake-utils.lib.eachDefaultSystem (system: let
+  }: let
+    dotfiles = import ./dotfiles {inherit nixpkgs home-manager;};
+  in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [alejandra just];
+        buildInputs = with pkgs; [age alejandra just sops];
       };
-      defaultApp = {
-        type = "app";
-        program = "${home-manager.packages.${system}.default}/bin/home-manager";
-      };
-    }))
+    })
     // (let
-      rawHomeManagerConfigurations = {
-        "ereslibre@devbox" = {
-          system = "aarch64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = false;
-          stateVersion = "24.05";
-        };
-        "ereslibre@hulk" = {
-          system = "x86_64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = true;
-          stateVersion = "23.05";
-        };
-        "ereslibre@nuc-1" = {
-          system = "x86_64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = true;
-          stateVersion = "22.11";
-        };
-        "ereslibre@nuc-2" = {
-          system = "x86_64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = true;
-          stateVersion = "22.11";
-        };
-        "ereslibre@nuc-3" = {
-          system = "x86_64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = true;
-          stateVersion = "23.05";
-        };
-        "ereslibre@pi-desktop" = {
-          system = "aarch64-linux";
-          username = "ereslibre";
-          homeDirectory = "/home/ereslibre";
-          profile = "personal";
-          mainlyRemote = false;
-          stateVersion = "22.11";
-        };
-        "ereslibre@Rafaels-Air" = {
+      mapMachineConfigurations = nixpkgs.lib.mapAttrs (host: configuration:
+        configuration.builder (
+          let
+            hmConfiguration = dotfiles.rawHomeManagerConfigurations."${configuration.user}@${host}";
+          in {
+            inherit (configuration) system;
+            modules =
+              configuration.modules
+              ++ [
+                {nixpkgs.config.allowUnfree = true;}
+                {
+                  home-manager = {
+                    users.${configuration.user} = import ./dotfiles/home.nix {
+                      inherit (dotfiles) home-manager;
+                      inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote;
+                    };
+                    useGlobalPkgs = true;
+                  };
+                }
+              ];
+          }
+        ));
+    in {
+      darwinConfigurations = mapMachineConfigurations {
+        "Rafaels-Air" = {
+          builder = nix-darwin.lib.darwinSystem;
           system = "aarch64-darwin";
-          username = "ereslibre";
-          homeDirectory = "/Users/ereslibre";
-          profile = "personal";
-          mainlyRemote = false;
-          stateVersion = "22.11";
-        };
-      };
-
-      homeManagerConfiguration = {
-        system,
-        username,
-        homeDirectory,
-        profile,
-        mainlyRemote,
-        stateVersion,
-      }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-          };
+          user = "ereslibre";
           modules = [
-            {nixpkgs.config.allowUnfree = true;}
-            (import ./home.nix {
-              inherit system username homeDirectory stateVersion profile mainlyRemote home-manager;
-            })
+            home-manager.darwinModules.home-manager
+            ./rafaels-air/configuration.nix
           ];
         };
-    in {
-      # Export home-manager configurations
-      inherit rawHomeManagerConfigurations;
-      homeConfigurations =
-        nixpkgs.lib.attrsets.mapAttrs
-        (userAndHost: userAndHostConfig: homeManagerConfiguration userAndHostConfig)
-        rawHomeManagerConfigurations;
-    })
-    // {
-      # Re-export flake-utils, home-manager and nixpkgs as usable outputs
-      inherit flake-utils home-manager nixpkgs;
-    };
+      };
+      nixosConfigurations = mapMachineConfigurations {
+        "devbox" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "aarch64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./devbox/configuration.nix
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+          ];
+        };
+        "hulk" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "x86_64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            microvm.nixosModules.host
+            ./hulk/configuration.nix
+          ];
+        };
+        "nuc-1" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "x86_64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            microvm.nixosModules.host
+            sops-nix.nixosModules.sops
+            ./nuc-1/configuration.nix
+          ];
+        };
+        "nuc-2" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "x86_64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            microvm.nixosModules.host
+            sops-nix.nixosModules.sops
+            ./nuc-2/configuration.nix
+          ];
+        };
+        "nuc-3" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "x86_64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            microvm.nixosModules.host
+            sops-nix.nixosModules.sops
+            ./nuc-3/configuration.nix
+          ];
+        };
+        "pi-desktop" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "aarch64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.raspberry-pi-4
+            sops-nix.nixosModules.sops
+            ./pi-desktop/configuration.nix
+          ];
+        };
+      };
+    }));
 }
