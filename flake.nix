@@ -52,7 +52,14 @@
         host: configuration:
           configuration.builder (
             let
-              hmConfiguration = dotfiles.rawHomeManagerConfigurations."${configuration.user}@${host}";
+              hmConfiguration =
+                dotfiles
+                .rawHomeManagerConfigurations
+                ."${configuration.user}@${
+                  if builtins.hasAttr "host" configuration
+                  then configuration.host
+                  else host
+                }";
             in
               {
                 inherit (configuration) system;
@@ -111,6 +118,7 @@
           };
           system = "aarch64-linux";
           user = "ereslibre";
+          host = "devbox";
           modules = [
             {nix.registry.nixpkgs.flake = nixpkgs;}
             home-manager.nixosModules.home-manager
