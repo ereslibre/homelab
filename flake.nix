@@ -108,6 +108,14 @@
             {nix.registry.nixpkgs.flake = nixpkgs;}
             home-manager.nixosModules.home-manager
             {
+              # Resembling: https://github.com/nix-community/nixos-generators/blob/076ea5b672bb1ea535ee84cfdabd0c2f0b7f20c7/formats/raw.nix
+              boot = {
+                growPartition = true;
+                kernelParams = ["console=ttyS0"];
+                loader.grub.device = lib.mkDefault "/dev/vda";
+                loader.timeout = lib.mkDefault 0;
+                initrd.availableKernelModules = ["uas"];
+              };
               fileSystems."/" = {
                 device = "/dev/disk/by-label/nixos";
                 autoResize = true;
