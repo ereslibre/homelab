@@ -101,6 +101,7 @@
       nixosConfigurations = mapMachineConfigurations {
         "devbox" = {
           builder = nixpkgs.lib.nixosSystem;
+          builderArgs = null;
           system = "aarch64-linux";
           user = "ereslibre";
           modules = [
