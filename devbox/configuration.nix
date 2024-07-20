@@ -105,6 +105,10 @@
     xserver = {
       dpi = 192;
       upscaleDefaultCursor = true;
+      displayManager.setupCommands = ''
+        xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
+        ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
+      '';
     };
     displayManager = {
       defaultSession = "none+i3";
@@ -112,10 +116,6 @@
         enable = true;
         user = "ereslibre";
       };
-      setupCommands = ''
-        xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
-        ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
-      '';
     };
     libinput = {
       touchpad.naturalScrolling = true;
