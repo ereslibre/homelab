@@ -107,6 +107,13 @@
           modules = [
             {nix.registry.nixpkgs.flake = nixpkgs;}
             home-manager.nixosModules.home-manager
+            {
+              fileSystems."/" = {
+                device = "/dev/disk/by-label/nixos";
+                autoResize = true;
+                fsType = "ext4";
+              };
+            }
             ./devbox/configuration.nix
           ];
         };
