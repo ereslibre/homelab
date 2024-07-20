@@ -246,7 +246,7 @@ in {
       '';
       initExtra = ''
         copy-gpg-pubring() {
-          scp ~/.gnupg/pubring.kbx "$1":/home/ereslibre/.gnupg/
+          scp ~/.gnupg/pubring.kbx "$1":/home/${username}/.gnupg/
         }
         refresh-gpg-card() {
           gpg-connect-agent "scd serialno" "learn --force" /bye
@@ -283,8 +283,9 @@ in {
           EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-run $1 ''${@:2}
         }
         setup-devbox() {
-          scp -R ~/.ssh "$1":
-          ssh "$1" chown -R ereslibre:users
+          ssh "$1" mkdir -p '~/.ssh'
+          scp ~/.ssh/id_* "$1":'~/.ssh'
+          ssh "$1" chown -R ${username}:users '~/.ssh'
         }
         sri() {
           local algo="''${2:-sha256}"
