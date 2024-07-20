@@ -93,7 +93,13 @@
       };
     };
     gtk.enable = true;
-    xsession.enable = true;
+    xsession = {
+      enable = true;
+      initExtra = ''
+        xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
+        ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
+      '';
+    };
   };
 
   networking = {
@@ -120,13 +126,7 @@
       enable = true;
       dpi = 192;
       upscaleDefaultCursor = true;
-      displayManager = {
-        lightdm.enable = true;
-        setupCommands = ''
-          xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
-          ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
-        '';
-      };
+      displayManager.lightdm.enable = true;
       windowManager.i3 = {
         enable = true;
         updateSessionEnvironment = true;

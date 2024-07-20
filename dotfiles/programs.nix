@@ -158,6 +158,21 @@ in {
             "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
           };
         };
+        "10.0.1.*".extraOptions = {
+          "StrictHostKeyChecking" = "no";
+        };
+        "10.0.2.*".extraOptions = {
+          "StrictHostKeyChecking" = "no";
+        };
+        "10.0.3.*".extraOptions = {
+          "StrictHostKeyChecking" = "no";
+        };
+        "10.0.4.*".extraOptions = {
+          "StrictHostKeyChecking" = "no";
+        };
+        "192.168.*".extraOptions = {
+          "StrictHostKeyChecking" = "no";
+        };
         "*" = {
           compression = true;
           forwardX11 = false;
