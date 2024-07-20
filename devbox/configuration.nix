@@ -47,7 +47,7 @@
       package = pkgs.vanilla-dmz;
       x11.enable = true;
       gtk.enable = true;
-      size = 32;
+      size = 48;
     };
     programs = {
       alacritty.settings.font.size = lib.mkForce 7;
@@ -332,13 +332,11 @@
           bar {
                   status_command i3status
           }
-
-          exec --no-startup-id xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
-
-          # Scroll speed
-          exec --no-startup-id xset 26/10 4
-
-          exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
+        '';
+        extraSessionCommands = ''
+          xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
+          xset 26/10 4
+          ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
         '';
       };
       displayManager.lightdm.enable = true;
