@@ -282,6 +282,10 @@ in {
         nixity-run-offline() {
           EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-run $1 ''${@:2}
         }
+        setup-devbox() {
+          scp -R ~/.ssh "$1":
+          ssh "$1" chown -R ereslibre:users
+        }
         sri() {
           local algo="''${2:-sha256}"
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" $EXTRA_ARGS "$1")
