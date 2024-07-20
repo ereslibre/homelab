@@ -112,8 +112,8 @@
               boot = {
                 growPartition = true;
                 kernelParams = ["console=ttyS0"];
-                loader.grub.device = lib.mkDefault "/dev/vda";
-                loader.timeout = lib.mkDefault 0;
+                loader.grub.device = nixpkgs.lib.mkDefault "/dev/vda";
+                loader.timeout = nixpkgs.lib.mkDefault 0;
                 initrd.availableKernelModules = ["uas"];
               };
               fileSystems."/" = {
