@@ -333,13 +333,10 @@
                   status_command i3status
           }
 
+          exec --no-startup-id xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
           exec --no-startup-id i3-msg reload
           exec --no-startup-id i3-msg restart
           exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
-        '';
-        extraSessionCommands = ''
-          xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
-          xset 26/10 4
         '';
       };
       displayManager.lightdm.enable = true;
