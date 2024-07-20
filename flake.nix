@@ -93,6 +93,16 @@
       };
       nixosConfigurations = mapMachineConfigurations {
         "devbox" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "aarch64-linux";
+          user = "ereslibre";
+          modules = [
+            {nix.registry.nixpkgs.flake = nixpkgs;}
+            home-manager.nixosModules.home-manager
+            ./devbox/configuration.nix
+          ];
+        };
+        "devbox-qcow" = {
           builder = nixos-generators.nixosGenerate;
           builderArgs = rec {
             system = "aarch64-linux";

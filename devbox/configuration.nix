@@ -95,7 +95,7 @@
     gtk.enable = true;
     xsession = {
       enable = true;
-      initExtra = ''
+      profileExtra = ''
         xrandr --output Virtual-1 --primary --mode 3840x2160 --dpi 192
         ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/nix-wallpaper-dracula.png}
       '';
