@@ -118,8 +118,6 @@
     qemuGuest.enable = true;
     xserver = {
       enable = true;
-      runXdgAutostartIfNone = true;
-      updateSessionEnvironment = true;
       dpi = 192;
       upscaleDefaultCursor = true;
       displayManager = {
@@ -131,6 +129,7 @@
       };
       windowManager.i3 = {
         enable = true;
+        updateSessionEnvironment = true;
         configFile = pkgs.writeText "i3-config" ''
           # i3 config file (v4)
           #
