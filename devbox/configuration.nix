@@ -41,6 +41,8 @@
     ];
   };
 
+  programs.dconf.enable = true;
+
   home-manager.users.ereslibre = {
     home.pointerCursor = {
       name = "Vanilla-DMZ";
