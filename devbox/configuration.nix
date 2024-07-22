@@ -93,6 +93,7 @@
         };
       };
     };
+    services.gpg-agent.enable = true;
     gtk.enable = true;
     xsession = {
       enable = true;
