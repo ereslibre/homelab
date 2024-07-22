@@ -52,11 +52,10 @@
       size = 48;
     };
     programs = {
-      alacritty.settings.font.size = lib.mkForce 7;
       emacs.extraConfig = ''
-        (set-frame-font "Fira Code-10:Regular")
-        (add-to-list 'default-frame-alist '(font . "Fira Code-10:Regular"))
-        (set-face-attribute 'default t :font "Fira Code-10:Regular")
+        (set-frame-font "Fira Code-9:Regular")
+        (add-to-list 'default-frame-alist '(font . "Fira Code-9:Regular"))
+        (set-face-attribute 'default t :font "Fira Code-9:Regular")
       '';
       firefox.enable = true;
       terminator = {
@@ -79,7 +78,7 @@
           profiles = {
             default = {
               use_system_font = false;
-              font = "Fira Code 10";
+              font = "Fira Code 9";
               cursor_blink = false;
               scrollbar_position = "disabled";
               show_titlebar = false;
@@ -153,7 +152,7 @@
 
           # Font for window titles. Will also be used by the bar unless a different font
           # is used in the bar {} block below.
-          font xft:Fira Code Retina 10
+          font xft:Fira Code 9
 
           # Start XDG autostart .desktop files using dex. See also
           # https://wiki.archlinux.org/index.php/XDG_Autostart
