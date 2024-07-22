@@ -54,9 +54,9 @@
     programs = {
       alacritty.settings.font.size = lib.mkForce 7;
       emacs.extraConfig = ''
-        (set-frame-font "Iosevka-10:Regular")
-        (add-to-list 'default-frame-alist '(font . "Iosevka-10:Regular"))
-        (set-face-attribute 'default t :font "Iosevka-10:Regular")
+        (set-frame-font "Fira Code-10:Regular")
+        (add-to-list 'default-frame-alist '(font . "Fira Code-10:Regular"))
+        (set-face-attribute 'default t :font "Fira Code-10:Regular")
       '';
       firefox.enable = true;
       terminator = {
