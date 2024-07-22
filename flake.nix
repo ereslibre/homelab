@@ -135,7 +135,7 @@
         };
         "devbox-qcow" = {
           builder = nixos-generators.nixosGenerate;
-          builderArgs = rec {
+          builderArgs = {
             system = "aarch64-linux";
             format = "qcow-efi";
           };
