@@ -112,14 +112,24 @@
               boot = {
                 growPartition = true;
                 kernelParams = ["console=ttyS0"];
-                loader.grub.device = nixpkgs.lib.mkDefault "/dev/vda";
-                loader.timeout = nixpkgs.lib.mkDefault 0;
+                loader = {
+                  grub = {
+                    device = "nodev";
+                    efiSupport = true;
+                    efiInstallAsRemovable = true;
+                  };
+                  timeout = 0;
+                };
                 initrd.availableKernelModules = ["uas"];
               };
               fileSystems."/" = {
                 device = "/dev/disk/by-label/nixos";
                 autoResize = true;
                 fsType = "ext4";
+              };
+              fileSystems."/boot" = {
+                device = "/dev/disk/by-label/ESP";
+                fsType = "vfat";
               };
             }
             ./devbox/configuration.nix
@@ -129,7 +139,7 @@
           builder = nixos-generators.nixosGenerate;
           builderArgs = rec {
             system = "aarch64-linux";
-            format = "qcow";
+            format = "qcow-efi";
             specialArgs.diskSize = "102400";
           };
           system = "aarch64-linux";
