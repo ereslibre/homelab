@@ -61,6 +61,8 @@
       i3status-rust = {
         enable = true;
         bars.default = {
+          icons = "emoji";
+          theme = "dracula";
           blocks = [
             {block = "cpu";}
             {
