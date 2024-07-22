@@ -41,7 +41,18 @@
     ];
   };
 
-  programs.dconf.enable = true;
+  hardware.gpgSmartcards.enable = true;
+
+  programs = {
+    dconf.enable = true;
+    gnupg = {
+      agent = {
+        enable = true;
+        pinentryPackage = pkgs.pinentry-curses;
+      };
+      dirmngr.enable = true;
+    };
+  };
 
   time.timeZone = "Europe/Madrid";
 
