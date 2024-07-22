@@ -58,6 +58,19 @@
         (set-face-attribute 'default t :font "Fira Code-9:Regular")
       '';
       firefox.enable = true;
+      i3status-rust = {
+        enable = true;
+        bars.default = {
+          blocks = [
+            {block = "cpu";}
+            {
+              block = "time";
+              format = " $timestamp.datetime(f:'%a %d/%m %R') ";
+              interval = 5;
+            }
+          ];
+        };
+      };
       terminator = {
         enable = true;
         config = {
@@ -171,7 +184,7 @@
           exec --no-startup-id nm-applet
 
           # Use pactl to adjust volume in PulseAudio.
-          set $refresh_i3status killall -SIGUSR1 i3status
+          set $refresh_i3status killall -SIGUSR1 i3status-rs
           bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
           bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
           bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -335,10 +348,8 @@
 
           bindsym $mod+r mode "resize"
 
-          # Start i3bar to display a workspace bar (plus the system information i3status
-          # finds out, if available)
           bar {
-                  status_command i3status
+                  status_command exec i3status-rs config-default.toml
           }
         '';
       };
