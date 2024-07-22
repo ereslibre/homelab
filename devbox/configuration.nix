@@ -43,6 +43,8 @@
 
   programs.dconf.enable = true;
 
+  time.timeZone = "Europe/Madrid";
+
   home-manager.users.ereslibre = {
     home.pointerCursor = {
       name = "Vanilla-DMZ";
@@ -65,6 +67,8 @@
           theme = "dracula";
           blocks = [
             {block = "cpu";}
+            {block = "memory";}
+            {block = "disk_space";}
             {
               block = "time";
               format = " $timestamp.datetime(f:'%a %d/%m %R') ";
