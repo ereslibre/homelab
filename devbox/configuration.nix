@@ -193,7 +193,7 @@
           # start a terminal
           bindsym $mod+Return exec i3-sensible-terminal
           # start editor
-          bindsym $mod+m exec emacs
+          bindsym $mod+m exec emacsclient --create-frame --no-wait
 
           # kill focused window
           bindsym $mod+Shift+q kill
