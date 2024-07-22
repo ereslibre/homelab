@@ -50,18 +50,17 @@
     // (let
       mapMachineConfigurations = nixpkgs.lib.mapAttrs (
         host: configuration:
-          configuration.builder (
-            let
-              hmConfiguration =
-                dotfiles
-                .rawHomeManagerConfigurations
-                ."${configuration.user}@${
-                  if builtins.hasAttr "host" configuration
-                  then configuration.host
-                  else host
-                }";
-            in
-              {
+          configuration.builder ((
+              let
+                hmConfiguration =
+                  dotfiles
+                  .rawHomeManagerConfigurations
+                  ."${configuration.user}@${
+                    if builtins.hasAttr "host" configuration
+                    then configuration.host
+                    else host
+                  }";
+              in {
                 inherit (configuration) system;
                 modules =
                   configuration.modules
@@ -78,12 +77,12 @@
                     }
                   ];
               }
-              // (
-                if configuration.builderArgs == null
-                then {}
-                else configuration.builderArgs
-              )
-          )
+            )
+            // (
+              if configuration.builderArgs == null
+              then {}
+              else configuration.builderArgs
+            ))
       );
     in {
       darwinConfigurations = mapMachineConfigurations {
@@ -139,13 +138,13 @@
           builderArgs = rec {
             system = "aarch64-linux";
             format = "qcow-efi";
-            specialArgs.diskSize = "102400";
           };
           system = "aarch64-linux";
           user = "ereslibre";
           host = "devbox";
           modules = [
             {nix.registry.nixpkgs.flake = nixpkgs;}
+            {boot.diskSize = 100 * 1024;}
             home-manager.nixosModules.home-manager
             ./devbox/configuration.nix
           ];
