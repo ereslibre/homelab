@@ -17,8 +17,14 @@
   # Temporary due to spice-autorandr
   nixpkgs.config.allowUnsupportedSystem = true;
 
-  environment.variables = {
-    TERMINAL = "terminator";
+  environment = {
+    variables = {
+      TERMINAL = "terminator";
+    };
+    systemPackages = with pkgs; [
+      dex
+      xss-lock
+    ];
   };
 
   fonts = {
@@ -57,12 +63,18 @@
   time.timeZone = "Europe/Madrid";
 
   home-manager.users.ereslibre = {
-    home.pointerCursor = {
-      name = "Vanilla-DMZ";
-      package = pkgs.vanilla-dmz;
-      x11.enable = true;
-      gtk.enable = true;
-      size = 48;
+    home = {
+      pointerCursor = {
+        name = "Vanilla-DMZ";
+        package = pkgs.vanilla-dmz;
+        x11.enable = true;
+        gtk.enable = true;
+        size = 48;
+      };
+      sessionVariables.EDITOR = (import ../dotfiles/emacs.nix {
+        mainlyRemote = false;
+        nox = true;
+      }) {inherit pkgs;};
     };
     programs = {
       emacs.extraConfig = ''
@@ -189,23 +201,9 @@
           # https://wiki.archlinux.org/index.php/XDG_Autostart
           exec --no-startup-id dex --autostart --environment i3
 
-          # The combination of xss-lock, nm-applet and pactl is a popular choice, so
-          # they are included here as an example. Modify as you see fit.
-
           # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
           # screen before suspend. Use loginctl lock-session to lock your screen.
           exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-          # NetworkManager is the most popular way to manage wireless networks on Linux,
-          # and nm-applet is a desktop environment-independent system tray GUI for it.
-          exec --no-startup-id nm-applet
-
-          # Use pactl to adjust volume in PulseAudio.
-          set $refresh_i3status killall -SIGUSR1 i3status-rs
-          bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-          bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-          bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-          bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
           # use these keys for focus, movement, and resize directions when reaching for
           # the arrows is not convenient
