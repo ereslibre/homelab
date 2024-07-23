@@ -2,7 +2,12 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  emacs = (import ../dotfiles/emacs.nix {
+    mainlyRemote = false;
+    nox = true;
+  }) {inherit pkgs;};
+in {
   imports = [
     ../common/aliases
     ../common/nixos
@@ -71,12 +76,12 @@
         gtk.enable = true;
         size = 48;
       };
-      sessionVariables.EDITOR = (import ../dotfiles/emacs.nix {
-        mainlyRemote = false;
-        nox = true;
-      }) {inherit pkgs;};
+      sessionVariables.EDITOR = emacs;
+      shellAliases.emacs = emacs;
     };
     programs = {
+      bash.shellAliases.emacs = lib.mkForce emacs;
+      zsh.shellAliases.emacs = lib.mkForce emacs;
       emacs.extraConfig = ''
         (set-frame-font "Fira Code-9:Regular")
         (add-to-list 'default-frame-alist '(font . "Fira Code-9:Regular"))
