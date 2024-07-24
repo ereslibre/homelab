@@ -83,9 +83,9 @@ in {
       bash.shellAliases.emacs = lib.mkForce emacs;
       zsh.shellAliases.emacs = lib.mkForce emacs;
       emacs.extraConfig = ''
-        (set-frame-font "Fira Code-9:Regular")
-        (add-to-list 'default-frame-alist '(font . "Fira Code-9:Regular"))
-        (set-face-attribute 'default t :font "Fira Code-9:Regular")
+        (set-frame-font "Fira Code-11:Regular")
+        (add-to-list 'default-frame-alist '(font . "Fira Code-11:Regular"))
+        (set-face-attribute 'default t :font "Fira Code-11:Regular")
       '';
       firefox.enable = true;
       i3status-rust = {
@@ -125,7 +125,7 @@ in {
           profiles = {
             default = {
               use_system_font = false;
-              font = "Fira Code 9";
+              font = "Fira Code 11";
               cursor_blink = false;
               scrollbar_position = "disabled";
               show_titlebar = false;
@@ -200,7 +200,7 @@ in {
 
           # Font for window titles. Will also be used by the bar unless a different font
           # is used in the bar {} block below.
-          font xft:Fira Code 9
+          font xft:Fira Code 11
 
           # Start XDG autostart .desktop files using dex. See also
           # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -233,7 +233,7 @@ in {
           bindsym $mod+Shift+q kill
 
           # start dmenu (a program launcher)
-          bindsym $mod+d exec --no-startup-id dmenu_run -fn 'FiraCode-10 -h 24'
+          bindsym $mod+d exec --no-startup-id dmenu_run -fn 'FiraCode-11 -h 24'
           # A more modern dmenu replacement is rofi:
           # bindsym $mod+d exec "rofi -modi drun,run -show drun"
           # There also is i3-dmenu-desktop which only displays applications shipping a
