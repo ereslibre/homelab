@@ -265,10 +265,10 @@ in {
           bindsym $mod+Shift+Right move right
 
           # split in horizontal orientation
-          bindsym $mod+h split h
+          bindsym $mod+Shift+h split h
 
           # split in vertical orientation
-          bindsym $mod+v split v
+          bindsym $mod+Shift+v split v
 
           # enter fullscreen mode for the focused container
           bindsym $mod+Shift+f fullscreen toggle
@@ -375,6 +375,13 @@ in {
       };
     };
   };
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024;
+    }
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
