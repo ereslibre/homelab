@@ -105,6 +105,12 @@ in {
           ];
         };
       };
+      keychain = {
+        enable = true;
+        enableZshIntegration = true;
+        extraFlags = ["--ignore-missing" "--quiet"];
+        keys = ["id_ed25519" "id_rsa"];
+      };
       terminator = {
         enable = true;
         config = {
@@ -274,9 +280,9 @@ in {
           bindsym $mod+Shift+f fullscreen toggle
 
           # change container layout (stacked, tabbed, toggle split)
-          bindsym $mod+s layout stacking
-          bindsym $mod+w layout tabbed
-          bindsym $mod+e layout toggle split
+          bindsym $mod+Shift+s layout stacking
+          bindsym $mod+Shift+w layout tabbed
+          bindsym $mod+Shift+e layout toggle split
 
           # toggle tiling / floating
           bindsym $mod+Shift+space floating toggle
