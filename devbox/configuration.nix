@@ -74,7 +74,7 @@ in {
         package = pkgs.vanilla-dmz;
         x11.enable = true;
         gtk.enable = true;
-        size = 48;
+        size = 64;
       };
       sessionVariables.EDITOR = emacs;
       shellAliases.emacs = emacs;
