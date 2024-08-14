@@ -28,9 +28,14 @@
     };
   };
 
-  services.matrix-synapse.extraConfigFiles = [
-    config.sops.secrets."matrix-synapse-registration-shared-secret.yaml".path
-  ];
+  services.matrix-synapse = {
+    extraConfigFiles = [
+      config.sops.secrets."matrix-synapse-registration-shared-secret.yaml".path
+    ];
+    settings = {
+      server_name = "ereslibre.social";
+    };
+  };
 
   networking.hostName = "nuc-3";
 
