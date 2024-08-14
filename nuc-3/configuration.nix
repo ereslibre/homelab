@@ -33,6 +33,7 @@
       config.sops.secrets."matrix-synapse-registration-shared-secret.yaml".path
     ];
     settings = {
+      public_baseurl = "https://matrix.ereslibre.social";
       server_name = "ereslibre.social";
     };
   };
