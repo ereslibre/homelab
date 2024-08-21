@@ -35,6 +35,8 @@
     settings = {
       public_baseurl = "https://matrix.ereslibre.social";
       server_name = "ereslibre.social";
+      allow_public_rooms_over_federation = true;
+      enable_metrics = true;
     };
   };
 

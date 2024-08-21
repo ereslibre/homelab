@@ -10,7 +10,7 @@ in {
           bind_addresses = [
             "::1"
           ];
-          port = 8008;
+          port = 8448;
           resources = [
             {
               names = ["client" "federation"];
