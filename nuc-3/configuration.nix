@@ -37,6 +37,7 @@
       server_name = "ereslibre.social";
       allow_public_rooms_over_federation = true;
       enable_metrics = true;
+      enable_registration = false;
       url_preview_enabled = true;
       url_preview_ip_range_blacklist = [
         "127.0.0.0/8"
