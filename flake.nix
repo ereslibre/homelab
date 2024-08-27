@@ -16,11 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+      url = "github:ereslibre/nixos-generators/configure-boot-size";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,17 +50,17 @@
     // (let
       mapMachineConfigurations = nixpkgs.lib.mapAttrs (
         host: configuration:
-          configuration.builder ((
-              let
-                hmConfiguration =
-                  dotfiles
-                  .rawHomeManagerConfigurations
-                  ."${configuration.user}@${
-                    if builtins.hasAttr "host" configuration
-                    then configuration.host
-                    else host
-                  }";
-              in {
+          configuration.builder (
+            let
+              hmConfiguration =
+                dotfiles
+                .rawHomeManagerConfigurations
+                ."${configuration.user}@${
+                  if builtins.hasAttr "host" configuration
+                  then configuration.host
+                  else host
+                }";
+            in ({
                 inherit (configuration) system;
                 modules =
                   configuration.modules
@@ -77,18 +77,13 @@
                     }
                   ];
               }
-            )
-            // (
-              if configuration.builderArgs == null
-              then {}
-              else configuration.builderArgs
-            ))
+              // (configuration.builderArgs or {}))
+          )
       );
     in {
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Air" = {
           builder = nix-darwin.lib.darwinSystem;
-          builderArgs = null;
           system = "aarch64-darwin";
           user = "ereslibre";
           modules = [
@@ -100,7 +95,6 @@
       nixosConfigurations = mapMachineConfigurations {
         "devbox" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "aarch64-linux";
           user = "ereslibre";
           modules = [
@@ -138,20 +132,23 @@
           builderArgs = {
             system = "aarch64-linux";
             format = "qcow-efi";
+            specialArgs = {
+              bootSize = 512;
+              additionalSpace = "100GiB";
+            };
           };
           system = "aarch64-linux";
           user = "ereslibre";
           host = "devbox";
           modules = [
             {nix.registry.nixpkgs.flake = nixpkgs;}
-            {boot.diskSize = 100 * 1024;}
+            {boot.growPartition = true;}
             home-manager.nixosModules.home-manager
             ./devbox/configuration.nix
           ];
         };
         "hulk" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "x86_64-linux";
           user = "ereslibre";
           modules = [
@@ -162,7 +159,6 @@
         };
         "nuc-1" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "x86_64-linux";
           user = "ereslibre";
           modules = [
@@ -174,7 +170,6 @@
         };
         "nuc-2" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "x86_64-linux";
           user = "ereslibre";
           modules = [
@@ -186,7 +181,6 @@
         };
         "nuc-3" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "x86_64-linux";
           user = "ereslibre";
           modules = [
@@ -198,7 +192,6 @@
         };
         "pi-desktop" = {
           builder = nixpkgs.lib.nixosSystem;
-          builderArgs = null;
           system = "aarch64-linux";
           user = "ereslibre";
           modules = [
