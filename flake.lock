@@ -144,11 +144,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724783173,
-        "narHash": "sha256-CNcO/D8RujlPXGecVoFsvX3rcJbE1zrmXJttItSab3k=",
+        "lastModified": 1724830291,
+        "narHash": "sha256-XHLIyebhPVzllV6n7PlUg5dNUSvv3TgxJopM+D5xKdY=",
         "owner": "ereslibre",
         "repo": "nixos-generators",
-        "rev": "ecbb9a4d4d2aae400eeae4ecc4f53454769109bc",
+        "rev": "ff874c3de84e6f66f7256e24c53a808b5bbfef2d",
         "type": "github"
       },
       "original": {

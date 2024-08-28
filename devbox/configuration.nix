@@ -158,6 +158,7 @@ in {
   };
 
   networking = {
+    firewall.enable = false;
     hostName = "devbox";
     wireless.enable = false;
   };
