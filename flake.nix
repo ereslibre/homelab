@@ -43,12 +43,8 @@
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      apps = {
-        sops = flake-utils.lib.mkApp {drv = pkgs.sops;};
-        ssh-to-age = flake-utils.lib.mkApp {drv = pkgs.ssh-to-age;};
-      };
       devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [age alejandra just sops];
+        buildInputs = with pkgs; [age alejandra just sops ssh-to-age];
       };
     })
     // (let
