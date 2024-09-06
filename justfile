@@ -23,7 +23,7 @@ age-public-from-private key="~/.config/sops/age/keys.txt":
   cat {{key}} | nix develop --command age-keygen -y
 
 edit-secrets host=defaultHost:
-  nix develop --command sops -- {{host}}/secrets.yaml
+  SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt nix develop --command sops -- {{host}}/secrets.yaml
 
 rotate-secrets host=defaultHost:
-  nix develop --command sops -- rotate -i {{host}}/secrets.yaml
+  SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt nix develop --command sops -- rotate -i {{host}}/secrets.yaml
