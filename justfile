@@ -21,3 +21,6 @@ age-gen host=defaultHost:
 
 edit-secrets host=defaultHost:
   nix develop --command sops -- {{host}}/secrets.yaml
+
+rotate-secrets host=defaultHost:
+  nix develop --command sops -- rotate -i {{host}}/secrets.yaml
