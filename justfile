@@ -19,6 +19,9 @@ ssh-to-age-key key="/etc/ssh/ssh_host_ed25519_key":
 age-gen host=defaultHost:
   ssh-keyscan {{host}} | nix run nixpkgs#ssh-to-age
 
+age-public-from-private key="~/.config/sops/age/keys.txt":
+  cat {{key}} | nix develop --command age-keygen -y
+
 edit-secrets host=defaultHost:
   nix develop --command sops -- {{host}}/secrets.yaml
 
