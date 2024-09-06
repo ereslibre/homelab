@@ -27,3 +27,6 @@ edit-secrets host=defaultHost:
 
 rotate-secrets host=defaultHost:
   SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt nix develop --command sops -- rotate -i {{host}}/secrets.yaml
+
+update-keys host=defaultHost:
+  nix develop --command sops -- updatekeys {{host}}/secrets.yaml
