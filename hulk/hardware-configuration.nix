@@ -50,7 +50,7 @@
       nvidiaPersistenced = true;
       open = false;
     };
-    opengl.enable = true;
+    graphics.enable = true;
   };
 
   nixpkgs.config = {
