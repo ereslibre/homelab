@@ -142,6 +142,9 @@ in {
             "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
           };
         };
+        "kose-no-maro.hetzner.cloud".extraOptions = {
+          user = "root";
+        };
         "10.0.1.*".extraOptions = {
           "StrictHostKeyChecking" = "no";
         };
