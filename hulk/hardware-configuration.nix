@@ -46,24 +46,17 @@
 
   hardware = {
     nvidia = {
-      modesetting.enable = true;
       nvidiaPersistenced = true;
       open = false;
     };
     graphics.enable = true;
+    nvidia-container-toolkit.enable = true;
   };
+
+  services.xserver.videoDrivers = ["nvidia"];
 
   nixpkgs.config = {
     cudaSupport = true;
     cudnnSupport = true;
   };
-
-  services.xserver.videoDrivers = ["nvidia"];
-
-  systemd.services.nvidia-control-devices = {
-    wantedBy = ["multi-user.target"];
-    serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
-  };
-
-  hardware.nvidia-container-toolkit.enable = true;
 }

@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
+    ../common/docker
     ../common/home-node
     ../common/nixos
     ../common/node
