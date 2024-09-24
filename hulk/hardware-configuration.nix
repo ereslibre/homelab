@@ -55,4 +55,11 @@
     cudaSupport = true;
     cudnnSupport = true;
   };
+
+  #< TODO: remove me when https://github.com/NixOS/nixpkgs/pull/344174 merges
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  virtualisation.docker.daemon.settings.features.cdi = true;
+  virtualisation.docker.rootless.daemon.settings.features.cdi = true;
+  #>
 }

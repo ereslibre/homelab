@@ -152,16 +152,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1727190607,
-        "narHash": "sha256-RTNdg1/0wtmjc4NISOohUUSSGdUxcHAi9dTJJ1q54UM=",
+        "lastModified": 1727190729,
+        "narHash": "sha256-EGnDpTvQlDKqu6yIrnWZBbSVLFMX1D2Gun3FRFiPHuk=",
         "owner": "ereslibre",
         "repo": "nixpkgs",
-        "rev": "0d3c3735e57706f8f5640f7f62c572c92adc3d2d",
+        "rev": "b20e244fca9d07fd2bfaf618e84a6a3d64942df9",
         "type": "github"
       },
       "original": {
         "owner": "ereslibre",
-        "ref": "nvidia-container-toolkit-set-graphics-settings",
+        "ref": "dockerd-rootless-make-etc-var-run-cdi-available",
         "repo": "nixpkgs",
         "type": "github"
       }
