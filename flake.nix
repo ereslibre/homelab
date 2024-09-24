@@ -20,7 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # FIXME: temporary branch
+    nixpkgs.url = "github:ereslibre/nixpkgs/nvidia-container-toolkit-set-graphics-settings";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -152,16 +152,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1726937504,
-        "narHash": "sha256-bvGoiQBvponpZh8ClUcmJ6QnsNKw0EMrCQJARK3bI1c=",
-        "owner": "NixOS",
+        "lastModified": 1727170069,
+        "narHash": "sha256-c9IuR7P86FZvea8WYkAmuzGU7uUPrIq8D+7CQaVuRVs=",
+        "owner": "ereslibre",
         "repo": "nixpkgs",
-        "rev": "9357f4f23713673f310988025d9dc261c20e70c6",
+        "rev": "6d1491b80bfdd2aebf5c284e4995bb52442feb25",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "ereslibre",
+        "ref": "nvidia-container-toolkit-set-graphics-settings",
         "repo": "nixpkgs",
         "type": "github"
       }

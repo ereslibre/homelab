@@ -32,7 +32,6 @@
       sensor-cpu = "sudo ${pkgs.lm_sensors}/bin/sensors -j k10temp-pci-00c3 | ${pkgs.jq}/bin/jq '.\"k10temp-pci-00c3\".Tctl.temp1_input'";
     };
     systemPackages = with pkgs; [
-      linuxPackages.nvidia_x11
       pciutils
     ];
   };
@@ -49,11 +48,8 @@
       nvidiaPersistenced = true;
       open = false;
     };
-    graphics.enable = true;
     nvidia-container-toolkit.enable = true;
   };
-
-  services.xserver.videoDrivers = ["nvidia"];
 
   nixpkgs.config = {
     cudaSupport = true;
