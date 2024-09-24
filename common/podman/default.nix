@@ -1,8 +1,5 @@
 {pkgs, ...}: {
   environment = {
-    shellAliases = {
-      docker-compose = "podman-compose";
-    };
     systemPackages = with pkgs; [
       conmon
       podman-compose
