@@ -20,8 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    # FIXME: temporary branch
-    nixpkgs.url = "github:ereslibre/nixpkgs/dockerd-rootless-make-etc-var-run-cdi-available";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

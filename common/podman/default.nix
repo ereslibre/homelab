@@ -9,6 +9,9 @@
   users.users.ereslibre.extraGroups = ["podman"];
   virtualisation = {
     containers.enable = true;
-    podman.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 }
