@@ -154,6 +154,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             microvm.nixosModules.host
+            sops-nix.nixosModules.sops
             ./hulk/configuration.nix
           ];
         };
