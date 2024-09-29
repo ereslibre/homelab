@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -20,6 +20,7 @@
   networking.hostName = "hulk";
 
   sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets."github-pat" = {};
   nix.extraOptions = ''
     !include ${config.sops.secrets.github-pat.path}
   '';
