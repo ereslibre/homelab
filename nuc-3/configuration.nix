@@ -18,7 +18,10 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.secrets = {
-    "github-pat" = {};
+    "nix-access-tokens" = {
+      owner = "ereslibre";
+      group = "users";
+    };
     "ereslibre-social-cloudflare-tunnel.json" = {
       owner = config.services.cloudflared.user;
       group = config.services.cloudflared.group;
@@ -67,7 +70,8 @@
   networking.hostName = "nuc-3";
 
   nix.extraOptions = ''
-    !include ${config.sops.secrets.github-pat.path}
+    # Access tokens
+    !include ${config.sops.secrets.nix-access-tokens.path}
   '';
 
   users.users.ereslibre.extraGroups = ["video"]; # surpillance experiments

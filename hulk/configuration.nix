@@ -20,9 +20,13 @@
   networking.hostName = "hulk";
 
   sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets."github-pat" = {};
+  sops.secrets."nix-access-tokens" = {
+    owner = "ereslibre";
+    group = "users";
+  };
   nix.extraOptions = ''
-    !include ${config.sops.secrets.github-pat.path}
+    # Access tokens
+    !include ${config.sops.secrets.nix-access-tokens.path}
   '';
 
   # This value determines the NixOS release from which the default
