@@ -65,11 +65,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1730167839,
-        "narHash": "sha256-V9ON7dVdjBg8mwx78chSSyBZsw+Q8m+HO9UfUOIo9L8=",
+        "lastModified": 1730296510,
+        "narHash": "sha256-ZiQPP6LE+SLKbS0UYNeDax08whSXlhZeniDzzLQGVEw=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "46ed88edeee85cb80063c1a511318fe39f9f846f",
+        "rev": "6ff444ef6cfd5d2effb6c4f50da2ca6f20f2677f",
         "type": "github"
       },
       "original": {
