@@ -44,7 +44,6 @@
   };
 
   hardware = {
-    graphics.enable = true;
     nvidia = {
       nvidiaPersistenced = true;
       open = false;
@@ -58,9 +57,4 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
-
-  virtualisation.docker = {
-    daemon.settings.features.cdi = true;
-    rootless.daemon.settings.features.cdi = true;
-  };
 }
