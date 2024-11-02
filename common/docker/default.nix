@@ -5,12 +5,11 @@
   virtualisation = {
     docker = {
       enable = true;
+      daemon.settings.features.containerd-snapshotter = true;
       rootless = {
         enable = true;
-        # FIXME(ereslibre): this should be done automatically by
-        # NixOS. (https://github.com/NixOS/nixpkgs/pull/344174)
-        daemon.settings.features.cdi = true;
         setSocketVariable = true;
+        daemon.settings.features.containerd-snapshotter = true;
       };
     };
   };
