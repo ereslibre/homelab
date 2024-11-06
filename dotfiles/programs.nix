@@ -37,9 +37,11 @@ in {
     alacritty = {
       enable = true;
       settings = {
-        "import" = [
-          ./assets/alacritty/dracula.toml
-        ];
+        general = {
+          "import" = [
+            ./assets/alacritty/dracula.toml
+          ];
+        };
         font = {
           normal = {
             family = "Fira Code";
