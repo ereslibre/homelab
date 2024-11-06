@@ -82,6 +82,7 @@ in {
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      nix-direnv.enable = true;
     };
     emacs = {
       enable = true;
