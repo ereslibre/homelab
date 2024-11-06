@@ -193,13 +193,12 @@
   (setq org-agenda-custom-commands
 	      '(("A" "All"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
+ 	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
 	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org"))))
 	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))))
 	        ("o" "Office"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
-	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org")))))
-	         ((org-agenda-tag-filter-preset '("+work"))))
+	          (tags-todo "+work" ((org-agenda-files '("~/.org"))))))
 	        ("p" "Personal"
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
 	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org")))))
@@ -208,6 +207,9 @@
 	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
 	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org")))))
 	         ((org-agenda-tag-filter-preset '("+hacking"))))
+	        ("l" "Logbook"
+	         ((tags "+logbook" ((org-agenda-files '("~/.org")))))
+	         ((org-agenda-tag-filter-preset '("+work"))))
 	        ("w" "Weekly review"
 	         ((agenda "" ((org-agenda-start-day nil)
 			                  (org-agenda-span 'week)))
