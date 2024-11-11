@@ -203,6 +203,10 @@ in {
         }
       ];
       extraConfig = ''
+        # TODO: Remove when new tmux version is tagged > 3.5a. See:
+        #   https://github.com/tmux/tmux/issues/4166
+        set -g default-command '$SHELL'
+
         set -g mouse on
 
         bind Space copy-mode
