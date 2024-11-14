@@ -58,6 +58,10 @@
   :init
   (setq git-link-use-commit t))
 
+(use-package svelte-mode
+  :ensure
+  :demand t)
+
 (use-package company
   :ensure
   :demand t
