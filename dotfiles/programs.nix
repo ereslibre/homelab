@@ -135,6 +135,9 @@ in {
     ripgrep.enable = true;
     ssh = {
       enable = true;
+      extraConfig = ''
+        Include config.d/*
+      '';
       forwardAgent = true;
       matchBlocks = {
         "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
