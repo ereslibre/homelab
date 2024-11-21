@@ -13,7 +13,6 @@
     ../common/services
     ../common/users
     ../common/vendor/amd
-    ../common/vscode-server
   ];
 
   # Cross-compiling support
