@@ -30,3 +30,6 @@ rotate-secrets host=defaultHost:
 
 update-keys host=defaultHost:
   nix develop --command sops -- updatekeys {{host}}/secrets.yaml
+
+update-emacs-d:
+  scripts/update-emacs-d.sh
