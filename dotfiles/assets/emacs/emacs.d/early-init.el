@@ -59,6 +59,7 @@
 ;; programming helpers
 (add-hook 'prog-mode-hook
           (lambda () (global-set-key (kbd "C-c /") 'comment-or-uncomment-region)))
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; font
 (set-frame-font "Iosevka-13:Regular")
