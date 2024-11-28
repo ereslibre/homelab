@@ -4,7 +4,8 @@
 
 ;; Author: Christopher McCloud
 ;; URL: https://github.com/cmccloud/helm-project
-;; Version: 0.1
+;; Package-Version: 20230608.1212
+;; Package-Revision: 1e0cd563b247
 ;; Package-Requires: ((emacs "28.1") (helm "3.9.0"))
 
 ;; This file is NOT part of GNU Emacs.

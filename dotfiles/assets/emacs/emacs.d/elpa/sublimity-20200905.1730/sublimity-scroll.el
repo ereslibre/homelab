@@ -19,7 +19,6 @@
 
 ;; Author: zk_phi
 ;; URL: https://github.com/zk-phi/sublimity
-;; Version: 1.2.1
 
 ;;; Change Log:
 

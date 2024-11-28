@@ -6,7 +6,8 @@
 ;; Author: Joseph Collard
 ;; Package-Requires: ((f "0.17") (s "1.7.0") (emacs "25.1") (seq "2.23") (reformatter "0.3"))
 ;; URL: https://github.com/jcollard/elm-mode
-;; Package-Version: 0-snapshot
+;; Package-Version: 20230315.1122
+;; Package-Revision: 699841865e1b
 
 ;; This file is not part of GNU Emacs.
 

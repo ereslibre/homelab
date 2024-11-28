@@ -3,6 +3,8 @@
 ;; Copyright (C) 2013-2017 Zeno Zeng
 
 ;; Author: Zeno Zeng <zenoofzeng@gmail.com>
+;; Package-Version: 20200119.1353
+;; Package-Revision: 4c1888ae45f9
 ;; Keywords: folding
 
 ;; This program is free software; you can redistribute it and/or modify

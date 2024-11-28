@@ -19,6 +19,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
+;; Package-Version: 20200507.1518
+;; Package-Revision: 87873d788891
+
 ;;; Commentary:
 ;;
 ;; This package provides `lv-message' intended to be used in place of

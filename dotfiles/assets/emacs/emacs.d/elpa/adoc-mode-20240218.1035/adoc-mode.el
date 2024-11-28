@@ -7,7 +7,8 @@
 ;; URL: https://github.com/bbatsov/adoc-mode
 ;; Maintainer: Bozhidar Batsov <bozhidar@batsov.dev>
 ;; Created: 2009
-;; Version: 0.8.0-snapshot
+;; Package-Version: 20240218.1035
+;; Package-Revision: 2c2eb8043623
 ;; Package-Requires: ((emacs "26"))
 ;; Keywords: docs, wp
 ;;
