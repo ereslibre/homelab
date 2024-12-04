@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ../common/hulk-jumpbox
     ../common/nixos
     ../common/tailscale
   ];
