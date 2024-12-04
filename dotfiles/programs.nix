@@ -166,6 +166,18 @@ in {
         "192.168.*".extraOptions = {
           "StrictHostKeyChecking" = "no";
         };
+        "ubuntu-1.hulk" = {
+          extraOptions = {
+            "HostName" = "192.168.122.64";
+            "ProxyJump" = "hulk.ereslibre.net";
+          };
+        };
+        "ubuntu-2.hulk" = {
+          extraOptions = {
+            "HostName" = "192.168.122.181";
+            "ProxyJump" = "hulk.ereslibre.net";
+          };
+        };
         "*" = {
           compression = true;
           forwardX11 = false;
