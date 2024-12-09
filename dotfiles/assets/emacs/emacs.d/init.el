@@ -78,10 +78,12 @@
   :ensure
   :demand t
   :config
-  (gptel-make-ollama "ollama"
-    :host "hulk.ereslibre.net:11434"
-    :stream t
-    :models '(qwen2.5-coder:32b)))
+  (setq
+   gptel-model 'qwen2.5-coder:32b
+   gptel-backend (gptel-make-ollama "ollama"
+                   :host "hulk.ereslibre.net:11434"
+                   :stream t
+                   :models '(qwen2.5-coder:32b))))
 
 (use-package lsp-mode
   :ensure
