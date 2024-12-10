@@ -33,12 +33,12 @@
   services = {
     ollama = {
       enable = true;
-      host = "[::]";
+      host = "0.0.0.0";
       loadModels = ["qwen2.5-coder:32b"];
     };
     open-webui = {
       enable = true;
-      host = "[::]";
+      host = "0.0.0.0";
       environment = {
         OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
         WEBUI_AUTH = "False";
