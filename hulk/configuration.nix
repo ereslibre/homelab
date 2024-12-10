@@ -30,10 +30,23 @@
     !include ${config.sops.secrets.nix-access-tokens.path}
   '';
 
-  services.ollama = {
-    enable = true;
-    host = "[::]";
-    loadModels = ["qwen2.5-coder:32b"];
+  services = {
+    ollama = {
+      enable = true;
+      host = "[::]";
+      loadModels = ["qwen2.5-coder:32b"];
+    };
+    open-webui = {
+      enable = true;
+      host = "[::]";
+      environment = {
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+        WEBUI_AUTH = "False";
+        ANONYMIZED_TELEMETRY = "False";
+        DO_NOT_TRACK = "True";
+        SCARF_NO_ANALYTICS = "True";
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
