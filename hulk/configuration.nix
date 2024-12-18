@@ -33,7 +33,7 @@
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
-    loadModels = ["mistral:7b" "mistral:7b-instruct" "qwen2.5-coder:32b"];
+    loadModels = ["llama3.2:3b" "qwen2.5:7b" "qwen2.5-coder:32b"];
   };
 
   # This value determines the NixOS release from which the default
