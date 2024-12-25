@@ -7,6 +7,7 @@
   mainlyRemote,
   home-manager,
 }: {
+  config,
   pkgs,
   lib,
   ...
@@ -37,5 +38,8 @@ in {
       [(import ./mac.nix {inherit username;})]
     );
 
-  home = {inherit username homeDirectory stateVersion;};
+  home = {
+    inherit username homeDirectory stateVersion;
+    file.".hyper.js".source = config.lib.file.mkOutOfStoreSymlink ./assets/hyper.js;
+  };
 }
