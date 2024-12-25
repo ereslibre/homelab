@@ -34,48 +34,6 @@ in {
     };
   };
   programs = {
-    alacritty = {
-      enable = true;
-      settings = {
-        general = {
-          "import" = [
-            ./assets/alacritty/dracula.toml
-          ];
-        };
-        font = {
-          normal = {
-            family = "Fira Code";
-            style = "Regular";
-          };
-          bold = {
-            family = "Fira Code";
-            style = "Bold";
-          };
-          italic = {
-            family = "Fira Code";
-            style = "Italic";
-          };
-          bold_italic = {
-            family = "Fira Code";
-            style = "Bold Italic";
-          };
-          size = 12;
-        };
-        cursor = {
-          style = {
-            shape = "Block";
-            blinking = "Never";
-          };
-        };
-        window = {
-          decorations = "full";
-          decorations_theme_variant = "Dark";
-          dynamic_padding = true;
-          opacity = 0.9;
-          option_as_alt = "Both";
-        };
-      };
-    };
     bash = {
       enable = true;
       inherit (shellExtras) profileExtra shellAliases;
