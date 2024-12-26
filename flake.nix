@@ -41,8 +41,13 @@
   }: let
     dotfiles = import ./dotfiles {inherit nixpkgs home-manager;};
   in (flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
+      inherit nixpkgs;
+      legacyPackages = pkgs;
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [age alejandra just sops ssh-to-age];
       };
