@@ -46,7 +46,6 @@
         config.allowUnfree = true;
       };
     in {
-      inherit nixpkgs;
       legacyPackages = pkgs;
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [age alejandra just sops ssh-to-age];
