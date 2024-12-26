@@ -20,7 +20,6 @@
 
   home-manager.users.ereslibre.home = {
     packages = with pkgs; [ollama];
-
     sessionVariables = {
       OLLAMA_HOST = "hulk.ereslibre.net";
     };
