@@ -32,10 +32,6 @@ in {
         (import ./node.nix {inherit home-manager;})
         ./systemd.nix
       ]
-    )
-    ++ (
-      lib.optionals (systemMatchesPredicate system "isDarwin")
-      [(import ./mac.nix {inherit username;})]
     );
 
   home = {

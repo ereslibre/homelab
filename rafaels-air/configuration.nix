@@ -2,7 +2,10 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  user = "ereslibre";
+  userHome = "/Users/${user}";
+in {
   imports = [
     ../common/nixos
     ../common/tailscale
@@ -10,6 +13,37 @@
 
   environment = {
     shells = with pkgs; [zsh];
+    userLaunchAgents = {
+      "es.ereslibre.emacs.plist" = {
+        enable = true;
+        text = ''
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>EnvironmentVariables</key>
+            <dict>
+              <key>XDG_RUNTIME_DIR</key>
+              <string>${userHome}/.emacs.d</string>
+            </dict>
+            <key>Label</key>
+            <string>es.ereslibre.es.emacs</string>
+            <key>ProgramArguments</key>
+            <array>
+              <string>${pkgs.emacs}/bin/emacs</string>
+              <string>--fg-daemon</string>
+            </array>
+            <key>RunAtLoad</key>
+            <true/>
+            <key>KeepAlive</key>
+            <true/>
+            <key>LSUIElement</key>
+            <true/>
+          </dict>
+          </plist>
+        '';
+      };
+    };
   };
 
   fonts.packages = with pkgs; [
@@ -18,16 +52,16 @@
 
   programs.zsh.enable = true;
 
-  home-manager.users.ereslibre.home = {
+  home-manager.users.${user}.home = {
     packages = with pkgs; [ollama];
     sessionVariables = {
       OLLAMA_HOST = "hulk.ereslibre.net";
     };
   };
 
-  users.users.ereslibre = {
+  users.users.${user} = {
     createHome = true;
-    home = "/Users/ereslibre";
+    home = userHome;
     shell = pkgs.zsh;
   };
 
