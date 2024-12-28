@@ -21,7 +21,7 @@ module.exports = {
         // letter spacing as a relative unit
         letterSpacing: 0,
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-        cursorColor: 'rgba(248,28,229,0.8)',
+        cursorColor: 'rgba(255,255,255,1)',
         // terminal text color under BLOCK cursor
         cursorAccentColor: '#000',
         // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
@@ -34,13 +34,13 @@ module.exports = {
         // opacity is only supported on macOS
         backgroundColor: '#000',
         // terminal selection color
-        selectionColor: 'rgba(248,28,229,0.3)',
+        selectionColor: 'rgba(255,255,255,0.5)',
         // border color (window, tabs)
-        borderColor: '#333',
+        borderColor: '#fff',
         // custom CSS to embed in the main window
-        css: '',
+        css: 'margin: 0; padding: 0',
         // custom CSS to embed in the terminal window
-        termCSS: '',
+        termCSS: 'margin: 0; padding: 5px',
         // set custom startup directory (must be an absolute path)
         workingDirectory: '',
         // if you're using a Linux setup which show native menus, set to false
@@ -51,7 +51,7 @@ module.exports = {
         // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
         showWindowControls: '',
         // custom padding (CSS format, i.e.: `top right bottom left`)
-        padding: '12px 14px',
+        padding: '5px 5px 5px 5px',
         // the full list. if you're going to provide the full color palette,
         // including the 6 x 6 color cubes and the grayscale map, just provide
         // an array here instead of a color map object
@@ -102,7 +102,7 @@ module.exports = {
         // Supported Options:
         //  1. 'SOUND' -> Enables the bell as a sound
         //  2. false: turns off the bell
-        bell: 'SOUND',
+        bell: false,
         // An absolute file path to a sound file on the machine.
         // bellSoundURL: '/path/to/sound/file',
         // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
@@ -111,7 +111,7 @@ module.exports = {
         defaultSSHApp: true,
         // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
         // selection is present (`true` by default on Windows and disables the context menu feature)
-        quickEdit: false,
+        quickEdit: true,
         // choose either `'vertical'`, if you want the column mode when Option key is hold during selection (Default)
         // or `'force'`, if you want to force selection regardless of whether the terminal is in mouse events mode
         // (inside tmux or vim with mouse mode enabled for example).
