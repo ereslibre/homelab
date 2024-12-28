@@ -224,7 +224,7 @@ in {
           gpg-connect-agent "scd serialno" "learn --force" /bye
         }
         fixssh() {
-          eval $(${pkgs.tmux}/bin/tmux show-env -s |grep '^SSH_')
+          eval $(${pkgs.tmux}/bin/tmux show-env -s | grep '^SSH_')
         }
         key-token() {
           ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
