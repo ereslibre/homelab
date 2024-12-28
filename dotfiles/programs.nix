@@ -89,7 +89,6 @@ in {
     };
     jq.enable = true;
     keychain = {
-      enable = !mainlyRemote;
       enableZshIntegration = true;
       extraFlags = ["--ignore-missing" "--quiet"];
       keys = ["id_ed25519" "id_rsa"];
