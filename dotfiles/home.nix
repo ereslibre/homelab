@@ -37,5 +37,6 @@ in {
   home = {
     inherit username homeDirectory stateVersion;
     file.".hyper.js".source = config.lib.file.mkOutOfStoreSymlink ./assets/hyper.js;
+    file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink ./assets/ghostty/config;
   };
 }
