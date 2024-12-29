@@ -111,7 +111,7 @@ module.exports = {
         defaultSSHApp: true,
         // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
         // selection is present (`true` by default on Windows and disables the context menu feature)
-        quickEdit: true,
+        quickEdit: false,
         // choose either `'vertical'`, if you want the column mode when Option key is hold during selection (Default)
         // or `'force'`, if you want to force selection regardless of whether the terminal is in mouse events mode
         // (inside tmux or vim with mouse mode enabled for example).
