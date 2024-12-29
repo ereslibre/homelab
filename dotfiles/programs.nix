@@ -209,7 +209,7 @@ in {
       enable = true;
       enableCompletion = false;
       envExtra = ''
-        export TERM=xterm-direct
+        export TERM=konsole-direct
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
@@ -308,8 +308,6 @@ in {
           ll = "${pkgs.coreutils}/bin/ls --color=auto -alF";
           la = "${pkgs.coreutils}/bin/ls --color=auto -A";
           ls = "${pkgs.coreutils}/bin/ls --color=auto";
-          # xterm-direct is not in terminfo for MacOS
-          reset = "reset xterm";
           vdir = "${pkgs.coreutils}/bin/vdir --color=auto";
         }
         // shellExtras.shellAliases;
