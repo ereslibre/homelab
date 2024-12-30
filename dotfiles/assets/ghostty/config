@@ -1,2 +1,6 @@
 font-family = "Fira Code"
-theme = "Molokai"
+font-size = "12"
+theme = "Monokai Vivid"
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
