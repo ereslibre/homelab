@@ -169,6 +169,9 @@ in {
         {
           plugin = dracula;
           extraConfig = ''
+            # Enable clipboard through tmux in remote session
+            set -as terminal-features ',konsole-direct:clipboard'
+
             set -g @dracula-show-powerline true
             set -g @dracula-cpu-display-load true
             set -g @dracula-show-left-icon λ
