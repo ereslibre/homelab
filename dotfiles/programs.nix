@@ -31,6 +31,7 @@ in {
     ];
     sessionVariables = {
       EDITOR = emacs {nox = true;};
+      TERM = "konsole-direct";
     };
   };
   programs = {
@@ -209,7 +210,6 @@ in {
       enable = true;
       enableCompletion = false;
       envExtra = ''
-        export TERM=konsole-direct
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
