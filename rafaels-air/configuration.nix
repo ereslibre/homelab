@@ -46,10 +46,6 @@ in {
     };
   };
 
-  fonts.packages = with pkgs; [
-    fira-code
-  ];
-
   programs.zsh.enable = true;
 
   home-manager.users.${user}.home = {
