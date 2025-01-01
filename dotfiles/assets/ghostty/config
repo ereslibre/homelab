@@ -1,6 +1,6 @@
 font-family = "Fira Code"
 font-size = "12"
-theme = "Monokai Vivid"
+theme = Dracula
 cursor-color = white
 cursor-style = block
 cursor-style-blink = false
