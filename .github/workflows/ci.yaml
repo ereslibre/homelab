@@ -15,8 +15,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v12
-      # - name: Setup the magic Nix cache
-      #   uses: DeterminateSystems/magic-nix-cache-action@v6
       - name: Format
         run: |
           nix develop --command just fmt
@@ -29,30 +27,3 @@ jobs:
         uses: actions/checkout@v4
       - name: Check Nix flake inputs
         uses: DeterminateSystems/flake-checker-action@v8
-  build:
-    name: Build
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        host: [hulk, nuc-1, nuc-2, nuc-3]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Free space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v12
-      # - name: Setup the magic Nix cache
-      #   uses: DeterminateSystems/magic-nix-cache-action@v6
-      - name: Build
-        run: |
-          # Force the creation of the profile dir
-          nix profile list
-          # Build
-          nix develop --command just build ${{ matrix.host }}
