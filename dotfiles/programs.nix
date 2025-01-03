@@ -33,8 +33,8 @@ in {
       EDITOR = emacs {nox = true;};
       TERM = "konsole-direct";
     };
-    file = {
-      ".config/ghostty/config".text = lib.mkIf (!mainlyRemote) ''
+    file = lib.mkIf (!mainlyRemote) {
+      ".config/ghostty/config".text = ''
         font-family = "JetBrains Mono"
         font-size = "12"
         theme = Dracula
