@@ -43,14 +43,6 @@
       mainlyRemote = true;
       stateVersion = "23.05";
     };
-    "ereslibre@pi-desktop" = {
-      system = "aarch64-linux";
-      username = "ereslibre";
-      homeDirectory = "/home/ereslibre";
-      profile = "personal";
-      mainlyRemote = false;
-      stateVersion = "22.11";
-    };
     "ereslibre@Rafaels-Air" = {
       system = "aarch64-darwin";
       username = "ereslibre";

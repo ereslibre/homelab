@@ -195,17 +195,6 @@
             ./nuc-3/configuration.nix
           ];
         };
-        "pi-desktop" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "aarch64-linux";
-          user = "ereslibre";
-          modules = [
-            home-manager.nixosModules.home-manager
-            nixos-hardware.nixosModules.raspberry-pi-4
-            sops-nix.nixosModules.sops
-            ./pi-desktop/configuration.nix
-          ];
-        };
       };
     }));
 }
