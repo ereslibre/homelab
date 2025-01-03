@@ -42,6 +42,5 @@ in {
 
   home = {
     inherit username homeDirectory stateVersion;
-    file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink ./assets/ghostty/config;
   };
 }

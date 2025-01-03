@@ -33,6 +33,20 @@ in {
       EDITOR = emacs {nox = true;};
       TERM = "konsole-direct";
     };
+    file = {
+      ".config/ghostty/config".text = lib.mkIf (!mainlyRemote) ''
+        font-family = "JetBrains Mono"
+        font-size = "12"
+        theme = Dracula
+        cursor-color = white
+        cursor-style = block
+        cursor-style-blink = false
+        shell-integration-features = no-cursor
+        copy-on-select = clipboard
+        window-padding-x = 4
+        window-padding-y = 4
+      '';
+    };
   };
   programs = {
     bash = {
