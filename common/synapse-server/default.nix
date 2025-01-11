@@ -1,6 +1,14 @@
 {pkgs, ...}: let
   dbName = "matrix-synapse";
 in {
+  nixpkgs.overlays = [
+    # TODO; remove: https://github.com/NixOS/nixpkgs/issues/369303
+    (self: super: {
+      matrix-synapse-unwrapped = super.matrix-synapse-unwrapped.overridePythonAttrs {
+        doCheck = false;
+      };
+    })
+  ];
   services.matrix-synapse = {
     enable = true;
     settings = {
