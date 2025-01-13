@@ -1,7 +1,4 @@
-{
-  nixpkgs,
-  home-manager,
-}: let
+let
   rawHomeManagerConfigurations = {
     "ereslibre@hulk" = {
       system = "x86_64-linux";
@@ -44,30 +41,6 @@
       stateVersion = "22.11";
     };
   };
-
-  homeManagerConfiguration = {
-    system,
-    username,
-    homeDirectory,
-    profile,
-    mainlyRemote,
-    stateVersion,
-  }:
-    home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      modules = [
-        {nixpkgs.config.allowUnfree = true;}
-        (import ./home.nix {
-          inherit system username homeDirectory stateVersion profile mainlyRemote home-manager;
-        })
-      ];
-    };
 in {
   inherit rawHomeManagerConfigurations;
-  homeConfigurations =
-    nixpkgs.lib.attrsets.mapAttrs
-    (userAndHost: userAndHostConfig: homeManagerConfiguration userAndHostConfig)
-    rawHomeManagerConfigurations;
 }

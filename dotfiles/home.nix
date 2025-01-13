@@ -1,11 +1,11 @@
 {
-  username,
-  homeDirectory,
-  stateVersion,
-  profile,
-  system,
-  mainlyRemote,
   home-manager,
+  homeDirectory,
+  mainlyRemote,
+  profile,
+  stateVersion,
+  system,
+  username,
 }: {
   config,
   pkgs,

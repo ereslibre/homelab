@@ -34,7 +34,7 @@
     sops-nix,
     ...
   }: let
-    dotfiles = import ./dotfiles {inherit nixpkgs home-manager;};
+    dotfiles = import ./dotfiles;
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system;
