@@ -282,11 +282,6 @@ in {
         nixity-run-offline() {
           EXTRA_ARGS="''${EXTRA_ARGS:---offline}" nixity-run $1 ''${@:2}
         }
-        setup-devbox() {
-          ssh "$1" mkdir -p '~/.ssh'
-          scp ~/.ssh/id_* "$1":'~/.ssh'
-          ssh "$1" chown -R ${username}:users '~/.ssh'
-        }
         sri() {
           local algo="''${2:-sha256}"
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" $EXTRA_ARGS "$1")
