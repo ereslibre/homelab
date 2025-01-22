@@ -5,11 +5,17 @@
   virtualisation = {
     docker = {
       enable = true;
-      daemon.settings.features.containerd-snapshotter = true;
+      daemon.settings = {
+        dns = ["1.1.1.1"];
+        features.containerd-snapshotter = true;
+      };
       rootless = {
         enable = true;
         setSocketVariable = true;
-        daemon.settings.features.containerd-snapshotter = true;
+        daemon.settings = {
+          dns = ["1.1.1.1"];
+          features.containerd-snapshotter = true;
+        };
       };
     };
   };
