@@ -83,7 +83,8 @@
    gptel-backend (gptel-make-ollama "ollama"
                    :host "hulk.ereslibre.net:11434"
                    :stream t
-                   :models '(qwen2.5-coder:32b))))
+                   :models '(qwen2.5-coder:32b
+                             deepseek-r1:32b))))
 
 (use-package lsp-mode
   :ensure
