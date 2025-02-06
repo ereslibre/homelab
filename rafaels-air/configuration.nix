@@ -84,6 +84,7 @@ in {
           diskSize = lib.mkForce (1000 * 1024);
         };
       };
+      systems = ["aarch64-linux"];
     };
     settings.trusted-users = ["@admin"];
   };
