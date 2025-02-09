@@ -97,6 +97,7 @@ value of `split-window-preferred-function' to allow
 
 (fn &optional WINDOW)")
 (register-definition-prefixes "visual-fill-column" '("turn-on-visual-fill-column-mode" "visual-fill-column-"))
+
 
 ;;; End of scraped data
 

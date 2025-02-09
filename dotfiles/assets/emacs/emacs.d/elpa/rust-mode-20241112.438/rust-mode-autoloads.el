@@ -52,6 +52,7 @@ Major mode for Rust code." t)
 (autoload 'rust-dbg-wrap-or-unwrap "rust-utils" "\
 Either remove or add the dbg! macro." t)
 (register-definition-prefixes "rust-utils" '("rust-"))
+
 
 ;;; End of scraped data
 

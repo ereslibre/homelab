@@ -21,6 +21,7 @@ the rules from `css-mode'.
 (fn)" t)
 (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
 (register-definition-prefixes "svelte-mode" '("svelte-"))
+
 
 ;;; End of scraped data
 

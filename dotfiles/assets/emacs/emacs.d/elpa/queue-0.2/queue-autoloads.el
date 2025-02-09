@@ -14,6 +14,7 @@
 (defalias 'make-queue 'queue-create "\
 Create an empty queue data structure.")
 (register-definition-prefixes "queue" '("queue"))
+
 
 ;;; End of scraped data
 

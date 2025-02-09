@@ -54,6 +54,7 @@ See `writeroom-mode' for more information on Writeroom mode.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "writeroom-mode" '("alpha" "bottom-divider-width" "define-writeroom-global-effect" "fullscreen" "internal-border-width" "menu-bar-lines" "sticky" "tool-bar-lines" "turn-on-writeroom-mode" "vertical-scroll-bars" "writeroom-"))
+
 
 ;;; End of scraped data
 
