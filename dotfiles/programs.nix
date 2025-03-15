@@ -25,6 +25,7 @@
 in {
   home = {
     sessionPath = [
+      "/run/wrappers/bin"
       # This is fundamentally for nix-darwin, given this is not added
       # to the $PATH: https://github.com/LnL7/nix-darwin/issues/922
       "/run/current-system/sw/bin"
