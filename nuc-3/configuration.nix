@@ -22,10 +22,7 @@
       owner = "ereslibre";
       group = "users";
     };
-    "ereslibre-social-cloudflare-tunnel.json" = {
-      owner = config.services.cloudflared.user;
-      group = config.services.cloudflared.group;
-    };
+    "ereslibre-social-cloudflare-tunnel.json" = {};
     "matrix-synapse-registration-shared-secret.yaml" = {
       owner = "matrix-synapse";
       group = "matrix-synapse";
