@@ -72,8 +72,6 @@ in {
     "Tailscale Tunnel"
   ];
 
-  services.tailscale.overrideLocalDns = true;
-
   nix = {
     gc.automatic = true;
     linux-builder = {
