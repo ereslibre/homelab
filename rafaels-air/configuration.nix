@@ -72,6 +72,8 @@ in {
     "Tailscale Tunnel"
   ];
 
+  ids.gids.nixbld = 30000;
+
   nix = {
     gc.automatic = true;
     linux-builder = {
