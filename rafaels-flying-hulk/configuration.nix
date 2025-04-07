@@ -39,6 +39,10 @@ in {
             <true/>
             <key>LSUIElement</key>
             <true/>
+            <key>StandardErrorPath</key>
+            <string>/tmp/emacs.err</string>
+            <key>StandardOutPath</key>
+            <string>/tmp/emacs.out</string>
           </dict>
           </plist>
         '';
@@ -72,22 +76,12 @@ in {
     "Tailscale Tunnel"
   ];
 
-  ids.gids.nixbld = 30000;
+  ids.gids.nixbld = 350;
 
   nix = {
     gc.automatic = true;
-    linux-builder = {
-      enable = true;
-      ephemeral = true;
-      config = {
-        virtualisation = {
-          diskSize = lib.mkForce (1000 * 1024);
-        };
-      };
-      systems = ["aarch64-linux"];
-    };
     settings.trusted-users = ["@admin"];
   };
 
-  system.stateVersion = 5;
+  system.stateVersion = 6;
 }

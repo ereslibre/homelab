@@ -81,13 +81,17 @@
       );
     in {
       darwinConfigurations = mapMachineConfigurations {
-        "Rafaels-Air" = {
+        "Rafaels-Flying-Hulk" = {
           builder = nix-darwin.lib.darwinSystem;
           system = "aarch64-darwin";
           user = "ereslibre";
           modules = [
             home-manager.darwinModules.home-manager
-            ./rafaels-air/configuration.nix
+            {
+              # To be reverted when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
+              nixpkgs.overlays = [(final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})];
+            }
+            ./rafaels-flying-hulk/configuration.nix
           ];
         };
       };

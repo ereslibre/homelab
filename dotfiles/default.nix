@@ -32,13 +32,13 @@ let
       mainlyRemote = true;
       stateVersion = "23.05";
     };
-    "ereslibre@Rafaels-Air" = {
+    "ereslibre@Rafaels-Flying-Hulk" = {
       system = "aarch64-darwin";
       username = "ereslibre";
       homeDirectory = "/Users/ereslibre";
       profile = "personal";
       mainlyRemote = false;
-      stateVersion = "22.11";
+      stateVersion = "25.05";
     };
   };
 in {
