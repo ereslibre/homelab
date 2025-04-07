@@ -40,6 +40,14 @@ let
       mainlyRemote = false;
       stateVersion = "22.11";
     };
+    "ereslibre@Rafaels-Flying-Hulk" = {
+      system = "aarch64-darwin";
+      username = "ereslibre";
+      homeDirectory = "/Users/ereslibre";
+      profile = "personal";
+      mainlyRemote = false;
+      stateVersion = "25.05";
+    };
   };
 in {
   inherit rawHomeManagerConfigurations;

@@ -62,10 +62,11 @@ in {
     };
     emacs = {
       enable = true;
+      # FIXME: remove withNativeCompilation removal on Darwin
       package =
         if mainlyRemote
         then pkgs.emacs-nox
-        else pkgs.emacs;
+        else (pkgs.emacs.override {withNativeCompilation = !isDarwin;});
     };
     fzf = {
       enable = true;
