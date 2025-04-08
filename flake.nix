@@ -90,6 +90,15 @@
             ./rafaels-air/configuration.nix
           ];
         };
+        "Rafaels-Flying-Hulk" = {
+          builder = nix-darwin.lib.darwinSystem;
+          system = "aarch64-darwin";
+          user = "ereslibre";
+          modules = [
+            home-manager.darwinModules.home-manager
+            ./rafaels-flying-hulk/configuration.nix
+          ];
+        };
       };
       nixosConfigurations = mapMachineConfigurations {
         "hulk" = {
