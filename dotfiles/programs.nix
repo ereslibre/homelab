@@ -232,8 +232,6 @@ in {
       '';
     };
 
-    vscode.enable = !mainlyRemote;
-
     zsh = {
       enable = true;
       enableCompletion = false;
