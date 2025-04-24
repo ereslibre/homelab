@@ -124,6 +124,7 @@ in {
           user = "ubuntu";
         };
         "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = {
+          hostname = "hulk.ereslibre.net";
           extraOptions = {
             "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
           };
@@ -239,7 +240,13 @@ in {
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
       '';
-      initExtra = ''
+      initContent = lib.mkBefore ''
+        # This avoids MacOS from destroying Nix on every OS update.
+        #   https://github.com/NixOS/nix/issues/3616
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fi
+
         copy-gpg-pubring() {
           scp ~/.gnupg/pubring.kbx "$1":/home/${username}/.gnupg/
         }
@@ -304,13 +311,6 @@ in {
           nix develop $EXTRA_ARGS "$targetdir"
           rm -rf "$targetdir"
         }
-      '';
-      initExtraFirst = ''
-        # This avoids MacOS from destroying Nix on every OS update.
-        #   https://github.com/NixOS/nix/issues/3616
-        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-          source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-        fi
       '';
       oh-my-zsh.enable = true;
       shellAliases =
