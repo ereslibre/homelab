@@ -113,59 +113,69 @@ in {
     less.enable = true;
     pandoc.enable = true;
     ripgrep.enable = true;
-    ssh = {
+    ssh = let
+      mapWithDomain = host: {
+        "${host}" = {
+          hostname = "${host}.ereslibre.net";
+        };
+      };
+    in {
       enable = true;
       extraConfig = ''
         Include config.d/*
       '';
       forwardAgent = true;
-      matchBlocks = {
-        "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
-          user = "ubuntu";
-        };
-        "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = {
-          hostname = "hulk.ereslibre.net";
-          extraOptions = {
-            "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
+      matchBlocks =
+        {
+          "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
+            user = "ubuntu";
           };
-        };
-        "kose-no-maro.hetzner.cloud".extraOptions = {
-          user = "root";
-        };
-        "10.0.1.*".extraOptions = {
-          "StrictHostKeyChecking" = "no";
-        };
-        "10.0.2.*".extraOptions = {
-          "StrictHostKeyChecking" = "no";
-        };
-        "10.0.3.*".extraOptions = {
-          "StrictHostKeyChecking" = "no";
-        };
-        "10.0.4.*".extraOptions = {
-          "StrictHostKeyChecking" = "no";
-        };
-        "192.168.*".extraOptions = {
-          "StrictHostKeyChecking" = "no";
-        };
-        "ubuntu-1.hulk" = {
-          extraOptions = {
-            "HostName" = "192.168.122.64";
-            "ProxyJump" = "hulk.ereslibre.net";
+          "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = {
+            extraOptions = {
+              "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
+            };
           };
-        };
-        "ubuntu-2.hulk" = {
-          extraOptions = {
-            "HostName" = "192.168.122.181";
-            "ProxyJump" = "hulk.ereslibre.net";
+          "kose-no-maro.hetzner.cloud".extraOptions = {
+            user = "root";
           };
-        };
-        "*" = {
-          compression = true;
-          forwardX11 = false;
-          serverAliveCountMax = 10;
-          serverAliveInterval = 20;
-        };
-      };
+          "10.0.1.*".extraOptions = {
+            "StrictHostKeyChecking" = "no";
+          };
+          "10.0.2.*".extraOptions = {
+            "StrictHostKeyChecking" = "no";
+          };
+          "10.0.3.*".extraOptions = {
+            "StrictHostKeyChecking" = "no";
+          };
+          "10.0.4.*".extraOptions = {
+            "StrictHostKeyChecking" = "no";
+          };
+          "192.168.*".extraOptions = {
+            "StrictHostKeyChecking" = "no";
+          };
+          "ubuntu-1.hulk" = {
+            extraOptions = {
+              "HostName" = "192.168.122.64";
+              "ProxyJump" = "hulk.ereslibre.net";
+            };
+          };
+          "ubuntu-2.hulk" = {
+            extraOptions = {
+              "HostName" = "192.168.122.181";
+              "ProxyJump" = "hulk.ereslibre.net";
+            };
+          };
+          "*" = {
+            compression = true;
+            forwardX11 = false;
+            serverAliveCountMax = 10;
+            serverAliveInterval = 20;
+          };
+        }
+        // (mapWithDomain "hulk")
+        // (mapWithDomain "nuc-1")
+        // (mapWithDomain "nuc-2")
+        // (mapWithDomain "nuc-3");
     };
     starship = {
       enable = true;
