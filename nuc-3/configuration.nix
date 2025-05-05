@@ -13,7 +13,8 @@
     ../common/synapse-server
     ../common/users
     ../common/vendor/intel
-    ../common/vscode-server
+    # FIXME: Uncomment when https://github.com/NixOS/nixpkgs/blob/f52dfae760a7135cbb66a38ab60d926b5557ecc3/pkgs/servers/openvscode-server/default.nix#L268-L269 is fixed
+    # ../common/vscode-server
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
