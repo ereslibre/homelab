@@ -23,18 +23,18 @@ or call the function `sublimity-mode'.")
 smooth-scrolling and minimap, like sublime editor
 
 This is a global minor mode.  If called interactively, toggle the
-`Sublimity mode' mode.  If the prefix argument is positive,
-enable the mode, and if it is zero or negative, disable the mode.
+`Sublimity mode' mode.  If the prefix argument is positive, enable the
+mode, and if it is zero or negative, disable the mode.
 
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
+mode if ARG is nil, omitted, or is a positive number.  Disable the mode
+if ARG is a negative number.
 
 To check whether the minor mode is enabled in the current buffer,
 evaluate `(default-value \\='sublimity-mode)'.
 
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+The mode's hook is called both when the mode is enabled and when it is
+disabled.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "sublimity" '("sublimity-"))
@@ -53,7 +53,6 @@ it is disabled.
 ;;; Generated autoloads from sublimity-scroll.el
 
 (register-definition-prefixes "sublimity-scroll" '("sublimity-scroll-"))
-
 
 ;;; End of scraped data
 

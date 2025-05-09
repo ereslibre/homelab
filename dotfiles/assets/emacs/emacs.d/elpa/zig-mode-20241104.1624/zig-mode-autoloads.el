@@ -32,7 +32,6 @@ A major mode for the Zig programming language.
 (fn)" t)
 (add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode))
 (register-definition-prefixes "zig-mode" '("zig-"))
-
 
 ;;; End of scraped data
 

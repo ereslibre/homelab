@@ -28,7 +28,6 @@ Key bindings:
 ;;; Generated autoloads from typescript-mode-test-utilities.el
 
 (register-definition-prefixes "typescript-mode-test-utilities" '("font-lock-test" "get-face-at" "test-with-"))
-
 
 ;;; End of scraped data
 
