@@ -115,16 +115,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1746663147,
-        "narHash": "sha256-Ua0drDHawlzNqJnclTJGf87dBmaO/tn7iZ+TCkTRpRc=",
-        "owner": "NixOS",
+        "lastModified": 1746891083,
+        "narHash": "sha256-rhHLvVZxNztczratz4oSOqVfJ1ACl4uBgYUuGLClWoI=",
+        "owner": "christoph-heiss",
         "repo": "nixpkgs",
-        "rev": "dda3dcd3fe03e991015e9a74b22d35950f264a54",
+        "rev": "8b3b3b07ce610032ac6f0476fdea4e86c24ff2b9",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "christoph-heiss",
+        "ref": "fix-nvidia-ctk",
         "repo": "nixpkgs",
         "type": "github"
       }

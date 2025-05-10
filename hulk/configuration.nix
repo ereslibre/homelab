@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -34,6 +34,22 @@
     enable = true;
     host = "0.0.0.0";
     loadModels = ["deepseek-r1:32b" "deepseek-coder-v2:16b" "llama3.2:3b" "qwen2.5:7b" "qwen2.5-coder:32b"];
+  };
+
+  environment.systemPackages = with pkgs; [ runc ];
+  services.k3s = {
+    enable = true;
+    containerdConfigTemplate = ''
+      {{ template "base" . }}
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
+        privileged_without_host_devices = false
+        runtime_engine = ""
+        runtime_root = ""
+        runtime_type = "io.containerd.runc.v2"
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
+        BinaryName = "/nix/store/kd986qkrdf5rdp3023y142q0w1094lc7-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime"
+  '';
   };
 
   # This value determines the NixOS release from which the default
