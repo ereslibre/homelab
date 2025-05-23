@@ -11,6 +11,8 @@ in {
     ../common/tailscale
   ];
 
+  system.primaryUser = "ereslibre";
+
   # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
   nixpkgs.overlays = [(final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})];
 
