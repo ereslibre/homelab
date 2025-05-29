@@ -88,5 +88,7 @@ in {
     settings.trusted-users = ["@admin"];
   };
 
+  services.tailscale.overrideLocalDns = true;
+
   system.stateVersion = 6;
 }
