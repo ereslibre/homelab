@@ -57,10 +57,19 @@ in {
 
   programs.zsh.enable = true;
 
-  home-manager.users.${user}.home = {
-    packages = with pkgs; [ollama];
-    sessionVariables = {
-      OLLAMA_HOST = "hulk.ereslibre.net";
+  home-manager.users.${user} = {
+    home = {
+      packages = with pkgs; [ollama];
+      sessionVariables = {
+        OLLAMA_HOST = "hulk.ereslibre.net";
+      };
+    };
+
+    programs.keychain = {
+      enable = true;
+      enableZshIntegration = true;
+      extraFlags = ["--ignore-missing" "--quiet"];
+      keys = ["id_ed25519" "id_rsa"];
     };
   };
 

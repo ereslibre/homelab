@@ -14,7 +14,6 @@
     bash.shellAliases = {
       gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
     };
-    keychain.inheritType = "any";
     zsh.shellAliases = {
       gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
     };
