@@ -230,6 +230,9 @@ in {
         bind-key x kill-pane
         bind-key C-x kill-pane
         bind-key z resize-pane -Z
+
+        # Clear screen and scrollback
+        bind-key -n C-l send-keys 'printf "\033[H\033[2J\033[3J"' enter
       '';
     };
 
