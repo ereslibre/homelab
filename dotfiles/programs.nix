@@ -257,6 +257,10 @@ in {
         refresh-gpg-card() {
           gpg-connect-agent "scd serialno" "learn --force" /bye
         }
+        superclear() {
+          # clear and empty scrollback
+          printf "\033[H\033[2J\033[3J"
+        }
         fixssh() {
           eval $(${pkgs.tmux}/bin/tmux show-env -s | grep '^SSH_')
         }
