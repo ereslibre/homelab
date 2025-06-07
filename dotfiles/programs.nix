@@ -188,49 +188,51 @@ in {
         yank
         {
           plugin = dracula;
-          extraConfig =
-            ''
-              # Enable clipboard through tmux in remote session
-              set -as terminal-features ',konsole-direct:clipboard'
+          extraConfig = ''
+            # Enable clipboard through tmux in remote session
+            set -as terminal-features ',konsole-direct:clipboard'
 
-              set -g @dracula-show-powerline true
-              set -g @dracula-cpu-display-load true
-              set -g @dracula-show-left-icon λ
-              set -g @dracula-left-icon-padding 0
-              set -g @dracula-show-flags true
-              set -g @dracula-refresh-rate 60
-              set -g @dracula-plugins "time"
-              set -g @dracula-show-timezone false
-              set -g @dracula-military-time true
-              set -g @dracula-time-format "%a %m/%d %H:%M"
-            ''
-            + (
-              if isLinux
-              then ''
-                set -g default-terminal "konsole-direct"
-              ''
-              else ''
-                set -g default-terminal "xterm-256color"
-              ''
-            );
+            set -g @dracula-show-powerline true
+            set -g @dracula-cpu-display-load true
+            set -g @dracula-show-left-icon λ
+            set -g @dracula-left-icon-padding 0
+            set -g @dracula-show-flags true
+            set -g @dracula-refresh-rate 60
+            set -g @dracula-plugins "time"
+            set -g @dracula-show-timezone false
+            set -g @dracula-military-time true
+            set -g @dracula-time-format "%a %m/%d %H:%M"
+          '';
         }
       ];
-      extraConfig = ''
-        set -g mouse on
+      extraConfig =
+        (
+          if isLinux
+          then ''
+            set -g default-terminal "konsole-direct"
+          ''
+          else ''
+            set -g default-terminal "xterm-256color"
+          ''
+        )
+        + ''
+          set -gu default-command
+          set -g default-shell "$SHELL"
+          set -g mouse on
 
-        bind Space copy-mode
-        bind C-Space copy-mode
-        bind v split-window -h
-        bind C-v split-window -h
-        bind s split-window -v
-        bind C-s split-window -v
-        bind-key b choose-tree
-        bind-key q kill-window
-        bind-key C-q kill-window
-        bind-key x kill-pane
-        bind-key C-x kill-pane
-        bind-key z resize-pane -Z
-      '';
+          bind Space copy-mode
+          bind C-Space copy-mode
+          bind v split-window -h
+          bind C-v split-window -h
+          bind s split-window -v
+          bind C-s split-window -v
+          bind-key b choose-tree
+          bind-key q kill-window
+          bind-key C-q kill-window
+          bind-key x kill-pane
+          bind-key C-x kill-pane
+          bind-key z resize-pane -Z
+        '';
     };
 
     zsh = {
