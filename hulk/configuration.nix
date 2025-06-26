@@ -18,41 +18,20 @@
   environment = {
     etc = {
       "nvidia-container-runtime/config.toml".text = ''
-        #accept-nvidia-visible-devices-as-volume-mounts = false
-        #accept-nvidia-visible-devices-envvar-when-unprivileged = true
         disable-require = true
         supported-driver-capabilities = "compat32,compute,display,graphics,ngx,utility,video"
-        #swarm-resource = "DOCKER_RESOURCE_GPU"
 
         [nvidia-container-cli]
         debug = "/var/log/nvidia-container-toolkit.log"
         environment = []
-        #ldcache = "/etc/ld.so.cache"
-        ldconfig = "@/nix/store/303islqk386z1w2g1ngvxnkl4glfpgrs-glibc-2.40-66-bin/sbin/ldconfig"
+        ldconfig = "@${pkgs.stdenv.cc.libc.bin}/bin/ldconfig"
         load-kmods = true
         no-cgroups = false
         path = "${lib.getBin pkgs.libnvidia-container}/bin/nvidia-container-cli"
-        #root = "/run/opengl-driver-32/lib"
-        #user = "root:video"
 
         [nvidia-container-runtime]
-        debug = "/var/log/nvidia-container-runtime.log"
-        log-level = "debug"
         mode = "auto"
         runtimes = ["docker-runc", "runc", "crun"]
-
-        [nvidia-container-runtime.modes]
-
-        [nvidia-container-runtime.modes.cdi]
-        annotation-prefixes = ["cdi.k8s.io/"]
-        default-kind = "nvidia.com/gpu"
-        spec-dirs = ["/etc/cdi", "/var/run/cdi"]
-
-        [nvidia-container-runtime.modes.csv]
-        mount-spec-path = "/etc/nvidia-container-runtime/host-files-for-container.d"
-
-        [nvidia-container-runtime.modes.legacy]
-        cuda-compat-mode = "ldconfig"
 
         [nvidia-container-runtime-hook]
         path = "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime-hook"
@@ -62,20 +41,17 @@
         path = "${lib.getBin pkgs.nvidia-container-toolkit}/bin/nvidia-ctk"
       '';
     };
-    systemPackages = with pkgs; [libnvidia-container];
   };
   virtualisation.docker.enableNvidia = true;
   hardware.graphics.enable32Bit = true;
   virtualisation.docker = {
     daemon.settings = {
-      # log-level = "debug";
       default-runtime = "nvidia";
       runtimes.nvidia = {
         path = lib.mkForce "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
         args = [];
       };
     };
-    # package = pkgs.nvidia-docker;
   };
 
   # Cross-compiling support

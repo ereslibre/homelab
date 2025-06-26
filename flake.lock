@@ -115,8 +115,8 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1750919860,
-        "narHash": "sha256-L0tbLm4Bkl5+npAltEkpO+UXKmgp7q2dYgFd19W2jmA=",
+        "lastModified": 1750972568,
+        "narHash": "sha256-i5ujaY+ZjoWovWru56j3ik7SaFFoGnyPRW7sxhLGawY=",
         "path": "/home/ereslibre/projects/NixOS/nixpkgs",
         "type": "path"
       },
