@@ -30,7 +30,7 @@
         #ldcache = "/etc/ld.so.cache"
         ldconfig = "@/nix/store/303islqk386z1w2g1ngvxnkl4glfpgrs-glibc-2.40-66-bin/sbin/ldconfig"
         load-kmods = true
-        no-cgroups = true
+        no-cgroups = false
         path = "${lib.getBin pkgs.libnvidia-container}/bin/nvidia-container-cli"
         #root = "/run/opengl-driver-32/lib"
         #user = "root:video"
@@ -70,7 +70,10 @@
     daemon.settings = {
       # log-level = "debug";
       default-runtime = "nvidia";
-      runtimes.nvidia.path = lib.mkForce "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
+      runtimes.nvidia = {
+        path = lib.mkForce "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
+        args = [];
+      };
     };
     # package = pkgs.nvidia-docker;
   };
