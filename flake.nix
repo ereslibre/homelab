@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "path:///home/ereslibre/projects/NixOS/nixpkgs";
+    nixpkgs.url = "github:ereslibre/nixpkgs/fix-gpus-argument-with-cdi";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
