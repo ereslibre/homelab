@@ -15,9 +15,6 @@
     ../common/vendor/amd
   ];
 
-  environment = {
-    systemPackages = with pkgs; [libnvidia-container];
-  };
   virtualisation.docker.enableNvidia = true;
   hardware.graphics.enable32Bit = true;
   virtualisation.docker = {
