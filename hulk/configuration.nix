@@ -16,39 +16,6 @@
   ];
 
   environment = {
-    etc = {
-      "nvidia-container-runtime/config.toml".text = ''
-        #accept-nvidia-visible-devices-as-volume-mounts = false
-        #accept-nvidia-visible-devices-envvar-when-unprivileged = true
-        disable-require = true
-        supported-driver-capabilities = "compat32,compute,display,graphics,ngx,utility,video"
-        #swarm-resource = "DOCKER_RESOURCE_GPU"
-
-        [nvidia-container-cli]
-        debug = "/var/log/nvidia-container-toolkit.log"
-        environment = []
-        #ldcache = "/etc/ld.so.cache"
-        ldconfig = "@/nix/store/303islqk386z1w2g1ngvxnkl4glfpgrs-glibc-2.40-66-bin/sbin/ldconfig"
-        load-kmods = true
-        no-cgroups = false
-        path = "${lib.getBin pkgs.libnvidia-container}/bin/nvidia-container-cli"
-        #root = "/run/opengl-driver-32/lib"
-        #user = "root:video"
-
-        [nvidia-container-runtime]
-        debug = "/var/log/nvidia-container-runtime.log"
-        log-level = "debug"
-        mode = "auto"
-        runtimes = ["docker-runc", "runc", "crun"]
-
-        [nvidia-container-runtime-hook]
-        path = "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime-hook"
-        skip-mode-detection = false
-
-        [nvidia-ctk]
-        path = "${lib.getBin pkgs.nvidia-container-toolkit}/bin/nvidia-ctk"
-      '';
-    };
     systemPackages = with pkgs; [libnvidia-container];
   };
   virtualisation.docker.enableNvidia = true;
