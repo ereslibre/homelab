@@ -17,15 +17,6 @@
 
   virtualisation.docker.enableNvidia = true;
   hardware.graphics.enable32Bit = true;
-  virtualisation.docker = {
-    daemon.settings = {
-      default-runtime = "nvidia";
-      runtimes.nvidia = {
-        path = lib.mkForce "${lib.getOutput "tools" pkgs.nvidia-container-toolkit}/bin/nvidia-container-runtime";
-        args = [];
-      };
-    };
-  };
 
   # Cross-compiling support
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
