@@ -15,6 +15,9 @@
     ../common/vendor/amd
   ];
 
+  virtualisation.docker.enableNvidia = true;
+  hardware.graphics.enable32Bit = true;
+
   # Cross-compiling support
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
