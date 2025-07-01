@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -15,6 +15,7 @@
     ../common/vendor/amd
   ];
 
+  documentation.man.generateCaches = pkgs.lib.mkForce false;
   virtualisation.docker.enableNvidia = true;
   hardware.graphics.enable32Bit = true;
 
