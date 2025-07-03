@@ -241,7 +241,7 @@ in {
       envExtra = ''
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
-        export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.npm-global/bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
+        export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.global-npm/bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"
