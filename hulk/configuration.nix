@@ -30,6 +30,9 @@
     !include ${config.sops.secrets.nix-access-tokens.path}
   '';
 
+  hardware.graphics.enable32Bit = true;
+  virtualisation.docker.enableNvidia = true;
+
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
