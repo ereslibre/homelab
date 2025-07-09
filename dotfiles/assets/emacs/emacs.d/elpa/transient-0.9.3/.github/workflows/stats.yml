@@ -1,0 +1,13 @@
+name: Statistics
+on:
+  push:
+    branches: main
+  schedule:
+    - cron: '3 13 * * 1'
+jobs:
+  stats:
+    name: Statistics
+    uses: emacscollective/workflows/.github/workflows/stats.yml@main
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
