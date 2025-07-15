@@ -115,16 +115,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1751271578,
-        "narHash": "sha256-P/SQmKDu06x8yv7i0s8bvnnuJYkxVGBWLWHaU+tt4YY=",
-        "owner": "NixOS",
+        "lastModified": 1752592595,
+        "narHash": "sha256-zHnGdpTfeSM1hxUoaIJ32Xc6N+4ZUoL1/dVxLMVul1g=",
+        "owner": "ereslibre",
         "repo": "nixpkgs",
-        "rev": "3016b4b15d13f3089db8a41ef937b13a9e33a8df",
+        "rev": "60797c30f56ab52ef8e746e346ad819c778d298a",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "ereslibre",
+        "ref": "fix-gpus-argument-with-cdi",
         "repo": "nixpkgs",
         "type": "github"
       }
