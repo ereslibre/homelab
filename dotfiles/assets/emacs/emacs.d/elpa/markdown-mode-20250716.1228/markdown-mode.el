@@ -6,8 +6,8 @@
 ;; Author: Jason R. Blevins <jblevins@xbeta.org>
 ;; Maintainer: Jason R. Blevins <jblevins@xbeta.org>
 ;; Created: May 24, 2007
-;; Package-Version: 20250624.631
-;; Package-Revision: 7c51a2167c5a
+;; Package-Version: 20250716.1228
+;; Package-Revision: 7eb83053e46a
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: Markdown, GitHub Flavored Markdown, itex
 ;; URL: https://jblevins.org/projects/markdown-mode/
@@ -188,12 +188,10 @@ fewer than six nested heading levels are used."
   :safe 'natnump
   :package-version '(markdown-mode . "2.4"))
 
-(defcustom markdown-asymmetric-header nil
+(defcustom markdown-asymmetric-header t
   "Determines if atx header style will be asymmetric.
 Set to a non-nil value to use asymmetric header styling, placing
-header markup only at the beginning of the line. By default,
-balanced markup will be inserted at the beginning and end of the
-line around the header title."
+header markup only at the beginning of the line."
   :group 'markdown
   :type 'boolean)
 
@@ -2907,7 +2905,8 @@ data.  See `markdown-inline-code-at-point-p' for inline code."
 (defun markdown-heading-at-point (&optional pos)
   "Return non-nil if there is a heading at the POS.
 Set match data for `markdown-regex-header'."
-  (let ((match-data (get-text-property (or pos (point)) 'markdown-heading)))
+  (let* ((p (or pos (if (and (eolp) (>= (point) 2)) (1- (point)) (point))))
+         (match-data (get-text-property p 'markdown-heading)))
     (when match-data
       (set-match-data match-data)
       t)))
