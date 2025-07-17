@@ -18,6 +18,7 @@ in {
 
   environment = {
     shells = with pkgs; [zsh];
+    systemPackages = with pkgs; [nodejs];
     userLaunchAgents = {
       "es.ereslibre.emacs.plist" = {
         enable = true;
