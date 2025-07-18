@@ -40,7 +40,7 @@
         inherit system;
         config.allowUnfree = true;
       };
-  in {
+    in {
       inherit nixpkgs;
       legacyPackages = pkgs;
       devShell = pkgs.mkShell {
