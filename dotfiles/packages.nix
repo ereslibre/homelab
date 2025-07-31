@@ -18,6 +18,7 @@
     ripgrep
     rlwrap
     tree
+    unixtools.netstat
     watch
     wget
     xxd

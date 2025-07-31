@@ -88,7 +88,6 @@ in {
         else "ereslibre@curried.software";
       extraConfig = {
         color.ui = "auto";
-        commit.gpgsign = true;
         core.excludesfile = "${./assets/git/gitignore}";
         github.user = "ereslibre";
         init.defaultBranch = "main";
