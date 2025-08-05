@@ -148,7 +148,7 @@ in {
           };
           "ubuntu-1.hulk" = {
             extraOptions = {
-              "HostName" = "192.168.122.88";
+              "HostName" = "192.168.122.200";
               "ProxyJump" = "hulk.ereslibre.net";
             };
           };
