@@ -30,16 +30,6 @@
     !include ${config.sops.secrets.nix-access-tokens.path}
   '';
 
-  hardware.nvidia-container-toolkit.package = pkgs.nvidia-container-toolkit.overrideAttrs (_: {
-    version = "git";
-    src = pkgs.fetchFromGitHub {
-      owner = "ereslibre";
-      repo = "nvidia-container-toolkit";
-      tag = "1.17.8";
-      hash = "sha256-B17cPxdrQ8qMNgFh4XcDwwKryukMrn0GV2LNPHM7kBo=";
-    };
-  });
-
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
