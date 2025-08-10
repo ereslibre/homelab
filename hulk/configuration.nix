@@ -33,7 +33,7 @@
   hardware.nvidia-container-toolkit.package = pkgs.nvidia-container-toolkit.overrideAttrs (_: {
     version = "git";
     src = pkgs.fetchFromGitHub {
-      owner = "nvidia";
+      owner = "ereslibre";
       repo = "nvidia-container-toolkit";
       rev = "450757565d53c7fa0262729f92e6ad7dee39a2e7";
       hash = "sha256-kAygQf169kkvyxgYizY5cyoGumA2QdCMqdi7aEc+534=";
