@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixpkgs.url = "github:ereslibre/nixpkgs/ereslibre/nvidia-container-toolkit-fix-create-symlinks-hook";
+    nixpkgs.url = "path:///home/ereslibre/projects/NixOS/nixpkgs";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
