@@ -115,14 +115,18 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754850294,
-        "narHash": "sha256-YBHY9D2UhF2xYo6Zq671Kj44WaRQLLrnXDDkU0fozhk=",
-        "path": "/home/ereslibre/projects/NixOS/nixpkgs",
-        "type": "path"
+        "lastModified": 1754851201,
+        "narHash": "sha256-BSO43PDjcGeOsxxBGUZnnYB5NJKPchotgg9wWIbaxsg=",
+        "owner": "ereslibre",
+        "repo": "nixpkgs",
+        "rev": "68227224b1157bbdf20c8d73ddf3851de9de73bb",
+        "type": "github"
       },
       "original": {
-        "path": "/home/ereslibre/projects/NixOS/nixpkgs",
-        "type": "path"
+        "owner": "ereslibre",
+        "ref": "ereslibre/nvidia-container-toolkit-fix-create-symlinks-hook",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "root": {
