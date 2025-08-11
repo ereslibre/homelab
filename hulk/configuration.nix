@@ -35,8 +35,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "ereslibre";
       repo = "nvidia-container-toolkit";
-      rev = "450757565d53c7fa0262729f92e6ad7dee39a2e7";
-      hash = "sha256-kAygQf169kkvyxgYizY5cyoGumA2QdCMqdi7aEc+534=";
+      rev = "ba8ccf1c490d054f98163a8979f2cb2d8747483b";
+      hash = "sha256-U/0Fk9ZC3J5S7exP1CeX59fCP1tnUdbJoob/NOSJGTY=";
     };
   });
 
