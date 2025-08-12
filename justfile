@@ -7,9 +7,6 @@ switch host=defaultHost:
 build host=defaultHost:
   nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
 
-qcow host=defaultQcowHost:
-  nix build .#nixosConfigurations.{{host}}-qcow
-
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra
 
