@@ -1,5 +1,4 @@
 defaultHost := "$(hostname -s)"
-defaultQcowHost := "devbox"
 
 switch host=defaultHost:
   @./.switch.sh {{host}}
