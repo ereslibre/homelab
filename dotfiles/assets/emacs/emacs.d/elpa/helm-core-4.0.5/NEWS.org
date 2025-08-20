@@ -1,0 +1,288 @@
+#+STARTUP:showall
+
+* NEWS
+** Version 4.0.5
+*** Enable persistent actions in symbol-help categories
+Thats mean that C-h f/v/x/o etc... have now persistent action to display help.
+*** helm-action at nth only available when helm-display-line-numbers-mode is enabled.
+Before the keys were available even when line relative numbers were
+not enabled.
+*** Change behavior of helm-buffer-toggle-diff
+When buffer has changes not saved to file do "diff file buffer".
+When file has changes done externally and buffer is not up to date do
+"diff buffer file".
+*** New action in helm-packages to clone packages
+*** Diacritics can now be ignored in helm-find-files
+and read-file-name with the variable `helm-find-files-ignore-diacritics`.
+*** Allow using a function as diacritics slot value
+*** Now project history use adaptive match
+That's mean that the recentest projects popup on top.
+*** helm-mm-matching-method is no more a user var
+*** Fix bugs and inconsistencies in helm-multi-match.el
+*** Add a specialized match fn for files
+Once the first pattern is matched on the whole candidate, the
+subsequent patterns match only in basename whereas they were
+matching again the whole candidate previously.
+e.g. =/home/you/github/repo/ foo git= previously was matching most of
+the files in directory instead of matching only e.g. =foogit.el=, now
+only the files matching =foo git= are displayed.
+*** Change color of toggle-debug-on-error/quit in helm-M-x
+when the commands are activated.
+*** Differenciate minor and major mode in helm-M-x
+*** Change behavior of helm-delete-minibuffer-contents-from-pos
+Now the prefix arg specify only whether we preselect the candidate or
+not. That's means you can now narrow down your candidates to "foo",
+and then do C-u C-k on "foo" to retrieve the whole list of candidate
+with the preselection on the last occurence of "foo".
+
+** Version 4.0.4
+*** Rewrite the helm async process filter
+*** We can now mark the <n> next candidates with a numeric prefix arg
+Same for previous.
+*** Change default prefix binding to reach nth candidates
+Now you can reach next nth candidate with C-<n> and previous nth
+candidate with M-<n>, it is easier to remember.  Note that this defeat
+the ability to specify prefix arg with C-<n> or M-<n>.
+*** helm-completions-detailed is now enabled by default
+** Version 4.0.3
+*** New drag-and-drop support for helm-find-files (only Emacs-29+)
+Use now dnd.el for the new drag-and-drop function.
+This allows drag-and-drop in external applications in addition to emacs
+dired frames and windows. See helm-find-files documentation.
+*** Remove old drag-and-drop support for helm-find-files
+*** Add a new completion metadata category command-help
+Handle helm-M-x prefix arg integration in this category.  That's mean
+you can have helm-M-x prefix arg feature in M-X.
+*** Allow filtering sources in current session
+It is bound to C-M-e in helm-map.
+*** Change `helm-current-directory-alist` default value
+Now C-x C-f from a Gnus buffer brings to News directory.
+*** Exclude commands related to specific modes in helm-M-x
+This is available only in Emacs with an interactive version supporting
+MODES argument.  It is configurable with
+`helm-M-x-exclude-unusable-commands-in-mode`, default to t.
+*** Fix preselection after persistent killing buffers
+*** Improve colors in ttys
+*** Add new actions to helm-find-files
+*** Fix require-match in completion-in-region
+** Version 4.0.2
+*** Fix Emacs bug with CRM when using org-set-tags
+*** Improve helm-source-files-in-current-dir
+*** Fix some compatibility problems with EIEIO in various Emacs
+*** Improve helm-projects-history
+*** Fix bug in recentf
+Properties may corrupt recentf data, prevent this.
+*** Fix bug with *-window-side-state no more working
+*** Remove the ability of switching to recursive search with C-j in HFF
+It was broken and not needed as we can just add the final "/" to expand.
+*** Change default value of `helm-locate-recursive-dirs-command'
+It is no more using `locate` but `find`, this because locate is not
+working anymore out of the box without some tweaks (plocate backend).
+It is still anyway the faster alternative once tweaked, see HFF
+documentation.
+*** Improve position of helm frame
+*** Provide icons in find and fdfind
+** Version 4.0.1
+*** Provide icons in some more places (helm-for-files.el)
+*** Package-vc-* commands have now affixations (package category)
+*** Show only basename of dot files in helm-find-files
+It is now the default, but it can be configured with `helm-ff-show-dot-file-path`.
+*** Allow using both all-the-icons and nerd-icons as icon providers
+Use the variable `helm-x-icons-provider`.
+*** Add affixations to helm-info
+Add a description of info file when using `helm-info` or `info-display-manual`.
+*** Provide minimal support for eww bookmarks
+*** Stop preventing dups when trashing files
+*** Add a helm-add-to-list function for user init file settings
+*** Drop support for deprecated defadvice management
+*** Allow destructuring in helm-acase
+*** Popup-info can be provided in metadata and added to any completion
+via the vars `helm-completing-read-command-categories` and
+`helm-completing-read-extra-metadata`, for example it is now enabled
+in M-x man.
+*** Maybe provide a popup-info in completion-at-point
+If CAPFns provide such information via `completion-extra-properties`,
+display it in a popup-info when helm-popup-tip-mode is enabled.
+`helm-lisp-completion-at-point` provides this as well.
+*** Add completion for Char Classes for regexps
+This is available in `helm-lisp-completion-at-point`.
+*** Enhance usage of tab-bar-mode from Helm
+Previously we were displaying each marked candidate in a tab, now all
+marked candidates go in same tab.
+Helm-find-files is now using the same functions as helm-buffers to
+display its candidates in tab.
+helm-imenu-all when jumping to a candidate jump to it in its tab if
+possible.
+*** Access to helm-find-files bookmarks from helm-read-file-name
+That's mean that when copying/renaming etc... you can use bookmarks as
+target.
+*** Fix a bug in query replace in file names
+It is now possible to match counter ("\#") inside the replacement
+string and not only before or after as before.
+*** Fix a bug with dummy sources in file related sources
+It is now possible to mark wildcard candidates from unrelated
+directories.
+** Version 4.0
+*** Enhance helm-finder
+Now helm-finder fetchs keywords from all packages, not only built-in
+and allows installing from there.
+*** helm-popup-tip-mode is now usable in any source having the popup-info attribute
+In addition of the various helm-grep-* now =helm-man-woman= and
+=helm-find-files= can benefit of this mode.
+*** New command helm-outline to navigate buffers according to outline-regexp
+*** New helm grep ag action to search results from the helm ag/rg session
+This allows filtering the current results to another pattern or to
+specific file.
+*** New helm grep ag action to launch ag/rg on parent directory of current search
+*** Packages can now be (re)installed/upgraded asynchronously from helm-packages
+It is now the default, you can customize this with =helm-packages-async=.
+*** Helm-find-files persistent delete uses now a read-answer prompt
+It is now possible to answer "!" (yes for all) when using marked
+candidates, this for the file deletion itself and also for the kill
+buffer question.
+*** Allow saving selection when deleting minibuffer contents
+This is now possible with a prefix arg given when position is at eol
+in minibuffer.  This allow for example showing all candidates keeping
+current selection in helm-ls-git log after a search.
+*** Save files opened from etags and fd in file-name-history
+*** Provide help in helm-read-answer
+*** Disable helm for read-multiple-choice--long-answers
+** Version 3.9.9
+*** Change prefix arg behavior of helm-show-all-candidates-in-source
+With a prefix arg show all candidates, with a numeric prefix arg show
+ARG number of candidates, and with no prefix arg show only
+helm-candidate-number-limit of candidates.
+*** Get rid of popup.el dependency
+*** helm-completion-styles-alist accepts commands for completion-in-region
+*** Minibuffer-contents change color in HFF when updating
+This is controlled by =helm-ff-dim-prompt-on-update= user variable.
+
+*** Now new file and dir have a dummy source in HFF, same for completing-read's
+and read-file-name.
+
+*** helm-info-at-point shows index of current page in addition of default
+
+So it can safely be used as a replacement of "i" in Info.
+
+*** Add affixation function for eww (emacs-30 only)
+*** Allow toggling auto update in helm-top with a prefix arg
+*** Do not use `dired-create-destination-dirs` mechanism for directory creation
+as it is not working in some cases (e.g. symlinks).
+*** Fix persistent action in helm mark-ring when follow mode is on
+*** Fix Imenu preselection when point is on a name with special chars
+*** Provide a new progress bar for rsync with a svg widget
+Needs svg-lib package but it is not mandatory.
+
+** Version 3.9.8
+
+*** New helm-finder command
+*** Make `completions-detailed` working with 'emacs' helm-completion-style
+It was already working but was really slow and was not supporting
+`helm-completing-read-command-categories` mechanism which provide
+`completions-detailed` in much more places than Emacs vanilla.
+*** Helm-goto-line save position even when using persistent actions
+*** helm-info is now colorized
+*** Displaying thumnails is now slighly faster
+*** Add a new mode to edit bookmark annotations
+When viewing an annotation you had to kill the buffer, restart
+helm-bookmarks, and run the edit annotation action, now you can edit
+directly from the view buffer.
+*** It is now possible to rename marked bookmarks
+*** New compress/uncompress/compress-to action in helm-find-files
+All actions are asynchronous except the persistent ones.
+*** Allow toggling while-no-input for easier edebugging
+Use the new `helm-update-edebug` variable to enable this.
+*** And various bug fixes as always
+
+** Version 3.9.7
+
+*** Fix package-requires in helm.el
+
+** Version 3.9.6
+
+*** Fix bug with helm-mm-exact-search (bug#2616)
+*** Improve locate library fns
+*** Fix a old bug with candidate transformer
+candidate-transformer functions should behave the same in in-buffer
+and sync source: transforming all candidates.
+*** Fix kmacro for Emacs-29+
+*** Various minor bug fixes
+
+** Version 3.9.5
+
+*** Add compatibility with Emacs-28< for helm-packages
+
+Tested with emacs-27.
+
+*** Add new action package-isolate for helm-packages
+
+Allow launching a new Emacs with only package(s).
+
+*** Packages list can be refreshed with C-c C-u
+
+BTW there is no more option to update from actions with prefix arg.
+
+*** Add more affixations fns for completing-read
+
+Themes, colors etc...
+
+*** Add new var helm-compleions-detailed for emacs-27
+
+This allow using completions-detailed in Emacs-27 with various
+describe-* functions.
+
+*** Helm-occur now doesn't hang when trying to match empty lines
+
+With "^$".
+
+*** Highlight matches in M-x highlight only commands
+
+I.e. Items in short documentation are not highlighted.
+
+** Version 3.9.4
+
+*** Add two new alists to allow extending completions-detailed
+
+This allows providing detailed completions in more places, see
+`helm-completing-read-extra-metadata` and
+`helm-completing-read-command-categories`.
+They are not provided as user variables as it may be tricky to provide
+the corresponding affixations functions.
+As of now we have detailed completions in
+describe-function/variable/symbol/command/package,
+find-function/variable, switch-to-buffer,
+customize-variable/group, package-(vc)install, package-vc-checkout.
+
+*** New helm packages manager
+
+The old helm-elisp-package has been replaced by helm-packages.
+The old one was too slow, taking lot of memory and even crashing Emacs
+especially with last Emacs-29.
+
+** Version 3.9.3
+
+*** Ensure to use affixation functions provided by caller in helm-mode
+
+** Version 3.9.2
+
+*** New progress bar for Rsync action from helm-find-files
+*** Describe-* commands with completions-detailed are now fast
+*** Use Wfnames package as dependency to replace Wdired
+
+** Version 3.9.1
+
+*** helm-config file has been removed
+
+Therefore (require 'helm-config) will return an error, don't use this
+anymore. If installing from source use instead (require 'helm-autoloads), otherwise from a package install, the autoloads file
+will be automatically loaded.
+
+
+*** Allow using helm-completion-styles-alist by command
+
+*** New mode for editing large vars
+
+Will be used automatically when using the set variable action from
+helm-apropos.
+
+*** Improve all-the-icons in many places

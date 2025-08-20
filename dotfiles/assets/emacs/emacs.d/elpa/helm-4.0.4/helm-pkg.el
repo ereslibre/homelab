@@ -1,2 +1,0 @@
-;; Generated package description from helm.el  -*- no-byte-compile: t -*-
-(define-package "helm" "4.0.4" "Helm is an Emacs incremental and narrowing framework" '((helm-core "4.0.4") (wfnames "1.2")) :commit "6befd6e60f756936062fed6d4b905e508aa141fc" :authors '(("Thierry Volpiatto" . "thievol@posteo.net")) :maintainer '("Thierry Volpiatto" . "thievol@posteo.net") :keywords '("helm" "convenience" "files" "buffers" "grep" "completion" "lisp" "matching" "tools" "help") :url "https://emacs-helm.github.io/helm/")
