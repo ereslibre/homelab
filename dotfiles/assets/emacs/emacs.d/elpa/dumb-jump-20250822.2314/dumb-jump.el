@@ -2,8 +2,8 @@
 ;; Copyright (C) 2015-2021 jack angers
 ;; Author: jack angers and contributors
 ;; Url: https://github.com/jacktasia/dumb-jump
-;; Package-Version: 20250516.1032
-;; Package-Revision: 42f97dea5033
+;; Package-Version: 20250822.2314
+;; Package-Revision: a9a7e1711ee1
 ;; Package-Requires: ((emacs "24.3") (s "1.11.0") (dash "2.9.0") (popup "0.5.3"))
 ;; Keywords: programming
 
@@ -1582,6 +1582,17 @@ If nil add also the language type of current src block"
            :tests ("class test:" "public class test implements Something")
            :not ("class testnot:" "public class testnot implements Something"))
 
+    ;; jai
+    (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "jai"
+           :regex "\\bJJJ\\s*::"
+           :tests ("test ::"))
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "jai"
+           :regex "\\bJJJ\\s*(:|:\\s*=|::)"
+           :tests ("test: Type" "test : Type = Val" "test :: Val"))
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "jai"
+           :regex "\\bJJJ\\s*::"
+           :tests ("test ::"))
+    
     ;; odin    
     (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "odin"
            :regex "\\s*\\bJJJ\\s*:\\s*([^=\\n]+\\s*:|:|[^=\\n]+\\s*=|=)"
@@ -1760,6 +1771,7 @@ If nil add also the language type of current src block"
     (:language "hcl" :ext "tfvars" :agtype "terraform" :rgtype nil)
     (:language "apex" :ext "cls" :agtype nil :rgtype nil)
     (:language "apex" :ext "trigger" :agtype nil :rgtype nil)
+    (:language "jai" :ext "jai" :agtype nil :rgtype nil)
     (:language "odin" :ext "odin" :agtype nil :rgtype nil))
 
   "Mapping of programming language(s) to file extensions."
@@ -1788,7 +1800,9 @@ If nil add also the language type of current src block"
     (:language "elisp" :type "function" :right nil :left "($")
     (:language "elisp" :type "variable" :right "^)" :left nil)
     (:language "scheme" :type "function" :right nil :left "($")
-    (:language "scheme" :type "variable" :right "^)" :left nil))
+    (:language "scheme" :type "variable" :right "^)" :left nil)
+    (:language "jai" :type "function" :right "\\s*(" :left nil)
+    (:language "jai" :type "type" :left "\\s*:\\s*" :right nil))
 
   "List of under points contexts for each language.
 This helps limit the number of regular expressions we use

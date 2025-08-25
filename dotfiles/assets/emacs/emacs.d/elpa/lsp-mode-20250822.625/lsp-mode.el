@@ -5,8 +5,8 @@
 ;; Author: Vibhav Pant, Fangrui Song, Ivan Yonchovski
 ;; Keywords: languages
 ;; Package-Requires: ((emacs "28.1") (dash "2.18.0") (f "0.20.0") (ht "2.3") (spinner "1.7.3") (markdown-mode "2.3") (lv "0") (eldoc "1.11"))
-;; Package-Version: 20250811.806
-;; Package-Revision: 11f7b17625b6
+;; Package-Version: 20250822.625
+;; Package-Revision: c0cafd07ea7e
 
 ;; URL: https://github.com/emacs-lsp/lsp-mode
 ;; This program is free software; you can redistribute it and/or modify
@@ -365,6 +365,8 @@ the server has requested that."
     "[/\\\\]\\.nox\\'"
     "[/\\\\]dist\\'"
     "[/\\\\]dist-newstyle\\'"
+    "[/\\\\]\\.hifiles\\'"
+    "[/\\\\]\\.hiefiles\\'"
     "[/\\\\]\\.stack-work\\'"
     "[/\\\\]\\.bloop\\'"
     "[/\\\\]\\.bsp\\'"
@@ -1004,6 +1006,7 @@ Changes take effect only when a new session is started."
     (meson-mode . "meson")
     (yang-mode . "yang")
     (matlab-mode . "matlab")
+    (matlab-ts-mode . "matlab")
     (message-mode . "plaintext")
     (mu4e-compose-mode . "plaintext")
     (odin-mode . "odin")
@@ -4867,6 +4870,13 @@ Added to `before-change-functions'."
         (lsp:text-document-sync-options-change? sync)
       sync)))
 
+(defvaralias 'lsp--revert-buffer-in-progress
+  (if (boundp 'revert-buffer-in-progress)
+      'revert-buffer-in-progress
+    'revert-buffer-in-progress-p)
+  "Alias for `revert-buffer-in-progress' if available, or `revert-buffer-in-progress-p'
+prior to emacs 31.")
+
 (defun lsp-on-change (start end length &optional content-change-event-fn)
   "Executed when a file is changed.
 Added to `after-change-functions'."
@@ -4894,7 +4904,7 @@ Added to `after-change-functions'."
       ;; buffer-file-name. We need the buffer-file-name to send notifications;
       ;; so we skip handling revert-buffer-caused changes and instead handle
       ;; reverts separately in lsp-on-revert
-      (when (not revert-buffer-in-progress-p)
+      (when (not lsp--revert-buffer-in-progress)
         (cl-incf lsp--cur-version)
         (mapc
          (lambda (workspace)
@@ -5185,7 +5195,7 @@ one of the LANGUAGES."
   "Executed when a file is reverted.
 Added to `after-revert-hook'."
   (let ((n (buffer-size))
-        (revert-buffer-in-progress-p nil))
+        (lsp--revert-buffer-in-progress nil))
     (lsp-on-change 0 n n)))
 
 (defun lsp--text-document-did-close (&optional keep-workspace-alive)
