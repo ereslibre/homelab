@@ -1,10 +1,15 @@
 keys:
+  # Users
   - &ereslibre age14tw3lf9mdn6dyxrxdsz9w96rp7g7qcdg04sqlmxzms0sjnkldvkq3jsz48
+  # Hosts
   - &host-hulk age1k5vzngjg6ujawwuw66d4gfl2wjy7l449xcpvjhfgkmk2836f8yeqf4pkm7
   - &host-nuc-1 age1jsrzvlyj5fzf6c3rysd79f68drmpgvh4myxqsl7mlm7gyhfunywq573mss
   - &host-nuc-2 age1ph4vt4lhrw4q974gm2g0xue3y8swy8qw9k8kg68hzxs7s04cxyzs5jujvs
   - &host-nuc-3 age1jt7ucv03v82ccuwwhaulgywswsc5h2uxauyrdmra8gsd47ajfyasyp4r9q
   - &host-pi-desktop age1vlf2h45puhwd8zms7l0nnhk3m2w0l6meejhz8pdgduqw5ljleujqyp8l0h
+  # Services
+  - &teslamate age1g0x8ee87g52r0ez4ngl3e0nc24dygld9c6nlzdf73jn4lq2l94zqavv304
+  - &synapse age16au9jxyajmg7ddck3m0cyu0cqvn2xdmjacjhs64ftduly2svjaxsu9fqhy
 creation_rules:
   - path_regex: hulk/secrets\.yaml$
     key_groups:
@@ -31,3 +36,13 @@ creation_rules:
       - age:
           - *ereslibre
           - *host-pi-desktop
+  - path_regex: common/teslamate/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *teslamate
+  - path_regex: common/synapse/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *synapse

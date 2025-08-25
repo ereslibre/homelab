@@ -4,6 +4,7 @@
     ../common/aliases
     ../common/docker
     ../common/home-node
+    ../common/nix-github
     ../common/nixos
     ../common/node
     ../common/packages
@@ -21,14 +22,6 @@
   networking.hostName = "hulk";
 
   sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets."nix-access-tokens" = {
-    owner = "ereslibre";
-    group = "users";
-  };
-  nix.extraOptions = ''
-    # Access tokens
-    !include ${config.sops.secrets.nix-access-tokens.path}
-  '';
 
   services.ollama = {
     enable = true;
