@@ -21,6 +21,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    teslamate = {
+      url = "github:teslamate-org/teslamate/v2.1.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +36,7 @@
     nixos-hardware,
     nixpkgs,
     sops-nix,
+    teslamate,
     ...
   }: let
     dotfiles = import ./dotfiles;
@@ -134,6 +139,7 @@
             home-manager.nixosModules.home-manager
             microvm.nixosModules.host
             sops-nix.nixosModules.sops
+            teslamate.nixosModules.default
             ./nuc-3/configuration.nix
           ];
         };
