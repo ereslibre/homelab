@@ -21,6 +21,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    teslamate = {
+      url = "github:ereslibre/teslamate/v2.1.1+hotfix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +36,7 @@
     nixos-hardware,
     nixpkgs,
     sops-nix,
+    teslamate,
     ...
   }: let
     dotfiles = import ./dotfiles;
@@ -130,6 +135,11 @@
           builder = nixpkgs.lib.nixosSystem;
           system = "x86_64-linux";
           user = "ereslibre";
+          builderArgs = {
+            specialArgs = {
+              inherit teslamate sops-nix;
+            };
+          };
           modules = [
             home-manager.nixosModules.home-manager
             microvm.nixosModules.host

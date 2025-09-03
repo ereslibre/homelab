@@ -1,6 +1,6 @@
 defaultHost := "$(hostname -s)"
 
-switch host=defaultHost:
+switch host=defaultHost: (build host)
   @./.switch.sh {{host}}
 
 build host=defaultHost:
@@ -17,6 +17,9 @@ age-gen host=defaultHost:
 
 age-public-from-private key="~/.config/sops/age/keys.txt":
   cat {{key}} | nix develop --command age-keygen -y
+
+cat-secrets host=defaultHost:
+  SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt nix develop --command sops decrypt {{host}}/secrets.yaml
 
 edit-secrets host=defaultHost:
   SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt nix develop --command sops -- {{host}}/secrets.yaml
