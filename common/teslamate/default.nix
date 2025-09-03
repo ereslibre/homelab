@@ -72,17 +72,8 @@
           port = 5432;
         };
 
-        grafana = {
-          enable = true;
-          listenAddress = "0.0.0.0";
-          urlPath = "/";
-        };
-
-        mqtt = {
-          enable = true;
-          host = "0.0.0.0";
-          port = 1883;
-        };
+        grafana.enable = true;
+        mqtt.enable = false;
       };
 
       system.stateVersion = "25.05";
