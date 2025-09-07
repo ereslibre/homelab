@@ -24,11 +24,11 @@
   services.caddy = {
     enable = true;
     virtualHosts = {
-      "openwebui".extraConfig = ''
+      "openwebui.ereslibre.net".extraConfig = ''
         tls internal
         reverse_proxy http://openwebui:8080
       '';
-      "vscode".extraConfig = ''
+      "vscode.ereslibre.net".extraConfig = ''
         tls internal
         reverse_proxy http://vscode:3000
       '';

@@ -10,6 +10,11 @@
       pkgs,
       ...
     }: {
+      networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [8080];
+      };
+
       nixpkgs.config.allowUnfree = true;
 
       services.open-webui = {

@@ -12,6 +12,11 @@
       pkgs,
       ...
     }: {
+      networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [3000];
+      };
+
       services.openvscode-server = {
         enable = true;
         host = "0.0.0.0";
