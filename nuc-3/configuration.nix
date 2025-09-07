@@ -14,27 +14,12 @@
     ../common/remote-builds
     ../common/services
     ../common/synapse
-    ../common/teslamate
     ../common/users
     ../common/vendor/intel
     ../common/vscode-server
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
-
-  services.caddy = {
-    enable = true;
-    virtualHosts = {
-      "grafana.teslamate.ereslibre.net".extraConfig = ''
-        tls internal
-        reverse_proxy http://teslamate:3000
-      '';
-      "teslamate.ereslibre.net".extraConfig = ''
-        tls internal
-        reverse_proxy http://teslamate:4000
-      '';
-    };
-  };
 
   networking = {
     hostName = "nuc-3";
