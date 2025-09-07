@@ -21,6 +21,20 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+      "openwebui".extraConfig = ''
+        tls internal
+        reverse_proxy http://openwebui:3000
+      '';
+      "vscode".extraConfig = ''
+        tls internal
+        reverse_proxy http://vscode:3000
+      '';
+    };
+  };
+
   networking = {
     hostName = "nuc-3";
     nat = {
