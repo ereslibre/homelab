@@ -26,7 +26,7 @@
     virtualHosts = {
       "openwebui".extraConfig = ''
         tls internal
-        reverse_proxy http://openwebui:3000
+        reverse_proxy http://openwebui:8080
       '';
       "vscode".extraConfig = ''
         tls internal
