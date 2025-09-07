@@ -28,10 +28,6 @@
         tls internal
         reverse_proxy http://openwebui:8080
       '';
-      "vscode.ereslibre.net".extraConfig = ''
-        tls internal
-        reverse_proxy http://vscode:3000
-      '';
     };
   };
 
