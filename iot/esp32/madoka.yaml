@@ -5,6 +5,7 @@ esphome:
 api:
 
 ota:
+  platform: esphome
 
 network:
 
@@ -22,8 +23,6 @@ external_components:
 
 esp32:
   board: esp32dev
-  framework:
-    type: esp-idf
 
 esp32_ble_tracker:
 
