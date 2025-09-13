@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -20,6 +24,11 @@
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
+
+  environment.systemPackages = with pkgs; [
+    esphome
+    espup
+  ];
 
   services.caddy = {
     enable = true;

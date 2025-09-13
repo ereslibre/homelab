@@ -1,7 +1,5 @@
-# nix hash has no relevance here; just a fixed point in time we know works
-
 build:
-    nix run github:NixOS/nixpkgs/5f81b2812ea76d998cb25a3491cce03093326cb2#esphome -- compile madoka.yaml
+    esphome compile madoka.yaml
 
 upload device: build
-    nix run github:NixOS/nixpkgs/5f81b2812ea76d998cb25a3491cce03093326cb2#esphome -- upload madoka.yaml --device {{device}}
+    esphome upload madoka.yaml --device {{device}}
