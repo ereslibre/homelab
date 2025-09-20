@@ -4,8 +4,8 @@
     ../common/aliases
     ../common/docker
     ../common/home-node
+    ../common/nix
     ../common/nix-github
-    ../common/nixos
     ../common/node
     ../common/packages
     ../common/podman

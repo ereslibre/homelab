@@ -5,7 +5,7 @@
     ../common/mdns-reflector
     ../common/home-node
     ../common/network-ingress
-    ../common/nixos
+    ../common/nix
     ../common/node
     ../common/packages
     ../common/podman

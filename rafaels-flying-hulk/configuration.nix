@@ -7,7 +7,7 @@
   userHome = "/Users/${user}";
 in {
   imports = [
-    ../common/nixos
+    ../common/nix
     ../common/tailscale
   ];
 
@@ -95,6 +95,10 @@ in {
 
   nix = {
     gc.automatic = true;
+    linux-builder = {
+      enable = true;
+      systems = ["x86_64-linux" "aarch64-linux"];
+    };
     settings.trusted-users = ["@admin"];
   };
 

@@ -8,8 +8,8 @@
     ../common/aliases
     ../common/cloudflared
     ../common/home-node
+    ../common/nix
     ../common/nix-github
-    ../common/nixos
     ../common/node
     ../common/openwebui
     ../common/packages

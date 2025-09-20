@@ -4,7 +4,7 @@
     ../common/aliases
     ../common/mdns-reflector
     ../common/home-node
-    ../common/nixos
+    ../common/nix
     ../common/node
     ../common/packages
     ../common/podman
