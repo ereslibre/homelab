@@ -96,7 +96,17 @@ in {
   nix = {
     gc.automatic = true;
     linux-builder = {
+      config = {
+        virtualisation = {
+          cores = 6;
+          darwin-builder = {
+            diskSize = 100 * 1024;
+            memorySize = 6 * 1024;
+          };
+        };
+      };
       enable = true;
+      ephemeral = true;
       systems = ["x86_64-linux" "aarch64-linux"];
     };
     settings.trusted-users = ["@admin"];
