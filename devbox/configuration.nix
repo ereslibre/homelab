@@ -6,6 +6,17 @@
   ...
 }: {
   imports = [
+    ../common/aliases
+    ../common/docker
+    ../common/home-node
+    ../common/nix
+    # Add secrets for devbox
+    # ../common/nix-github
+    ../common/node
+    ../common/packages
+    ../common/podman
+    ../common/programs
+    ../common/services
     "${modulesPath}/profiles/qemu-guest.nix"
   ];
 
@@ -55,6 +66,7 @@
     };
     openssh.enable = true;
     spice-vdagentd.enable = true;
+    qemuGuest.enable = true;
   };
 
   time.timeZone = "Europe/Madrid";
