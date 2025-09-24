@@ -6,6 +6,9 @@ switch host=defaultHost: (build host)
 build host=defaultHost:
   nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
 
+build-image host=defaultHost:
+  nix build .#nixosConfigurations.{{host}}.config.system.build.images.qemu-efi
+
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra
 

@@ -32,6 +32,14 @@ let
       mainlyRemote = true;
       stateVersion = "23.05";
     };
+    "ereslibre@devbox" = {
+      system = "aarch64-linux";
+      username = "ereslibre";
+      homeDirectory = "/home/ereslibre";
+      profile = "personal";
+      mainlyRemote = false;
+      stateVersion = "25.05";
+    };
     "ereslibre@Rafaels-Flying-Hulk" = {
       system = "aarch64-darwin";
       username = "ereslibre";

@@ -93,6 +93,22 @@
         };
       };
       nixosConfigurations = mapMachineConfigurations {
+        "devbox" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "aarch64-linux";
+          user = "ereslibre";
+          builderArgs = {
+            specialArgs = {
+              inherit sops-nix;
+            };
+          };
+          modules = [
+            home-manager.nixosModules.home-manager
+            microvm.nixosModules.host
+            sops-nix.nixosModules.sops
+            ./devbox/configuration.nix
+          ];
+        };
         "hulk" = {
           builder = nixpkgs.lib.nixosSystem;
           system = "x86_64-linux";

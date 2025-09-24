@@ -100,7 +100,7 @@ in {
         virtualisation = {
           cores = 6;
           darwin-builder = {
-            diskSize = 100 * 1024;
+            diskSize = 250 * 1024;
             memorySize = 6 * 1024;
           };
         };
