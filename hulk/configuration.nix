@@ -26,7 +26,7 @@
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
-    loadModels = ["deepseek-r1:32b" "gpt-oss:20b" "qwen2.5:7b" "qwen3:30b"];
+    loadModels = ["gpt-oss:20b"];
   };
 
   # This value determines the NixOS release from which the default
