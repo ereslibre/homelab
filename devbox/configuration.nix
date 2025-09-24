@@ -9,14 +9,7 @@
     "${modulesPath}/profiles/qemu-guest.nix"
   ];
 
-  boot = {
-    extraModulePackages = [];
-    initrd = {
-      availableKernelModules = ["ata_piix" "sr_mod" "uhci_hcd" "virtio_blk" "virtio_pci"];
-    };
-    loader.timeout = 0;
-    kernelModules = ["kvm-intel" "virtio_gpu"];
-  };
+  boot.loader.timeout = 0;
 
   environment = {
     etc."issue.d/ip.issue".text = "IPv4 address: \\4\nIPv6 address: \\6\n\n";
@@ -25,7 +18,6 @@
       gtk4
       kitty
       mesa
-      virglrenderer
     ];
   };
 
@@ -43,7 +35,6 @@
 
   programs = {
     hyprland.enable = true;
-    xwayland.enable = true;
     zsh.enable = true;
   };
 
@@ -64,7 +55,6 @@
     };
     openssh.enable = true;
     spice-vdagentd.enable = true;
-    xserver.videoDrivers = ["virtio"];
   };
 
   time.timeZone = "Europe/Madrid";
