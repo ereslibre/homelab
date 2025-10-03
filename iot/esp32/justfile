@@ -1,5 +1,5 @@
-build:
-    esphome compile madoka.yaml
+build profile:
+    esphome compile {{profile}}.yaml
 
-upload device: build
-    esphome upload madoka.yaml --device {{device}}
+upload profile device: build
+    esphome upload {{profile}}.yaml --device {{device}}

@@ -13,9 +13,9 @@ bluetooth_proxy:
 
 wifi:
   networks:
-    - ssid: "Furgoneta de cacharrancia"
+    - ssid: !secret wifi_ssid
       hidden: true
-      password: !secret furgoneta_de_cacharrancia_password
+      password: !secret wifi_password
 
 external_components:
   - source: github://ereslibre/madoka-esphome@madoka
