@@ -14,6 +14,7 @@
     ../common/services
     ../common/users
     ../common/vendor/amd
+    ../common/wyoming
   ];
 
   # Cross-compiling support
