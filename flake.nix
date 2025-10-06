@@ -11,6 +11,10 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ai-tools = {
+      url = "github:numtide/nix-ai-tools";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +32,7 @@
     flake-utils,
     home-manager,
     microvm,
+    nix-ai-tools,
     nix-darwin,
     nixos-hardware,
     nixpkgs,
@@ -73,6 +78,9 @@
                           inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote;
                         };
                         useGlobalPkgs = true;
+                        extraSpecialArgs = {
+                          inherit nix-ai-tools;
+                        };
                       };
                     }
                   ];

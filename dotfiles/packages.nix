@@ -1,4 +1,9 @@
-{pkgs, ...}: let
+{
+  nix-ai-tools,
+  pkgs,
+  ...
+}: let
+  ai-tools = with nix-ai-tools.packages.${pkgs.system}; [claude-code codex];
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
@@ -10,10 +15,10 @@
     file
     gnumake
     gnupg
+    gnupg-pkcs11-scd
     just
     mosh
     mtr
-    gnupg-pkcs11-scd
     otpauth
     ripgrep
     rlwrap
@@ -24,12 +29,13 @@
     xxd
     zstd
   ];
-  global-language-tools = with pkgs; [claude-code gopls gotools nodejs pnpm rustup];
+  global-language-tools = with pkgs; [gopls gotools nodejs pnpm rustup];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.isLinux [kind kube3d]));
   platform-tools = with pkgs; [gh];
 in {
   home.packages =
-    container-tools
+    ai-tools
+    ++ container-tools
     ++ core-tools
     ++ global-language-tools
     ++ kubernetes-tools
