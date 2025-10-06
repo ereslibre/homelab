@@ -3,7 +3,13 @@
   pkgs,
   ...
 }: let
-  ai-tools = with nix-ai-tools.packages.${pkgs.system}; [claude-code codex];
+  ai-tools = with nix-ai-tools.packages.${pkgs.system}; [
+    claude-code
+    codex
+    copilot-cli
+    gemini-cli
+    qwen-code
+  ];
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
