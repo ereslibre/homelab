@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -19,6 +23,10 @@
 
   # Cross-compiling support
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
+  environment.defaultPackages = with pkgs; [
+    nvtopPackages.nvidia
+  ];
 
   networking.hostName = "hulk";
 

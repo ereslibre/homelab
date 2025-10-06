@@ -8,6 +8,7 @@
     codex
     copilot-cli
     gemini-cli
+    goose-cli
     qwen-code
   ];
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
