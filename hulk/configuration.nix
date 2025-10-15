@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../common/aliases
     ../common/docker
+    ../common/fonts
     ../common/home-node
     ../common/nix
     ../common/nix-github

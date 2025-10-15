@@ -21,6 +21,7 @@
       kernelModules = ["xhci_pci" "ahci" "nct6775" "nvme" "usb_storage" "usbhid" "sd_mod"];
     };
     kernelModules = ["kernel-amd"];
+    extraModprobeConfig = "options kvm_amd nested=1";
     extraModulePackages = [];
   };
 
