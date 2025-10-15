@@ -159,16 +159,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1761114652,
-        "narHash": "sha256-f/QCJM/YhrV/lavyCVz8iU3rlZun6d+dAiC3H+CDle4=",
-        "owner": "NixOS",
+        "lastModified": 1761328203,
+        "narHash": "sha256-i74J7CHXHKionFTtLdsk7U6ugNLBZPnuLdkAHS9Y73Q=",
+        "owner": "ereslibre",
         "repo": "nixpkgs",
-        "rev": "01f116e4df6a15f4ccdffb1bcd41096869fb385c",
+        "rev": "4edae1724d14cef30ce2e5617e28f5d4b0135724",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "ereslibre",
+        "ref": "cdi-wait-for-nvidia-driver",
         "repo": "nixpkgs",
         "type": "github"
       }
