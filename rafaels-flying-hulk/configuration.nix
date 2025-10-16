@@ -54,6 +54,9 @@ in {
         '';
       };
     };
+    variables = {
+      GSETTINGS_BACKEND = "keyfile";
+    };
   };
 
   programs.zsh.enable = true;
