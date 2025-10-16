@@ -48,7 +48,10 @@
       nvidiaPersistenced = true;
       open = false;
     };
-    nvidia-container-toolkit.enable = true;
+    nvidia-container-toolkit = {
+      enable = true;
+      waitForDevices = [ "dev-nvidia0.device" "dev-nvidia1.device" ];
+    };
   };
 
   nixpkgs.config = {
