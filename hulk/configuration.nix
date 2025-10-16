@@ -29,14 +29,28 @@
     nvtopPackages.nvidia
   ];
 
-  networking.hostName = "hulk";
+  networking = {
+    firewall.checkReversePath = "loose";
+    hostName = "hulk";
+  };
+
+  services = {
+    ollama = {
+      enable = true;
+      host = "0.0.0.0";
+      loadModels = ["gpt-oss:20b"];
+    };
+    spice-vdagentd.enable = true;
+  };
 
   sops.defaultSopsFile = ./secrets.yaml;
 
-  services.ollama = {
+  virtualisation.libvirtd = {
     enable = true;
-    host = "0.0.0.0";
-    loadModels = ["gpt-oss:20b"];
+    qemu = {
+      runAsRoot = true;
+      swtpm.enable = true;
+    };
   };
 
   # This value determines the NixOS release from which the default
