@@ -7,6 +7,7 @@
     claude-code
     codex
     copilot-cli
+    cursor-agent
     gemini-cli
     goose-cli
     qwen-code
