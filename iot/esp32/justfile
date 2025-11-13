@@ -1,5 +1,5 @@
 build profile:
     esphome compile {{profile}}.yaml
 
-upload profile device: build
+upload profile device: (build profile)
     esphome upload {{profile}}.yaml --device {{device}}

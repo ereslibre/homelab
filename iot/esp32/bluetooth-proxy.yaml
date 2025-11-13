@@ -1,0 +1,27 @@
+esphome:
+  name: bluetooth-proxy
+  friendly_name: bluetooth-proxy
+  min_version: 2025.5.2
+
+logger:
+
+api:
+
+ota:
+  - platform: esphome
+    id: ota_esphome
+
+wifi:
+  networks:
+    - ssid: !secret wifi_ssid
+      hidden: true
+      password: !secret wifi_password
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+esp32_ble_tracker:
+
+bluetooth_proxy:
