@@ -9,12 +9,12 @@ api:
 
 binary_sensor:
   - platform: ble_presence
-    id beacon1
+    id: beacon1
     ibeacon_uuid: 215f7960-a3f8-4cb9-a98e-16bde598a462
     name: "Beacon 1"
     min_rssi: -80
   - platform: ble_presence
-    id beacon2
+    id: beacon2
     ibeacon_uuid: ed2b8fe2-3c3c-4648-84c6-60937e31d627
     name: "Beacon 2"
     min_rssi: -80
