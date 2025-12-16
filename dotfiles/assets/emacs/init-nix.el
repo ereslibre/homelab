@@ -1,62 +1,51 @@
-(require 'package)
+;; Emacs configuration with Nix-managed packages
+;; All packages are provided by Nix, so no package.el or use-package :ensure needed
 
-(eval-when-compile
-  (require 'use-package)
-  (require 'use-package-ensure)
-  (setq use-package-always-ensure t))
+;; Load use-package for configuration only (packages already installed via Nix)
+(require 'use-package)
 
 ;; specially on darwin with yabai: this helps identifying the window
 ;; in order to tile
 (menu-bar-mode -1)
-(setq package-install-upgrade-built-in t)
 
 (use-package ace-window
-  :ensure
   :bind (("C-x o" . ace-window)
          ("C-x O" . ace-swap-window)))
 
 (use-package dumb-jump
-  :ensure
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
 (use-package dracula-theme
-  :ensure
   :demand t
   :config
   (load-theme 'dracula t))
 
 (use-package project
-  :ensure
   :demand t
   :config
   (setq project-switch-commands 'helm-project))
 
 (use-package magit
-  :ensure
   :demand t
   :defer 3)
 
 (use-package yasnippet
-  :ensure
   :demand t
   :config
   (yas-global-mode 1))
 
 (use-package git-link
-  :ensure
   :bind ("C-c g l" . git-link)
   :init
   (setq git-link-use-commit t))
 
 (use-package company
-  :ensure
   :demand t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package gptel
-  :ensure
   :demand t
   :config
   (setq
@@ -68,7 +57,6 @@
                              deepseek-r1:32b))))
 
 (use-package lsp-mode
-  :ensure
   :demand t
   :custom
   (lsp-eldoc-render-all t)
@@ -94,9 +82,8 @@
          (bash-ts-mode . lsp)))
 
 ;; treesit-auto: Automatically use tree-sitter modes
-;; Note: When using Nix, grammar installation should be disabled
+;; Note: Grammar installation is disabled because grammars are provided by Nix
 (use-package treesit-auto
-  :ensure
   :demand t
   :custom
   (treesit-auto-install nil) ; Grammars are managed by Nix, don't auto-install
@@ -105,7 +92,6 @@
   (global-treesit-auto-mode))
 
 (use-package undo-tree
-  :ensure
   :demand t
   :config
   (setq undo-tree-auto-save-history nil)
@@ -113,26 +99,22 @@
   (global-undo-tree-mode 1))
 
 (use-package browse-kill-ring
-  :ensure
   :demand t
   :config
   (browse-kill-ring-default-keybindings))
 
 (use-package powerline
-  :ensure
   :demand t
   :config
   (setq powerline-default-separator 'wave)
   (powerline-default-theme))
 
 (use-package rainbow-delimiters
-  :ensure
   :demand t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package helm
-  :ensure
   :demand t
   :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
@@ -149,7 +131,6 @@
   (define-key helm-map (kbd "C-z")  'helm-select-action))
 
 (use-package neotree
-  :ensure
   :bind (("C-c n" . neotree-toggle)
          ("C-c t" . neotree-find))
   :config
@@ -242,7 +223,6 @@
    '((shell . t))))
 
 (use-package sublimity
-  :ensure
   :demand t
   :custom
   (sublimity-mode 1)
@@ -254,3 +234,8 @@
   (add-hook 'sublimity--window-change-functions
             (lambda ()
               (when (eq major-mode 'org-agenda-mode) (org-agenda-redo)))))
+
+;; Load custom file if it exists
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))

@@ -2,6 +2,10 @@
   description = "Home lab";
 
   inputs = {
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -29,6 +33,7 @@
 
   outputs = {
     self,
+    emacs-overlay,
     flake-utils,
     home-manager,
     microvm,
@@ -44,6 +49,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [emacs-overlay.overlays.default];
       };
     in {
       inherit nixpkgs;
@@ -71,6 +77,7 @@
                   configuration.modules
                   ++ [
                     {nixpkgs.config.allowUnfree = true;}
+                    {nixpkgs.overlays = [emacs-overlay.overlays.default];}
                     {
                       home-manager = {
                         users.${configuration.user} = import ./dotfiles/home.nix {
@@ -79,7 +86,7 @@
                         };
                         useGlobalPkgs = true;
                         extraSpecialArgs = {
-                          inherit nix-ai-tools;
+                          inherit emacs-overlay nix-ai-tools;
                         };
                       };
                     }

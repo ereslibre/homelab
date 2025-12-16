@@ -10,7 +10,10 @@
   pkgs,
   ...
 }: let
-  emacs = {nox}: (import ./emacs.nix {inherit mainlyRemote nox isDarwin;}) {inherit pkgs;};
+  emacs = {nox}: let
+    emacsConfig = (import ./emacs-config.nix {inherit mainlyRemote nox isDarwin;}) {inherit pkgs;};
+  in
+    emacsConfig.emacsBinary;
   k = "${pkgs.kubectl}/bin/kubectl";
   shellExtras = {
     profileExtra = ''
@@ -60,12 +63,20 @@ in {
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
-    emacs = {
+    emacs = let
+      emacsConfig = (import ./emacs-config.nix {
+        inherit mainlyRemote isDarwin;
+        nox = false;
+      }) {inherit pkgs;};
+    in {
       enable = true;
-      package =
-        if mainlyRemote
-        then pkgs.emacs-nox
-        else pkgs.emacs;
+      package = emacsConfig.customEmacs;
+      extraConfig = ''
+        ;; Configure tree-sitter grammar path
+        (setq treesit-extra-load-path '("${emacsConfig.treesit-grammars}/lib"))
+
+        ${builtins.readFile ./assets/emacs/init-nix.el}
+      '';
     };
     fzf = {
       enable = true;
