@@ -53,12 +53,6 @@
   :ensure
   :demand t)
 
-(use-package typescript-mode
-  :ensure
-  :demand t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mts\\'" . typescript-mode)))
-
 (use-package company
   :ensure
   :demand t

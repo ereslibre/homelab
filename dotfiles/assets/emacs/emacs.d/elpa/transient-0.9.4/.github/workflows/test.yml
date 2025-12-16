@@ -1,6 +1,0 @@
-name: Test
-on: [push, pull_request]
-jobs:
-  test:
-    name: Test
-    uses: emacscollective/workflows/.github/workflows/test.yml@main

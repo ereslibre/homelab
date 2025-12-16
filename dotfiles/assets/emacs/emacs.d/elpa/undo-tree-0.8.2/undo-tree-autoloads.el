@@ -70,7 +70,6 @@ See `undo-tree-mode' for more information on Undo-Tree mode.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "undo-tree" '("*undo-tree-id-counter*" "buffer-undo-tree" "turn-on-undo-tree-mode" "undo-"))
-
 
 ;;; End of scraped data
 
