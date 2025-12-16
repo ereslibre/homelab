@@ -23,7 +23,7 @@
      ("#3C3D37" . 100)))
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
-   '(ace-window ack adoc-mode browse-kill-ring carbon-now-sh company dockerfile-mode doom-themes dumb-jump elm-mode git-link go-mode google-translate haskell-mode helm helm-company helm-lsp helm-project just-mode json-mode lsp-mode magit markdown-mode monokai-theme neotree nix-mode org-journal powerline rainbow-delimiters ripgrep rust-mode sublimity terraform-mode tree-sitter-langs typescript-mode undo-tree use-package writeroom-mode yafolding yaml-mode yasnippet zig-mode))
+   '(ace-window ack adoc-mode browse-kill-ring carbon-now-sh company dockerfile-mode doom-themes dumb-jump elm-mode git-link go-mode google-translate haskell-mode helm helm-company helm-lsp helm-project just-mode json-mode lsp-mode magit markdown-mode monokai-theme neotree nix-mode org-journal powerline rainbow-delimiters ripgrep rust-mode sublimity terraform-mode tree-sitter-langs treesit-auto undo-tree use-package writeroom-mode yaml-mode yasnippet zig-mode))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)

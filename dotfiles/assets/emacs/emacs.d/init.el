@@ -49,21 +49,11 @@
   :init
   (setq git-link-use-commit t))
 
-(use-package svelte-mode
-  :ensure
-  :demand t)
-
 (use-package company
   :ensure
   :demand t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
-
-(use-package yafolding
-  :ensure
-  :demand t
-  :config
-  (add-hook 'prog-mode-hook 'yafolding-mode))
 
 (use-package gptel
   :ensure
@@ -94,7 +84,24 @@
   :init
   (setq lsp-restart 'interactive)
   :hook (
-         (rust-mode . lsp)))
+         (rust-mode . lsp)
+         (rust-ts-mode . lsp)
+         (typescript-ts-mode . lsp)
+         (tsx-ts-mode . lsp)
+         (javascript-ts-mode . lsp)
+         (python-ts-mode . lsp)
+         (go-ts-mode . lsp)
+         (bash-ts-mode . lsp)))
+
+;; treesit-auto: Automatically use tree-sitter modes and install grammars
+(use-package treesit-auto
+  :ensure
+  :demand t
+  :custom
+  (treesit-auto-install t) ; Automatically install grammars without prompting
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all) ; Use tree-sitter for all supported languages
+  (global-treesit-auto-mode))
 
 (use-package undo-tree
   :ensure
