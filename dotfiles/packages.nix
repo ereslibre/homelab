@@ -3,7 +3,11 @@
   pkgs,
   ...
 }: let
-  ai-tools = builtins.map (pkg: pkg.overrideAttrs (old: {doCheck = false;})) (
+  ai-tools = builtins.map (pkg:
+    pkg.overrideAttrs (old: {
+      doCheck = false;
+      doInstallCheck = false;
+    })) (
     with nix-ai-tools.packages.${pkgs.system}; [
       claude-code
       codex
