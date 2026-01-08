@@ -6,12 +6,12 @@
   inherit (pkgs) lib;
 
   # Build all grammars exposed by nixpkgs' tree-sitter overlay
-  treeSitterBundle =
-    pkgs.tree-sitter.withPlugins (available:
-      builtins.attrValues (
-        lib.filterAttrs
-        (_: drv: lib.isDerivation drv && !(drv.meta.broken or false))
-        available));
+  treeSitterBundle = pkgs.tree-sitter.withPlugins (available:
+    builtins.attrValues (
+      lib.filterAttrs
+      (_: drv: lib.isDerivation drv && !(drv.meta.broken or false))
+      available
+    ));
 
   # Collect every libtree-sitter-*.so so Emacs can load any mode automatically
   treesit-grammars = pkgs.runCommand "treesit-grammars" {} ''
