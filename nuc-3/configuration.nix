@@ -20,7 +20,8 @@
     ../common/synapse
     ../common/users
     ../common/vendor/intel
-    ../common/vscode-server
+    # FIXME: bring back
+    # ../common/vscode-server
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
