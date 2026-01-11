@@ -18,7 +18,7 @@ in {
 
   environment = {
     shells = with pkgs; [zsh];
-    systemPackages = with pkgs; [nodejs virt-manager zed-editor];
+    systemPackages = with pkgs; [virt-manager];
     userLaunchAgents = {
       "es.ereslibre.emacs.plist" = {
         enable = true;
