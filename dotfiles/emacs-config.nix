@@ -42,9 +42,13 @@
       git-link
       gptel
       helm
+      helm-company
+      helm-lsp
+      helm-project
       lsp-mode
       magit
       neotree
+      nix-mode
       org-journal
       powerline
       rainbow-delimiters
