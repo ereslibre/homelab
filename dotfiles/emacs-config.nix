@@ -39,6 +39,7 @@
       company
       dracula-theme
       dumb-jump
+      elm-mode
       git-link
       gptel
       helm
