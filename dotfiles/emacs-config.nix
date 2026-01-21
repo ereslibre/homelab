@@ -54,6 +54,7 @@
       powerline
       rainbow-delimiters
       sublimity
+      terraform-mode
       treesit-auto
       undo-tree
       use-package

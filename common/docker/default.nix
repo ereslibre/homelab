@@ -8,6 +8,7 @@
       daemon.settings = {
         dns = ["1.1.1.1"];
         features.containerd-snapshotter = true;
+        insecure-registries = ["localhost:3000"];
       };
       rootless = {
         enable = true;
@@ -15,6 +16,7 @@
         daemon.settings = {
           dns = ["1.1.1.1"];
           features.containerd-snapshotter = true;
+          insecure-registries = ["localhost:3000"];
         };
       };
     };
