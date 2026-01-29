@@ -39,6 +39,9 @@
       enable = true;
       host = "0.0.0.0";
       loadModels = ["gpt-oss:20b"];
+      environmentVariables = {
+        OLLAMA_CONTEXT_LENGTH = "32000";
+      };
     };
     spice-vdagentd.enable = true;
   };

@@ -18,7 +18,7 @@ in {
 
   environment = {
     shells = with pkgs; [zsh];
-    systemPackages = with pkgs; [nodejs virt-manager zed-editor];
+    systemPackages = with pkgs; [virt-manager];
     userLaunchAgents = {
       "es.ereslibre.emacs.plist" = {
         enable = true;
@@ -69,6 +69,12 @@ in {
       };
     };
 
+    programs.ssh.matchBlocks."*.churra-capella.ts.net" = {
+      extraOptions = {
+        "ProxyJump" = "hulk.ereslibre.net";
+      };
+    };
+
     programs.keychain = {
       enable = true;
       enableZshIntegration = true;
@@ -82,6 +88,8 @@ in {
     home = userHome;
     shell = pkgs.zsh;
   };
+
+  networking.search = ["churra-capella.ts.net"];
 
   networking.knownNetworkServices = [
     "Dell Universal Dock D6000"
