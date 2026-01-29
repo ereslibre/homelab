@@ -8,7 +8,7 @@
       doCheck = false;
       doInstallCheck = false;
     })) (
-    with nix-ai-tools.packages.${pkgs.system}; [
+    with nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}; [
       claude-code
       codex
       copilot-cli

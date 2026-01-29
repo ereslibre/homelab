@@ -393,21 +393,26 @@ in {
       tmux.enableShellIntegration = true;
       enableZshIntegration = true;
     };
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
     git = {
       enable = true;
-      delta.enable = true;
-      aliases = {
-        ci = "commit";
-        st = "status";
-        co = "checkout";
-        br = "branch";
-      };
-      userName = "Rafael Fernández López";
-      userEmail =
-        if profile == "personal"
-        then "ereslibre@ereslibre.es"
-        else "ereslibre@curried.software";
-      extraConfig = {
+      settings = {
+        alias = {
+          ci = "commit";
+          st = "status";
+          co = "checkout";
+          br = "branch";
+        };
+        user = {
+          name = "Rafael Fernández López";
+          email =
+            if profile == "personal"
+            then "ereslibre@ereslibre.es"
+            else "ereslibre@curried.software";
+        };
         color.ui = "auto";
         core.excludesfile = "${./assets/git/gitignore}";
         github.user = "ereslibre";
@@ -435,10 +440,10 @@ in {
       };
     in {
       enable = true;
+      enableDefaultConfig = false;
       extraConfig = ''
         Include config.d/*
       '';
-      forwardAgent = true;
       matchBlocks =
         {
           "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
@@ -472,6 +477,7 @@ in {
           };
           "*" = {
             compression = true;
+            forwardAgent = true;
             forwardX11 = false;
             serverAliveCountMax = 10;
             serverAliveInterval = 20;
