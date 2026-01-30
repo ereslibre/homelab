@@ -524,12 +524,8 @@ in {
       ];
       extraConfig =
         (
-          if isLinux
-          then ''
-            set -g default-terminal "konsole-direct"
           ''
-          else ''
-            set -g default-terminal "xterm-256color"
+            set -g default-terminal "konsole-direct"
           ''
         )
         + ''

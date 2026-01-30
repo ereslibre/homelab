@@ -1,10 +1,11 @@
 defaultHost := "$(hostname -s)"
+configType := if "$(uname -s)" == "Darwin" { "darwinConfigurations" } else { "nixosConfigurations" }
 
 switch host=defaultHost: (build host)
   @./.switch.sh {{host}}
 
 build host=defaultHost:
-  nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
+  nix build .#{{configType}}.{{host}}.config.system.build.toplevel
 
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra

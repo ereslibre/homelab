@@ -1,5 +1,3 @@
 {lib, ...}: {
-  home.sessionVariables = {
-    TERM = lib.mkForce "xterm-256color";
-  };
+  # Nothing special to override for now
 }
