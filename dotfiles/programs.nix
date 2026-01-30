@@ -523,11 +523,9 @@ in {
         }
       ];
       extraConfig =
-        (
-          ''
-            set -g default-terminal "konsole-direct"
-          ''
-        )
+        ''
+          set -g default-terminal "konsole-direct"
+        ''
         + ''
           set -gu default-command
           set -g default-shell "$SHELL"

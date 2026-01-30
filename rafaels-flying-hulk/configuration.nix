@@ -69,6 +69,24 @@ in {
       };
     };
 
+    programs.ssh.matchBlocks = {
+      "*.ereslibre.local" = {
+        extraOptions = {
+          "ProxyJump" = "100.89.161.102";
+        };
+      };
+      "*.ereslibre.net" = {
+        extraOptions = {
+          "ProxyJump" = "100.89.161.102";
+        };
+      };
+      "*.pirate-salak.ts.net" = {
+        extraOptions = {
+          "ProxyJump" = "100.89.161.102";
+        };
+      };
+    };
+
     programs.keychain = {
       enable = true;
       enableZshIntegration = true;
@@ -83,7 +101,7 @@ in {
     shell = pkgs.zsh;
   };
 
-  networking.search = ["churra-capella.ts.net"];
+  networking.search = ["pirate-salak.ts.net" "ereslibre.net" "ereslibre.local"];
 
   networking.knownNetworkServices = [
     "Dell Universal Dock D6000"
