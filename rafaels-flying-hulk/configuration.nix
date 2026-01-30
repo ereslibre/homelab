@@ -69,12 +69,6 @@ in {
       };
     };
 
-    programs.ssh.matchBlocks."*.churra-capella.ts.net" = {
-      extraOptions = {
-        "ProxyJump" = "hulk.ereslibre.net";
-      };
-    };
-
     programs.keychain = {
       enable = true;
       enableZshIntegration = true;
