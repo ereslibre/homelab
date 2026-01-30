@@ -1,5 +1,5 @@
 defaultHost := "$(hostname -s)"
-configType := if "$(uname -s)" == "Darwin" { "darwinConfigurations" } else { "nixosConfigurations" }
+configType := if `uname -s` == "Darwin" { "darwinConfigurations" } else { "nixosConfigurations" }
 
 switch host=defaultHost: (build host)
   @./.switch.sh {{host}}
