@@ -72,17 +72,17 @@ in {
     programs.ssh.matchBlocks = {
       "*.ereslibre.local" = {
         extraOptions = {
-          "ProxyJump" = "100.89.161.102";
+          "ProxyJump" = "100.104.92.89";
         };
       };
       "*.ereslibre.net" = {
         extraOptions = {
-          "ProxyJump" = "100.89.161.102";
+          "ProxyJump" = "100.104.92.89";
         };
       };
       "*.pirate-salak.ts.net" = {
         extraOptions = {
-          "ProxyJump" = "100.89.161.102";
+          "ProxyJump" = "100.104.92.89";
         };
       };
     };
@@ -101,7 +101,7 @@ in {
     shell = pkgs.zsh;
   };
 
-  networking.search = ["pirate-salak.ts.net" "ereslibre.net" "ereslibre.local"];
+  networking.search = ["ereslibre.net" "ereslibre.local" "pirate-salak.ts.net"];
 
   networking.knownNetworkServices = [
     "Dell Universal Dock D6000"
