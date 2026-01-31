@@ -69,24 +69,6 @@ in {
       };
     };
 
-    programs.ssh.matchBlocks = {
-      "*.ereslibre.local" = {
-        extraOptions = {
-          "ProxyJump" = "100.104.92.89";
-        };
-      };
-      "*.ereslibre.net" = {
-        extraOptions = {
-          "ProxyJump" = "100.104.92.89";
-        };
-      };
-      "*.pirate-salak.ts.net" = {
-        extraOptions = {
-          "ProxyJump" = "100.104.92.89";
-        };
-      };
-    };
-
     programs.keychain = {
       enable = true;
       enableZshIntegration = true;
