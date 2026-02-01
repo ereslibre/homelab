@@ -16,6 +16,11 @@
     ../common/vendor/intel
   ];
 
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "20%";
+  };
+
   sops.defaultSopsFile = ./secrets.yaml;
 
   sops.secrets.k3s-token = {

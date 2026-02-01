@@ -25,6 +25,11 @@
   # Cross-compiling support
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "20%";
+  };
+
   environment.defaultPackages = with pkgs; [
     nvtopPackages.nvidia
   ];

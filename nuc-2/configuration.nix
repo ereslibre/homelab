@@ -28,6 +28,11 @@
     "nohibernate"
   ];
 
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "20%";
+  };
+
   networking.hostName = "nuc-2";
 
   services.k3s = {

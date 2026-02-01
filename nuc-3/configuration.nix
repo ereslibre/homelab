@@ -24,6 +24,11 @@
     # ../common/vscode-server
   ];
 
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "20%";
+  };
+
   sops.defaultSopsFile = ./secrets.yaml;
 
   environment.systemPackages = with pkgs; [
