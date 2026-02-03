@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   modulesPath,
   pkgs,
   ...
@@ -30,7 +31,7 @@
       HWMON_MODULES="nct6775"
     '';
     shellAliases = {
-      sensor-cpu = "sudo ${pkgs.lm_sensors}/bin/sensors -j k10temp-pci-00c3 | ${pkgs.jq}/bin/jq '.\"k10temp-pci-00c3\".Tctl.temp1_input'";
+      sensor-cpu = "sudo ${lib.getExe' pkgs.lm_sensors "sensors"} -j k10temp-pci-00c3 | ${lib.getExe pkgs.jq} '.\"k10temp-pci-00c3\".Tctl.temp1_input'";
     };
     systemPackages = with pkgs; [
       pciutils

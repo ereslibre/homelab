@@ -36,7 +36,7 @@ in {
             <string>es.ereslibre.es.emacs</string>
             <key>ProgramArguments</key>
             <array>
-              <string>${pkgs.emacs}/bin/emacs</string>
+              <string>${lib.getExe pkgs.emacs}</string>
               <string>--fg-daemon</string>
             </array>
             <key>RunAtLoad</key>

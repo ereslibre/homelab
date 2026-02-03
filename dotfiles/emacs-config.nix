@@ -72,19 +72,19 @@
     if isDarwin
     then
       (pkgs.writeShellScriptBin "emacsclient" ''
-        exec env XDG_RUNTIME_DIR="$HOME/.emacs.d" ${emacs}/bin/emacsclient "$@"
+        exec env XDG_RUNTIME_DIR="$HOME/.emacs.d" ${lib.getExe' emacs "emacsclient"} "$@"
       '')
     else emacs;
 
   emacsBinary =
     if mainlyRemote || nox
-    then "${maybeWrappedEmacsClient customEmacs}/bin/emacsclient --tty"
+    then "${lib.getExe' (maybeWrappedEmacsClient customEmacs) "emacsclient"} --tty"
     else
       (let
         script = pkgs.writeShellScriptBin "emacsclient" ''
-          exec ${maybeWrappedEmacsClient customEmacs}/bin/emacsclient --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))" &> /dev/null
+          exec ${lib.getExe' (maybeWrappedEmacsClient customEmacs) "emacsclient"} --create-frame --no-wait -e "(progn (select-frame-set-input-focus (selected-frame)) (toggle-frame-maximized) (find-file (expand-file-name \"$1\")))" &> /dev/null
         '';
-      in "${script}/bin/emacsclient");
+      in "${lib.getExe script}");
 in {
   inherit customEmacs emacsBinary treesit-grammars;
 }

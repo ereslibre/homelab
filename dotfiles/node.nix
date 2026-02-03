@@ -1,4 +1,4 @@
-{home-manager, ...}: {pkgs, ...}: {
+{home-manager, ...}: {lib, pkgs, ...}: {
   # Enabling linger makes the systemd user services start
   # automatically. In this machine, I want to trigger the
   # `gpg-forward-agent-path` service file automatically as
@@ -7,15 +7,15 @@
   # having a first failed connection due to a missing
   # `/run/user/<id>/gnupg`.
   home.activation.linger = home-manager.lib.hm.dag.entryBefore ["reloadSystemd"] ''
-    ${pkgs.systemd}/bin/loginctl enable-linger $USER
+    ${lib.getExe' pkgs.systemd "loginctl"} enable-linger $USER
   '';
 
   programs = {
     bash.shellAliases = {
-      gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
+      gpg = "${lib.getExe' pkgs.gnupg "gpg"} --no-autostart";
     };
     zsh.shellAliases = {
-      gpg = "${pkgs.gnupg}/bin/gpg --no-autostart";
+      gpg = "${lib.getExe' pkgs.gnupg "gpg"} --no-autostart";
     };
   };
 }

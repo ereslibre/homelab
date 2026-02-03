@@ -14,7 +14,7 @@
     emacsConfig = (import ./emacs-config.nix {inherit mainlyRemote nox isDarwin;}) {inherit pkgs;};
   in
     emacsConfig.emacsBinary;
-  k = "${pkgs.kubectl}/bin/kubectl";
+  k = "${lib.getExe pkgs.kubectl}";
   shellExtras = {
     profileExtra = ''
       if [ -e ''${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ''${HOME}/.nix-profile/etc/profile.d/nix.sh; fi
@@ -401,6 +401,8 @@ in {
       enable = true;
       settings = {
         alias = {
+          d = "diff";
+          ds = "! git diff | ${lib.getExe pkgs.delta} --side-by-side";
           ci = "commit";
           st = "status";
           co = "checkout";
@@ -575,10 +577,10 @@ in {
           printf "\033[H\033[2J\033[3J"
         }
         fixssh() {
-          eval $(${pkgs.tmux}/bin/tmux show-env -s | grep '^SSH_')
+          eval $(${lib.getExe pkgs.tmux} show-env -s | grep '^SSH_')
         }
         key-token() {
-          ${pkgs.yubikey-manager}/bin/ykman --device "$1" oath accounts code | grep -i "$2"
+          ${lib.getExe pkgs.yubikey-manager} --device "$1" oath accounts code | grep -i "$2"
         }
         nixity-new() {
           nix flake new -t github:ereslibre/nixities#"$1"
@@ -610,7 +612,7 @@ in {
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" $EXTRA_ARGS "$1")
         }
         token() {
-          key-token "$(${pkgs.yubikey-manager}/bin/ykman list --serials | head -n1)" "$1"
+          key-token "$(${lib.getExe pkgs.yubikey-manager} list --serials | head -n1)" "$1"
         }
         shiori-list() {
           ${k} exec deployment/shiori -n shiori -- shiori print -l "$@"
@@ -627,7 +629,7 @@ in {
         ,,,() {
           local targetdir=$(mktemp -d)
           pushd "$targetdir" > /dev/null
-          ${pkgs.dhall}/bin/dhall text <<< "${./assets/config.dhall} { derivations = \"$@\" }" > flake.nix
+          ${lib.getExe pkgs.dhall} text <<< "${./assets/config.dhall} { derivations = \"$@\" }" > flake.nix
           popd > /dev/null
           nix develop $EXTRA_ARGS "$targetdir"
           rm -rf "$targetdir"
@@ -638,15 +640,15 @@ in {
         {
           inherit k;
 
-          diff = "${pkgs.diffutils}/bin/diff -u --color=auto";
-          dive = "${pkgs.dive}/bin/dive --source=podman";
-          dir = "${pkgs.coreutils}/bin/dir --color=auto";
-          grep = "${pkgs.gnugrep}/bin/grep --color=auto";
-          l = "${pkgs.coreutils}/bin/ls --color=auto -CF";
-          ll = "${pkgs.coreutils}/bin/ls --color=auto -alF";
-          la = "${pkgs.coreutils}/bin/ls --color=auto -A";
-          ls = "${pkgs.coreutils}/bin/ls --color=auto";
-          vdir = "${pkgs.coreutils}/bin/vdir --color=auto";
+          diff = "${lib.getExe' pkgs.diffutils "diff"} -u --color=auto";
+          dive = "${lib.getExe pkgs.dive} --source=podman";
+          dir = "${lib.getExe' pkgs.coreutils "dir"} --color=auto";
+          grep = "${lib.getExe pkgs.gnugrep} --color=auto";
+          l = "${lib.getExe' pkgs.coreutils "ls"} --color=auto -CF";
+          ll = "${lib.getExe' pkgs.coreutils "ls"} --color=auto -alF";
+          la = "${lib.getExe' pkgs.coreutils "ls"} --color=auto -A";
+          ls = "${lib.getExe' pkgs.coreutils "ls"} --color=auto";
+          vdir = "${lib.getExe' pkgs.coreutils "vdir"} --color=auto";
         }
         // shellExtras.shellAliases;
       inherit (shellExtras) profileExtra;
