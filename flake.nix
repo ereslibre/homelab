@@ -120,6 +120,11 @@
           builder = nixpkgs.lib.nixosSystem;
           system = "x86_64-linux";
           user = "ereslibre";
+          builderArgs = {
+            specialArgs = {
+              inherit nix-ai-tools;
+            };
+          };
           modules = [
             home-manager.nixosModules.home-manager
             microvm.nixosModules.host
