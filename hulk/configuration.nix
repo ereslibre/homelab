@@ -48,9 +48,11 @@ in {
     tmpfsSize = "20%";
   };
 
-  environment.defaultPackages = with pkgs; [
-    nvtopPackages.nvidia
-  ];
+  environment.defaultPackages =
+    ai-tools
+    ++ (with pkgs; [
+      nvtopPackages.nvidia
+    ]);
 
   environment.systemPackages = ai-tools;
 
