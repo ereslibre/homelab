@@ -1,4 +1,8 @@
-{home-manager, ...}: {lib, pkgs, ...}: {
+{home-manager, ...}: {
+  lib,
+  pkgs,
+  ...
+}: {
   # Enabling linger makes the systemd user services start
   # automatically. In this machine, I want to trigger the
   # `gpg-forward-agent-path` service file automatically as
