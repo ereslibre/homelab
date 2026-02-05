@@ -1,10 +1,12 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
   user = "ereslibre";
   userHome = "/Users/${user}";
+  hmEmacsPackage = config.home-manager.users.${user}.programs.emacs.finalPackage;
 in {
   imports = [
     ../common/nix
@@ -36,7 +38,7 @@ in {
             <string>es.ereslibre.es.emacs</string>
             <key>ProgramArguments</key>
             <array>
-              <string>${lib.getExe pkgs.emacs}</string>
+              <string>${lib.getExe hmEmacsPackage}</string>
               <string>--fg-daemon</string>
             </array>
             <key>RunAtLoad</key>

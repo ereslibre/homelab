@@ -259,6 +259,11 @@ in {
           :config
           (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+        (use-package rg
+          :demand t
+          :custom
+          (rg-executable "${lib.getExe pkgs.ripgrep}"))
+
         (use-package helm
           :demand t
           :bind (("C-x C-f" . helm-find-files)
