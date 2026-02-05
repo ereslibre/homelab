@@ -35,30 +35,46 @@
   emacsPackages = epkgs:
     with epkgs; [
       ace-window
+      adoc-mode
       browse-kill-ring
+      carbon-now-sh
       company
+      dockerfile-mode
+      doom-themes
       dracula-theme
       dumb-jump
       elm-mode
       git-link
+      go-mode
+      google-translate
       gptel
+      haskell-mode
       helm
       helm-company
       helm-lsp
       helm-project
+      json-mode
+      just-mode
       lsp-mode
       magit
+      markdown-mode
+      monokai-theme
       neotree
       nix-mode
       org-journal
       powerline
       rainbow-delimiters
+      rg
+      rust-mode
       sublimity
       terraform-mode
       treesit-auto
       undo-tree
       use-package
+      writeroom-mode
+      yaml-mode
       yasnippet
+      zig-mode
     ];
 
   # Emacs with packages and tree-sitter support
