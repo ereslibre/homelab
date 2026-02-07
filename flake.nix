@@ -94,7 +94,7 @@
                         };
                         useGlobalPkgs = true;
                         extraSpecialArgs = {
-                          inherit emacs-overlay nix-ai-tools;
+                          inherit emacs-overlay;
                         };
                       };
                     }
