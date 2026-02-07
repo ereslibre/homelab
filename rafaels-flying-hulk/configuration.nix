@@ -18,15 +18,18 @@ in {
   nixpkgs.overlays = [
     # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
     (final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})
-    # To be removed when python3-libvirt test failure is fixed upstream.
+    # libvirt python bindings try to access /private/etc/ssl/openssl.cnf during
+    # import check, which is blocked by the Nix sandbox on macOS.
     (final: prev: {
-      virt-manager = prev.virt-manager.override {
-        python3 = prev.python3.override {
-          packageOverrides = pyself: pysuper: {
-            libvirt = pysuper.libvirt.overrideAttrs {doCheck = false;};
-          };
+      python3 = prev.python3.override {
+        packageOverrides = pyFinal: pyPrev: {
+          libvirt = pyPrev.libvirt.overridePythonAttrs (old: {
+            doCheck = false;
+            pythonImportsCheck = [];
+          });
         };
       };
+      python3Packages = final.python3.pkgs;
     })
   ];
 
