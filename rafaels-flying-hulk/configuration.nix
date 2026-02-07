@@ -15,8 +15,20 @@ in {
 
   system.primaryUser = "ereslibre";
 
-  # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
-  nixpkgs.overlays = [(final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})];
+  nixpkgs.overlays = [
+    # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
+    (final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})
+    # To be removed when python3-libvirt test failure is fixed upstream.
+    (final: prev: {
+      virt-manager = prev.virt-manager.override {
+        python3 = prev.python3.override {
+          packageOverrides = pyself: pysuper: {
+            libvirt = pysuper.libvirt.overrideAttrs {doCheck = false;};
+          };
+        };
+      };
+    })
+  ];
 
   environment = {
     shells = with pkgs; [zsh];
