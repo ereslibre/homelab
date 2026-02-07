@@ -1,24 +1,4 @@
-{
-  nix-ai-tools,
-  pkgs,
-  ...
-}: let
-  ai-tools = builtins.map (pkg:
-    pkg.overrideAttrs (old: {
-      doCheck = false;
-      doInstallCheck = false;
-    })) (
-    with nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}; [
-      claude-code
-      codex
-      copilot-cli
-      cursor-agent
-      gemini-cli
-      goose-cli
-      opencode
-      qwen-code
-    ]
-  );
+{pkgs, ...}: let
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
@@ -49,8 +29,7 @@
   platform-tools = with pkgs; [gh];
 in {
   home.packages =
-    ai-tools
-    ++ container-tools
+    container-tools
     ++ core-tools
     ++ global-language-tools
     ++ kubernetes-tools

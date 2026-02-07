@@ -15,8 +15,23 @@ in {
 
   system.primaryUser = "ereslibre";
 
-  # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
-  nixpkgs.overlays = [(final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})];
+  nixpkgs.overlays = [
+    # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
+    (final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})
+    # libvirt python bindings try to access /private/etc/ssl/openssl.cnf during
+    # import check, which is blocked by the Nix sandbox on macOS.
+    (final: prev: {
+      python3 = prev.python3.override {
+        packageOverrides = pyFinal: pyPrev: {
+          libvirt = pyPrev.libvirt.overridePythonAttrs (old: {
+            doCheck = false;
+            pythonImportsCheck = [];
+          });
+        };
+      };
+      python3Packages = final.python3.pkgs;
+    })
+  ];
 
   environment = {
     shells = with pkgs; [zsh];
