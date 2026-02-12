@@ -422,6 +422,7 @@ in {
         };
         color.ui = "auto";
         core.excludesfile = "${./assets/git/gitignore}";
+        delta.navigate = true;
         github.user = "ereslibre";
         init.defaultBranch = "main";
         pull = {
