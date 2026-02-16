@@ -34,6 +34,7 @@ in {
       "/run/current-system/sw/bin"
     ];
     sessionVariables = {
+      COLORTERM = "truecolor";
       EDITOR = emacs {nox = true;};
       TERM = "konsole-direct";
     };
