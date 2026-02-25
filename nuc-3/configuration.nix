@@ -43,6 +43,10 @@
         tls internal
         reverse_proxy http://openwebui:8080
       '';
+      "matrix.ereslibre.net".extraConfig = ''
+        tls internal
+        reverse_proxy http://192.168.100.13:8009
+      '';
     };
   };
 

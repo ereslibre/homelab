@@ -35,7 +35,7 @@ in {
         sops-nix.nixosModules.sops
       ];
 
-      networking.firewall.allowedTCPPorts = [8008 8448];
+      networking.firewall.allowedTCPPorts = [8008 8009 8448];
 
       sops = {
         age.keyFile = "/etc/synapse/private-age-key";
@@ -45,6 +45,7 @@ in {
             owner = "matrix-synapse";
             group = "matrix-synapse";
           };
+          "matrix-synapse-ereslibre-password" = {};
         };
       };
 
@@ -90,7 +91,22 @@ in {
               port = 8008;
               resources = [
                 {
-                  names = ["client" "federation"];
+                  names = ["federation"];
+                  compress = true;
+                }
+              ];
+              tls = false;
+              type = "http";
+              x_forwarded = true;
+            }
+            {
+              bind_addresses = [
+                "0.0.0.0"
+              ];
+              port = 8009;
+              resources = [
+                {
+                  names = ["client"];
                   compress = true;
                 }
               ];
@@ -107,6 +123,27 @@ in {
         initialScript = pkgs.writeText "setup-synapse-database.sql" ''
           CREATE ROLE "matrix-synapse" WITH LOGIN;
           CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse" TEMPLATE template0 LC_COLLATE = "C" LC_CTYPE = "C";
+        '';
+      };
+
+      systemd.services.create-synapse-admin = {
+        description = "Create Synapse admin user ereslibre";
+        after = ["matrix-synapse.service"];
+        requires = ["matrix-synapse.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+        script = ''
+          SHARED_SECRET=$(${pkgs.yq-go}/bin/yq '.registration_shared_secret' ${config.sops.secrets."matrix-synapse-registration-shared-secret.yaml".path})
+          PASSWORD=$(cat ${config.sops.secrets."matrix-synapse-ereslibre-password".path})
+          ${pkgs.matrix-synapse}/bin/register_new_matrix_user \
+            -k "$SHARED_SECRET" \
+            -u ereslibre \
+            -p "$PASSWORD" \
+            -a \
+            http://localhost:8008 || true
         '';
       };
 

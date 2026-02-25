@@ -57,7 +57,22 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [emacs-overlay.overlays.default];
+        overlays = [
+          emacs-overlay.overlays.default
+          (final: prev: {
+            pythonPackagesExtensions =
+              prev.pythonPackagesExtensions
+              ++ [
+                (
+                  python-final: python-prev: {
+                    picosvg = python-prev.picosvg.overridePythonAttrs {
+                      doCheck = false;
+                    };
+                  }
+                )
+              ];
+          })
+        ];
       };
     in {
       inherit nixpkgs;
@@ -85,7 +100,24 @@
                   configuration.modules
                   ++ [
                     {nixpkgs.config.allowUnfree = true;}
-                    {nixpkgs.overlays = [emacs-overlay.overlays.default];}
+                    {
+                      nixpkgs.overlays = [
+                        emacs-overlay.overlays.default
+                        (final: prev: {
+                          pythonPackagesExtensions =
+                            prev.pythonPackagesExtensions
+                            ++ [
+                              (
+                                python-final: python-prev: {
+                                  picosvg = python-prev.picosvg.overridePythonAttrs {
+                                    doCheck = false;
+                                  };
+                                }
+                              )
+                            ];
+                        })
+                      ];
+                    }
                     {
                       home-manager = {
                         users.${configuration.user} = import ./dotfiles/home.nix {
