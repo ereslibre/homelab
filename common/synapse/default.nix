@@ -35,7 +35,7 @@ in {
         sops-nix.nixosModules.sops
       ];
 
-      networking.firewall.allowedTCPPorts = [8008 8009 8448];
+      networking.firewall.allowedTCPPorts = [8008 8448];
 
       sops = {
         age.keyFile = "/etc/synapse/private-age-key";
@@ -91,22 +91,7 @@ in {
               port = 8008;
               resources = [
                 {
-                  names = ["federation"];
-                  compress = true;
-                }
-              ];
-              tls = false;
-              type = "http";
-              x_forwarded = true;
-            }
-            {
-              bind_addresses = [
-                "0.0.0.0"
-              ];
-              port = 8009;
-              resources = [
-                {
-                  names = ["client"];
+                  names = ["client" "federation"];
                   compress = true;
                 }
               ];
