@@ -1,26 +1,8 @@
 {
   config,
-  nix-ai-tools,
   pkgs,
   ...
-}: let
-  ai-tools = builtins.map (pkg:
-    pkg.overrideAttrs (old: {
-      doCheck = false;
-      doInstallCheck = false;
-    })) (
-    with nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}; [
-      claude-code
-      codex
-      copilot-cli
-      cursor-agent
-      gemini-cli
-      goose-cli
-      opencode
-      qwen-code
-    ]
-  );
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
@@ -48,13 +30,7 @@ in {
     tmpfsSize = "20%";
   };
 
-  environment.defaultPackages =
-    ai-tools
-    ++ (with pkgs; [
-      nvtopPackages.nvidia
-    ]);
-
-  environment.systemPackages = ai-tools;
+  environment.defaultPackages = with pkgs; [nvtopPackages.nvidia];
 
   networking = {
     firewall.checkReversePath = "loose";

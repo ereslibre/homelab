@@ -1,4 +1,24 @@
-{pkgs, ...}: let
+{
+  nix-ai-tools,
+  pkgs,
+  ...
+}: let
+  ai-tools = builtins.map (pkg:
+    pkg.overrideAttrs (old: {
+      doCheck = false;
+      doInstallCheck = false;
+    })) (
+    with nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}; [
+      claude-code
+      codex
+      copilot-cli
+      cursor-agent
+      # gemini-cli # broken: node-pty doesn't compile with nodejs 24
+      goose-cli
+      opencode
+      qwen-code
+    ]
+  );
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
@@ -29,7 +49,8 @@
   platform-tools = with pkgs; [gh];
 in {
   home.packages =
-    container-tools
+    ai-tools
+    ++ container-tools
     ++ core-tools
     ++ global-language-tools
     ++ kubernetes-tools
