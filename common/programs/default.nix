@@ -1,6 +1,11 @@
-{
+{pkgs, ...}: {
   programs = {
-    nix-ld.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        libcap
+      ];
+    };
     zsh.enable = true;
   };
 }
