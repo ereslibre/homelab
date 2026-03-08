@@ -77,7 +77,7 @@
     in {
       inherit nixpkgs;
       legacyPackages = pkgs;
-      devShell = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [age alejandra just sops ssh-to-age];
       };
     })
