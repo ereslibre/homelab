@@ -3,6 +3,7 @@
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
+        glib
         libcap
       ];
     };
