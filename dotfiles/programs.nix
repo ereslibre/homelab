@@ -460,7 +460,7 @@ in {
           "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
             user = "ubuntu";
           };
-          "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = {
+          "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = lib.mkIf isDarwin {
             extraOptions = {
               "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
             };
@@ -564,6 +564,7 @@ in {
         export GIT_EDITOR="${emacs {nox = true;}}"
         export GOPATH="${config.home.homeDirectory}/.go"
         export PATH="${config.home.homeDirectory}/.bin:${config.home.homeDirectory}/.global-npm/bin:${config.home.homeDirectory}/.go/bin:${config.home.homeDirectory}/.cargo/bin:''${PATH}"
+        export GPG_TTY="$(tty)"
         export LANG="en_US.UTF-8"
         export LANGUAGE="en_US.UTF-8"
         export LC_ALL="en_US.UTF-8"

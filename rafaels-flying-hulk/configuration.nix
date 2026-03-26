@@ -41,6 +41,27 @@ in {
     shells = with pkgs; [zsh];
     systemPackages = with pkgs; [virt-manager];
     userLaunchAgents = {
+      "es.ereslibre.gpg-agent.plist" = {
+        enable = true;
+        text = ''
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>Label</key>
+            <string>es.ereslibre.gpg-agent</string>
+            <key>ProgramArguments</key>
+            <array>
+              <string>${lib.getExe' pkgs.gnupg "gpgconf"}</string>
+              <string>--launch</string>
+              <string>gpg-agent</string>
+            </array>
+            <key>RunAtLoad</key>
+            <true/>
+          </dict>
+          </plist>
+        '';
+      };
       "es.ereslibre.emacs.plist" = {
         enable = true;
         text = ''
