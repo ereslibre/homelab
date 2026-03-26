@@ -431,6 +431,8 @@ in {
           rebase = true;
         };
         push.default = "matching";
+        commit.gpgSign = true;
+        tag.gpgSign = true;
       };
     };
     htop = {
