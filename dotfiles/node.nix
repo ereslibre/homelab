@@ -25,6 +25,20 @@
     no-autostart
   '';
 
+  # Disable the local GPG agent entirely. On node machines the
+  # agent is forwarded over SSH, so a local agent must never
+  # start — it would squat on the socket and shadow the
+  # forwarded one. Setting extra-socket and browser-socket to
+  # none prevents the agent from binding those sockets, and
+  # no-allow-external-cache avoids keyring daemons caching
+  # credentials locally.
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    no-grab
+    extra-socket none
+    browser-socket none
+    no-allow-external-cache
+  '';
+
   programs = {
     bash.shellAliases = {
       gpg = "${lib.getExe' pkgs.gnupg "gpg"} --no-autostart";
