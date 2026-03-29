@@ -405,6 +405,7 @@ in {
     };
     git = {
       enable = true;
+      signing.format = "openpgp";
       settings = {
         alias = {
           d = "diff";
