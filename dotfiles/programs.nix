@@ -36,7 +36,7 @@ in {
     sessionVariables = {
       COLORTERM = "truecolor";
       EDITOR = emacs {nox = true;};
-      TERM = "konsole-direct";
+      TERM = "xterm-256color";
     };
     file = lib.mkIf (!mainlyRemote) {
       ".config/ghostty/config".text = ''
@@ -519,7 +519,7 @@ in {
           plugin = dracula;
           extraConfig = ''
             # Enable clipboard through tmux in remote session
-            set -as terminal-features ',konsole-direct:clipboard'
+            set -as terminal-features ',xterm-256color:clipboard'
 
             set -g @dracula-show-powerline true
             set -g @dracula-cpu-display-load true
@@ -536,7 +536,7 @@ in {
       ];
       extraConfig =
         ''
-          set -g default-terminal "konsole-direct"
+          set -g default-terminal "tmux-256color"
         ''
         + ''
           set -gu default-command
