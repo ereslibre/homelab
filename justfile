@@ -5,7 +5,7 @@ switch host=defaultHost: (build host)
   @./.switch.sh {{host}}
 
 build host=defaultHost:
-  nix build .#{{configType}}.{{host}}.config.system.build.toplevel
+  nix build --accept-flake-config .#{{configType}}.{{host}}.config.system.build.toplevel
 
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra

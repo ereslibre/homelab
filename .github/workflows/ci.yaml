@@ -17,7 +17,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v12
       - name: Format
         run: |
-          nix develop --command just fmt
+          nix develop --accept-flake-config --command just fmt
           git diff --exit-code
   flake-check:
     name: Flake Check
