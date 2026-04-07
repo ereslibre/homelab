@@ -41,7 +41,6 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["gpt-oss:20b" "qwen3-coder-next:latest"];
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = "32000";
       };
