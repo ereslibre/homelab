@@ -41,6 +41,7 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
+      package = pkgs.ollama-cuda;
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = "32000";
       };

@@ -63,9 +63,13 @@
         overlays = [
           emacs-overlay.overlays.default
           (final: prev: let
-            pkgs-ollama = import nixpkgs-ollama {inherit system;};
+            pkgs-ollama = import nixpkgs-ollama {
+              inherit system;
+              config.allowUnfree = true;
+            };
           in {
             ollama = pkgs-ollama.ollama;
+            ollama-cuda = pkgs-ollama.ollama-cuda;
           })
           (final: prev: {
             pythonPackagesExtensions =
@@ -112,9 +116,13 @@
                       nixpkgs.overlays = [
                         emacs-overlay.overlays.default
                         (final: prev: let
-                          pkgs-ollama = import nixpkgs-ollama {inherit (configuration) system;};
+                          pkgs-ollama = import nixpkgs-ollama {
+                            inherit (configuration) system;
+                            config.allowUnfree = true;
+                          };
                         in {
                           ollama = pkgs-ollama.ollama;
+                          ollama-cuda = pkgs-ollama.ollama-cuda;
                         })
                         (final: prev: {
                           pythonPackagesExtensions =
