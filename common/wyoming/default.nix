@@ -16,4 +16,7 @@
       };
     };
   };
+
+  systemd.services.wyoming-faster-whisper-turbo.environment.CUDA_VISIBLE_DEVICES = "1";
+  systemd.services.wyoming-piper-davefx.environment.CUDA_VISIBLE_DEVICES = "1";
 }
