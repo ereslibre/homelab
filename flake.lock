@@ -251,22 +251,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-ollama": {
-      "locked": {
-        "lastModified": 1775561980,
-        "narHash": "sha256-BXQkFaglgWrTquqwnoqiEVXmFGrzo7ZRf2AuinPjU4Q=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4a998199dae6ce3804fb42fbde67a9f2fd8f3657",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "4a998199dae6ce3804fb42fbde67a9f2fd8f3657",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1775811116,
@@ -293,7 +277,6 @@
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-ollama": "nixpkgs-ollama",
         "sops-nix": "sops-nix"
       }
     },

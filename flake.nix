@@ -34,7 +34,6 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-ollama.url = "github:NixOS/nixpkgs/4a998199dae6ce3804fb42fbde67a9f2fd8f3657";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +50,6 @@
     nix-darwin,
     nixos-hardware,
     nixpkgs,
-    nixpkgs-ollama,
     sops-nix,
     ...
   }: let
@@ -62,15 +60,6 @@
         config.allowUnfree = true;
         overlays = [
           emacs-overlay.overlays.default
-          (final: prev: let
-            pkgs-ollama = import nixpkgs-ollama {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          in {
-            ollama = pkgs-ollama.ollama;
-            ollama-cuda = pkgs-ollama.ollama-cuda;
-          })
           (final: prev: {
             pythonPackagesExtensions =
               prev.pythonPackagesExtensions
@@ -115,15 +104,6 @@
                     {
                       nixpkgs.overlays = [
                         emacs-overlay.overlays.default
-                        (final: prev: let
-                          pkgs-ollama = import nixpkgs-ollama {
-                            inherit (configuration) system;
-                            config.allowUnfree = true;
-                          };
-                        in {
-                          ollama = pkgs-ollama.ollama;
-                          ollama-cuda = pkgs-ollama.ollama-cuda;
-                        })
                         (final: prev: {
                           pythonPackagesExtensions =
                             prev.pythonPackagesExtensions
