@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ../common/jupyterhub
     ../common/aliases
     ../common/cloudflared
     ../common/home-node
@@ -36,17 +37,23 @@
     espup
   ];
 
-  services.caddy = {
-    enable = true;
-    virtualHosts = {
-      "openwebui.ereslibre.net".extraConfig = ''
-        tls internal
-        reverse_proxy http://openwebui:8080
-      '';
-      "matrix.ereslibre.net".extraConfig = ''
-        tls internal
-        reverse_proxy http://192.168.100.13:8009
-      '';
+  services = {
+    caddy = {
+      enable = true;
+      virtualHosts = {
+        "openwebui.ereslibre.net".extraConfig = ''
+          tls internal
+          reverse_proxy http://openwebui:8080
+        '';
+        "jupyter.ereslibre.net".extraConfig = ''
+          tls internal
+          reverse_proxy http://localhost:8000
+        '';
+        "matrix.ereslibre.net".extraConfig = ''
+          tls internal
+          reverse_proxy http://192.168.100.13:8009
+        '';
+      };
     };
   };
 
