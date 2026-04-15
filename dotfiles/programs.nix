@@ -409,7 +409,7 @@ in {
       settings = {
         alias = {
           d = "diff";
-          ds = "! git diff | ${lib.getExe pkgs.delta} --side-by-side";
+          ds = "!sh -c 'git diff $1 | ${lib.getExe pkgs.delta} --side-by-side'";
           ci = "commit";
           st = "status";
           co = "checkout";
