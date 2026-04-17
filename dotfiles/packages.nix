@@ -44,7 +44,7 @@
     xxd
     zstd
   ];
-  global-language-tools = with pkgs; [gopls gotools nodejs pnpm rustup];
+  global-language-tools = with pkgs; [gopls nodejs pnpm rustup];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.isLinux [k3d kind]));
   platform-tools = with pkgs; [gh];
 in {
