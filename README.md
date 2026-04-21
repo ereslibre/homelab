@@ -31,3 +31,105 @@
 ```
 # sudo tailscale up --accept-dns=false
 ```
+
+## pi-desktop (diskless iSCSI netboot)
+
+`pi-desktop` is a Raspberry Pi 400 that carries no local storage. The Pi's
+VideoCore firmware loads the kernel + initrd over **TFTP** from the Synology
+(`10.0.4.2`), the initrd logs into an **iSCSI** target on the same Synology,
+and pivots root onto the LUN.
+
+### Synology (DS923+, DSM 7.3) — one-time setup
+
+1. **SAN Manager → LUN**: create `pi-desktop-root`, 128 GB, thin-provisioned,
+   on the desired volume.
+2. **SAN Manager → Target**: create `pi-desktop`, IQN
+   `iqn.2000-01.com.synology:pi-desktop.Target-1`, bind the LUN above, and
+   restrict the ACL to initiator IQN `iqn.2026-04.net.ereslibre:pi-desktop`.
+3. **Package Center → TFTP Server**: install, enable, and point it at a shared
+   folder such as `/volume1/netboot/pi-desktop`. Inside that folder the Pi
+   firmware expects the standard Raspberry Pi boot files
+   (`bootcode.bin`, `start4.elf`, `fixup4.dat`, `config.txt`, `cmdline.txt`,
+   `kernel8.img`, `initrd`, `bcm2711-rpi-4-b.dtb`, …). The `kernel8.img` /
+   `initrd` / `cmdline.txt` are produced by `nixos-rebuild`; the rest come
+   from the `raspberrypifw` package. See "Populating the TFTP tree" below.
+
+### Pi EEPROM — one-time flash (currently HDD-only)
+
+The stock Pi 400 EEPROM boots from SD/USB only. Boot the Pi once from an SD
+card running Raspberry Pi OS (or the NixOS aarch64 installer) and run:
+
+```
+# rpi-eeprom-config --edit
+```
+
+Set:
+
+```
+BOOT_ORDER=0xf21     # network first, then SD, then USB, then stop
+TFTP_IP=10.0.4.2
+TFTP_PREFIX=2        # MAC-based subdirectory on the TFTP server
+DISABLE_HDMI=0
+```
+
+Save and reboot — the EEPROM re-flashes on the next boot. From this point the
+Pi can run headless with no local storage.
+
+### Populating the TFTP tree (first install)
+
+Build the Pi's closure on `hulk` (aarch64 builder) and copy the boot payload
+to the Synology TFTP share:
+
+```
+$ nix build 'github:ereslibre/homelab#nixosConfigurations.pi-desktop.config.system.build.toplevel'
+$ TOPLEVEL=$(readlink -f ./result)
+$ scp $TOPLEVEL/kernel          admin@10.0.4.2:/volume1/netboot/pi-desktop/kernel8.img
+$ scp $TOPLEVEL/initrd          admin@10.0.4.2:/volume1/netboot/pi-desktop/initrd
+$ cat $TOPLEVEL/kernel-params    # → goes into cmdline.txt on the TFTP share
+```
+
+`cmdline.txt` on the Synology must contain the kernel params above plus
+`ip=dhcp root=/dev/disk/by-label/PIROOT rootfstype=ext4 rootwait`.
+
+The static firmware blobs (`bootcode.bin`, `start4.elf`, `fixup4.dat`,
+`bcm2711-rpi-4-b.dtb`, `config.txt`) are copied once from
+`nix build nixpkgs#raspberrypifw` into the same share.
+
+### First install into the LUN
+
+From any aarch64 Linux host with access to the Synology:
+
+```
+# iscsiadm -m discovery -t st -p 10.0.4.2
+# iscsiadm -m node -T iqn.2000-01.com.synology:pi-desktop.Target-1 -p 10.0.4.2 --login
+# mkfs.ext4 -L PIROOT /dev/sdX       # sdX = the newly attached LUN
+# mount /dev/disk/by-label/PIROOT /mnt
+# nixos-install --flake "github:ereslibre/homelab#pi-desktop" --no-bootloader --no-root-passwd --root /mnt
+# umount /mnt
+# iscsiadm -m node -T iqn.2000-01.com.synology:pi-desktop.Target-1 -p 10.0.4.2 --logout
+```
+
+`--no-bootloader` is mandatory: the Pi's bootloader is the TFTP tree, not
+anything `nixos-install` would write.
+
+### Re-key sops after first boot
+
+The old `host-pi-desktop` age recipient in `.sops.yaml` belongs to a dead host
+key. After the first successful boot:
+
+```
+$ ssh pi-desktop sudo ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+# update .sops.yaml with the new recipient, then:
+$ sops updatekeys pi-desktop/secrets.yaml
+```
+
+### Updating pi-desktop
+
+```
+# sudo nixos-rebuild --flake "github:ereslibre/homelab#pi-desktop" switch
+```
+
+After the rebuild, re-publish `kernel8.img` / `initrd` / `cmdline.txt` to the
+TFTP share so the next cold boot picks them up (the running system has
+already switched to the new generation — the TFTP copy is only consulted at
+hardware boot time).
