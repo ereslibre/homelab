@@ -62,8 +62,10 @@ and pivots root onto the LUN.
 
 ### Pi EEPROM — one-time flash (currently HDD-only)
 
-The stock Pi 400 EEPROM boots from SD/USB only. Boot the Pi once from an SD
-card running Raspberry Pi OS (or the NixOS aarch64 installer) and run:
+The stock Pi 400 EEPROM boots from SD/USB only. **The SD slot on this
+particular Pi 400 is physically broken (auto-ejects), so always use a
+USB drive** — boot the Pi once from a USB stick running Raspberry Pi OS
+(or the NixOS aarch64 installer) and run:
 
 ```
 # rpi-eeprom-config --edit
@@ -72,12 +74,16 @@ card running Raspberry Pi OS (or the NixOS aarch64 installer) and run:
 Set:
 
 ```
-BOOT_ORDER=0xf21              # network first, then SD, then USB, then stop
+BOOT_ORDER=0xf24              # LSB-first: 4=NETWORK, 2=USB, f=stop. Skip SD (broken).
 TFTP_IP=10.0.4.2
 TFTP_PREFIX=0                 # use TFTP_PREFIX_STR as the literal subdir
 TFTP_PREFIX_STR=pi-desktop    # → /pi-desktop/ on the TFTP server
 DISABLE_HDMI=0
 ```
+
+`BOOT_ORDER` is read nibble-by-nibble from the LSB: `1`=SD, `2`=USB-MSD,
+`4`=NETWORK, `e`=loop, `f`=stop. So `0xf24` tries network first, falls
+back to USB, then halts.
 
 Save and reboot — the EEPROM re-flashes on the next boot. From this point the
 Pi can run headless with no local storage.
@@ -104,20 +110,88 @@ The static firmware blobs (`bootcode.bin`, `start4.elf`, `fixup4.dat`,
 
 ### First install into the LUN
 
-From any aarch64 Linux host with access to the Synology:
+The install needs an aarch64 Linux host that can `iscsiadm` into the
+Synology. The cleanest path is to use the Pi itself, booted off an SD
+card running the upstream NixOS aarch64 minimal installer. macOS and
+Docker/Lima/linux-builder do **not** work for this — iSCSI needs a real
+Linux kernel with `iscsi_tcp`, root, and mount privileges.
 
-```
-# iscsiadm -m discovery -t st -p 10.0.4.2
-# iscsiadm -m node -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 -p 10.0.4.2 --login
-# mkfs.ext4 -L PIROOT /dev/sdX       # sdX = the newly attached LUN
-# mount /dev/disk/by-label/PIROOT /mnt
-# nixos-install --flake "github:ereslibre/homelab#pi-desktop" --no-bootloader --no-root-passwd --root /mnt
-# umount /mnt
-# iscsiadm -m node -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 -p 10.0.4.2 --logout
+#### A. Write the installer SD card (on a Mac, but any host with `dd` works)
+
+Build the aarch64 NixOS minimal installer SD image from this flake's
+pinned `nixpkgs` so the revision matches everything else (and the
+substituter cache hits). On a Mac this offloads to `nix.linux-builder`
+automatically.
+
+```sh
+cd <homelab-checkout>
+
+nix build --impure --expr '
+  let
+    flake = builtins.getFlake (toString ./.);
+    pkgs = flake.inputs.nixpkgs;
+  in (pkgs.lib.nixosSystem {
+    system = "aarch64-linux";
+    modules = [
+      "${pkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
+    ];
+  }).config.system.build.sdImage
+' --print-out-paths
+
+ls result/sd-image/
+zstd -d result/sd-image/nixos-image-sd-card-*.img.zst -o /tmp/nixos-sd.img
+
+# Find the SD card device — be careful, this overwrites it.
+diskutil list                       # macOS
+# lsblk                             # Linux
+
+diskutil unmountDisk /dev/diskN
+sudo dd if=/tmp/nixos-sd.img of=/dev/rdiskN bs=4m status=progress
+sync && diskutil eject /dev/diskN
 ```
 
-`--no-bootloader` is mandatory: the Pi's bootloader is the TFTP tree, not
-anything `nixos-install` would write.
+#### B. Run the install from the Pi (booted off the SD card)
+
+```sh
+# Optional: bring up SSH so you can drive the rest from your laptop.
+sudo -i
+passwd                              # set a temp password
+systemctl start sshd
+ip a                                # note the Pi's IP
+
+# Log into the Synology iSCSI target.
+modprobe iscsi_tcp
+systemctl start iscsid
+iscsiadm -m discovery -t st -p 10.0.4.2
+iscsiadm -m node \
+  -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 \
+  -p 10.0.4.2 --login
+lsblk                               # confirm /dev/sda appeared
+
+# Format and mount.
+mkfs.ext4 -L PIROOT /dev/sda
+mkdir -p /mnt
+mount /dev/disk/by-label/PIROOT /mnt
+
+# Install pi-desktop's closure into the LUN.
+nixos-install \
+  --flake "github:ereslibre/homelab#pi-desktop" \
+  --no-bootloader --no-root-passwd \
+  --root /mnt
+
+# Clean up.
+umount /mnt
+iscsiadm -m node \
+  -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 \
+  -p 10.0.4.2 --logout
+poweroff
+```
+
+`--no-bootloader` is mandatory: the Pi's bootloader is the TFTP tree,
+not anything `nixos-install` would write.
+
+After `poweroff`, pull the SD card. The next cold boot will go straight
+to the EEPROM's network-boot path (configured in the next section).
 
 ### Re-key sops after first boot
 
