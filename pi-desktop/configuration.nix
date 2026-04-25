@@ -20,10 +20,7 @@
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = false;
 
-  networking = {
-    hostName = "pi-desktop";
-    useDHCP = true;
-  };
+  networking.hostName = "pi-desktop";
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 

@@ -49,11 +49,12 @@ and pivots root onto the LUN.
    `iqn.2000-01.com.synology:synology.default-target.ca49c4149b2` (also
    referenced by `pi-desktop/hardware-configuration.nix`).
 3. **Package Center → TFTP Server**: install, enable, and point it at a shared
-   folder such as `/volume1/pis`. With `TFTP_PREFIX=2` (set in step "Pi
-   EEPROM" below) the firmware loads boot files from `<root>/<MAC>/`, so
-   pi-desktop's files live in `/volume1/pis/<pi-desktop-end0-MAC>/`. Inside
-   that subdirectory the Pi firmware expects the standard Raspberry Pi boot
-   files (`bootcode.bin`, `start4.elf`, `fixup4.dat`, `config.txt`,
+   folder such as `/volume1/pis`. With `TFTP_PREFIX=0` and
+   `TFTP_PREFIX_STR=pi-desktop` (set in step "Pi EEPROM" below) the
+   firmware loads boot files from `<root>/pi-desktop/`, so pi-desktop's
+   files live in `/volume1/pis/pi-desktop/`. Inside that subdirectory the
+   Pi firmware expects the standard Raspberry Pi boot files
+   (`bootcode.bin`, `start4.elf`, `fixup4.dat`, `config.txt`,
    `cmdline.txt`, `kernel8.img`, `initrd`, `bcm2711-rpi-4-b.dtb`, …). The
    `kernel8.img` / `initrd` / `cmdline.txt` are produced by `nixos-rebuild`;
    the rest come from the `raspberrypifw` package. See "Populating the TFTP
@@ -71,9 +72,10 @@ card running Raspberry Pi OS (or the NixOS aarch64 installer) and run:
 Set:
 
 ```
-BOOT_ORDER=0xf21     # network first, then SD, then USB, then stop
+BOOT_ORDER=0xf21              # network first, then SD, then USB, then stop
 TFTP_IP=10.0.4.2
-TFTP_PREFIX=2        # MAC-based subdirectory on the TFTP server
+TFTP_PREFIX=0                 # use TFTP_PREFIX_STR as the literal subdir
+TFTP_PREFIX_STR=pi-desktop    # → /pi-desktop/ on the TFTP server
 DISABLE_HDMI=0
 ```
 
@@ -88,8 +90,8 @@ to the Synology TFTP share:
 ```
 $ nix build 'github:ereslibre/homelab#nixosConfigurations.pi-desktop.config.system.build.toplevel'
 $ TOPLEVEL=$(readlink -f ./result)
-$ scp $TOPLEVEL/kernel          admin@10.0.4.2:/volume1/pis/<MAC>/kernel8.img
-$ scp $TOPLEVEL/initrd          admin@10.0.4.2:/volume1/pis/<MAC>/initrd
+$ scp $TOPLEVEL/kernel          admin@10.0.4.2:/volume1/pis/pi-desktop/kernel8.img
+$ scp $TOPLEVEL/initrd          admin@10.0.4.2:/volume1/pis/pi-desktop/initrd
 $ cat $TOPLEVEL/kernel-params    # → goes into cmdline.txt on the TFTP share
 ```
 
