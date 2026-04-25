@@ -2,10 +2,11 @@
   description = "Home lab";
 
   nixConfig = {
-    extra-substituters = ["https://cache.flox.dev" "https://cache.garnix.io" "https://cache.numtide.com"];
+    extra-substituters = ["https://cache.flox.dev" "https://cache.garnix.io" "https://cache.nixos-cuda.org" "https://cache.numtide.com"];
     extra-trusted-public-keys = [
       "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
