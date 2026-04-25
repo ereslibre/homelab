@@ -124,7 +124,7 @@
                       home-manager = {
                         users.${configuration.user} = import ./dotfiles/home.nix {
                           inherit home-manager;
-                          inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote;
+                          inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote aiTools;
                         };
                         useGlobalPkgs = true;
                         extraSpecialArgs = {

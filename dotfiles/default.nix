@@ -6,6 +6,7 @@ let
       homeDirectory = "/home/ereslibre";
       profile = "personal";
       mainlyRemote = true;
+      aiTools = true;
       stateVersion = "23.05";
     };
     "ereslibre@nuc-1" = {
@@ -14,6 +15,7 @@ let
       homeDirectory = "/home/ereslibre";
       profile = "personal";
       mainlyRemote = true;
+      aiTools = false;
       stateVersion = "22.11";
     };
     "ereslibre@nuc-2" = {
@@ -22,6 +24,7 @@ let
       homeDirectory = "/home/ereslibre";
       profile = "personal";
       mainlyRemote = true;
+      aiTools = false;
       stateVersion = "22.11";
     };
     "ereslibre@nuc-3" = {
@@ -30,6 +33,7 @@ let
       homeDirectory = "/home/ereslibre";
       profile = "personal";
       mainlyRemote = true;
+      aiTools = false;
       stateVersion = "23.05";
     };
     "ereslibre@pi-desktop" = {
@@ -38,6 +42,7 @@ let
       homeDirectory = "/home/ereslibre";
       profile = "personal";
       mainlyRemote = false;
+      aiTools = false;
       stateVersion = "23.05";
     };
     "ereslibre@Rafaels-Flying-Hulk" = {
@@ -46,6 +51,7 @@ let
       homeDirectory = "/Users/ereslibre";
       profile = "personal";
       mainlyRemote = false;
+      aiTools = true;
       stateVersion = "25.05";
     };
   };

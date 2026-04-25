@@ -1,4 +1,5 @@
 {
+  aiTools,
   home-manager,
   homeDirectory,
   mainlyRemote,
@@ -19,7 +20,7 @@ in {
     [
       (import ./dotfiles.nix {inherit profile;})
       ./fonts.nix
-      ./packages.nix
+      (import ./packages.nix {inherit aiTools;})
       (import ./programs.nix {
         inherit username mainlyRemote profile;
         isDarwin = systemMatchesPredicate system "isDarwin";
