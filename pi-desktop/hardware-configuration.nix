@@ -17,7 +17,9 @@
   ];
   boot.initrd.kernelModules = [];
   boot.initrd.network.enable = true;
-  boot.initrd.systemd.enable = true;
+  # iscsi-initiator requires the legacy bash-script initrd; modern nixpkgs
+  # defaults systemd-stage-1 to true and that path doesn't support iSCSI yet.
+  boot.initrd.systemd.enable = false;
 
   boot.iscsi-initiator = {
     name = "iqn.2026-04.net.ereslibre:pi-desktop";
