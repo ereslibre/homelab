@@ -21,7 +21,7 @@
 
   boot.iscsi-initiator = {
     name = "iqn.2026-04.net.ereslibre:pi-desktop";
-    target = "iqn.2000-01.com.synology:pi-desktop.Target-1";
+    target = "iqn.2000-01.com.synology:synology.default-target.ca49c4149b2";
     discoverPortal = "10.0.4.2";
   };
 

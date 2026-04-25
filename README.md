@@ -43,16 +43,21 @@ and pivots root onto the LUN.
 
 1. **SAN Manager → LUN**: create `pi-desktop-root`, 128 GB, thin-provisioned,
    on the desired volume.
-2. **SAN Manager → Target**: create `pi-desktop`, IQN
-   `iqn.2000-01.com.synology:pi-desktop.Target-1`, bind the LUN above, and
+2. **SAN Manager → Target**: create the target, bind the LUN above, and
    restrict the ACL to initiator IQN `iqn.2026-04.net.ereslibre:pi-desktop`.
+   DSM auto-generates the target IQN; the current one is
+   `iqn.2000-01.com.synology:synology.default-target.ca49c4149b2` (also
+   referenced by `pi-desktop/hardware-configuration.nix`).
 3. **Package Center → TFTP Server**: install, enable, and point it at a shared
-   folder such as `/volume1/netboot/pi-desktop`. Inside that folder the Pi
-   firmware expects the standard Raspberry Pi boot files
-   (`bootcode.bin`, `start4.elf`, `fixup4.dat`, `config.txt`, `cmdline.txt`,
-   `kernel8.img`, `initrd`, `bcm2711-rpi-4-b.dtb`, …). The `kernel8.img` /
-   `initrd` / `cmdline.txt` are produced by `nixos-rebuild`; the rest come
-   from the `raspberrypifw` package. See "Populating the TFTP tree" below.
+   folder such as `/volume1/pis`. With `TFTP_PREFIX=2` (set in step "Pi
+   EEPROM" below) the firmware loads boot files from `<root>/<MAC>/`, so
+   pi-desktop's files live in `/volume1/pis/<pi-desktop-end0-MAC>/`. Inside
+   that subdirectory the Pi firmware expects the standard Raspberry Pi boot
+   files (`bootcode.bin`, `start4.elf`, `fixup4.dat`, `config.txt`,
+   `cmdline.txt`, `kernel8.img`, `initrd`, `bcm2711-rpi-4-b.dtb`, …). The
+   `kernel8.img` / `initrd` / `cmdline.txt` are produced by `nixos-rebuild`;
+   the rest come from the `raspberrypifw` package. See "Populating the TFTP
+   tree" below.
 
 ### Pi EEPROM — one-time flash (currently HDD-only)
 
@@ -83,8 +88,8 @@ to the Synology TFTP share:
 ```
 $ nix build 'github:ereslibre/homelab#nixosConfigurations.pi-desktop.config.system.build.toplevel'
 $ TOPLEVEL=$(readlink -f ./result)
-$ scp $TOPLEVEL/kernel          admin@10.0.4.2:/volume1/netboot/pi-desktop/kernel8.img
-$ scp $TOPLEVEL/initrd          admin@10.0.4.2:/volume1/netboot/pi-desktop/initrd
+$ scp $TOPLEVEL/kernel          admin@10.0.4.2:/volume1/pis/<MAC>/kernel8.img
+$ scp $TOPLEVEL/initrd          admin@10.0.4.2:/volume1/pis/<MAC>/initrd
 $ cat $TOPLEVEL/kernel-params    # → goes into cmdline.txt on the TFTP share
 ```
 
@@ -101,12 +106,12 @@ From any aarch64 Linux host with access to the Synology:
 
 ```
 # iscsiadm -m discovery -t st -p 10.0.4.2
-# iscsiadm -m node -T iqn.2000-01.com.synology:pi-desktop.Target-1 -p 10.0.4.2 --login
+# iscsiadm -m node -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 -p 10.0.4.2 --login
 # mkfs.ext4 -L PIROOT /dev/sdX       # sdX = the newly attached LUN
 # mount /dev/disk/by-label/PIROOT /mnt
 # nixos-install --flake "github:ereslibre/homelab#pi-desktop" --no-bootloader --no-root-passwd --root /mnt
 # umount /mnt
-# iscsiadm -m node -T iqn.2000-01.com.synology:pi-desktop.Target-1 -p 10.0.4.2 --logout
+# iscsiadm -m node -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 -p 10.0.4.2 --logout
 ```
 
 `--no-bootloader` is mandatory: the Pi's bootloader is the TFTP tree, not
