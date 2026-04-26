@@ -52,6 +52,38 @@ requests from `10.0.4.40` ever; only my one test query from hulk
 DHCP DISCOVER is a broadcast, so hulk on the same /24 would see it if
 the bootloader sent it. The bootloader emits nothing.
 
+## TFTP tree audit (verified clean — not the blocker)
+
+Last verified 2026-04-26. The staged tree at
+`/volume1/pis/pi-desktop/` on the Synology is consistent with what the
+Pi 4 EEPROM bootloader expects (path matches `TFTP_PREFIX=2 +
+TFTP_PREFIX_STR=pi-desktop`):
+
+| Item | State |
+|---|---|
+| Path | `/volume1/pis/pi-desktop/` |
+| Pi firmware | `start4.elf` (2.2 MB), `fixup4.dat` (5 KB), `bootcode.bin` (52 KB) |
+| DTBs | `bcm2711-rpi-400.dtb` (correct for Pi 400) + `bcm2711-rpi-4-b.dtb` |
+| Overlays | `overlays/` present |
+| `kernel8.img` | aarch64 Linux Image, `MZ` EFI-stub header + `ARMd` magic at 0x38 ✓ |
+| `initrd` | zstd-compressed (`28 b5 2f fd` magic). start4.elf passes verbatim; kernel decompresses. Fine. |
+| `config.txt` | `arm_64bit=1`, `enable_uart=1`, `kernel=kernel8.img`, `initramfs initrd followkernel`. No `device_tree=` line — firmware auto-picks the 400 DTB. |
+| `cmdline.txt` | `kunit.enable=0 loglevel=4 lsm=landlock,yama,bpf init=/nix/store/sc4kqkp975482nxm4j9m38i1abgfspnj-nixos-system-pi-desktop-26.05.20260422.0726a0e/init ip=dhcp root=/dev/disk/by-label/PIROOT rootfstype=ext4 rootwait` |
+
+So the bootloader, *if* it ever reached TFTP, would find a complete
+and correct payload. The blocker is exclusively the EEPROM bootloader
+phase before any of these files are consulted.
+
+The post-handoff pi-desktop boot chain would be:
+1. start4.elf reads config.txt, cmdline.txt, kernel, initrd, DTB.
+2. Kernel boots with `ip=dhcp` (initrd-level DHCP for `end0`).
+3. NixOS scripted initrd runs the iSCSI initiator with our IQN
+   (`iqn.2026-04.net.ereslibre:pi-desktop`), logs into target
+   `iqn.2000-01.com.synology:synology.default-target.ca49c4149b2` at
+   `10.0.4.2`.
+4. `/dev/disk/by-label/PIROOT` (the LUN) becomes available.
+5. Pivot to LUN; `init=/nix/store/.../init` runs; full system comes up.
+
 ## What we ruled out
 
 - **Switch / cable.** User confirmed: unmanaged switch, regular DHCP at
