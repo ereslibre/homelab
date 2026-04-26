@@ -206,15 +206,43 @@ partially working, which is what we're trying to debug. Worth a quick
 try if (1) and (2) are unavailable. Set `NETCONSOLE=10.0.4.20:6666` and
 run `nc -ul 6666` on hulk. If anything arrives, we have signal.
 
-### 4. Give up on pure netboot; keep USB SSD
+### 4. Use u-boot on the USB drive as the netboot stage
 
-Stop fighting it. Boot the Pi from a small permanent USB drive that
-contains *just* a tiny NixOS bootloader stage (kernel + initrd + iSCSI
-config), with `/` still on the iSCSI LUN. That's the same end state
-(diskless except for the boot stage), just sourced from USB instead of
-TFTP. Less elegant but functional. Could also build a bootable USB
-image of the pi-desktop config directly — defeats the point of using
-the LUN, but works.
+Sidestep the silent EEPROM bootloader entirely. The boot chain is
+already two-stage — EEPROM falls through to USB-MSD, `start4.elf`
+loads `/dev/sda1:/u-boot-rpi4.bin`, u-boot then reads
+`/boot/extlinux/extlinux.conf` from `/dev/sda2` and chains to the SD
+installer's kernel. The user observed u-boot starts and reports its
+network as up, so u-boot's own netboot capabilities work fine.
+
+Reconfigure u-boot to **TFTP-boot pi-desktop first**, falling back to
+the local extlinux entry only if TFTP fails. Sketch:
+
+- Replace (or augment) `/boot/extlinux/extlinux.conf` so the default
+  label invokes a `boot.scr` that runs `dhcp; tftpboot $kernel_addr_r
+  10.0.4.2:pi-desktop/kernel8.img; tftpboot $ramdisk_addr_r
+  10.0.4.2:pi-desktop/initrd; tftpboot $fdt_addr_r
+  10.0.4.2:pi-desktop/bcm2711-rpi-400.dtb; setenv bootargs <our
+  cmdline>; booti $kernel_addr_r $ramdisk_addr_r:$filesize $fdt_addr_r`.
+- Or use u-boot's `pxe` command (it understands extlinux-on-TFTP).
+- Or generate a `boot.scr` via `mkimage` and place it at the path u-boot
+  loads automatically.
+
+End state: Pi boots from USB to u-boot, u-boot TFTPs the pi-desktop
+kernel + initrd, kernel runs iSCSI initrd, root pivots to the LUN. USB
+stays plugged in but is only ~30 MB of u-boot stub.
+
+This bypasses the EEPROM-bootloader-silent issue entirely. Less elegant
+than pure EEPROM TFTP boot, but functional and requires no new hardware
+(no UART). Pursue this if the firmware-downgrade route in (1) also
+fails.
+
+### 5. Give up on pure netboot; keep USB SSD
+
+Final fallback. Make the USB SSD a small dedicated boot drive with the
+real pi-desktop kernel/initrd and skip TFTP entirely; iSCSI mount still
+provides `/`. Same end state as (4), just without TFTP. Boring but
+deterministic.
 
 ## Reminders / gotchas seen this session
 
