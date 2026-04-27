@@ -49,7 +49,7 @@ and pivots root onto the LUN.
    `iqn.2000-01.com.synology:synology.default-target.ca49c4149b2` (also
    referenced by `pi-desktop/hardware-configuration.nix`).
 3. **Package Center → TFTP Server**: install, enable, and point it at a shared
-   folder such as `/volume1/pis`. With `TFTP_PREFIX=0` and
+   folder such as `/volume1/pis`. With `TFTP_PREFIX=1` and
    `TFTP_PREFIX_STR=pi-desktop` (set in step "Pi EEPROM" below) the
    firmware loads boot files from `<root>/pi-desktop/`, so pi-desktop's
    files live in `/volume1/pis/pi-desktop/`. Inside that subdirectory the
@@ -74,16 +74,25 @@ USB drive** — boot the Pi once from a USB stick running Raspberry Pi OS
 Set:
 
 ```
-BOOT_ORDER=0xf24              # LSB-first: 4=NETWORK, 2=USB, f=stop. Skip SD (broken).
-TFTP_IP=10.0.4.2
-TFTP_PREFIX=0                 # use TFTP_PREFIX_STR as the literal subdir
+BOOT_ORDER=0xf42              # LSB-first: 2=NETWORK, 4=USB-MSD, f=RESTART (loop). Skip SD (broken).
+TFTP_IP=10.0.4.2              # override DHCP server-ip; Synology serves TFTP here
+TFTP_PREFIX=1                 # 1 = use TFTP_PREFIX_STR (literal); 0 = serial-number, 2 = MAC
 TFTP_PREFIX_STR=pi-desktop    # → /pi-desktop/ on the TFTP server
-DISABLE_HDMI=0
+BOOT_UART=1                   # bootloader logs to GPIO 14/15 @ 115200 8N1 (always-on for diagnosability)
+NET_INSTALL_AT_POWER_ON=0     # default firmware images ship with =1; force off for unattended netboot
+DISABLE_HDMI=0                # leave HDMI diagnostics screen enabled
 ```
 
-`BOOT_ORDER` is read nibble-by-nibble from the LSB: `1`=SD, `2`=USB-MSD,
-`4`=NETWORK, `e`=loop, `f`=stop. So `0xf24` tries network first, falls
-back to USB, then halts.
+`BOOT_ORDER` is a 32-bit integer read nibble-by-nibble from the LSB. Per the
+[official Pi bootloader docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER):
+`0x1`=SD, `0x2`=NETWORK, `0x3`=RPIBOOT, `0x4`=USB-MSD, `0x6`=NVMe (Pi 5/CM4),
+`0x7`=HTTP, `0xe`=STOP, `0xf`=RESTART (loop back to the first nibble). So
+`0xf42` tries NETWORK first, falls back to USB-MSD, then loops.
+
+`TFTP_PREFIX` selects the per-device TFTP subdirectory (see the
+[official docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#TFTP_PREFIX)):
+`0`=serial number (default), `1`=string from `TFTP_PREFIX_STR`, `2`=MAC address.
+`TFTP_PREFIX_STR` is consulted **only** when `TFTP_PREFIX=1` (max 32 chars).
 
 Save and reboot — the EEPROM re-flashes on the next boot. From this point the
 Pi can run headless with no local storage.

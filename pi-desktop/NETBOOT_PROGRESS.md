@@ -7,6 +7,18 @@ the wire during its boot window, so network boot never even attempts DHCP.
 Every cold boot falls through `BOOT_ORDER=0xf24` to the USB-MSD slot and
 comes back up in the live aarch64 NixOS installer at `10.0.4.40`.
 
+> **2026-04-27 finding — likely root cause.** Per the
+> [official Pi bootloader docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER),
+> `BOOT_ORDER` nibbles are: `0x2`=NETWORK, `0x4`=USB-MSD (we had these reversed
+> in the README). `0xf24` is read LSB-first as **USB-MSD → NETWORK → RESTART**,
+> so with the installer USB plugged in the bootloader correctly boots USB
+> *first* and never even attempts network. The "bootloader silent on the wire"
+> behaviour is then expected, not a firmware bug. Reflash with `BOOT_ORDER=0xf42`
+> (NETWORK → USB-MSD → RESTART) before further UART / firmware-downgrade
+> debugging. Also flip `TFTP_PREFIX` from `2` (MAC) to `1` (literal string) — `2`
+> means MAC-address prefix per the same docs, so `TFTP_PREFIX_STR=pi-desktop`
+> has been dead config the whole time.
+
 Pick up at the **"What to try next"** section below.
 
 ## Where we left off (2026-04-26)
@@ -93,8 +105,12 @@ The post-handoff pi-desktop boot chain would be:
 - **TFTP_PREFIX semantics.** I had it documented backwards in the README
   initially (`TFTP_PREFIX=0` was meant to be "literal string", but it's
   actually "use serial-number prefix"). Re-flashed with `TFTP_PREFIX=2`
-  + `TFTP_PREFIX_STR=pi-desktop`. Doesn't matter — bootloader never gets
-  to TFTP.
+  + `TFTP_PREFIX_STR=pi-desktop`. **2026-04-27 correction:** per the
+  [official docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#TFTP_PREFIX)
+  `2` is the MAC-address prefix, *not* literal-string. The literal-string
+  mode is `TFTP_PREFIX=1`. `TFTP_PREFIX_STR=pi-desktop` has been dead
+  config since the reflash. Re-reflash with `TFTP_PREFIX=1` next time the
+  EEPROM is touched.
 - **DSM TFTP server config.** Verified working from hulk.
 - **DSM iSCSI ACL.** LUN can be logged in to from the Pi's IQN.
 - **Synology DHCP.** Not in use; not required (Pi 4 EEPROM uses baked-in
@@ -137,8 +153,11 @@ per-host `aiTools` flag (`dotfiles/default.nix`, `dotfiles/home.nix`,
 yet.
 
 The README's "Pi EEPROM" section was updated mid-session and now
-specifies `TFTP_PREFIX=2` (correct semantics: use `TFTP_PREFIX_STR` as
-the literal subdir).
+specifies `TFTP_PREFIX=1` and `BOOT_ORDER=0xf42` (per the official Pi
+bootloader docs — `1` is the literal-string prefix and `0xf42` reads
+LSB-first as NETWORK → USB-MSD → RESTART). The currently-flashed EEPROM
+on the Pi still has the older incorrect `TFTP_PREFIX=2` and
+`BOOT_ORDER=0xf24` and needs to be reflashed.
 
 The pi-desktop closure built on the Mac is at
 `/nix/store/sc4kqkp975482nxm4j9m38i1abgfspnj-nixos-system-pi-desktop-26.05.20260422.0726a0e`
@@ -170,9 +189,9 @@ cat > /tmp/pi-eeprom.conf <<EOF
 BOOT_UART=1
 WAKE_ON_GPIO=1
 ENABLE_SELF_UPDATE=1
-BOOT_ORDER=0xf24
+BOOT_ORDER=0xf42              # NETWORK → USB-MSD → RESTART (per official docs)
 TFTP_IP=10.0.4.2
-TFTP_PREFIX=2
+TFTP_PREFIX=1                 # 1 = use TFTP_PREFIX_STR (literal); 2 would be MAC-address
 TFTP_PREFIX_STR=pi-desktop
 DISABLE_HDMI=0
 NET_INSTALL_AT_POWER_ON=0
@@ -308,7 +327,8 @@ deterministic.
   hosts don't pull codex unnecessarily.
 - Two old pcap files (`/tmp/pi-boot.pcap`, `/tmp/pi-boot2.pcap`) on
   hulk, root-owned. Sudo to delete when done.
-- The README's `BOOT_ORDER=0xf24` semantics note in
-  `README.md`'s "Pi EEPROM" section is correct (LSB-first explained).
+- The README's `BOOT_ORDER` semantics note now matches the official
+  Pi bootloader docs (`BOOT_ORDER=0xf42` = NETWORK → USB-MSD → RESTART;
+  `0x2`=NETWORK, `0x4`=USB-MSD, `0xf`=RESTART/loop, `0xe`=STOP).
 - Synology TFTP server is **opentftp 1.66 from 2003**. Old, but works.
   No need to replace unless we see correctness issues.
