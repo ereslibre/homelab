@@ -62,6 +62,11 @@
         overlays = [
           emacs-overlay.overlays.default
           (final: prev: {
+            zsh = prev.zsh.overrideAttrs (old: prev.lib.optionalAttrs prev.stdenv.isDarwin {
+              preConfigure = (old.preConfigure or "") + ''
+                export zsh_cv_sys_sigsuspend=yes
+              '';
+            });
             pythonPackagesExtensions =
               prev.pythonPackagesExtensions
               ++ [
@@ -70,6 +75,10 @@
                     picosvg = python-prev.picosvg.overridePythonAttrs {
                       doCheck = false;
                     };
+                    # TODO: remove once nixpkgs adds joserfc to authlib's dependencies upstream.
+                    authlib = python-prev.authlib.overridePythonAttrs (old: {
+                      dependencies = (old.dependencies or []) ++ [python-final.joserfc];
+                    });
                   }
                 )
               ];
@@ -106,6 +115,11 @@
                       nixpkgs.overlays = [
                         emacs-overlay.overlays.default
                         (final: prev: {
+                          zsh = prev.zsh.overrideAttrs (old: prev.lib.optionalAttrs prev.stdenv.isDarwin {
+                            preConfigure = (old.preConfigure or "") + ''
+                              export zsh_cv_sys_sigsuspend=yes
+                            '';
+                          });
                           pythonPackagesExtensions =
                             prev.pythonPackagesExtensions
                             ++ [
@@ -114,10 +128,17 @@
                                   picosvg = python-prev.picosvg.overridePythonAttrs {
                                     doCheck = false;
                                   };
+                                  # TODO: remove once nixpkgs adds joserfc to authlib's dependencies upstream.
+                                  authlib = python-prev.authlib.overridePythonAttrs (old: {
+                                    dependencies = (old.dependencies or []) ++ [python-final.joserfc];
+                                  });
                                 }
                               )
                             ];
                         })
+                        # Rebuild nix-ai-tools packages against our nixpkgs so the authlib
+                        # joserfc override above flows into hermes-agent's mistralai closure.
+                        nix-ai-tools.overlays.shared-nixpkgs
                       ];
                     }
                     {
