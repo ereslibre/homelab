@@ -25,17 +25,6 @@
       emacs-nox = emacs {nox = true;};
     };
   };
-  tmuxSshRefresh = ''
-    _sync_tmux_ssh_env() {
-      [ -n "$TMUX" ] || return 0
-
-      local tmux_ssh_env
-      tmux_ssh_env="$(${lib.getExe pkgs.tmux} show-environment -s 2>/dev/null | ${lib.getExe pkgs.gnugrep} -E '^(unset SSH_|SSH_)')" || return 0
-      [ -n "$tmux_ssh_env" ] || return 0
-
-      eval "$tmux_ssh_env"
-    }
-  '';
 in {
   home = {
     sessionPath = [
@@ -67,11 +56,6 @@ in {
   programs = {
     bash = {
       enable = true;
-      initExtra = ''
-        ${tmuxSshRefresh}
-
-        PROMPT_COMMAND="_sync_tmux_ssh_env''${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
-      '';
       inherit (shellExtras) profileExtra shellAliases;
     };
     bat.enable = true;
@@ -587,11 +571,6 @@ in {
         export LC_ALL="en_US.UTF-8"
       '';
       initContent = lib.mkBefore ''
-        ${tmuxSshRefresh}
-
-        autoload -Uz add-zsh-hook
-        add-zsh-hook precmd _sync_tmux_ssh_env
-
         # This avoids MacOS from destroying Nix on every OS update.
         #   https://github.com/NixOS/nix/issues/3616
         if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
