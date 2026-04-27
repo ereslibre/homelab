@@ -13,8 +13,9 @@
       codex
       copilot-cli
       cursor-agent
-      # gemini-cli # broken: node-pty doesn't compile with nodejs 24
+      gemini-cli
       goose-cli
+      hermes-agent
       opencode
       qwen-code
     ]
