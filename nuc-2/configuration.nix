@@ -4,6 +4,7 @@
     ../common/aliases
     ../common/mdns-reflector
     ../common/home-node
+    ../common/kernel
     ../common/nix
     ../common/node
     ../common/packages

@@ -4,6 +4,7 @@
     ../common/aliases
     ../common/mdns-reflector
     ../common/home-node
+    ../common/kernel
     ../common/network-ingress
     ../common/nix
     ../common/node

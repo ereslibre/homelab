@@ -9,6 +9,7 @@
     ../common/docker
     ../common/fonts
     ../common/home-node
+    ../common/kernel
     ../common/nix
     ../common/nix-github
     ../common/node

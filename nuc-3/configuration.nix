@@ -9,6 +9,7 @@
     ../common/aliases
     ../common/cloudflared
     ../common/home-node
+    ../common/kernel
     ../common/nix
     ../common/nix-github
     ../common/node
