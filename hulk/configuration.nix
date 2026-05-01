@@ -42,9 +42,10 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
+      loadModels = ["gemma4:latest"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "32000";
+        OLLAMA_CONTEXT_LENGTH = "64000";
       };
     };
     spice-vdagentd.enable = true;
