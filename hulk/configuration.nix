@@ -51,6 +51,11 @@
     spice-vdagentd.enable = true;
   };
 
+  systemd.services.ollama = {
+    after = ["nvidia-persistenced.service"];
+    requires = ["nvidia-persistenced.service"];
+  };
+
   sops.defaultSopsFile = ./secrets.yaml;
 
   virtualisation.libvirtd = {
