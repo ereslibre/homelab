@@ -189,7 +189,7 @@
           user = "ereslibre";
           builderArgs = {
             specialArgs = {
-              inherit sops-nix;
+              inherit sops-nix nix-ai-tools;
             };
           };
           modules = [

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  nix-ai-tools,
   ...
 }: {
   imports = [
@@ -69,19 +70,33 @@
     };
   };
 
-  systemd.services.iptables-masquerade = {
-    # Provide connectivity on the containers; this masquerade rule is
-    # not added automatically.
-    description = "Add iptables NAT MASQUERADE rule for container NAT";
-    wants = ["network-online.target"];
-    after = ["network-online.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ''
-        /run/current-system/sw/bin/iptables -t nat -A POSTROUTING -o enp2s0 -j MASQUERADE
-      '';
+  systemd.services = {
+    hermes-gateway = {
+      description = "Hermes Gateway";
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
+        Restart = "on-failure";
+        User = "ereslibre";
+      };
     };
-    wantedBy = ["multi-user.target"];
+    iptables-masquerade = {
+      # Provide connectivity on the containers; this masquerade rule is
+      # not added automatically.
+      description = "Add iptables NAT MASQUERADE rule for container NAT";
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = ''
+          /run/current-system/sw/bin/iptables -t nat -A POSTROUTING -o enp2s0 -j MASQUERADE
+        '';
+      };
+      wantedBy = ["multi-user.target"];
+    };
   };
 
   users.users.ereslibre.extraGroups = ["video"]; # surpillance experiments
