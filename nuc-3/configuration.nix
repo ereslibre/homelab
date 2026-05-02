@@ -32,7 +32,16 @@
     tmpfsSize = "20%";
   };
 
-  sops.defaultSopsFile = ./secrets.yaml;
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    secrets."hermes/firecrawl" = {};
+    templates."hermes-env" = {
+      owner = "ereslibre";
+      content = ''
+        FIRECRAWL_API_KEY=${config.sops.placeholder."hermes/firecrawl"}
+      '';
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     esphome
@@ -81,6 +90,7 @@
         ExecStart = "${nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
         Restart = "on-failure";
         User = "ereslibre";
+        EnvironmentFile = config.sops.templates."hermes-env".path;
       };
     };
     iptables-masquerade = {
