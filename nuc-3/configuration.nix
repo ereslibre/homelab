@@ -44,9 +44,12 @@
   };
 
   environment.systemPackages = with pkgs; [
+    chromium
     esphome
     espup
   ];
+
+  programs.chromium.enable = true;
 
   services = {
     caddy = {
@@ -80,10 +83,22 @@
   };
 
   systemd.services = {
-    hermes-gateway = {
-      description = "Hermes Gateway";
+    chromium-cdp = {
+      description = "Chromium CDP Remote Debugging";
       after = ["network-online.target"];
       wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless";
+        Restart = "on-failure";
+        User = "ereslibre";
+      };
+    };
+    hermes-gateway = {
+      description = "Hermes Gateway";
+      after = ["network-online.target" "chromium-cdp.service"];
+      wants = ["network-online.target" "chromium-cdp.service"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
