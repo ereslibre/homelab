@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  googleworkspace-cli,
   nix-ai-tools,
   ...
 }: {
@@ -43,10 +44,13 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     chromium
     esphome
     espup
+    google-cloud-sdk
+  ]) ++ [
+    googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.chromium.enable = true;
