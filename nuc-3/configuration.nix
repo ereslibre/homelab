@@ -44,14 +44,16 @@
     };
   };
 
-  environment.systemPackages = (with pkgs; [
-    chromium
-    esphome
-    espup
-    google-cloud-sdk
-  ]) ++ [
-    googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      chromium
+      esphome
+      espup
+      google-cloud-sdk
+    ])
+    ++ [
+      googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
 
   programs.chromium.enable = true;
 
