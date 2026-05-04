@@ -17,6 +17,7 @@
       goose-cli
       hermes-agent
       opencode
+      skills
       qwen-code
     ]
   );
