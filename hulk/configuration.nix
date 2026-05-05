@@ -45,7 +45,8 @@
       loadModels = ["gemma4:latest"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "64000";
+        CUDA_VISIBLE_DEVICES = "0";
+        OLLAMA_CONTEXT_LENGTH = "131072";
       };
     };
     spice-vdagentd.enable = true;
