@@ -73,6 +73,8 @@ in {
             <dict>
               <key>XDG_RUNTIME_DIR</key>
               <string>${userHome}/.emacs.d</string>
+              <key>PATH</key>
+              <string>${userHome}/.cargo/bin:${userHome}/.nix-profile/bin:/etc/profiles/per-user/${user}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
             </dict>
             <key>Label</key>
             <string>es.ereslibre.es.emacs</string>
