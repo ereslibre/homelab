@@ -69,6 +69,7 @@
       sublimity
       terraform-mode
       treesit-auto
+      treesit-fold
       undo-tree
       use-package
       writeroom-mode

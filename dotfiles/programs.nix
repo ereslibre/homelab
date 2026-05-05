@@ -253,6 +253,11 @@ in {
           (treesit-auto-add-to-auto-mode-alist 'all) ; Use tree-sitter for all supported languages
           (global-treesit-auto-mode))
 
+        (use-package treesit-fold
+          :demand t
+          :config
+          (global-treesit-fold-mode 1))
+
         (use-package undo-tree
           :demand t
           :config

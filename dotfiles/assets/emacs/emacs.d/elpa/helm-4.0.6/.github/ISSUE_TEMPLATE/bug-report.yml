@@ -1,0 +1,80 @@
+name: Bug Report
+description: File a bug report
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: recipe
+    attributes:
+      label: How to reproduce?
+      description: Tell us how to reproduce bug step by step?
+      placeholder: Add here a detailed recipe, thanks!
+    validations:
+      required: true
+  - type: dropdown
+    id: Helm-version
+    attributes:
+      label: Helm Version
+      description: I agree using the last Helm version from
+      options:
+        - Master branch
+        - Melpa or NonGnuElpa
+    validations:
+      required: true
+  - type: dropdown
+    id: Emacs-version
+    attributes:
+      label: Emacs Version
+      description: What version of Emacs are you running?
+      options:
+        - Emacs-25*
+        - Emacs-26*
+        - Emacs-26.3
+        - Emacs-27.1
+        - Emacs-27.2
+        - Emacs-28.1
+        - Emacs-28.2
+        - Emacs-28.3
+        - Emacs-29.1
+        - Emacs-30+
+    validations:
+      required: true
+  - type: dropdown
+    id: Platform
+    attributes:
+      label: OS
+      description: What OS are you running on?
+      options:
+        - GNU/Linux
+        - Freebsd
+        - MacOSX
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: backtrace
+    attributes:
+      label: Relevant backtrace (if possible)
+      description: Please copy and paste any relevant backtrace. This will be automatically formatted into code, so no need for backticks.
+      placeholder: To produce a backtrace enable `debug-on-error` with M-x toggle-debug-on-error
+      render: text
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Minimal configuration
+      description: You are using emacs -Q with only Helm package loaded to reproduce your bug (i.e. No Spacemacs, Doom etc...), use either emacs-helm.sh or the Isolate packages action from helm-packages.
+      options:
+        - label: I agree using a minimal configuration
+          required: true
