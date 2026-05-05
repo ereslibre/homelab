@@ -46,6 +46,7 @@
       package = pkgs.ollama-cuda;
       environmentVariables = {
         CUDA_VISIBLE_DEVICES = "0";
+        OLLAMA_CONTEXT_LENGTH = "131072";
       };
     };
     spice-vdagentd.enable = true;
