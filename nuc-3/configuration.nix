@@ -10,6 +10,7 @@
     ../common/jupyterhub
     ../common/aliases
     ../common/cloudflared
+    ../common/docker
     ../common/home-node
     ../common/kernel
     ../common/nix
@@ -60,6 +61,9 @@
   services = {
     caddy = {
       enable = true;
+      globalConfig = ''
+        auto_https disable_redirects
+      '';
       virtualHosts = {
         "openwebui.ereslibre.net".extraConfig = ''
           tls internal
@@ -179,6 +183,8 @@
       wantedBy = ["multi-user.target"];
     };
   };
+
+  virtualisation.docker.rootless.enable = pkgs.lib.mkForce false;
 
   users.users.ereslibre.extraGroups = ["video"]; # surpillance experiments
 
