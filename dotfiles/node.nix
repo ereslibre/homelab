@@ -4,6 +4,7 @@
   ...
 }: let
   hermesConfig = ./assets/hermes/config.yaml;
+  hermesCurrentDatetimePlugin = ./assets/hermes/plugins/current-datetime;
 in {
   # Copy hermes config to ~/.hermes/config.yaml as a mutable file so hermes
   # can write back runtime state. The marker file tracks the hash of the last
@@ -22,6 +23,11 @@ in {
       $DRY_RUN_CMD ${pkgs.bash}/bin/sh -c "printf '%s' '$_hermes_hash' > '$_hermes_marker'"
     fi
   '';
+
+  home.file.".hermes/plugins/current-datetime" = {
+    source = hermesCurrentDatetimePlugin;
+    recursive = true;
+  };
 
   # Enabling linger makes the systemd user services start
   # automatically. In this machine, I want to trigger the

@@ -1,0 +1,5 @@
+name: current-datetime
+version: "1.0"
+description: Inject current date and time at the start of new gateway sessions
+provides_hooks:
+  - pre_llm_call

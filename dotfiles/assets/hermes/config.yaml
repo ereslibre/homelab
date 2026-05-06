@@ -258,6 +258,9 @@ delegation:
   orchestrator_enabled: true
   subagent_auto_approve: false
 prefill_messages_file: ''
+plugins:
+  enabled:
+    - current-datetime
 skills:
   external_dirs: []
   template_vars: true
