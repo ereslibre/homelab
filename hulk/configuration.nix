@@ -42,10 +42,11 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["gemma4:latest"];
+      loadModels = ["gemma4:latest" "qwen3.6:27b"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "64000";
+        CUDA_VISIBLE_DEVICES = "0";
+        OLLAMA_CONTEXT_LENGTH = "131072";
       };
     };
     spice-vdagentd.enable = true;
