@@ -7,7 +7,8 @@ fallback_providers: []
 credential_pool_strategies: {}
 toolsets:
 - hermes-cli
-- browser_cdp
+- browser
+- browser-cdp
 agent:
   max_turns: 90
   gateway_timeout: 1800
