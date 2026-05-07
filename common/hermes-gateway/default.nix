@@ -4,7 +4,9 @@
   ...
 }: {
   sops = {
-    secrets."hermes/firecrawl" = {};
+    secrets."hermes/firecrawl" = {
+      sopsFile = ./secrets.yaml;
+    };
     templates."hermes-env" = {
       owner = "ereslibre";
       content = ''
@@ -64,7 +66,8 @@
           wantedBy = ["multi-user.target"];
           serviceConfig = {
             Type = "simple";
-            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless";
+            ExecStartPre = "${pkgs.coreutils}/bin/rm -f /home/ereslibre/.hermes/chrome-debug/SingletonLock /home/ereslibre/.hermes/chrome-debug/SingletonCookie /home/ereslibre/.hermes/chrome-debug/SingletonSocket";
+            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless --disable-gpu --disable-dev-shm-usage --no-sandbox";
             Restart = "on-failure";
             User = "ereslibre";
           };
