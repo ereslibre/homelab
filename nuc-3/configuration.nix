@@ -109,7 +109,10 @@
       };
     };
 
-    config = {pkgs, ...}: {
+    config = {
+      pkgs,
+      ...
+    }: {
       programs.chromium.enable = true;
 
       environment.systemPackages = with pkgs; [
@@ -141,9 +144,8 @@
           wantedBy = ["multi-user.target"];
           serviceConfig = {
             Type = "simple";
-            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/var/lib/chromium-cdp/profile --no-first-run --no-default-browser-check --headless";
+            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless";
             Restart = "on-failure";
-            StateDirectory = "chromium-cdp";
             User = "ereslibre";
           };
         };
@@ -157,7 +159,7 @@
             ExecStart = "${nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
             Restart = "on-failure";
             User = "ereslibre";
-            WorkingDirectory = "/home/ereslibre";
+            WorkingDirectory = "/home/ereslibre/.hermes";
             EnvironmentFile = "/etc/hermes-gateway.env";
           };
         };
