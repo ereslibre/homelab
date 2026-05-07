@@ -7,10 +7,18 @@
     secrets."hermes/firecrawl" = {
       sopsFile = ./secrets.yaml;
     };
+    secrets."hermes/telegram_allowed_users" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/telegram_allowed_groups" = {
+      sopsFile = ./secrets.yaml;
+    };
     templates."hermes-env" = {
       owner = "ereslibre";
       content = ''
         FIRECRAWL_API_KEY=${config.sops.placeholder."hermes/firecrawl"}
+        TELEGRAM_ALLOWED_USERS=${config.sops.placeholder."hermes/telegram_allowed_users"}
+        TELEGRAM_GROUP_ALLOWED_CHATS=${config.sops.placeholder."hermes/telegram_allowed_groups"}
       '';
     };
   };
