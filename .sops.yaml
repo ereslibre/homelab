@@ -40,3 +40,8 @@ creation_rules:
       - age:
           - *ereslibre
           - *synapse
+  - path_regex: common/hermes-gateway/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
+          - *host-nuc-3
