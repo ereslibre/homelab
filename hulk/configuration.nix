@@ -42,7 +42,7 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["gemma4:latest" "qwen3.6:27b"];
+      loadModels = ["gemma4:latest" "qwen3-coder:30b"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
         CUDA_VISIBLE_DEVICES = "0";
