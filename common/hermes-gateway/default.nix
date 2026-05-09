@@ -90,7 +90,7 @@
             ExecStart = "${nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
             Restart = "on-failure";
             User = "ereslibre";
-            WorkingDirectory = "/home/ereslibre/.hermes";
+            WorkingDirectory = "/home/ereslibre";
             EnvironmentFile = "/etc/hermes-gateway.env";
           };
         };

@@ -298,7 +298,7 @@ mattermost:
 approvals:
   mode: manual
   timeout: 60
-  cron_mode: deny
+  cron_mode: approve
   mcp_reload_confirm: true
 command_allowlist: []
 quick_commands: {}
