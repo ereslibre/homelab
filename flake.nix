@@ -67,11 +67,6 @@
         overlays = [
           emacs-overlay.overlays.default
           (final: prev: {
-            zsh = prev.zsh.overrideAttrs (old: prev.lib.optionalAttrs prev.stdenv.isDarwin {
-              preConfigure = (old.preConfigure or "") + ''
-                export zsh_cv_sys_sigsuspend=yes
-              '';
-            });
             pythonPackagesExtensions =
               prev.pythonPackagesExtensions
               ++ [
@@ -120,11 +115,6 @@
                       nixpkgs.overlays = [
                         emacs-overlay.overlays.default
                         (final: prev: {
-                          zsh = prev.zsh.overrideAttrs (old: prev.lib.optionalAttrs prev.stdenv.isDarwin {
-                            preConfigure = (old.preConfigure or "") + ''
-                              export zsh_cv_sys_sigsuspend=yes
-                            '';
-                          });
                           pythonPackagesExtensions =
                             prev.pythonPackagesExtensions
                             ++ [
