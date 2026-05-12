@@ -24,20 +24,17 @@
 
   # end0 is brought up by the initrd's `ip=dhcp` to mount the iSCSI root.
   # Don't let NetworkManager touch it post-pivot — its takeover bounces
-  # the IP, which kills the iSCSI session and freezes the system. Instead,
-  # have systemd-networkd manage end0 with KeepConfiguration=yes, which
-  # preserves the externally-set IP and just refreshes the DHCP lease in
-  # the background so DNS / search-domain / routes from the lease land in
+  # the IP, which kills the iSCSI session and freezes the system. Have
+  # systemd-networkd manage end0 instead: its default KeepConfiguration
+  # is "dynamic", which preserves the externally-set IP and just refreshes
+  # the DHCP lease in place so DNS / search-domain / routes land in
   # systemd-resolved per-link.
   networking.networkmanager.unmanaged = ["end0"];
   systemd.network = {
     enable = true;
     networks."10-end0" = {
       matchConfig.Name = "end0";
-      networkConfig = {
-        DHCP = "yes";
-        KeepConfiguration = "yes";
-      };
+      networkConfig.DHCP = "yes";
       dhcpV4Config = {
         UseDNS = true;
         UseDomains = true;
