@@ -230,8 +230,13 @@ On the Pi (over SSH from anywhere):
 
 ```sh
 ssh pi-desktop sudo nixos-rebuild \
-  --flake "github:ereslibre/homelab#pi-desktop" switch
+  --flake "github:ereslibre/homelab#pi-desktop" --no-write-lock-file switch
 ```
+
+`--no-write-lock-file` is required: `nixos-rebuild` would otherwise try
+to write a lock-file update back into the GitHub source and abort. The
+flake's lock-file is regenerated on every `nix flake update` in this
+repo, so the warning it emits about "missing inputs" is harmless.
 
 This builds (or substitutes) the new closure into `/nix/store` on the
 LUN, activates it as `/run/current-system`, and switches systemd over.
