@@ -34,8 +34,10 @@
     enable = true;
     networks."10-end0" = {
       matchConfig.Name = "end0";
-      networkConfig.DHCP = "yes";
-      linkConfig.KeepConfiguration = "yes";
+      networkConfig = {
+        DHCP = "yes";
+        KeepConfiguration = "yes";
+      };
       dhcpV4Config = {
         UseDNS = true;
         UseDomains = true;
