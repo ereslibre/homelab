@@ -231,6 +231,17 @@
             ./pi-desktop/configuration.nix
           ];
         };
+        "cpi-1" = {
+          builder = nixpkgs.lib.nixosSystem;
+          system = "aarch64-linux";
+          user = "ereslibre";
+          modules = [
+            home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.raspberry-pi-4
+            sops-nix.nixosModules.sops
+            ./cpi-1/configuration.nix
+          ];
+        };
       };
     }));
 }

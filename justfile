@@ -7,6 +7,11 @@ switch host=defaultHost: (build host)
 build host=defaultHost:
   nix build --accept-flake-config .#{{configType}}.{{host}}.config.system.build.toplevel
 
+# Refresh the netboot tree for a TFTP-booted Pi host on the Synology.
+# See scripts/deploy-tftp.sh for the per-host MAC / prefix mapping.
+deploy-tftp host=defaultHost:
+  scripts/deploy-tftp.sh {{host}}
+
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra
 

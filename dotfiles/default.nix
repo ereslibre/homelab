@@ -45,6 +45,15 @@ let
       aiTools = false;
       stateVersion = "23.05";
     };
+    "ereslibre@cpi-1" = {
+      system = "aarch64-linux";
+      username = "ereslibre";
+      homeDirectory = "/home/ereslibre";
+      profile = "personal";
+      mainlyRemote = true;
+      aiTools = false;
+      stateVersion = "26.05";
+    };
     "ereslibre@Rafaels-Flying-Hulk" = {
       system = "aarch64-darwin";
       username = "ereslibre";
