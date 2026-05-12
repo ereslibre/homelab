@@ -118,8 +118,24 @@ $ cat $TOPLEVEL/kernel-params    # → goes into cmdline.txt on the TFTP share
 `ip=dhcp root=/dev/disk/by-label/PIROOT rootfstype=ext4 rootwait`.
 
 The static firmware blobs (`bootcode.bin`, `start4.elf`, `fixup4.dat`,
-`bcm2711-rpi-4-b.dtb`, `config.txt`) are copied once from
+`bcm2711-rpi-4-b.dtb`) are copied once from
 `nix build nixpkgs#raspberrypifw` into the same share.
+
+`config.txt` is *not* taken from `raspberrypifw` — write it by hand so
+it loads the VideoCore DRM driver. Without `dtoverlay=vc4-fkms-v3d` no
+`/dev/dri/card*` device shows up and GDM core-dumps in a restart loop:
+
+```
+arm_64bit=1
+enable_uart=1
+kernel=kernel8.img
+initramfs initrd followkernel
+
+# DRM driver for VideoCore — required for any graphical session.
+# Matches hardware.raspberry-pi."4".fkms-3d.enable = true in NixOS.
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+```
 
 ## First install into the LUN
 
