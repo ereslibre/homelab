@@ -22,23 +22,6 @@
 
   networking.hostName = "pi-desktop";
 
-  # The initrd brings end0 up with `ip=dhcp` to mount the iSCSI root. After
-  # pivot NetworkManager finds the interface already configured and marks it
-  # "connected (externally)" — without a profile of its own, NM never re-DHCPs
-  # and per-link DNS / search-domain info from the lease is never applied.
-  # This explicit profile makes NM own end0, refresh the lease, and pass DNS
-  # to systemd-resolved.
-  networking.networkmanager.ensureProfiles.profiles."end0" = {
-    connection = {
-      id = "end0";
-      type = "ethernet";
-      interface-name = "end0";
-      autoconnect = true;
-    };
-    ipv4.method = "auto";
-    ipv6.method = "auto";
-  };
-
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   services.xserver.enable = true;
