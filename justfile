@@ -12,6 +12,15 @@ build host=defaultHost:
 deploy-tftp host=defaultHost:
   scripts/deploy-tftp.sh {{host}}
 
+# Build the SD-card installer image with our root ssh key baked in.
+# Output is a .img.zst under ./result/sd-image/. dd it onto a USB stick
+# / SD card, plug into a rack Pi, ssh root@<dhcp-ip>.
+#
+# `arch` selects the flake entry to build — needs a matching
+# nixosConfigurations."<arch>-installer" in flake.nix (today: aarch64).
+installer arch="aarch64":
+  nix build --accept-flake-config .#nixosConfigurations.{{arch}}-installer.config.system.build.sdImage
+
 fmt:
   find . -name "*.nix" | xargs nix develop --command alejandra
 

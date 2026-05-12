@@ -242,6 +242,19 @@
             ./cpi-1/configuration.nix
           ];
         };
+      }
+      # SD/USB installer image. Built standalone (no home-manager, no
+      # dotfiles, no overlays) so it stays a minimal NixOS aarch64
+      # environment with just our ssh key baked in. Build with
+      # `just installer`.
+      // {
+        "aarch64-installer" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            {nixpkgs.config.allowUnfree = true;}
+            ./aarch64-installer/configuration.nix
+          ];
+        };
       };
     }));
 }
