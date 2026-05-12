@@ -24,11 +24,15 @@
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+  services.xserver.enable = true;
+  services.displayManager = {
+    gdm.enable = true;
+    autoLogin = {
+      enable = true;
+      user = "ereslibre";
+    };
   };
+  services.desktopManager.gnome.enable = true;
 
   environment.systemPackages = with pkgs; [firefox];
 
