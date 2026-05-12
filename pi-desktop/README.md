@@ -219,11 +219,87 @@ $ sops updatekeys pi-desktop/secrets.yaml
 
 ## Updating pi-desktop
 
-```
-# sudo nixos-rebuild --flake "github:ereslibre/homelab#pi-desktop" switch
+Because the kernel + initrd live on TFTP but the rest of the system lives
+on the iSCSI LUN, updates are two steps: switch the running system, then
+refresh the TFTP boot files. **Do them in that order** — see the
+ordering note at the bottom.
+
+### 1. Switch the running system
+
+On the Pi (over SSH from anywhere):
+
+```sh
+ssh pi-desktop sudo nixos-rebuild \
+  --flake "github:ereslibre/homelab#pi-desktop" switch
 ```
 
-After the rebuild, re-publish `kernel8.img` / `initrd` / `cmdline.txt` to the
-TFTP share so the next cold boot picks them up (the running system has
-already switched to the new generation — the TFTP copy is only consulted at
-hardware boot time).
+This builds (or substitutes) the new closure into `/nix/store` on the
+LUN, activates it as `/run/current-system`, and switches systemd over.
+Userspace is now the new generation. The running kernel is still the
+*old* one — kernel/initrd swaps require a hardware reboot, which step 2
+prepares.
+
+### 2. Refresh the TFTP boot files
+
+Push the new kernel, initrd, and a fresh `cmdline.txt` to the Synology
+TFTP share so the next cold boot picks up the new generation:
+
+From a workstation that can ssh to both pi-desktop and the Synology:
+
+```sh
+# Build cmdline.txt locally, with the new toplevel's init path.
+ssh pi-desktop '
+  TOPLEVEL=$(readlink -f /run/current-system)
+  echo "init=$TOPLEVEL/init $(cat $TOPLEVEL/kernel-params) ip=dhcp root=/dev/disk/by-label/PIROOT rootfstype=ext4 rootwait"
+' > /tmp/cmdline.txt
+
+# Stream kernel and initrd through the workstation (avoids needing
+# pi-desktop -> Synology SSH).
+ssh pi-desktop 'cat /run/current-system/kernel' > /tmp/kernel8.img
+ssh pi-desktop 'cat /run/current-system/initrd' > /tmp/initrd
+
+# Publish to the Synology TFTP share.
+scp /tmp/kernel8.img /tmp/initrd /tmp/cmdline.txt admin@10.0.4.2:/volume1/pis/pi-desktop/
+```
+
+`cmdline.txt` must contain:
+
+- `init=<new-toplevel>/init` — points the kernel at the new generation's
+  init binary. **This is the critical part of the update** — it's what
+  pivots boot from the old generation to the new one.
+- the contents of `<new-toplevel>/kernel-params` — the
+  `boot.kernelParams` from the NixOS config.
+- `ip=dhcp root=/dev/disk/by-label/PIROOT rootfstype=ext4 rootwait` —
+  the iSCSI root setup. These are static; they don't change between
+  generations.
+
+The Pi VideoCore firmware appends its own params (`coherent_pool=1M`,
+`bcm2708_fb.*`, `smsc95xx.macaddr=…`, `vc_mem.*`) at boot — those come
+from `start4.elf` and the DTB, not from `cmdline.txt`.
+
+### 3. Verify
+
+```sh
+ssh pi-desktop sudo reboot
+# wait ~30-60s, then:
+ssh pi-desktop '
+  echo "running toplevel: $(readlink /run/current-system)"
+  echo "kernel: $(uname -r)"
+  cat /proc/cmdline
+'
+```
+
+The `init=` in `/proc/cmdline` should match the path of
+`/run/current-system` — confirming the kernel booted into the new
+generation, not the previous one.
+
+### Why the ordering matters
+
+Step 1 *first* puts the new toplevel into `/nix/store` on the LUN. Step
+2 then writes a `cmdline.txt` whose `init=` points at that path. If you
+swap the order and reboot in between, the new kernel boots, looks for
+`init=<NEW_TOPLEVEL>/init`, doesn't find it (the LUN still has the old
+generation), and kernel-panics. Done in the right order, an accidental
+reboot between step 1 and step 2 is harmless — the old TFTP cmdline
+points at the old (still-present) generation, so the system just comes
+back up unchanged.
