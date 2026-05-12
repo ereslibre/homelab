@@ -2,12 +2,19 @@
   description = "Home lab";
 
   nixConfig = {
-    extra-substituters = ["https://cache.flox.dev" "https://cache.garnix.io" "https://cache.nixos-cuda.org" "https://cache.numtide.com"];
+    extra-substituters = [
+      "https://cache.flox.dev"
+      "https://cache.garnix.io"
+      "https://cache.nixos-cuda.org"
+      "https://cache.numtide.com"
+      "https://nix-community.cachix.org"
+    ];
     extra-trusted-public-keys = [
       "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
@@ -165,96 +172,97 @@
           ];
         };
       };
-      nixosConfigurations = mapMachineConfigurations {
-        "hulk" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "x86_64-linux";
-          user = "ereslibre";
-          builderArgs = {
-            specialArgs = {
-              inherit nix-ai-tools;
+      nixosConfigurations =
+        mapMachineConfigurations {
+          "hulk" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "x86_64-linux";
+            user = "ereslibre";
+            builderArgs = {
+              specialArgs = {
+                inherit nix-ai-tools;
+              };
             };
+            modules = [
+              home-manager.nixosModules.home-manager
+              microvm.nixosModules.host
+              sops-nix.nixosModules.sops
+              ./hulk/configuration.nix
+            ];
           };
-          modules = [
-            home-manager.nixosModules.home-manager
-            microvm.nixosModules.host
-            sops-nix.nixosModules.sops
-            ./hulk/configuration.nix
-          ];
-        };
-        "nuc-1" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "x86_64-linux";
-          user = "ereslibre";
-          modules = [
-            home-manager.nixosModules.home-manager
-            microvm.nixosModules.host
-            sops-nix.nixosModules.sops
-            ./nuc-1/configuration.nix
-          ];
-        };
-        "nuc-2" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "x86_64-linux";
-          user = "ereslibre";
-          modules = [
-            home-manager.nixosModules.home-manager
-            microvm.nixosModules.host
-            sops-nix.nixosModules.sops
-            ./nuc-2/configuration.nix
-          ];
-        };
-        "nuc-3" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "x86_64-linux";
-          user = "ereslibre";
-          builderArgs = {
-            specialArgs = {
-              inherit googleworkspace-cli nix-ai-tools sops-nix;
+          "nuc-1" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "x86_64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              microvm.nixosModules.host
+              sops-nix.nixosModules.sops
+              ./nuc-1/configuration.nix
+            ];
+          };
+          "nuc-2" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "x86_64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              microvm.nixosModules.host
+              sops-nix.nixosModules.sops
+              ./nuc-2/configuration.nix
+            ];
+          };
+          "nuc-3" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "x86_64-linux";
+            user = "ereslibre";
+            builderArgs = {
+              specialArgs = {
+                inherit googleworkspace-cli nix-ai-tools sops-nix;
+              };
             };
+            modules = [
+              home-manager.nixosModules.home-manager
+              microvm.nixosModules.host
+              sops-nix.nixosModules.sops
+              ./nuc-3/configuration.nix
+            ];
           };
-          modules = [
-            home-manager.nixosModules.home-manager
-            microvm.nixosModules.host
-            sops-nix.nixosModules.sops
-            ./nuc-3/configuration.nix
-          ];
+          "pi-desktop" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "aarch64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              nixos-hardware.nixosModules.raspberry-pi-4
+              sops-nix.nixosModules.sops
+              ./pi-desktop/configuration.nix
+            ];
+          };
+          "cpi-1" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "aarch64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              nixos-hardware.nixosModules.raspberry-pi-4
+              sops-nix.nixosModules.sops
+              ./cpi-1/configuration.nix
+            ];
+          };
+        }
+        # SD/USB installer image. Built standalone (no home-manager, no
+        # dotfiles, no overlays) so it stays a minimal NixOS aarch64
+        # environment with just our ssh key baked in. Build with
+        # `just installer`.
+        // {
+          "aarch64-installer" = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules = [
+              {nixpkgs.config.allowUnfree = true;}
+              ./aarch64-installer/configuration.nix
+            ];
+          };
         };
-        "pi-desktop" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "aarch64-linux";
-          user = "ereslibre";
-          modules = [
-            home-manager.nixosModules.home-manager
-            nixos-hardware.nixosModules.raspberry-pi-4
-            sops-nix.nixosModules.sops
-            ./pi-desktop/configuration.nix
-          ];
-        };
-        "cpi-1" = {
-          builder = nixpkgs.lib.nixosSystem;
-          system = "aarch64-linux";
-          user = "ereslibre";
-          modules = [
-            home-manager.nixosModules.home-manager
-            nixos-hardware.nixosModules.raspberry-pi-4
-            sops-nix.nixosModules.sops
-            ./cpi-1/configuration.nix
-          ];
-        };
-      }
-      # SD/USB installer image. Built standalone (no home-manager, no
-      # dotfiles, no overlays) so it stays a minimal NixOS aarch64
-      # environment with just our ssh key baked in. Build with
-      # `just installer`.
-      // {
-        "aarch64-installer" = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [
-            {nixpkgs.config.allowUnfree = true;}
-            ./aarch64-installer/configuration.nix
-          ];
-        };
-      };
     }));
 }
