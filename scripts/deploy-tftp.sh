@@ -104,6 +104,10 @@ sed 's/^/  /' "$STAGE/cmdline.txt"
 # legacy SCP protocol, which DSM accepts; the new SFTP-based scp fails
 # with "remote mkdir / Permission denied" on DSM.
 echo "deploy-tftp: scp -O staged files to ${SYNOLOGY_USER}@${SYNOLOGY_HOST}:/tmp/"
+# `cp -L` copies the read-only bit from the Nix store, so the previous
+# run leaves /tmp/{kernel8.img,initrd,cmdline.txt} as 0444 — scp can't
+# then overwrite them on the next deploy. Force-remove first.
+ssh "${SYNOLOGY_USER}@${SYNOLOGY_HOST}" 'rm -f /tmp/kernel8.img /tmp/initrd /tmp/cmdline.txt'
 for f in kernel8.img initrd cmdline.txt; do
   scp -O "$STAGE/$f" "${SYNOLOGY_USER}@${SYNOLOGY_HOST}:/tmp/$f"
 done
