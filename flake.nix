@@ -239,7 +239,17 @@
               ./pi-desktop/configuration.nix
             ];
           };
-          "cpi-1" = {
+        }
+        # cpi-N (cluster-pi) headless fleet — every host is fully
+        # described by its integer index. Hostname, iSCSI IQNs, and
+        # all wiring come from common/headless-pi/cpi-node.nix.
+        #
+        # To add a host: append its integer to `cpiNodes` below and
+        # add its MAC to scripts/deploy-tftp.sh's MAC_OF. No per-host
+        # directory needed unless/until the host grows sops secrets.
+        // (let
+          cpiNodes = [1 2 3 4 5 6 7];
+          mkCpi = n: {
             builder = nixpkgs.lib.nixosSystem;
             system = "aarch64-linux";
             user = "ereslibre";
@@ -247,10 +257,14 @@
               home-manager.nixosModules.home-manager
               nixos-hardware.nixosModules.raspberry-pi-4
               sops-nix.nixosModules.sops
-              ./cpi-1/configuration.nix
+              (import ./common/headless-pi/cpi-node.nix {inherit n;})
             ];
           };
-        }
+        in
+          mapMachineConfigurations (nixpkgs.lib.listToAttrs (map (n: {
+            name = "cpi-${toString n}";
+            value = mkCpi n;
+          }) cpiNodes)))
         # SD/USB installer image. Built standalone (no home-manager, no
         # dotfiles, no overlays) so it stays a minimal NixOS aarch64
         # environment with just our ssh key baked in. Build with

@@ -88,26 +88,25 @@ cpi-1 is the canonical template.
 
 ### 2. Repo scaffolding
 
-Mirror cpi-1's per-host directory and wiring:
+Each cpi-N is fully described by its integer index — hostname,
+initiator IQN, target IQN, and all wiring come from
+[`common/headless-pi/cpi-node.nix`](./cpi-node.nix) via the `mkCpi`
+helper in `flake.nix`. No per-host directory is needed unless/until
+the host grows its own sops secrets.
 
-```sh
-# In ~/projects/homelab on hulk
-cp -r cpi-1 cpi-N    # then edit:
-#   cpi-N/configuration.nix         networking.hostName = "cpi-N";
-#   cpi-N/hardware-configuration.nix
-#     boot.iscsi-initiator.name   = "iqn.2026-04.net.ereslibre:cpi-N";
-#     boot.iscsi-initiator.target = "<the IQN from step 1>";
-```
+To add a host:
 
-- **`flake.nix`**: add `"cpi-N"` block in `nixosConfigurations` next
-  to `"cpi-1"` (raspberry-pi-4 module, sops-nix, home-manager,
-  `./cpi-N/configuration.nix`).
-- **`dotfiles/default.nix`**: add `"ereslibre@cpi-N"` entry mirroring
-  cpi-1's (`profile = "personal"`, `mainlyRemote = true`,
-  `aiTools = false`, `stateVersion = "26.05"`).
-- **`scripts/deploy-tftp.sh`**: the cpi-N MAC is already in `MAC_OF`,
-  no change needed (unless adding a brand-new host beyond cpi-7).
+- **`flake.nix`**: append the integer to the `cpiNodes` list inside
+  the `mkCpi` block (e.g. `cpiNodes = [1 2 3 4 5 6 7 8];` for cpi-8).
+- **`dotfiles/default.nix`**: append to the `cpiNodes` list inside
+  the `mkCpiHM` block similarly.
+- **`scripts/deploy-tftp.sh`**: add an entry to `MAC_OF` (cpi-1
+  through cpi-7 are already there).
+- **Router DHCP reservation**: add the static lease for the new MAC.
 - Commit + push to `origin/main`. The installer pulls from there.
+
+That's it for the repo side. For an existing cpi-N (1-7), all of the
+above is already in place — proceed directly to step 3.
 
 ### 3. Boot the Pi off the installer USB
 
