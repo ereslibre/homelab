@@ -126,8 +126,8 @@ push:
 
 ```sh
 # On hulk
-just build cpi-N                                       # binfmt-aarch64 emulation; closure ends up in /nix/store on hulk
-nix copy --to ssh-ng://root@10.0.4.<DHCP-IP> ./result  # full closure → Pi /nix/store
+just build cpi-N                                                          # binfmt-aarch64 emulation; closure ends up in /nix/store on hulk
+nix copy --no-check-sigs --to ssh-ng://root@10.0.4.<DHCP-IP> ./result    # full closure → Pi /nix/store
 ```
 
 This copies the closure your hulk just built (which substituted from
@@ -311,6 +311,37 @@ nix run nixpkgs#sops -- updatekeys cpi-N/secrets.yaml
   `raspberrypi-eeprom-2026.01.09` that nixpkgs currently ships as
   default — the 2026 firmware is silent on the wire on the Pi 4
   during netboot. See pi-desktop/README.md for the full story.
+- **Installer USB sticks cross-contaminate EEPROMs.** A USB stick
+  that previously had `pieeprom.upd` / `pieeprom.sig` /
+  `recovery.bin` on its FAT partition (left over from a previous
+  Pi's EEPROM flash) will silently re-flash the next Pi it's plugged
+  into — with the *previous* Pi's config. Hit during the
+  pi-desktop IQN rename on 2026-05-13: a cpi-N-prepped installer
+  USB landed cpi-N's `TFTP_PREFIX=2` (MAC-based) onto pi-desktop,
+  which then netboot-looped at `/volume1/pis/dc-a6-32-…/…` instead
+  of `/volume1/pis/pi-desktop/…`. **Before reusing a USB stick on a
+  different Pi, mount its FAT partition (`/dev/sda1`) and `rm -f`
+  those three files.**
+- **`nix copy` to the installer needs `--no-check-sigs`.** The
+  homelab installer's nix-daemon refuses unsigned store paths from
+  arbitrary remotes. Use
+  `nix copy --no-check-sigs --to ssh-ng://root@<ip> <path>` when
+  pushing a pre-built closure from hulk / a Mac to the installer.
+- **`nixos-install --system <toplevel>` to skip flake re-eval.**
+  If you've pre-built a closure and `nix copy`'d it to the
+  installer, then `nixos-install --flake "github:…"` will *re-fetch*
+  the flake from GitHub and re-evaluate — if the builder's local
+  flake state differs from `origin/main` even slightly (uncommitted
+  change, different lock), the eval produces different store paths
+  and the Pi tries to build the gap (frequently OOMs on a 4 GB Pi).
+  Pass the toplevel store path explicitly:
+  `nixos-install --system /nix/store/<hash>-nixos-system-<host>-<ver> --no-bootloader --no-root-passwd --root /mnt`.
+- **Pi 4 (4 GB) OOMs during nixos-install if it has to fetch or
+  build anything.** Always pre-build on hulk (or a Mac with
+  `nix.linux-builder`) and `nix copy` to the installer before
+  invoking `nixos-install`. With the closure already local, the
+  install is just a store copy from `/nix/store` to `/mnt/nix/store`
+  and runs in seconds with negligible RAM.
 
 ## TODOs
 
@@ -385,3 +416,73 @@ For **new** cpi-N targets going forward (cpi-2 onward): when
 creating the target in DSM (step 1 of the bring-up procedure above),
 name it exactly `cpi-N` from the start. No rename / delete-recreate
 needed later.
+
+### Reinstall onto an existing LUN (post-rename / recovery)
+
+When the LUN already has data and you just need to refresh the
+closure with new config (e.g. after an IQN rename, or recovering a
+borked host), use this variant of the new-host bring-up — same
+shape, but **don't `mkfs`** and use `nixos-install --system` to
+avoid flake re-eval divergence.
+
+```sh
+# 1. From hulk (or a Mac with linux-builder): pre-build the closure.
+just build <host>                            # ./result → /nix/store/<hash>-nixos-system-<host>-<ver>
+TOPLEVEL=$(readlink -f ./result)
+echo "$TOPLEVEL"                             # remember this path
+
+# 2. Boot the Pi off the installer USB. Pull ethernet first if the
+#    old TFTP cmdline would loop in netboot (initrd hangs waiting
+#    for the old iSCSI target). Plug ethernet back in once you're
+#    in the installer shell.
+
+# 3. Push the closure to the installer Pi.
+nix copy --no-check-sigs --to ssh-ng://root@<installer-ip> "$TOPLEVEL"
+
+# 4. On the installer: log into the new iSCSI target, mount, install.
+ssh root@<installer-ip> "
+  set -e
+  mkdir -p /etc/iscsi
+  echo 'InitiatorName=iqn.2026-04.net.ereslibre:<host>' > /etc/iscsi/initiatorname.iscsi
+  modprobe iscsi_tcp
+
+  NIX_CONFIG='experimental-features = nix-command flakes' \
+    nix shell nixpkgs#openiscsi --command bash -c '
+      iscsid &
+      sleep 2
+      iscsiadm -m discovery -t st -p 10.0.4.2
+      iscsiadm -m node -T <NEW-TARGET-IQN> -p 10.0.4.2 --login
+    '
+  sleep 2
+  lsblk
+  ls -l /dev/disk/by-label/PIROOT   # should symlink to /dev/sdb
+
+  # *** DO NOT mkfs — LUN data is intact ***
+  mkdir -p /mnt
+  mount /dev/disk/by-label/PIROOT /mnt
+  [ \"\$(findmnt -no SOURCE /mnt)\" = '/dev/sdb' ] || { echo WRONG DEVICE; exit 1; }
+
+  nixos-install \
+    --system $TOPLEVEL \
+    --no-bootloader --no-root-passwd \
+    --root /mnt
+
+  umount /mnt
+
+  NIX_CONFIG='experimental-features = nix-command flakes' \
+    nix shell nixpkgs#openiscsi --command \
+      iscsiadm -m node -T <NEW-TARGET-IQN> -p 10.0.4.2 --logout
+
+  poweroff
+"
+
+# 5. Pull installer USB, plug ethernet, then from hulk:
+just deploy-tftp <host>
+
+# 6. Power on the Pi. Verify after it comes up:
+ssh <host> 'cat /proc/cmdline; sudo iscsiadm -m session; readlink /run/current-system'
+```
+
+The `--system $TOPLEVEL` is what makes this safe: `nixos-install`
+just copies the named closure into `/mnt/nix/store` and activates
+— no flake fetch, no eval, no surprise rebuilds.

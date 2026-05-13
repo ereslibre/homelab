@@ -179,40 +179,65 @@ sudo dd if=/tmp/nixos-sd.img of=/dev/rdiskN bs=4m status=progress
 sync && diskutil eject /dev/diskN
 ```
 
-### B. Run the install from the Pi (booted off the SD card)
+### B. Run the install from the Pi (booted off the SD/USB)
+
+The homelab installer image (`just installer aarch64`) doesn't ship
+`iscsid` as a systemd unit — wrap iSCSI commands in
+`nix shell nixpkgs#openiscsi`. Same pattern the cpi-N bring-up uses.
+
+Also: a Pi 400 has 4 GB RAM. `nixos-install --flake "github:…"` will
+fetch substitutes / build emacs and friends locally, and OOM. Pre-
+build the closure on a beefier host (hulk, or a Mac via
+`nix.linux-builder`) and `nix copy` it over first.
 
 ```sh
-# Optional: bring up SSH so you can drive the rest from your laptop.
-sudo -i
-passwd                              # set a temp password
-systemctl start sshd
-ip a                                # note the Pi's IP
+# On hulk / Mac: pre-build the closure.
+just build pi-desktop
+TOPLEVEL=$(readlink -f ./result)
+echo "$TOPLEVEL"
+nix copy --no-check-sigs --to ssh-ng://root@<installer-ip> "$TOPLEVEL"
+```
 
-# Log into the Synology iSCSI target.
+Then on the Pi installer (over ssh):
+
+```sh
+# Log into the Synology iSCSI target via openiscsi from nixpkgs.
+mkdir -p /etc/iscsi
+echo "InitiatorName=iqn.2026-04.net.ereslibre:pi-desktop" > /etc/iscsi/initiatorname.iscsi
 modprobe iscsi_tcp
-systemctl start iscsid
-iscsiadm -m discovery -t st -p 10.0.4.2
-iscsiadm -m node \
-  -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
-  -p 10.0.4.2 --login
-lsblk                               # confirm /dev/sda appeared
 
-# Format and mount.
-mkfs.ext4 -L PIROOT /dev/sda
+NIX_CONFIG="experimental-features = nix-command flakes" \
+  nix shell nixpkgs#openiscsi --command bash -c '
+    iscsid &
+    sleep 2
+    iscsiadm -m discovery -t st -p 10.0.4.2
+    iscsiadm -m node \
+      -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
+      -p 10.0.4.2 --login
+  '
+sleep 2
+lsblk                                # iSCSI LUN appears as /dev/sdb (sda is the installer USB)
+
+# Format and mount. *FIRST install only* — skip mkfs on reinstall.
+mkfs.ext4 -E nodiscard -L PIROOT /dev/sdb
 mkdir -p /mnt
 mount /dev/disk/by-label/PIROOT /mnt
+[ "$(findmnt -no SOURCE /mnt)" = "/dev/sdb" ] || { echo WRONG DEVICE; exit 1; }
 
-# Install pi-desktop's closure into the LUN.
+# Install pi-desktop's closure by store path — skips flake eval, so
+# the Pi never has to fetch or build anything.
 nixos-install \
-  --flake "github:ereslibre/homelab#pi-desktop" \
+  --system "$TOPLEVEL" \
   --no-bootloader --no-root-passwd \
   --root /mnt
 
 # Clean up.
 umount /mnt
-iscsiadm -m node \
-  -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
-  -p 10.0.4.2 --logout
+NIX_CONFIG="experimental-features = nix-command flakes" \
+  nix shell nixpkgs#openiscsi --command \
+    iscsiadm -m node \
+      -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
+      -p 10.0.4.2 --logout
 poweroff
 ```
 
