@@ -12,7 +12,7 @@ and pivots root onto the LUN.
 2. **SAN Manager → Target**: create the target, bind the LUN above, and
    restrict the ACL to initiator IQN `iqn.2026-04.net.ereslibre:pi-desktop`.
    DSM auto-generates the target IQN; the current one is
-   `iqn.2000-01.com.synology:synology.default-target.ca49c4149b2` (also
+   `iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2` (also
    referenced by `hardware-configuration.nix`).
 3. **Package Center → TFTP Server**: install, enable, and point it at a shared
    folder such as `/volume1/pis`. With `TFTP_PREFIX=1` and
@@ -193,7 +193,7 @@ modprobe iscsi_tcp
 systemctl start iscsid
 iscsiadm -m discovery -t st -p 10.0.4.2
 iscsiadm -m node \
-  -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 \
+  -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
   -p 10.0.4.2 --login
 lsblk                               # confirm /dev/sda appeared
 
@@ -211,7 +211,7 @@ nixos-install \
 # Clean up.
 umount /mnt
 iscsiadm -m node \
-  -T iqn.2000-01.com.synology:synology.default-target.ca49c4149b2 \
+  -T iqn.2000-01.com.synology:synology.pi-desktop.ca49c4149b2 \
   -p 10.0.4.2 --logout
 poweroff
 ```

@@ -27,7 +27,7 @@
     name = "iqn.2026-04.net.ereslibre:cpi-1";
     # DSM-auto-generated; bound to LUN cpi-1-root with an ACL that
     # only accepts the initiator IQN above.
-    target = "iqn.2000-01.com.synology:synology.Target-1.ca49c4149b2";
+    target = "iqn.2000-01.com.synology:synology.cpi-1.ca49c4149b2";
     discoverPortal = "10.0.4.2";
   };
 

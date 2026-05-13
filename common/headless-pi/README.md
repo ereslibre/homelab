@@ -330,7 +330,7 @@ Fix when convenient (~10 min, closure is already cached on hulk):
 3. Recreate `cpi-1-root` LUN, 128 GB thin, **with "Enable Space
    Reclamation" ticked**
 4. Bind to the existing
-   `iqn.2000-01.com.synology:synology.Target-1.ca49c4149b2` target
+   `iqn.2000-01.com.synology:synology.cpi-1.ca49c4149b2` target
    (ACL stays as-is, allows the cpi-1 IQN)
 5. Boot cpi-1 off the installer USB, redo iSCSI login + `mkfs.ext4
    -E nodiscard` + nixos-install (closure is cached on hulk, so the
@@ -340,16 +340,18 @@ Fix when convenient (~10 min, closure is already cached on hulk):
 
 ### Rename targets so IQNs match host names
 
-DSM auto-generated pi-desktop's target IQN as
-`iqn.2000-01.com.synology:synology.default-target.ca49c4149b2`, which
-is opaque and misleading ("default-target"). cpi-1's target is
-`Target-1.<suffix>` — slightly better but doesn't say which host it
-serves.
+DSM auto-generates target IQN names from the target's display name,
+and the early bring-ups left both hosts with opaque defaults:
+pi-desktop was `default-target.<suffix>`, cpi-1 was `Target-1.<suffix>`.
+Both have since been renamed to `<host>.<suffix>` to match host
+names.
 
 **Convention going forward**: name each target after the host it
 serves (`pi-desktop`, `cpi-1`, `cpi-2`, …), so the IQN's last
 identifier component is self-documenting:
-`iqn.2000-01.com.synology:synology.<host>.<suffix>`.
+`iqn.2000-01.com.synology:synology.<host>.<suffix>`. The procedure
+below is kept as reference in case a future target is created with
+an opaque name and needs the same fix.
 
 **DSM does not let you rename an existing iSCSI target** — the name
 is set at creation time and can only be changed by deleting and
