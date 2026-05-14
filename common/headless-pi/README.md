@@ -1,7 +1,7 @@
 # Headless Pi fleet (`cpi-1` … `cpi-7`)
 
-Bring-up procedure for the rack-mounted, no-HDMI Pi 4 B fleet. Same
-netboot + iSCSI architecture as pi-desktop — see
+Bring-up procedure for the rack-mounted, no-HDMI, PoE-powered Pi 4 B
+fleet. Same netboot + iSCSI architecture as pi-desktop — see
 [`../../pi-desktop/README.md`](../../pi-desktop/README.md) for the
 architectural background. This doc covers the **per-host steps** to
 add a new headless Pi.
@@ -111,7 +111,29 @@ above is already in place — proceed directly to step 3.
 ### 3. Boot the Pi off the installer USB
 
 - Plug the installer USB-SSD into cpi-N in its rack slot.
-- Power on. Wait ~60-90 s.
+- Power on. **The fleet is PoE-powered**: power arrives over the
+  ethernet cable, so the link stays up for the entire boot — the
+  "pull ethernet to force USB fallback" trick that works on
+  separately-powered Pis is *not* available here.
+- Wait ~60-90 s. Two cases:
+  - **Fresh / universal EEPROM, no TFTP files yet staged at
+    `/volume1/pis/<mac-with-dashes>/`** (normal cpi-N first boot):
+    netboot fails fast and the bootloader falls through to USB. This
+    is the expected path.
+  - **EEPROM points at another host's TFTP tree** (e.g. a cross-
+    contaminated USB previously flashed pi-desktop's config onto this
+    Pi — see USB-hygiene gotcha below). Netboot will *succeed* into
+    that host's rootfs over iSCSI instead of falling through. To
+    force fall-through without unplugging ethernet, temporarily
+    rename the offending TFTP dir on the Synology *before* powering
+    the Pi on:
+
+    ```sh
+    ssh -t ereslibre@10.0.4.2 \
+      'sudo mv /volume1/pis/<other-host-dir> /volume1/pis/<other-host-dir>.HOLD'
+    ```
+
+    Rename back once cpi-N's EEPROM has been reflashed in step 7.
 - From hulk: `ssh root@10.0.4.<reserved-IP>` should accept your key.
 
 If it doesn't come up, the EEPROM-recovery prereq (step 2 above) wasn't
@@ -316,11 +338,20 @@ nix run nixpkgs#sops -- updatekeys cpi-N/secrets.yaml
   Pi's EEPROM flash) will silently re-flash the next Pi it's plugged
   into — with the *previous* Pi's config. Hit during the
   pi-desktop IQN rename on 2026-05-13: a cpi-N-prepped installer
-  USB landed cpi-N's `TFTP_PREFIX=2` (MAC-based) onto pi-desktop,
-  which then netboot-looped at `/volume1/pis/dc-a6-32-…/…` instead
-  of `/volume1/pis/pi-desktop/…`. **Before reusing a USB stick on a
-  different Pi, mount its FAT partition (`/dev/sda1`) and `rm -f`
-  those three files.**
+  USB landed cpi-N's `TFTP_PREFIX=2` (MAC-based) onto pi-desktop.
+  Hit again on 2026-05-14: a pi-desktop-prepped installer USB
+  flashed pi-desktop's EEPROM config onto cpi-1 — and because the
+  cpi-N fleet is PoE-powered, "pull ethernet to fall through to USB"
+  was not an option for the recovery boot. The recovery in that case
+  was to rename `/volume1/pis/pi-desktop` on the Synology so cpi-1's
+  netboot failed fast and fell through to USB anyway.
+
+  **Discipline**: keep the installer USB *permanently* free of those
+  three files. Stage them onto the FAT partition only during step 7
+  for the specific Pi being flashed, and `rm -f` them again before
+  the USB ever leaves that Pi. The doc's step 7 already does the
+  stage; the matching unstage is your responsibility before pulling
+  the USB.
 - **`nix copy` to the installer needs `--no-check-sigs`.** The
   homelab installer's nix-daemon refuses unsigned store paths from
   arbitrary remotes. Use
@@ -430,10 +461,22 @@ just build <host>                            # ./result → /nix/store/<hash>-ni
 TOPLEVEL=$(readlink -f ./result)
 echo "$TOPLEVEL"                             # remember this path
 
-# 2. Boot the Pi off the installer USB. Pull ethernet first if the
-#    old TFTP cmdline would loop in netboot (initrd hangs waiting
-#    for the old iSCSI target). Plug ethernet back in once you're
-#    in the installer shell.
+# 2. Boot the Pi off the installer USB. If the host's existing TFTP
+#    cmdline would loop in netboot (initrd hangs on the old iSCSI
+#    target), force fall-through to USB. Two options depending on
+#    how the Pi is powered:
+#
+#    - pi-desktop (separately powered): pull ethernet before power-
+#      on, plug it back in once you're in the installer shell.
+#    - cpi-N (PoE-powered, ethernet carries power): pulling ethernet
+#      kills the Pi, so rename the host's TFTP dir on the Synology
+#      *before* powering on instead:
+#
+#        ssh -t ereslibre@10.0.4.2 \
+#          'sudo mv /volume1/pis/<host-tftp-dir> /volume1/pis/<host-tftp-dir>.HOLD'
+#
+#      Rename back after step 5 (`deploy-tftp`) has written the
+#      fresh cmdline.
 
 # 3. Push the closure to the installer Pi.
 nix copy --no-check-sigs --to ssh-ng://root@<installer-ip> "$TOPLEVEL"
