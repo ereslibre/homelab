@@ -224,6 +224,15 @@ just deploy-tftp cpi-N
 
 ### 7. EEPROM flash on cpi-N for the universal config
 
+**Required for every cpi-N.** Do not skip on the assumption that the
+USB still has the previous Pi's pieeprom files — recovery.bin removes
+(or renames) `pieeprom.upd` / `pieeprom.sig` / `recovery.bin` from the
+FAT partition after a successful flash, so they don't persist across
+Pis. If you skip this step, the next Pi boots with its factory EEPROM
+(BOOT_ORDER prefers USB-MSD, no TFTP config), the installer comes up
+again from USB, and pulling the USB later leaves the Pi unable to
+boot at all.
+
 On cpi-N (still booted off the installer USB):
 
 ```sh
