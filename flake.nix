@@ -262,9 +262,10 @@
           };
         in
           mapMachineConfigurations (nixpkgs.lib.listToAttrs (map (n: {
-            name = "cpi-${toString n}";
-            value = mkCpi n;
-          }) cpiNodes)))
+              name = "cpi-${toString n}";
+              value = mkCpi n;
+            })
+            cpiNodes)))
         # SD/USB installer image. Built standalone (no home-manager, no
         # dotfiles, no overlays) so it stays a minimal NixOS aarch64
         # environment with just our ssh key baked in. Build with
