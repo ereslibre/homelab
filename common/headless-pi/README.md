@@ -201,15 +201,33 @@ the orphan and the live one resumes.
 ### 6. Stage cpi-N's TFTP files on the Synology
 
 Clone pi-desktop's firmware blobs + DTB into cpi-N's MAC dir, then
-overwrite kernel/initrd/cmdline via the deploy script:
+overwrite kernel/initrd/cmdline via the deploy script.
+
+**Important:** clone only the static firmware files — **never** clone
+pi-desktop's `kernel8.img` / `initrd` / `cmdline.txt`. If a cpi-N's
+MAC dir contains pi-desktop's kernel triplet (even transiently before
+`deploy-tftp.sh cpi-N` overwrites them), and that Pi has a factory
+EEPROM doing MAC-subdir TFTP, it will fetch pi-desktop's kernel +
+initrd, boot pi-desktop's environment, and mount **pi-desktop's iSCSI
+LUN** (because pi-desktop's initiator IQN is baked into that initrd).
+With pi-desktop powered on this is a dual-writer fs-corruption
+hazard; with pi-desktop off it just silently masquerades as
+pi-desktop and you discover the mess only when checking the
+hostname. Use the file-specific clone below, not `cp -a … .`:
 
 ```sh
-# Synology side: clone pi-desktop firmware bits, drop the vc4 overlay.
+# Synology side: clone *only* static firmware bits (no kernel/initrd/cmdline).
 ssh -t ereslibre@10.0.4.2 '
   set -e
   DST=/volume1/pis/<MAC-WITH-DASHES>
   sudo mkdir -p $DST
-  sudo cp -a /volume1/pis/pi-desktop/. $DST/
+  for f in bootcode.bin armstub8-gic.bin \
+           start4.elf start4cd.elf start4db.elf start4x.elf \
+           fixup4.dat fixup4cd.dat fixup4db.dat fixup4x.dat \
+           bcm2711-rpi-4-b.dtb bcm2711-rpi-400.dtb; do
+    sudo cp -a /volume1/pis/pi-desktop/$f $DST/
+  done
+  sudo cp -a /volume1/pis/pi-desktop/overlays $DST/
   sudo tee $DST/config.txt > /dev/null <<EOF
 arm_64bit=1
 enable_uart=1
