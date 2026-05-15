@@ -1,10 +1,8 @@
 # Headless Pi fleet (`cpi-1` … `cpi-7`)
 
 Bring-up procedure for the rack-mounted, no-HDMI, PoE-powered Pi 4 B
-fleet. Same netboot + iSCSI architecture as pi-desktop — see
-[`../../pi-desktop/README.md`](../../pi-desktop/README.md) for the
-architectural background. This doc covers the **per-host steps** to
-add a new headless Pi.
+fleet. This doc covers the **per-host steps** to add a new headless
+Pi.
 
 ## What every cpi-N inherits
 
@@ -401,30 +399,6 @@ nix run nixpkgs#sops -- updatekeys cpi-N/secrets.yaml
   and runs in seconds with negligible RAM.
 
 ## TODOs
-
-### cpi-1 LUN is stuck at 128/128 GB allocated
-
-cpi-1's LUN was created in DSM *without* "Enable Space Reclamation"
-ticked. The `mkfs.ext4` discard pass therefore fully-allocated the
-thin LUN, and DSM ignores subsequent `fstrim` / UNMAP requests so the
-storage stays committed. cpi-1 functions fine, but ~115 GB of pool
-space is wasted permanently.
-
-Fix when convenient (~10 min, closure is already cached on hulk):
-
-1. `ssh root@10.0.4.50 poweroff`
-2. DSM SAN Manager → disconnect the iSCSI session → delete the
-   `cpi-1-root` LUN
-3. Recreate `cpi-1-root` LUN, 128 GB thin, **with "Enable Space
-   Reclamation" ticked**
-4. Bind to the existing
-   `iqn.2000-01.com.synology:synology.cpi-1.ca49c4149b2` target
-   (ACL stays as-is, allows the cpi-1 IQN)
-5. Boot cpi-1 off the installer USB, redo iSCSI login + `mkfs.ext4
-   -E nodiscard` + nixos-install (closure is cached on hulk, so the
-   `nix copy --to ssh-ng://root@10.0.4.<DHCP>` is fast)
-6. Repeat steps 6-9 from the bring-up procedure above
-7. New cpi-1 host key → new sops rekey
 
 ### Rename targets so IQNs match host names
 

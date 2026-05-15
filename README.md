@@ -39,3 +39,10 @@ over TFTP and mounts root from an iSCSI LUN on the Synology. See
 [`pi-desktop/README.md`](pi-desktop/README.md) for the full setup,
 EEPROM flash recipe, and install procedure.
 
+## cpi-1 … cpi-7 (headless PoE Pi fleet)
+
+Seven rack-mounted PoE-powered Pi 4 Bs. Each host is fully described
+by its integer index via `mkCpi` in `flake.nix`; see
+[`common/headless-pi/README.md`](common/headless-pi/README.md) for the
+bring-up procedure.
+
