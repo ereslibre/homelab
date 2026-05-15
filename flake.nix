@@ -248,24 +248,44 @@
         # add its MAC to scripts/deploy-tftp.sh's MAC_OF. No per-host
         # directory needed unless/until the host grows sops secrets.
         // (let
-          cpiNodes = [1 2 3 4 5 6 7];
-          mkCpi = n: {
+          # Each cpi-N node is defined by its hostname pointing to a
+          # (possibly empty) list of extra NixOS modules. Add modules
+          # here to tweak individual hosts, or splice the same module
+          # into every entry to roll a change across the fleet.
+          cpiNodes = {
+            "cpi-1" = [];
+            "cpi-2" = [];
+            "cpi-3" = [];
+            "cpi-4" = [];
+            "cpi-5" = [];
+            "cpi-6" = [];
+            "cpi-7" = [];
+          };
+          mkCpi = {
+            n,
+            extraModules ? [],
+          }: {
             builder = nixpkgs.lib.nixosSystem;
             system = "aarch64-linux";
             user = "ereslibre";
-            modules = [
-              home-manager.nixosModules.home-manager
-              nixos-hardware.nixosModules.raspberry-pi-4
-              sops-nix.nixosModules.sops
-              (import ./common/headless-pi/cpi-node.nix {inherit n;})
-            ];
+            modules =
+              [
+                home-manager.nixosModules.home-manager
+                nixos-hardware.nixosModules.raspberry-pi-4
+                sops-nix.nixosModules.sops
+                (import ./common/headless-pi/cpi-node.nix {inherit n;})
+              ]
+              ++ extraModules;
           };
         in
-          mapMachineConfigurations (nixpkgs.lib.listToAttrs (map (n: {
-              name = "cpi-${toString n}";
-              value = mkCpi n;
-            })
-            cpiNodes)))
+          mapMachineConfigurations (nixpkgs.lib.mapAttrs (
+              name: extraModules:
+                mkCpi {
+                  n = nixpkgs.lib.toInt (nixpkgs.lib.removePrefix "cpi-" name);
+                  inherit extraModules;
+                }
+            )
+            cpiNodes))
         # SD/USB installer image. Built standalone (no home-manager, no
         # dotfiles, no overlays) so it stays a minimal NixOS aarch64
         # environment with just our ssh key baked in. Build with
