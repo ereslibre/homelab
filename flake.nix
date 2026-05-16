@@ -160,6 +160,7 @@
               // (configuration.builderArgs or {}))
           )
       );
+      hermesModule = import ./common/hermes {inherit nix-ai-tools;};
     in {
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Flying-Hulk" = {
@@ -236,6 +237,7 @@
               home-manager.nixosModules.home-manager
               nixos-hardware.nixosModules.raspberry-pi-4
               sops-nix.nixosModules.sops
+              hermesModule
               ./pi-desktop/configuration.nix
             ];
           };
@@ -273,6 +275,7 @@
                 home-manager.nixosModules.home-manager
                 nixos-hardware.nixosModules.raspberry-pi-4
                 sops-nix.nixosModules.sops
+                hermesModule
                 (import ./common/headless-pi/cpi-node.nix {inherit n;})
               ]
               ++ extraModules;

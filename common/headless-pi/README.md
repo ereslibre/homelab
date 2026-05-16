@@ -328,6 +328,51 @@ ssh ereslibre@10.0.4.<reserved-IP> 'cat /etc/ssh/ssh_host_ed25519_key.pub' \
 nix run nixpkgs#sops -- updatekeys cpi-N/secrets.yaml
 ```
 
+## Updating a running cpi-N (no root SSH)
+
+Once a cpi-N is netbooting on its own, you can roll config changes
+without going back through the installer. Root SSH is disabled on
+the running system — only `ereslibre` is allowed in — so activation
+needs `sudo`, which in turn needs a TTY for the password prompt.
+
+From hulk (or any builder):
+
+```sh
+# 1. Build the new closure (binfmt-aarch64 emulation on hulk, or
+#    nix.linux-builder on the Mac).
+just build cpi-N
+TOPLEVEL=$(readlink -f ./result)
+
+# 2. Push the closure to the running Pi. The user `ereslibre` has a
+#    trusted-user nix-daemon socket, so no --no-check-sigs needed,
+#    but pass it anyway if signing trips you up.
+nix copy --to ssh-ng://ereslibre@cpi-N "$TOPLEVEL"
+
+# 3. Activate AND set as the next boot default in one step.
+#    `switch-to-configuration switch` does both: swap the running
+#    system and update the netboot kernel/initrd symlinks under
+#    /nix/var/nix/profiles/system so the next netboot picks this
+#    closure up.
+#
+#    `ssh -t` is required: sudo needs a TTY to prompt for the
+#    password (no NOPASSWD rule on these hosts).
+ssh -t ereslibre@cpi-N "sudo $TOPLEVEL/bin/switch-to-configuration switch"
+```
+
+Variants:
+
+- **Boot-only, no live activation** (safer for changes that touch
+  kernel/initrd or iscsi-initiator and might wedge the running
+  session): `sudo $TOPLEVEL/bin/switch-to-configuration boot`,
+  then `just deploy-tftp cpi-N` from hulk to refresh the TFTP
+  kernel/initrd/cmdline, then `ssh -t ereslibre@cpi-N sudo reboot`.
+- **Pure config / userland change** (e.g. adding a package like
+  `hermes-agent`): `switch` is fine, no TFTP redeploy needed —
+  kernel/initrd haven't moved.
+
+If `ssh -t` ever hangs at the password prompt, you forgot the `-t`
+and stdin isn't a TTY; sudo silently waits forever.
+
 ## Gotchas captured from cpi-1's first bring-up
 
 - **`mkfs.ext4` default discard pass fills thin LUNs.** Without
