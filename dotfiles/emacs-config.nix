@@ -43,38 +43,82 @@
       doom-themes
       dracula-theme
       dumb-jump
-      elm-mode
       git-link
-      go-mode
       google-translate
       gptel
-      haskell-mode
       helm
       helm-company
       helm-lsp
       helm-project
-      json-mode
-      just-mode
       lsp-mode
       magit
       markdown-mode
       monokai-theme
       neotree
-      nix-mode
       org-journal
       powerline
       rainbow-delimiters
       rg
-      rust-mode
       sublimity
-      terraform-mode
       treesit-auto
       treesit-fold
       undo-tree
       use-package
       writeroom-mode
-      yaml-mode
       yasnippet
+
+      # Language modes
+      ada-ts-mode
+      agda2-mode
+      astro-ts-mode
+      auctex
+      crystal-mode
+      cue-mode
+      d-mode
+      dhall-mode
+      elm-mode
+      erlang
+      fennel-mode
+      fish-mode
+      fsharp-mode
+      go-mode
+      graphql-mode
+      groovy-mode
+      haskell-mode
+      hcl-mode
+      jq-mode
+      json-mode
+      jsonnet-mode
+      just-mode
+      kdl-mode
+      ledger-mode
+      matlab-mode
+      mermaid-mode
+      meson-mode
+      nim-mode
+      nix-mode
+      powershell
+      prisma-mode
+      prolog-mode
+      purescript-mode
+      rego-mode
+      rescript-mode
+      rust-mode
+      scss-mode
+      slint-mode
+      svelte-mode
+      templ-ts-mode
+      terraform-mode
+      thrift
+      ttl-mode
+      tuareg
+      v-mode
+      vala-mode
+      vimrc-mode
+      wgsl-mode
+      yaml-mode
+      yang-mode
+      yara-mode
       zig-mode
     ];
 

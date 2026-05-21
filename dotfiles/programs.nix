@@ -468,7 +468,7 @@ in {
     ssh = let
       mapWithDomain = host: {
         "${host}" = {
-          hostname = "${host}.ereslibre.net";
+          HostName = "${host}.ereslibre.net";
         };
       };
     in {
@@ -477,43 +477,29 @@ in {
       extraConfig = ''
         Include config.d/*
       '';
-      matchBlocks =
+      settings =
         {
           "ereslibre-1.oracle.cloud ereslibre-2.oracle.cloud" = {
-            user = "ubuntu";
+            User = "ubuntu";
           };
           "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = lib.mkIf isDarwin {
-            extraOptions = {
-              "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
-            };
+            RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
           };
-          "10.0.1.*".extraOptions = {
-            "StrictHostKeyChecking" = "no";
-          };
-          "10.0.2.*".extraOptions = {
-            "StrictHostKeyChecking" = "no";
-          };
-          "10.0.3.*".extraOptions = {
-            "StrictHostKeyChecking" = "no";
-          };
-          "10.0.4.*".extraOptions = {
-            "StrictHostKeyChecking" = "no";
-          };
-          "192.168.*".extraOptions = {
-            "StrictHostKeyChecking" = "no";
-          };
+          "10.0.1.*".StrictHostKeyChecking = "no";
+          "10.0.2.*".StrictHostKeyChecking = "no";
+          "10.0.3.*".StrictHostKeyChecking = "no";
+          "10.0.4.*".StrictHostKeyChecking = "no";
+          "192.168.*".StrictHostKeyChecking = "no";
           "ubuntu-1.hulk" = {
-            extraOptions = {
-              "HostName" = "192.168.122.200";
-              "ProxyJump" = "hulk.ereslibre.net";
-            };
+            HostName = "192.168.122.200";
+            ProxyJump = "hulk.ereslibre.net";
           };
           "*" = {
-            compression = true;
-            forwardAgent = true;
-            forwardX11 = false;
-            serverAliveCountMax = 10;
-            serverAliveInterval = 20;
+            Compression = true;
+            ForwardAgent = true;
+            ForwardX11 = false;
+            ServerAliveCountMax = 10;
+            ServerAliveInterval = 20;
           };
         }
         // (mapWithDomain "hulk")
