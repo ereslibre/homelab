@@ -51,6 +51,7 @@
       helm-lsp
       helm-project
       lsp-mode
+      lsp-ui
       magit
       markdown-mode
       monokai-theme

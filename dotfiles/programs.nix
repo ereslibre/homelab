@@ -231,6 +231,7 @@ in {
           (lsp-rust-analyzer-display-closure-return-type-hints t)
           (lsp-rust-analyzer-display-parameter-hints nil)
           (lsp-rust-analyzer-display-reborrow-hints nil)
+          (lsp-imenu-index-symbol-kinds '(Function Method Class Interface Struct Enum Constructor Namespace Module Trait))
           :init
           (setq lsp-restart 'interactive)
           :hook (
@@ -242,6 +243,38 @@ in {
                  (python-ts-mode . lsp)
                  (go-ts-mode . lsp)
                  (bash-ts-mode . lsp)))
+
+        (use-package helm-lsp
+          :after (helm lsp-mode)
+          :commands (helm-lsp-workspace-symbol helm-lsp-global-workspace-symbol)
+          :bind (:map lsp-mode-map
+                      ([remap xref-find-apropos] . helm-lsp-workspace-symbol)
+                      ("C-c s" . helm-lsp-workspace-symbol)
+                      ("C-c S" . helm-lsp-global-workspace-symbol)))
+
+        (use-package lsp-ui
+          :after lsp-mode
+          :hook (lsp-mode . lsp-ui-mode)
+          :custom
+          (lsp-ui-doc-enable t)
+          (lsp-ui-doc-position 'at-point)
+          (lsp-ui-doc-show-with-cursor nil)
+          (lsp-ui-doc-show-with-mouse nil)
+          (lsp-ui-sideline-enable t)
+          (lsp-ui-sideline-show-hover nil)
+          (lsp-ui-sideline-show-diagnostics t)
+          (lsp-ui-sideline-show-code-actions t)
+          (lsp-ui-imenu-auto-refresh t)
+          (lsp-ui-imenu-kind-position 'top)
+          :bind (:map lsp-mode-map
+                      ("M-i" . lsp-ui-imenu)
+                      ("M-." . lsp-ui-peek-find-definitions)
+                      ("M-?" . lsp-ui-peek-find-references)
+                      ("C-c h" . lsp-ui-doc-glance))
+          :config
+          (with-eval-after-load 'lsp-ui-imenu
+            (define-key lsp-ui-imenu-mode-map (kbd "n") #'next-line)
+            (define-key lsp-ui-imenu-mode-map (kbd "p") #'previous-line)))
 
         ;; treesit-auto: Automatically use tree-sitter modes
         ;; Note: Grammar installation is disabled because grammars are provided by Nix
@@ -290,6 +323,7 @@ in {
           :demand t
           :bind (("C-x C-f" . helm-find-files)
                  ("M-x" . helm-M-x)
+                 ("C-c o" . helm-occur)
                  ([remap occur] . helm-occur)
                  ([remap list-buffers] . helm-buffers-list)
                  ([remap dabbrev-expand] . helm-dabbrev))
