@@ -4,6 +4,6 @@
     fira-code
     jetbrains-mono
     hasklig
-    iosevka
+    iosevka-bin
   ];
 }

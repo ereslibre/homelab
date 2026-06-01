@@ -1,17 +1,18 @@
 {
   description = "Home lab";
 
+  # NOTE: keep these lists in sync with ./nix-caches.nix, which feeds the
+  # matching `nix.settings.trusted-*` into every machine. nixConfig is read
+  # in a restricted mode that rejects `import`, so it must stay literal.
   nixConfig = {
     extra-substituters = [
       "https://cache.flox.dev"
-      "https://cache.garnix.io"
       "https://cache.nixos-cuda.org"
       "https://cache.numtide.com"
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -67,6 +68,7 @@
     ...
   }: let
     dotfiles = import ./dotfiles;
+    nixCaches = import ./nix-caches.nix;
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system;
@@ -118,6 +120,14 @@
                   configuration.modules
                   ++ [
                     {nixpkgs.config.allowUnfree = true;}
+                    {
+                      # Trust the flake's advertised caches so `nix build`
+                      # never prompts to allow `extra-substituters`.
+                      nix.settings = {
+                        trusted-substituters = nixCaches.substituters;
+                        trusted-public-keys = nixCaches.trustedPublicKeys;
+                      };
+                    }
                     {
                       nixpkgs.overlays = [
                         emacs-overlay.overlays.default
