@@ -171,10 +171,13 @@ in {
         ;;; Package Configuration
 
         (use-package ace-window
-          :bind (("C-x o" . ace-window)
+          :bind (("M-o" . ace-window)
+                 ("C-x o" . ace-window)
                  ("C-x O" . ace-swap-window)))
 
         (use-package dumb-jump
+          :custom
+          (dumb-jump-prefer-searcher 'rg)
           :config
           (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 
