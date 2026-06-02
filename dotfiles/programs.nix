@@ -218,6 +218,13 @@ in {
                            :models '(qwen2.5-coder:32b
                                      deepseek-r1:32b))))
 
+        ;; Apply each buffer's direnv environment (PATH, exec-path, ...) so that
+        ;; subprocesses like language servers pick up project-pinned toolchains
+        ;; (e.g. the Nix/devenv rust-analyzer + matching cargo/rustc) instead of
+        ;; whatever Emacs inherited from its launch environment.
+        (use-package envrc
+          :hook (after-init . envrc-global-mode))
+
         (use-package lsp-mode
           :demand t
           :custom

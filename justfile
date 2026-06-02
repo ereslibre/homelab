@@ -44,6 +44,3 @@ rotate-secrets host=defaultHost:
 
 update-keys host=defaultHost:
   nix develop --accept-flake-config --command sops -- updatekeys {{host}}/secrets.yaml
-
-update-emacs-d:
-  scripts/update-emacs-d.sh

@@ -43,6 +43,7 @@
       doom-themes
       dracula-theme
       dumb-jump
+      envrc
       git-link
       google-translate
       gptel
