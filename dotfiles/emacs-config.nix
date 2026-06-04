@@ -72,7 +72,6 @@
       # Language modes
       ada-ts-mode
       agda2-mode
-      astro-ts-mode
       auctex
       crystal-mode
       cue-mode

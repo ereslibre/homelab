@@ -129,6 +129,9 @@ in {
         (setq desktop-save nil)
         (desktop-save-mode 0)
 
+        ;; auto-revert (enabled globally by magit) should be quiet
+        (setq auto-revert-verbose nil)
+
         ;; line highlight
         (global-hl-line-mode +1)
 
@@ -240,7 +243,7 @@ in {
           (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
           (lsp-rust-analyzer-display-closure-return-type-hints t)
           (lsp-rust-analyzer-display-parameter-hints nil)
-          (lsp-rust-analyzer-display-reborrow-hints nil)
+          (lsp-rust-analyzer-display-reborrow-hints "never")
           (lsp-imenu-index-symbol-kinds '(Function Method Class Interface Struct Enum Constructor Namespace Module Trait))
           :init
           (setq lsp-restart 'interactive)
