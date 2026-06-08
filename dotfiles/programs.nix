@@ -236,6 +236,9 @@ in {
           :custom
           (lsp-eldoc-render-all t)
           (lsp-idle-delay 0.6)
+          ;; Never prompt "Do you want to watch all files in <dir>?" — always
+          ;; watch (assume yes). nil disables the threshold entirely.
+          (lsp-file-watch-threshold nil)
           (lsp-inlay-hint-enable t)
           (lsp-rust-analyzer-cargo-watch-command "clippy")
           (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
@@ -245,6 +248,14 @@ in {
           (lsp-rust-analyzer-display-parameter-hints nil)
           (lsp-rust-analyzer-display-reborrow-hints "never")
           (lsp-imenu-index-symbol-kinds '(Function Method Class Interface Struct Enum Constructor Namespace Module Trait))
+          ;; rustc dumps any over-long type from a diagnostic into a
+          ;; rust_out.long-type-<hash>.txt file in the compiler's working
+          ;; directory (e.g. littering backend/src/services, src/db, ...).
+          ;; There is no stable flag to suppress this; the nightly
+          ;; -Zwrite-long-types-to-disk=no does, and RUSTC_BOOTSTRAP=1 unlocks
+          ;; that -Z flag on a stable toolchain. Scoped here to rust-analyzer's
+          ;; own cargo/rustc/clippy invocations via cargo.extraEnv.
+          (lsp-rust-analyzer-cargo-extra-env '(:RUSTC_BOOTSTRAP "1" :RUSTFLAGS "-Zwrite-long-types-to-disk=no"))
           :init
           (setq lsp-restart 'interactive)
           :hook (
