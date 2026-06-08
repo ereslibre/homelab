@@ -18,6 +18,7 @@
       goose-cli
       hermes-agent
       opencode
+      pi
       skills
       qwen-code
     ]
