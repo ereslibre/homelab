@@ -35,6 +35,23 @@ in {
       };
       python3Packages = final.python3.pkgs;
     })
+    (final: prev: {
+      # ollama >=0.30 defaults OLLAMA_MLX_BACKENDS to metal_v3/v4 on Apple
+      # Silicon, whose build shells out to `xcrun metal` (Xcode's Metal
+      # toolchain) and git-fetches the MLX sources — neither is available in
+      # the Nix build sandbox, even with the toolchain installed system-wide.
+      # We use ollama only as a client here (OLLAMA_HOST points at the remote
+      # `hulk` server) and the CPU llama.cpp runner still builds, so drop the
+      # MLX/Metal backend by neutralising its arm64 default.
+      ollama = prev.ollama.overrideAttrs (old: {
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            substituteInPlace cmake/local.cmake \
+              --replace-fail 'if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")' 'if(FALSE)'
+          '';
+      });
+    })
   ];
 
   environment = {
