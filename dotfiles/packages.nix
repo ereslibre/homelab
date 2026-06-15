@@ -48,7 +48,13 @@
     xxd
     zstd
   ];
-  global-language-tools = with pkgs; [gopls nodejs pnpm rustup];
+  # rustup ships its own `rust-analyzer` proxy shim, but it only works if the
+  # active toolchain has the rust-analyzer component installed (mutable ~/.rustup
+  # state, not captured here) — otherwise it recurses on PATH and dies. Pull the
+  # standalone nixpkgs rust-analyzer instead and give it hiPrio so it wins the
+  # bin/rust-analyzer collision against rustup's shim. cargo/rustc still come
+  # from rustup; project-local toolchains (devenv/.envrc) still override via PATH.
+  global-language-tools = with pkgs; [gopls nodejs pnpm rustup (lib.hiPrio rust-analyzer)];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.isLinux [k3d kind]));
   platform-tools = with pkgs; [gh];
 in {
