@@ -1,5 +1,5 @@
 model:
-  default: gemma4:latest
+  default: qwen3.6:35b
   provider: custom
   base_url: http://hulk.ereslibre.net:11434/v1
 providers: {}
@@ -348,7 +348,7 @@ _config_version: 22
 custom_providers:
 - name: Hulk.ereslibre.net:11434
   base_url: http://hulk.ereslibre.net:11434/v1
-  model: gemma4:latest
+  model: qwen3.6:35b
 session_reset:
   mode: both
   idle_minutes: 1440
