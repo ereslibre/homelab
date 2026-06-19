@@ -42,11 +42,11 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["gemma4:31b" "qwen3.6:27b" "qwen3-coder:30b"];
+      loadModels = ["gemma4:31b" "qwen3.6:27b"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
         CUDA_VISIBLE_DEVICES = "0";
-        OLLAMA_CONTEXT_LENGTH = "65536";
+        OLLAMA_CONTEXT_LENGTH = "81920";
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_KV_CACHE_TYPE = "q8_0";
       };

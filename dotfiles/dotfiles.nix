@@ -11,9 +11,8 @@
           api = "openai-completions";
           apiKey = "ollama";
           models = [
-            {id = "qwen3-coder:30b";}
             {id = "qwen3.6:27b";}
-            {id = "gemma4:latest";}
+            {id = "gemma4:31b";}
           ];
         };
       };
