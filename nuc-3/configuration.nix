@@ -38,7 +38,6 @@
 
   environment.systemPackages =
     (with pkgs; [
-      chromium
       esphome
       espup
       google-cloud-sdk

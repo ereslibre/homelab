@@ -5,6 +5,7 @@
 }: let
   hermesConfig = ./assets/hermes/config.yaml;
   hermesCurrentDatetimePlugin = ./assets/hermes/plugins/current-datetime;
+  hermesNixomaticSkill = ./assets/hermes/skills/nixomatic;
 in {
   # Copy hermes config to ~/.hermes/config.yaml as a mutable file so hermes
   # can write back runtime state. The marker file tracks the hash of the last
@@ -26,6 +27,11 @@ in {
 
   home.file.".hermes/plugins/current-datetime" = {
     source = hermesCurrentDatetimePlugin;
+    recursive = true;
+  };
+
+  home.file.".hermes/skills/nixomatic" = {
+    source = hermesNixomaticSkill;
     recursive = true;
   };
 

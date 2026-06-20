@@ -7,7 +7,6 @@ fallback_providers: []
 credential_pool_strategies: {}
 toolsets:
 - hermes-cli
-- browser
 - browser-cdp
 agent:
   max_turns: 90
@@ -48,7 +47,7 @@ browser:
   command_timeout: 30
   record_sessions: false
   allow_private_urls: true
-  auto_local_for_private_urls: true
+  auto_local_for_private_urls: false
   cdp_url: 'http://localhost:9222'
   backend: cdp
   dialog_policy: must_respond

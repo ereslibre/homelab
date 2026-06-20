@@ -52,7 +52,7 @@ let
         homeDirectory = "/home/ereslibre";
         profile = "personal";
         mainlyRemote = true;
-        aiTools = false;
+        aiTools = true;
         stateVersion = "23.05";
       };
       "ereslibre@pi-desktop" = {

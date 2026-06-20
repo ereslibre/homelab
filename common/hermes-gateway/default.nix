@@ -43,16 +43,18 @@
     };
 
     config = {pkgs, ...}: {
-      programs.chromium.enable = true;
-
       environment.systemPackages = with pkgs; [
         bash
+        cacert
         chromium
         coreutils
         findutils
         gnugrep
         gnused
         procps
+        # Temporary workaround: hermes calls agent-browser even in CDP mode.
+        # https://github.com/NousResearch/hermes-agent/issues/15952
+        agent-browser
       ];
 
       users = {
@@ -75,11 +77,12 @@
           serviceConfig = {
             Type = "simple";
             ExecStartPre = "${pkgs.coreutils}/bin/rm -f /home/ereslibre/.hermes/chrome-debug/SingletonLock /home/ereslibre/.hermes/chrome-debug/SingletonCookie /home/ereslibre/.hermes/chrome-debug/SingletonSocket";
-            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless --disable-gpu --disable-dev-shm-usage --no-sandbox --disable-background-networking";
+            ExecStart = "${pkgs.chromium}/bin/chromium --remote-debugging-port=9222 --user-data-dir=/home/ereslibre/.hermes/chrome-debug --no-first-run --no-default-browser-check --headless --disable-gpu --disable-dev-shm-usage --no-sandbox";
             Restart = "on-failure";
             User = "ereslibre";
           };
         };
+
         hermes-gateway = {
           description = "Hermes Gateway";
           after = ["network-online.target" "chromium-cdp.service"];
@@ -95,6 +98,8 @@
           };
         };
       };
+
+      programs.nix-ld.enable = true;
 
       system.stateVersion = "25.05";
     };
