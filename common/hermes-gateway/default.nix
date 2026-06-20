@@ -51,6 +51,8 @@
         findutils
         gnugrep
         gnused
+        # Backs the google-workspace hermes skill.
+        gws
         procps
         # Temporary workaround: hermes calls agent-browser even in CDP mode.
         # https://github.com/NousResearch/hermes-agent/issues/15952

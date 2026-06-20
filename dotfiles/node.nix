@@ -6,6 +6,7 @@
   hermesConfig = ./assets/hermes/config.yaml;
   hermesCurrentDatetimePlugin = ./assets/hermes/plugins/current-datetime;
   hermesNixomaticSkill = ./assets/hermes/skills/nixomatic;
+  hermesGoogleWorkspaceSkill = ./assets/hermes/skills/google-workspace;
 in {
   # Copy hermes config to ~/.hermes/config.yaml as a mutable file so hermes
   # can write back runtime state. The marker file tracks the hash of the last
@@ -25,14 +26,22 @@ in {
     fi
   '';
 
-  home.file.".hermes/plugins/current-datetime" = {
-    source = hermesCurrentDatetimePlugin;
-    recursive = true;
-  };
+  # Hermes configuration files
+  home.file = {
+    ".hermes/plugins/current-datetime" = {
+      source = hermesCurrentDatetimePlugin;
+      recursive = true;
+    };
 
-  home.file.".hermes/skills/nixomatic" = {
-    source = hermesNixomaticSkill;
-    recursive = true;
+    ".hermes/skills/nixomatic" = {
+      source = hermesNixomaticSkill;
+      recursive = true;
+    };
+
+    ".hermes/skills/google-workspace" = {
+      source = hermesGoogleWorkspaceSkill;
+      recursive = true;
+    };
   };
 
   # Enabling linger makes the systemd user services start
