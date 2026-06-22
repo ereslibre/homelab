@@ -300,15 +300,15 @@ in {
             (define-key lsp-ui-imenu-mode-map (kbd "n") #'next-line)
             (define-key lsp-ui-imenu-mode-map (kbd "p") #'previous-line)))
 
-        ;; treesit-auto: Automatically use tree-sitter modes
-        ;; Note: Grammar installation is disabled because grammars are provided by Nix
-        (use-package treesit-auto
-          :demand t
-          :custom
-          (treesit-auto-install nil) ; Grammars are managed by Nix, don't auto-install
-          :config
-          (treesit-auto-add-to-auto-mode-alist 'all) ; Use tree-sitter for all supported languages
-          (global-treesit-auto-mode))
+        ;; Tree-sitter: Emacs 31 has built-in support for enabling tree-sitter
+        ;; based major modes, so the external treesit-auto package is no longer
+        ;; needed. Setting treesit-enabled-modes to t turns on every available
+        ;; *-ts-mode and remaps the classic modes to them (via setopt, which
+        ;; runs the defcustom :set that populates major-mode-remap-alist).
+        (setopt treesit-enabled-modes t)
+        ;; Grammars are provided by Nix via treesit-extra-load-path (set above),
+        ;; so never fetch or build them at runtime.
+        (setopt treesit-auto-install-grammar 'never)
 
         (use-package treesit-fold
           :demand t

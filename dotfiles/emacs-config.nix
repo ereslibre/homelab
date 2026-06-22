@@ -62,7 +62,6 @@
       rainbow-delimiters
       rg
       sublimity
-      treesit-auto
       treesit-fold
       undo-tree
       use-package
@@ -126,8 +125,8 @@
   # Emacs with packages and tree-sitter support
   customEmacs =
     if mainlyRemote || nox
-    then (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages emacsPackages
-    else (pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages emacsPackages;
+    then (pkgs.emacsPackagesFor pkgs.emacs31-nox).emacsWithPackages emacsPackages
+    else (pkgs.emacsPackagesFor pkgs.emacs31).emacsWithPackages emacsPackages;
 
   # Wrapper for emacsclient
   maybeWrappedEmacsClient = emacs:
