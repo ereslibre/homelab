@@ -55,6 +55,8 @@ browser:
   camofox:
     managed_persistence: false
 web_search: {}
+web:
+  search_backend: searxng
 checkpoints:
   enabled: true
   max_snapshots: 50

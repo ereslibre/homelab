@@ -19,6 +19,7 @@
         FIRECRAWL_API_KEY=${config.sops.placeholder."hermes/firecrawl"}
         TELEGRAM_ALLOWED_USERS=${config.sops.placeholder."hermes/telegram_allowed_users"}
         TELEGRAM_GROUP_ALLOWED_CHATS=${config.sops.placeholder."hermes/telegram_allowed_groups"}
+        SEARXNG_URL=http://127.0.0.1:8080
       '';
     };
   };
@@ -43,6 +44,29 @@
     };
 
     config = {pkgs, ...}: {
+      services.searx = {
+        enable = true;
+        settings = {
+          server = {
+            port = 8080;
+            bind_address = "127.0.0.1";
+            secret_key = "hermes-local-searxng";
+            limiter = false;
+          };
+          search.formats = ["html" "json"];
+          engines = [
+            {
+              name = "brave";
+              disabled = true;
+            }
+            {
+              name = "startpage";
+              disabled = true;
+            }
+          ];
+        };
+      };
+
       environment.systemPackages = with pkgs; [
         bash
         cacert
