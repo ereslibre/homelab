@@ -42,13 +42,23 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["gemma4:31b" "qwen3.6:27b"];
+      # NOTE: LLAMA_ARG_SPEC_TYPE = "draft-mtp" below is global, so EVERY model
+      # loaded here must carry an MTP/nextn head. Models without it fail to load
+      # with "context type MTP requested but model doesn't contain MTP layers".
+      # The Ollama-library qwen3.6:27b lacks the head, so we pull unsloth's
+      # MTP GGUF instead; gemma4:31b has no MTP build and was dropped for this.
+      loadModels = ["hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:Q5_K_M"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
         CUDA_VISIBLE_DEVICES = "0";
         OLLAMA_CONTEXT_LENGTH = "81920";
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_KV_CACHE_TYPE = "q8_0";
+        # Enable Qwen3.6 multi-token prediction: use the in-model nextn head as
+        # the speculative drafter. Ollama forwards LLAMA_ARG_* to its bundled
+        # llama-server (--spec-type draft-mtp). Potential ~1.5-2x decode speedup;
+        # see the loadModels NOTE above for the all-models-must-have-MTP caveat.
+        LLAMA_ARG_SPEC_TYPE = "draft-mtp";
       };
     };
     spice-vdagentd.enable = true;

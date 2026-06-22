@@ -1,5 +1,5 @@
 model:
-  default: qwen3.6:27b
+  default: hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:Q5_K_M
   provider: custom
   base_url: http://hulk.ereslibre.net:11434/v1
 providers: {}
@@ -347,7 +347,7 @@ _config_version: 22
 custom_providers:
 - name: Hulk.ereslibre.net:11434
   base_url: http://hulk.ereslibre.net:11434/v1
-  model: qwen3.6:27b
+  model: hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:Q5_K_M
 session_reset:
   mode: both
   idle_minutes: 1440
