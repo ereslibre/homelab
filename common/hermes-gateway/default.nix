@@ -75,6 +75,7 @@
           gnused
           google-cloud-sdk
           procps
+          python3
           # Temporary workaround: hermes calls agent-browser even in CDP mode.
           # https://github.com/NousResearch/hermes-agent/issues/15952
           agent-browser
@@ -119,6 +120,7 @@
             User = "ereslibre";
             WorkingDirectory = "/home/ereslibre";
             EnvironmentFile = "/etc/hermes-gateway.env";
+            Environment = "PATH=/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin";
           };
         };
       };
