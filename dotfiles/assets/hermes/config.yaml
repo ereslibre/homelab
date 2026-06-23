@@ -98,7 +98,7 @@ auxiliary:
     extra_body: {}
     download_timeout: 30
   web_extract:
-    provider: auto
+    provider: searxng
     model: ''
     base_url: ''
     api_key: ''

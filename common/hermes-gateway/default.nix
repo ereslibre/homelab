@@ -1,5 +1,6 @@
 {
   config,
+  googleworkspace-cli,
   nix-ai-tools,
   ...
 }: {
@@ -67,21 +68,22 @@
         };
       };
 
-      environment.systemPackages = with pkgs; [
-        bash
-        cacert
-        chromium
-        coreutils
-        findutils
-        gnugrep
-        gnused
-        # Backs the google-workspace hermes skill.
-        gws
-        procps
-        # Temporary workaround: hermes calls agent-browser even in CDP mode.
-        # https://github.com/NousResearch/hermes-agent/issues/15952
-        agent-browser
-      ];
+      environment.systemPackages =
+        (with pkgs; [
+          bash
+          cacert
+          chromium
+          coreutils
+          findutils
+          gnugrep
+          gnused
+          google-cloud-sdk
+          procps
+          # Temporary workaround: hermes calls agent-browser even in CDP mode.
+          # https://github.com/NousResearch/hermes-agent/issues/15952
+          agent-browser
+        ])
+        ++ [googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default];
 
       users = {
         mutableUsers = false;
