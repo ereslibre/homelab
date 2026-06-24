@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  googleworkspace-cli,
   nix-ai-tools,
   ...
 }: {
@@ -12,12 +11,16 @@
     secrets."hermes/telegram_allowed_groups" = {
       sopsFile = ./secrets.yaml;
     };
+    secrets."hermes/gogcli_keyring_password" = {
+      sopsFile = ./secrets.yaml;
+    };
     templates."hermes-env" = {
       owner = "ereslibre";
       content = ''
         TELEGRAM_ALLOWED_USERS=${config.sops.placeholder."hermes/telegram_allowed_users"}
         TELEGRAM_GROUP_ALLOWED_CHATS=${config.sops.placeholder."hermes/telegram_allowed_groups"}
         SEARXNG_URL=http://127.0.0.1:8080
+        GOG_KEYRING_PASSWORD=${config.sops.placeholder."hermes/gogcli_keyring_password"}
       '';
     };
   };
@@ -74,6 +77,7 @@
           findutils
           gnugrep
           gnused
+          gogcli
           google-cloud-sdk
           procps
           python3
@@ -82,7 +86,6 @@
           agent-browser
         ])
         ++ [
-          googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
           nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
         ];
 
@@ -126,7 +129,10 @@
             User = "ereslibre";
             WorkingDirectory = "/home/ereslibre";
             EnvironmentFile = "/etc/hermes-gateway.env";
-            Environment = "PATH=/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin";
+            Environment = [
+              "PATH=/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin"
+              "GOG_KEYRING_BACKEND=file"
+            ];
           };
         };
       };

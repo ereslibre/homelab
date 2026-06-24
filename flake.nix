@@ -25,10 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
-    googleworkspace-cli = {
-      url = "github:googleworkspace/cli";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +53,6 @@
     self,
     emacs-overlay,
     flake-utils,
-    googleworkspace-cli,
     home-manager,
     microvm,
     nix-ai-tools,
@@ -229,7 +224,7 @@
             user = "ereslibre";
             builderArgs = {
               specialArgs = {
-                inherit googleworkspace-cli nix-ai-tools sops-nix;
+                inherit nix-ai-tools sops-nix;
               };
             };
             modules = [

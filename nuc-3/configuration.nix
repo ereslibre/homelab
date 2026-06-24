@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  googleworkspace-cli,
   ...
 }: {
   imports = [
@@ -36,15 +35,12 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
-  environment.systemPackages =
-    (with pkgs; [
-      esphome
-      espup
-      google-cloud-sdk
-    ])
-    ++ [
-      googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+  environment.systemPackages = with pkgs; [
+    esphome
+    espup
+    gogcli
+    google-cloud-sdk
+  ];
 
   services = {
     caddy = {
