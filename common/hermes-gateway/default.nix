@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   googleworkspace-cli,
   nix-ai-tools,
   ...
@@ -80,7 +81,12 @@
           # https://github.com/NousResearch/hermes-agent/issues/15952
           agent-browser
         ])
-        ++ [googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default];
+        ++ [
+          googleworkspace-cli.packages.${pkgs.stdenv.hostPlatform.system}.default
+          nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
+        ];
+
+      programs.zsh.enable = true;
 
       users = {
         mutableUsers = false;
