@@ -20,6 +20,7 @@
       opencode
       pi
       skills
+      tuicr
       qwen-code
     ]
   ));
