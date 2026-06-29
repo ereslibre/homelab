@@ -1,9 +1,9 @@
 {
   pkgs,
-  nix-ai-tools,
+  llm-agents,
   ...
 }: let
-  ai-tools = nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system};
+  ai-tools = llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 in {
   environment.systemPackages =
     (with pkgs; [

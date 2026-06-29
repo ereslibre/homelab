@@ -1,5 +1,5 @@
 {aiTools}: {
-  nix-ai-tools,
+  llm-agents,
   pkgs,
   lib,
   ...
@@ -9,12 +9,12 @@
       doCheck = false;
       doInstallCheck = false;
     })) (
-    with nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}; [
+    with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
       claude-code
       codex
       copilot-cli
       cursor-agent
-      gemini-cli
+      # gemini-cli
       goose-cli
       hermes-agent
       opencode

@@ -1,5 +1,5 @@
-{nix-ai-tools}: {pkgs, ...}: {
+{llm-agents}: {pkgs, ...}: {
   environment.systemPackages = [
-    nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
+    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
   ];
 }

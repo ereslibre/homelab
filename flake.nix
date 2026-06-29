@@ -33,8 +33,8 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ai-tools = {
-      url = "github:numtide/nix-ai-tools";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
@@ -55,7 +55,7 @@
     flake-utils,
     home-manager,
     microvm,
-    nix-ai-tools,
+    llm-agents,
     nix-darwin,
     nixos-hardware,
     nixpkgs,
@@ -143,9 +143,9 @@
                               )
                             ];
                         })
-                        # Rebuild nix-ai-tools packages against our nixpkgs so the authlib
+                        # Rebuild llm-agents packages against our nixpkgs so the authlib
                         # joserfc override above flows into hermes-agent's mistralai closure.
-                        nix-ai-tools.overlays.shared-nixpkgs
+                        llm-agents.overlays.shared-nixpkgs
                       ];
                     }
                     {
@@ -156,7 +156,7 @@
                         };
                         useGlobalPkgs = true;
                         extraSpecialArgs = {
-                          inherit emacs-overlay nix-ai-tools;
+                          inherit emacs-overlay llm-agents;
                         };
                       };
                     }
@@ -165,7 +165,7 @@
               // (configuration.builderArgs or {}))
           )
       );
-      hermesModule = import ./common/hermes {inherit nix-ai-tools;};
+      hermesModule = import ./common/hermes {inherit llm-agents;};
     in {
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Flying-Hulk" = {
@@ -186,7 +186,7 @@
             user = "ereslibre";
             builderArgs = {
               specialArgs = {
-                inherit nix-ai-tools;
+                inherit llm-agents;
               };
             };
             modules = [
@@ -224,7 +224,7 @@
             user = "ereslibre";
             builderArgs = {
               specialArgs = {
-                inherit nix-ai-tools sops-nix;
+                inherit llm-agents sops-nix;
               };
             };
             modules = [

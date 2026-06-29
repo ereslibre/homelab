@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  nix-ai-tools,
+  llm-agents,
   ...
 }: {
   sops = {
@@ -86,7 +86,7 @@
           agent-browser
         ])
         ++ [
-          nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
+          llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
         ];
 
       programs.zsh.enable = true;
@@ -124,7 +124,7 @@
           wantedBy = ["multi-user.target"];
           serviceConfig = {
             Type = "simple";
-            ExecStart = "${nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
+            ExecStart = "${llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent}/bin/hermes gateway run --replace";
             Restart = "on-failure";
             User = "ereslibre";
             WorkingDirectory = "/home/ereslibre";
