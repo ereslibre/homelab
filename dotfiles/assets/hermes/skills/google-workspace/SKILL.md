@@ -21,6 +21,33 @@ setup you call `gog` commands directly — no wrapper scripts.
 
 - `references/gmail-search-syntax.md` — Gmail search operators
 
+## My Calendars
+
+Calendar IDs are stored as sops secrets and exposed as environment variables (see [Required Secrets](#required-secrets)).
+
+| Label             | Env var / Calendar ID                          | Notes                                                                                               |
+|-------------------|------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Personal          | `$CAL_PERSONAL` (alias: `primary`)             | Primary personal calendar                                                                           |
+| Serebris          | `$CAL_SEREBRIS`                                | Shared calendar: `Rafa:` prefix = me only, `Raquel:` prefix = partner only, unprefixed = both of us |
+| Legal             | `$CAL_LEGAL`                                   | Legal matters                                                                                       |
+| Birthdays         | `$CAL_BIRTHDAYS`                               | Birthday reminders                                                                                  |
+| Holidays in Spain | `es.spain#holiday@group.v.calendar.google.com` | Spanish public holidays (public ID, not a secret)                                                   |
+| Work              | `$CAL_WORK_ICS_URL` (ICS feed)                 | Work calendar — read-only, fetched via ICS (see [ICS Calendars](#ics-calendars))                    |
+
+When aggregating the schedule, query **all five Google Calendar API calendars** and merge results by time, then also fetch the Work ICS calendar (see [ICS Calendars](#ics-calendars)) and merge those events in. For Serebris, include events prefixed `Rafa:` and all unprefixed events (those prefixed `Raquel:` apply to my partner only, not to me). The authorized account for all Google Calendar API calls is `ereslibre@gmail.com`.
+
+## Required Secrets
+
+These sops secrets must exist and be exported as environment variables before using calendar features:
+
+| Env var            | Sops secret path                  | Value                          |
+|--------------------|-----------------------------------|--------------------------------|
+| `CAL_PERSONAL`     | `hermes/calendars/personal`       | Personal Google Calendar ID    |
+| `CAL_SEREBRIS`     | `hermes/calendars/serebris`       | Serebris shared calendar ID    |
+| `CAL_LEGAL`        | `hermes/calendars/legal`          | Legal calendar ID              |
+| `CAL_BIRTHDAYS`    | `hermes/calendars/birthdays`      | Birthdays calendar ID          |
+| `CAL_WORK_ICS_URL` | `hermes/calendars/work`           | Work calendar public ICS URL   |
+
 ## Scripts
 
 - `scripts/setup.py` — one-time OAuth setup
@@ -159,10 +186,27 @@ gog gmail labels list --json --account EMAIL --no-input
 ### Calendar
 
 ```bash
-# List events
-gog calendar events primary --from 2026-06-01 --to 2026-06-30 --json --account EMAIL --no-input
-gog calendar events primary --from 2026-06-24T09:00:00+02:00 --to 2026-06-24T18:00:00+02:00 \
-  --json --account EMAIL --no-input
+# List all available calendars (use to verify calendar IDs are accessible)
+gog calendar calendars --json --account ereslibre@gmail.com --no-input
+
+# Query all my calendars and merge — run for each calendar ID, then sort by time:
+for CAL in \
+  "$CAL_PERSONAL" \
+  "$CAL_SEREBRIS" \
+  "$CAL_LEGAL" \
+  "$CAL_BIRTHDAYS" \
+  "es.spain#holiday@group.v.calendar.google.com"
+do
+  gog calendar events "$CAL" --from DATE --to DATE --json --account ereslibre@gmail.com --no-input
+done
+# Also fetch Work ICS calendar separately — see ICS Calendars section below
+
+# List events from a single calendar
+gog calendar events "$CAL_PERSONAL" --from 2026-06-01 --to 2026-06-30 --json --account ereslibre@gmail.com --no-input
+gog calendar events "$CAL_SEREBRIS" \
+  --from 2026-06-01 --to 2026-06-30 --json --account ereslibre@gmail.com --no-input
+gog calendar events "$CAL_PERSONAL" --from 2026-06-24T09:00:00+02:00 --to 2026-06-24T18:00:00+02:00 \
+  --json --account ereslibre@gmail.com --no-input
 
 # Create event (ISO 8601 with timezone required)
 gog calendar create primary --summary "Team Standup" \
@@ -188,6 +232,38 @@ gog calendar delete primary EVENT_ID --force --account EMAIL
 gog calendar freebusy alice@co.com,bob@co.com \
   --from 2026-06-25T00:00:00Z --to 2026-06-26T00:00:00Z \
   --json --account EMAIL --no-input
+```
+
+### ICS Calendars
+
+The Work calendar is read-only and fetched via its ICS feed stored in `$CAL_WORK_ICS_URL`.
+
+```bash
+# Fetch raw ICS data
+curl -s "$CAL_WORK_ICS_URL"
+
+# Fetch and parse with Python (icalendar package) — filter by date range
+python3 - <<'EOF'
+import sys, os
+from urllib.request import urlopen
+from icalendar import Calendar
+from datetime import datetime, timezone
+
+url = os.environ["CAL_WORK_ICS_URL"]
+with urlopen(url) as resp:
+    cal = Calendar.from_ical(resp.read())
+
+date_from = datetime(2026, 6, 1, tzinfo=timezone.utc)
+date_to   = datetime(2026, 6, 30, 23, 59, 59, tzinfo=timezone.utc)
+
+for component in cal.walk("VEVENT"):
+    dtstart = component.get("DTSTART").dt
+    if not hasattr(dtstart, "hour"):
+        from datetime import time
+        dtstart = datetime.combine(dtstart, time.min, tzinfo=timezone.utc)
+    if date_from <= dtstart <= date_to:
+        print(dtstart.isoformat(), component.get("SUMMARY"))
+EOF
 ```
 
 ### Drive
@@ -297,3 +373,6 @@ gog docs write DOC_ID --append --markdown --text "## Status\n\n- Item one" --acc
 | Auth code expired | Re-run `--auth-url`, use the newest redirect URL only |
 | `permission denied` or scope error | `$GSETUP --revoke --email EMAIL` then redo Steps 3–5 with full services |
 | `GOG_KEYRING_PASSWORD not set` | Add `hermes/gogcli_keyring_password` to sops secrets |
+| `CAL_*` env vars empty/unset | Add the corresponding `hermes/cal_*` entries to sops secrets and export them |
+| Rotated OAuth client secret | Download new `client_secret.json` → `$GSETUP --revoke --email ereslibre@gmail.com` → `$GSETUP --credentials /path/to/new.json` → `$GSETUP --auth-flow --email ereslibre@gmail.com` |
+| Calendar not found / permission error | Run `gog calendar calendars --json --account ereslibre@gmail.com --no-input` to list accessible calendars |
