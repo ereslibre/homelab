@@ -120,7 +120,7 @@ auxiliary:
     extra_body: {}
     max_concurrency: 3
   skills_hub:
-    provider: auto
+    provider: none
     model: ''
     base_url: ''
     api_key: ''
