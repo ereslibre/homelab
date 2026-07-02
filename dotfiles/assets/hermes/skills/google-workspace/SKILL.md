@@ -32,9 +32,9 @@ Calendar IDs are stored as sops secrets and exposed as environment variables (se
 | Legal             | `$CAL_LEGAL`                                   | Legal matters                                                                                       |
 | Birthdays         | `$CAL_BIRTHDAYS`                               | Birthday reminders                                                                                  |
 | Holidays in Spain | `es.spain#holiday@group.v.calendar.google.com` | Spanish public holidays (public ID, not a secret)                                                   |
-| Work              | `$CAL_WORK_ICS_URL` (ICS feed)                 | Work calendar — read-only, fetched via ICS (see [ICS Calendars](#ics-calendars))                    |
+| Work              | `$CAL_WORK`                                    | Work calendar — read-only                                                                           |
 
-When aggregating the schedule, query **all five Google Calendar API calendars** and merge results by time, then also fetch the Work ICS calendar (see [ICS Calendars](#ics-calendars)) and merge those events in. For Serebris, include events prefixed `Rafa:` and all unprefixed events (those prefixed `Raquel:` apply to my partner only, not to me). The authorized account for all Google Calendar API calls is `ereslibre@gmail.com`.
+When aggregating the schedule, query **all six Google Calendar API calendars** and merge results by time. For Serebris, include events prefixed `Rafa:` and all unprefixed events (those prefixed `Raquel:` apply to my partner only, not to me). The authorized account for all Google Calendar API calls is `ereslibre@gmail.com`.
 
 ## Required Secrets
 
@@ -46,7 +46,7 @@ These sops secrets must exist and be exported as environment variables before us
 | `CAL_SEREBRIS`     | `hermes/calendars/serebris`       | Serebris shared calendar ID    |
 | `CAL_LEGAL`        | `hermes/calendars/legal`          | Legal calendar ID              |
 | `CAL_BIRTHDAYS`    | `hermes/calendars/birthdays`      | Birthdays calendar ID          |
-| `CAL_WORK_ICS_URL` | `hermes/calendars/work`           | Work calendar public ICS URL   |
+| `CAL_WORK`         | `hermes/calendars/work`           | Work Google Calendar ID        |
 
 ## Scripts
 
@@ -195,11 +195,11 @@ for CAL in \
   "$CAL_SEREBRIS" \
   "$CAL_LEGAL" \
   "$CAL_BIRTHDAYS" \
+  "$CAL_WORK" \
   "es.spain#holiday@group.v.calendar.google.com"
 do
   gog calendar events "$CAL" --from DATE --to DATE --json --account ereslibre@gmail.com --no-input
 done
-# Also fetch Work ICS calendar separately — see ICS Calendars section below
 
 # List events from a single calendar
 gog calendar events "$CAL_PERSONAL" --from 2026-06-01 --to 2026-06-30 --json --account ereslibre@gmail.com --no-input
@@ -232,38 +232,6 @@ gog calendar delete primary EVENT_ID --force --account EMAIL
 gog calendar freebusy alice@co.com,bob@co.com \
   --from 2026-06-25T00:00:00Z --to 2026-06-26T00:00:00Z \
   --json --account EMAIL --no-input
-```
-
-### ICS Calendars
-
-The Work calendar is read-only and fetched via its ICS feed stored in `$CAL_WORK_ICS_URL`.
-
-```bash
-# Fetch raw ICS data
-curl -s "$CAL_WORK_ICS_URL"
-
-# Fetch and parse with Python (icalendar package) — filter by date range
-python3 - <<'EOF'
-import sys, os
-from urllib.request import urlopen
-from icalendar import Calendar
-from datetime import datetime, timezone
-
-url = os.environ["CAL_WORK_ICS_URL"]
-with urlopen(url) as resp:
-    cal = Calendar.from_ical(resp.read())
-
-date_from = datetime(2026, 6, 1, tzinfo=timezone.utc)
-date_to   = datetime(2026, 6, 30, 23, 59, 59, tzinfo=timezone.utc)
-
-for component in cal.walk("VEVENT"):
-    dtstart = component.get("DTSTART").dt
-    if not hasattr(dtstart, "hour"):
-        from datetime import time
-        dtstart = datetime.combine(dtstart, time.min, tzinfo=timezone.utc)
-    if date_from <= dtstart <= date_to:
-        print(dtstart.isoformat(), component.get("SUMMARY"))
-EOF
 ```
 
 ### Drive
@@ -373,6 +341,6 @@ gog docs write DOC_ID --append --markdown --text "## Status\n\n- Item one" --acc
 | Auth code expired | Re-run `--auth-url`, use the newest redirect URL only |
 | `permission denied` or scope error | `$GSETUP --revoke --email EMAIL` then redo Steps 3–5 with full services |
 | `GOG_KEYRING_PASSWORD not set` | Add `hermes/gogcli_keyring_password` to sops secrets |
-| `CAL_*` env vars empty/unset | Add the corresponding `hermes/cal_*` entries to sops secrets and export them |
+| `CAL_*` env vars empty/unset | Add the corresponding `hermes/calendars/*` entries to sops secrets and export them |
 | Rotated OAuth client secret | Download new `client_secret.json` → `$GSETUP --revoke --email ereslibre@gmail.com` → `$GSETUP --credentials /path/to/new.json` → `$GSETUP --auth-flow --email ereslibre@gmail.com` |
 | Calendar not found / permission error | Run `gog calendar calendars --json --account ereslibre@gmail.com --no-input` to list accessible calendars |

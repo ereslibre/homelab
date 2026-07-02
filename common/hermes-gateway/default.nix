@@ -14,6 +14,24 @@
     secrets."hermes/gogcli_keyring_password" = {
       sopsFile = ./secrets.yaml;
     };
+    secrets."hermes/gog_account" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/calendars/personal" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/calendars/serebris" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/calendars/legal" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/calendars/birthdays" = {
+      sopsFile = ./secrets.yaml;
+    };
+    secrets."hermes/calendars/work" = {
+      sopsFile = ./secrets.yaml;
+    };
     templates."hermes-env" = {
       owner = "ereslibre";
       content = ''
@@ -21,6 +39,12 @@
         TELEGRAM_GROUP_ALLOWED_CHATS=${config.sops.placeholder."hermes/telegram_allowed_groups"}
         SEARXNG_URL=http://127.0.0.1:8080
         GOG_KEYRING_PASSWORD=${config.sops.placeholder."hermes/gogcli_keyring_password"}
+        GOG_ACCOUNT=${config.sops.placeholder."hermes/gog_account"}
+        CAL_PERSONAL=${config.sops.placeholder."hermes/calendars/personal"}
+        CAL_SEREBRIS=${config.sops.placeholder."hermes/calendars/serebris"}
+        CAL_LEGAL=${config.sops.placeholder."hermes/calendars/legal"}
+        CAL_BIRTHDAYS=${config.sops.placeholder."hermes/calendars/birthdays"}
+        CAL_WORK=${config.sops.placeholder."hermes/calendars/work"}
       '';
     };
   };
