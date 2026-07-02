@@ -109,60 +109,64 @@
                   then configuration.host
                   else host
                 }";
-            in ({
-                inherit (configuration) system;
-                modules =
-                  configuration.modules
-                  ++ [
-                    {nixpkgs.config.allowUnfree = true;}
-                    {
-                      # Trust the flake's advertised caches so `nix build`
-                      # never prompts to allow `extra-substituters`.
-                      nix.settings = {
-                        trusted-substituters = nixCaches.substituters;
-                        trusted-public-keys = nixCaches.trustedPublicKeys;
+            in {
+              inherit (configuration) system;
+              # Every machine gets llm-agents for free; hosts that need more
+              # (e.g. sops-nix) add to it via configuration.specialArgs.
+              specialArgs =
+                {inherit llm-agents;}
+                // (configuration.specialArgs or {});
+              modules =
+                configuration.modules
+                ++ [
+                  {nixpkgs.config.allowUnfree = true;}
+                  {
+                    # Trust the flake's advertised caches so `nix build`
+                    # never prompts to allow `extra-substituters`.
+                    nix.settings = {
+                      trusted-substituters = nixCaches.substituters;
+                      trusted-public-keys = nixCaches.trustedPublicKeys;
+                    };
+                  }
+                  {
+                    nixpkgs.overlays = [
+                      emacs-overlay.overlays.default
+                      (final: prev: {
+                        pythonPackagesExtensions =
+                          prev.pythonPackagesExtensions
+                          ++ [
+                            (
+                              python-final: python-prev: {
+                                picosvg = python-prev.picosvg.overridePythonAttrs {
+                                  doCheck = false;
+                                };
+                                # TODO: remove once nixpkgs adds joserfc to authlib's dependencies upstream.
+                                authlib = python-prev.authlib.overridePythonAttrs (old: {
+                                  dependencies = (old.dependencies or []) ++ [python-final.joserfc];
+                                });
+                              }
+                            )
+                          ];
+                      })
+                      # Rebuild llm-agents packages against our nixpkgs so the authlib
+                      # joserfc override above flows into hermes-agent's mistralai closure.
+                      llm-agents.overlays.shared-nixpkgs
+                    ];
+                  }
+                  {
+                    home-manager = {
+                      users.${configuration.user} = import ./dotfiles/home.nix {
+                        inherit home-manager;
+                        inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote aiTools;
                       };
-                    }
-                    {
-                      nixpkgs.overlays = [
-                        emacs-overlay.overlays.default
-                        (final: prev: {
-                          pythonPackagesExtensions =
-                            prev.pythonPackagesExtensions
-                            ++ [
-                              (
-                                python-final: python-prev: {
-                                  picosvg = python-prev.picosvg.overridePythonAttrs {
-                                    doCheck = false;
-                                  };
-                                  # TODO: remove once nixpkgs adds joserfc to authlib's dependencies upstream.
-                                  authlib = python-prev.authlib.overridePythonAttrs (old: {
-                                    dependencies = (old.dependencies or []) ++ [python-final.joserfc];
-                                  });
-                                }
-                              )
-                            ];
-                        })
-                        # Rebuild llm-agents packages against our nixpkgs so the authlib
-                        # joserfc override above flows into hermes-agent's mistralai closure.
-                        llm-agents.overlays.shared-nixpkgs
-                      ];
-                    }
-                    {
-                      home-manager = {
-                        users.${configuration.user} = import ./dotfiles/home.nix {
-                          inherit home-manager;
-                          inherit (hmConfiguration) system username homeDirectory stateVersion profile mainlyRemote aiTools;
-                        };
-                        useGlobalPkgs = true;
-                        extraSpecialArgs = {
-                          inherit emacs-overlay llm-agents;
-                        };
+                      useGlobalPkgs = true;
+                      extraSpecialArgs = {
+                        inherit emacs-overlay llm-agents;
                       };
-                    }
-                  ];
-              }
-              // (configuration.builderArgs or {}))
+                    };
+                  }
+                ];
+            }
           )
       );
       hermesModule = import ./common/hermes {inherit llm-agents;};
@@ -184,11 +188,6 @@
             builder = nixpkgs.lib.nixosSystem;
             system = "x86_64-linux";
             user = "ereslibre";
-            builderArgs = {
-              specialArgs = {
-                inherit llm-agents;
-              };
-            };
             modules = [
               home-manager.nixosModules.home-manager
               microvm.nixosModules.host
@@ -222,10 +221,8 @@
             builder = nixpkgs.lib.nixosSystem;
             system = "x86_64-linux";
             user = "ereslibre";
-            builderArgs = {
-              specialArgs = {
-                inherit llm-agents sops-nix;
-              };
+            specialArgs = {
+              inherit sops-nix;
             };
             modules = [
               home-manager.nixosModules.home-manager
