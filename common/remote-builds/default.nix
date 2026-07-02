@@ -21,5 +21,6 @@
       }
     ];
     distributedBuilds = true;
+    settings.max-jobs = 0; # disable local builds; all derivations go to hulk
   };
 }
