@@ -15,7 +15,6 @@
     ../common/nix
     ../common/nix-github
     ../common/node
-    ../common/openwebui
     ../common/packages
     ../common/podman
     ../common/programs
@@ -49,10 +48,6 @@
         auto_https disable_redirects
       '';
       virtualHosts = {
-        "openwebui.ereslibre.net".extraConfig = ''
-          tls internal
-          reverse_proxy http://openwebui:8080
-        '';
         "jupyter.ereslibre.net".extraConfig = ''
           tls internal
           reverse_proxy http://localhost:8000
