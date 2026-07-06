@@ -693,7 +693,23 @@ in {
           nix hash to-sri "$algo":$(nix-prefetch-url --type "$algo" $EXTRA_ARGS "$1")
         }
         token() {
-          key-token "$(${lib.getExe pkgs.yubikey-manager} list --serials | head -n1)" "$1"
+          local result
+          result="$(key-token "$(${lib.getExe pkgs.yubikey-manager} list --serials | head -n1)" "$1")"
+          printf '%s\n' "$result"
+          ${lib.optionalString isDarwin ''
+          # On macOS, if there is exactly one match, copy its code to the clipboard.
+          if [ "$(printf '%s\n' "$result" | grep -c .)" -eq 1 ]; then
+            local code
+            code="$(printf '%s\n' "$result" | awk '{print $NF}')"
+            case "$code" in
+              "" | *[!0-9]*) ;;
+              *)
+                printf '%s' "$code" | pbcopy
+                printf 'Copied to clipboard\n' >&2
+                ;;
+            esac
+          fi
+          ''}
         }
         shiori-list() {
           ${k} exec deployment/shiori -n shiori -- shiori print -l "$@"
