@@ -709,7 +709,7 @@ in {
                 ;;
             esac
           fi
-          ''}
+        ''}
         }
         shiori-list() {
           ${k} exec deployment/shiori -n shiori -- shiori print -l "$@"
