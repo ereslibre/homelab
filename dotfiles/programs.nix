@@ -689,6 +689,9 @@ in {
         token() {
           local result
           result="$(key-token "$(${lib.getExe pkgs.yubikey-manager} list --serials | head -n1)" "$1")"
+          if [ -n "$2" ]; then
+            result="$(printf '%s\n' "$result" | grep -i "$2")"
+          fi
           printf '%s\n' "$result"
           ${lib.optionalString isDarwin ''
           # On macOS, if there is exactly one match, copy its code to the clipboard.

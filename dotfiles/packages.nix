@@ -4,11 +4,7 @@
   lib,
   ...
 }: let
-  ai-tools = lib.optionals aiTools (builtins.map (pkg:
-    pkg.overrideAttrs (old: {
-      doCheck = false;
-      doInstallCheck = false;
-    })) (
+  ai-tools = lib.optionals aiTools (
     with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
       claude-code
       codex
@@ -23,7 +19,7 @@
       tuicr
       qwen-code
     ]
-  ));
+  );
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
