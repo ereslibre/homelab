@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Google Workspace setup for Hermes Agent using gog CLI.
 
+Must be run inside the hermes-gateway NixOS container — that's the only
+place gog's keyring (GOG_KEYRING_BACKEND=file + GOG_KEYRING_PASSWORD) is
+configured. Running on the host or anywhere else exits immediately with
+instructions.
+
 Commands:
   setup.py --check                           # Is auth configured? Exit 0=yes, 1=no
   setup.py --credentials /path/to.json       # Store OAuth client credentials
@@ -30,6 +35,61 @@ from pathlib import Path
 
 _PENDING_PATH = Path.home() / ".hermes" / "gog_pending.json"
 _DEFAULT_SERVICES = "gmail,calendar,drive,contacts,docs,sheets"
+_CONTAINER_ENV_FILE = Path("/etc/hermes-gateway.env")
+
+
+def _in_hermes_gateway_container():
+    """True only inside the hermes-gateway NixOS container.
+
+    /etc/hermes-gateway.env also exists on the host (it's the source of
+    the bind mount), so that alone doesn't prove we're in the container —
+    pair it with systemd-detect-virt, which only reports a container type
+    from inside one.
+    """
+    if not _CONTAINER_ENV_FILE.exists():
+        return False
+    try:
+        result = subprocess.run(
+            ["systemd-detect-virt", "--container"],
+            capture_output=True, text=True,
+        )
+    except FileNotFoundError:
+        return False
+    virt = (result.stdout or "").strip()
+    return result.returncode == 0 and virt not in ("", "none")
+
+
+def _require_container():
+    if _in_hermes_gateway_container():
+        return
+    print(
+        "ERROR: this script must be run inside the hermes-gateway NixOS "
+        "container, not on the host.\n"
+        "gog's keyring is only configured (GOG_KEYRING_BACKEND=file) "
+        "there — on the host it hangs trying to reach a D-Bus Secret "
+        "Service that doesn't exist.\n\n"
+        "Enter the container first, e.g.:\n"
+        "  sudo nixos-container root-login hermes-gateway\n"
+        "then re-run this command from that shell."
+    )
+    sys.exit(1)
+
+
+def _load_container_env():
+    """Load gog's keyring settings from the container's env file.
+
+    Mirrors what the hermes-gateway systemd unit gets via
+    EnvironmentFile/Environment, so this script behaves the same whether
+    invoked interactively or by the agent. Never overrides a var the
+    caller already set explicitly.
+    """
+    for line in _CONTAINER_ENV_FILE.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key, value)
+    os.environ.setdefault("GOG_KEYRING_BACKEND", "file")
 
 
 def _gog(*args, capture=False):
@@ -105,7 +165,7 @@ def revoke(email=None):
             print("ERROR: Could not determine account. Pass --email EMAIL.")
             sys.exit(1)
 
-    result = _gog("auth", "revoke", email, "--force")
+    result = _gog("auth", "remove", email, "--force")
     if result.returncode != 0:
         sys.exit(result.returncode or 1)
     _PENDING_PATH.unlink(missing_ok=True)
@@ -118,6 +178,9 @@ def list_accounts():
 
 
 def main():
+    _require_container()
+    _load_container_env()
+
     parser = argparse.ArgumentParser(description="Google Workspace gog CLI setup for Hermes")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--check", action="store_true", help="Check auth (exit 0=ok, 1=not configured)")
