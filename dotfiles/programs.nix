@@ -454,18 +454,12 @@ in {
            'org-babel-load-languages
            '((shell . t))))
 
-        (use-package sublimity
+        (use-package perfect-margin
           :demand t
           :custom
-          (sublimity-mode 1)
+          (perfect-margin-visible-width 128)
           :config
-          (require 'sublimity-attractive)
-          ;; When on org-agenda-mode, tags are aligned first, then sublimity
-          ;; resizes and centers, and tags are left out of screen. Redo the
-          ;; agenda.
-          (add-hook 'sublimity--window-change-functions
-                    (lambda ()
-                      (when (eq major-mode 'org-agenda-mode) (org-agenda-redo)))))
+          (perfect-margin-mode 1))
 
         ;; Load custom file if it exists
         (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

@@ -58,10 +58,10 @@
       monokai-theme
       neotree
       org-journal
+      perfect-margin
       powerline
       rainbow-delimiters
       rg
-      sublimity
       treesit-fold
       undo-tree
       use-package
