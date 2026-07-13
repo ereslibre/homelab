@@ -59,6 +59,10 @@
     hostName = "hulk";
   };
 
+  # Cap cores-per-build so the 16 concurrent remote-build slots (see
+  # common/remote-builds) don't all try to claim all 128 threads at once.
+  nix.settings.cores = 8;
+
   services = {
     ollama = {
       enable = true;
