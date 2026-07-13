@@ -36,8 +36,16 @@
   # authority". Point Go's TLS straight at an immutable cacert store path so it
   # never resolves through the frozen /etc/static chain, and restart the daemon
   # whenever cacert changes so it picks up a fresh copy-up.
+  #
+  # The rootless dockerd user service is installed globally (WantedBy
+  # default.target), so every user that gets a systemd user session tries to
+  # start it -- including the `builder` remote-build account, which has no
+  # /etc/subuid range and therefore fails with "No subuid ranges found",
+  # spamming failed units on each SSH login. Gate the unit to the interactive
+  # user so systemd *skips* it (ConditionUser, not a hard failure) elsewhere.
   systemd.user.services.docker = lib.mkIf config.virtualisation.docker.rootless.enable {
     environment.SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     restartTriggers = [pkgs.cacert];
+    unitConfig.ConditionUser = lib.mkForce "ereslibre";
   };
 }
