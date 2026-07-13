@@ -148,9 +148,6 @@
                             )
                           ];
                       })
-                      # Rebuild llm-agents packages against our nixpkgs so the authlib
-                      # joserfc override above flows into hermes-agent's mistralai closure.
-                      llm-agents.overlays.shared-nixpkgs
                     ];
                   }
                   {

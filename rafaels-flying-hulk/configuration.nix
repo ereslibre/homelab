@@ -56,7 +56,6 @@ in {
 
   environment = {
     shells = with pkgs; [zsh];
-    systemPackages = with pkgs; [virt-manager];
     userLaunchAgents = {
       "es.ereslibre.gpg-agent.plist" = {
         enable = true;
