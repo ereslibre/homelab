@@ -9,6 +9,7 @@
     ../common/aliases
     ../common/cloudflared
     ../common/docker
+    ../common/github-runner
     ../common/hermes-gateway
     ../common/home-node
     ../common/kernel
