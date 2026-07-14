@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Organization-wide self-hosted GitHub Actions runner.
   #
   # Registers this host against the `curriedsoftware` org. The PAT stored
@@ -12,6 +16,12 @@
   # systemd LoadCredential, so the sops secret can stay root:root 0400.
   sops.secrets."github-runner-pat" = {};
 
+  environment.systemPackages = with pkgs; [
+    cachix
+  ];
+
+  nix.settings.trusted-users = ["github-runner-${config.networking.hostName}"];
+
   services.github-runners.${config.networking.hostName} = {
     enable = true;
     name = config.networking.hostName;
@@ -21,5 +31,8 @@
     # already exists on the org — keeps redeploys idempotent.
     replace = true;
     extraLabels = ["nixos" "homelab"];
+    # DynamicUser runner has no home nix profile, so tools aren't on PATH
+    # unless declared here. cachix/cachix-action shells out to `cachix`.
+    extraPackages = [pkgs.cachix];
   };
 }
