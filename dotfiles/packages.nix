@@ -23,6 +23,7 @@
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
+    btop
     coreutils
     curl
     devenv
