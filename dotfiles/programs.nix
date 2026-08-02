@@ -291,7 +291,12 @@ in {
           (lsp-ui-imenu-auto-refresh t)
           (lsp-ui-imenu-kind-position 'top)
           :bind (:map lsp-mode-map
-                      ("M-i" . lsp-ui-imenu)
+                      ;; lsp-mode-map is a minor mode map, so it shadows the
+                      ;; global binding in every LSP buffer. Keep M-i on the
+                      ;; filterable helm candidate list and give the lsp-ui
+                      ;; sidebar tree its own key.
+                      ("M-i" . helm-imenu)
+                      ("C-c i" . lsp-ui-imenu)
                       ("M-." . lsp-ui-peek-find-definitions)
                       ("M-?" . lsp-ui-peek-find-references)
                       ("C-c h" . lsp-ui-doc-glance))
