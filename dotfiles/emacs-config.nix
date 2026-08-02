@@ -5,31 +5,25 @@
 }: {pkgs}: let
   inherit (pkgs) lib;
 
-  # Build all grammars exposed by nixpkgs' tree-sitter overlay
-  treeSitterBundle = pkgs.tree-sitter.withPlugins (available:
-    builtins.attrValues (
-      lib.filterAttrs
-      (_: drv: lib.isDerivation drv && !(drv.meta.broken or false))
-      available
-    ));
+  # Every non-broken grammar derivation exposed by nixpkgs' tree-sitter overlay.
+  # We build the link farm ourselves rather than via `pkgs.tree-sitter.withPlugins`
+  # to sidestep an upstream bug in its `mkGrammarLinkFarm` (replaceStrings passed a
+  # string instead of a list); this keeps working once nixpkgs reverts the regression.
+  grammarDrvs = pkgs.tree-sitter.allGrammars;
 
-  # Collect every libtree-sitter-*.so so Emacs can load any mode automatically
-  treesit-grammars = pkgs.runCommand "treesit-grammars" {} ''
+  # Collect every libtree-sitter-*.so so Emacs can load any mode automatically.
+  # Each grammar derivation ships its compiled parser at `${drv}/parser`; name it
+  # libtree-sitter-<lang>.so, mapping hyphens to underscores (e.g. c-sharp -> c_sharp).
+  treesit-grammars = pkgs.runCommand "treesit-grammars" {} (''
     mkdir -p $out/lib
-    find -L "${treeSitterBundle}" -type f | while IFS= read -r so; do
-      case "$so" in
-        *.so | *.dylib) ;;
-        *) continue ;;
-      esac
-      name="$(basename "$so")"
-      ext="''${name##*.}"
-      if [ "''${name#libtree-sitter-}" = "$name" ]; then
-        lang="''${name%.*}"
-        name="libtree-sitter-$lang.$ext"
-      fi
-      ln -sf "$so" "$out/lib/$name"
-    done
-  '';
+  '' + lib.concatMapStringsSep "\n" (drv:
+    let
+      lang = lib.replaceStrings ["-"] ["_"] (
+        lib.removePrefix "tree-sitter-" (lib.removeSuffix "-grammar" (lib.getName drv))
+      );
+    in ''
+      ln -sf ${drv}/parser "$out/lib/libtree-sitter-${lang}.so"
+    '') grammarDrvs);
 
   # Emacs packages from your init.el
   emacsPackages = epkgs:
