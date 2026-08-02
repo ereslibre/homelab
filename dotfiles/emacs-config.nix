@@ -15,15 +15,16 @@
   # Each grammar derivation ships its compiled parser at `${drv}/parser`; name it
   # libtree-sitter-<lang>.so, mapping hyphens to underscores (e.g. c-sharp -> c_sharp).
   treesit-grammars = pkgs.runCommand "treesit-grammars" {} (''
-    mkdir -p $out/lib
-  '' + lib.concatMapStringsSep "\n" (drv:
-    let
+      mkdir -p $out/lib
+    ''
+    + lib.concatMapStringsSep "\n" (drv: let
       lang = lib.replaceStrings ["-"] ["_"] (
         lib.removePrefix "tree-sitter-" (lib.removeSuffix "-grammar" (lib.getName drv))
       );
     in ''
       ln -sf ${drv}/parser "$out/lib/libtree-sitter-${lang}.so"
-    '') grammarDrvs);
+    '')
+    grammarDrvs);
 
   # Emacs packages from your init.el
   emacsPackages = epkgs:
