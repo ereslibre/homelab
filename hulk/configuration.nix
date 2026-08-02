@@ -62,9 +62,17 @@
     hostName = "hulk";
   };
 
-  # Cap cores-per-build so the 16 concurrent remote-build slots (see
-  # common/remote-builds) don't all try to claim all 128 threads at once.
-  nix.settings.cores = 8;
+  # Bound build concurrency by job count rather than by cores-per-build. Capping
+  # cores starved single-derivation builds -- a crane/buildRustPackage crate is
+  # one derivation, so cargo only ever got -j8 on a 128-thread box -- while not
+  # actually preventing oversubscription, since max-jobs = auto already allowed
+  # 128 jobs at once. cores = 0 lets a lone build claim the whole machine, and
+  # max-jobs caps the 16 concurrent remote-build slots (see common/remote-builds)
+  # at a limit the scheduler enforces for real.
+  nix.settings = {
+    cores = 0;
+    max-jobs = 16;
+  };
 
   services = {
     ollama = {
