@@ -51,7 +51,6 @@
       magit
       markdown-mode
       monokai-theme
-      neotree
       org-journal
       perfect-margin
       powerline

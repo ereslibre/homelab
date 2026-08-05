@@ -366,12 +366,19 @@ in {
           (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
           (define-key helm-map (kbd "C-z")  'helm-select-action))
 
-        (use-package neotree
-          :bind (("C-c n" . neotree-toggle)
-                 ("C-c t" . neotree-find))
+        (use-package speedbar
+          :bind (("C-c n" . speedbar)
+                 ("C-c t" . speedbar-get-focus))
           :config
-          (setq neo-autorefresh t)
-          (setq neo-theme 'ascii))
+          ;; Emacs 31.1+ can show the speedbar as a side window in the current
+          ;; frame instead of a dedicated frame; the latter is unusable under
+          ;; emacs-nox.
+          (setq speedbar-prefer-window t)
+          (setq speedbar-window-side 'left)
+          (setq speedbar-window-default-width 30)
+          (setq speedbar-update-flag t)
+          (setq speedbar-show-unknown-files t)
+          (setq speedbar-use-images nil))
 
         (use-package org
           :demand t
