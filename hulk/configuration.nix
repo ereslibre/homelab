@@ -20,6 +20,7 @@
     ../common/services
     ../common/users
     ../common/vendor/amd
+    ../common/watchdog
     # TEMP(2026-07-30): disabled to avoid compiling CUDA onnxruntime 1.27.1 from
     # source (faster-whisper + piper both pull it; not in any substituter for the
     # current nixpkgs rev). Re-enable once cached or building in a cooler room.
@@ -56,6 +57,22 @@
   ];
 
   environment.defaultPackages = with pkgs; [nvtopPackages.nvidia];
+
+  # This box has a failing DIMM. On 2026-07-09 the UMC logged two deferred UECCs
+  # on mc#0 csrow#1 channel#4 (pages 0x38d3503 and 0x38d351b), and ~82h later the
+  # kernel consumed the poisoned line at that exact first page -- ADDR
+  # 38d3503040, in _copy_to_iter -- and took a fatal machine check. A fresh
+  # corrected CECC on the same MC17 landed at 2026-08-07 19:24, so the fault is
+  # live, and the two silent hangs are very likely the same DIMM.
+  #
+  # The kernel only reports these to dmesg, which means every reboot loses the
+  # history -- the 2026-07-09 evidence survived purely by luck, because that one
+  # happened to panic and reach pstore/ERST. rasdaemon persists MCE and EDAC
+  # events to sqlite instead, so `ras-mc-ctl --summary` and
+  # `ras-mc-ctl --error-count` can build the per-DIMM picture needed to identify
+  # which physical slot to pull. Remove this once the DIMM is replaced and the
+  # counters have stayed clean for a while.
+  hardware.rasdaemon.enable = true;
 
   networking = {
     firewall.checkReversePath = "loose";
