@@ -10,10 +10,9 @@
           baseUrl = "http://hulk.ereslibre.net:11434/v1";
           api = "openai-completions";
           apiKey = "ollama";
-          # hulk serves the unsloth MTP GGUF (global LLAMA_ARG_SPEC_TYPE=draft-mtp
-          # requires an MTP/nextn head); gemma4:31b was dropped there.
+          # Keep in sync with services.ollama.loadModels on hulk.
           models = [
-            {id = "hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:Q5_K_M";}
+            {id = "muse-glimmer:30b";}
           ];
         };
       };

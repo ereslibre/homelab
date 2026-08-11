@@ -15,45 +15,6 @@ in {
 
   system.primaryUser = "ereslibre";
 
-  nixpkgs.overlays = [
-    # To be removed when https://github.com/NixOS/nixpkgs/issues/395169#issuecomment-2769619888 is fixed.
-    (final: prev: {emacs = prev.emacs.override {withNativeCompilation = false;};})
-    (final: prev: {
-      # libvirt tests fail in the Nix sandbox on macOS.
-      libvirt = prev.libvirt.overrideAttrs (old: {
-        doCheck = false;
-      });
-      # libvirt python bindings try to access /private/etc/ssl/openssl.cnf during
-      # import check, which is blocked by the Nix sandbox on macOS.
-      python3 = prev.python3.override {
-        packageOverrides = pyFinal: pyPrev: {
-          libvirt = pyPrev.libvirt.overridePythonAttrs (old: {
-            doCheck = false;
-            pythonImportsCheck = [];
-          });
-        };
-      };
-      python3Packages = final.python3.pkgs;
-    })
-    (final: prev: {
-      # ollama >=0.30 defaults OLLAMA_MLX_BACKENDS to metal_v3/v4 on Apple
-      # Silicon, whose build shells out to `xcrun metal` (Xcode's Metal
-      # toolchain) and git-fetches the MLX sources — neither is available in
-      # the Nix build sandbox, even with the toolchain installed system-wide.
-      # We use ollama only as a client here (OLLAMA_HOST points at the remote
-      # `hulk` server) and the CPU llama.cpp runner still builds, so drop the
-      # MLX/Metal backend by neutralising its arm64 default.
-      ollama = prev.ollama.overrideAttrs (old: {
-        postPatch =
-          (old.postPatch or "")
-          + ''
-            substituteInPlace cmake/local.cmake \
-              --replace-fail 'if(APPLE AND CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")' 'if(FALSE)'
-          '';
-      });
-    })
-  ];
-
   environment = {
     shells = with pkgs; [zsh];
     userLaunchAgents = {

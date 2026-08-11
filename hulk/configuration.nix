@@ -35,27 +35,6 @@
     tmpfsSize = "20%";
   };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      # Ollama exposes no way to pass extra flags to the llama-server it spawns,
-      # so wrap the bundled binary to always start with MTP speculative decoding.
-      # Same all-models-must-have-MTP caveat as the old LLAMA_ARG_SPEC_TYPE env
-      # var; this just makes the flag explicit in argv instead of relying on
-      # Ollama forwarding its environment to the child process.
-      ollama-cuda = prev.ollama-cuda.overrideAttrs (old: {
-        postFixup =
-          (old.postFixup or "")
-          + ''
-            real="$out/lib/ollama/.llama-server-wrapped"
-            mv "$out/lib/ollama/llama-server" "$real"
-            echo '#!${prev.runtimeShell}' > "$out/lib/ollama/llama-server"
-            echo 'exec "'"$real"'" "$@" --spec-type draft-mtp' >> "$out/lib/ollama/llama-server"
-            chmod +x "$out/lib/ollama/llama-server"
-          '';
-      });
-    })
-  ];
-
   environment.defaultPackages = with pkgs; [nvtopPackages.nvidia];
 
   # This box has a failing DIMM. On 2026-07-09 the UMC logged two deferred UECCs
@@ -95,24 +74,12 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      # NOTE: --spec-type draft-mtp (injected by the ollama-cuda overlay above)
-      # is global, so EVERY model loaded here must carry an MTP/nextn head.
-      # Models without it fail to load with "context type MTP requested but
-      # model doesn't contain MTP layers". The Ollama-library qwen3.6:27b lacks
-      # the head, so we pull unsloth's MTP GGUF instead; gemma4:31b has no MTP
-      # build and was dropped for this.
-      loadModels = ["hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:Q5_K_M"];
+      loadModels = ["muse-glimmer:30b"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
         CUDA_VISIBLE_DEVICES = "0";
         OLLAMA_CONTEXT_LENGTH = "81920";
         OLLAMA_FLASH_ATTENTION = "1";
-        OLLAMA_KV_CACHE_TYPE = "q8_0";
-        # Qwen3.6 multi-token prediction (the in-model nextn head as the
-        # speculative drafter) is enabled via --spec-type draft-mtp, injected
-        # into the llama-server argv by the ollama-cuda overlay above. Potential
-        # ~1.5-2x decode speedup; see the loadModels NOTE for the
-        # all-models-must-have-MTP caveat.
       };
     };
     spice-vdagentd.enable = true;
