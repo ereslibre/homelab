@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./clapshot.nix
     ../common/jupyterhub
     ../common/aliases
     ../common/cloudflared
