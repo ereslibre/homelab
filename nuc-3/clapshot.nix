@@ -9,7 +9,11 @@
   # so it names the release rather than the `latest-demo` alias that also
   # points here today. To bump, pick a tag and resolve it:
   #   skopeo inspect docker://docker.io/elonen/clapshot:<tag> | jq -r .Digest
-  image = "elonen/clapshot:0.12.1-demo@sha256:beae6f1795bfc29a113b96e9f32ca92946385cae2d2d1ebf3637cb63d077e26d";
+  #
+  # Fully qualified on purpose: this host's registries.conf has no
+  # unqualified-search registries, so a short name fails to resolve at pull
+  # time rather than defaulting to Docker Hub.
+  image = "docker.io/elonen/clapshot:0.12.1-demo@sha256:beae6f1795bfc29a113b96e9f32ca92946385cae2d2d1ebf3637cb63d077e26d";
 
   # Everything stateful -- the SQLite database, the transcoded media, the
   # incoming/ drop directory and clapshot.log -- lives under this single
