@@ -517,6 +517,10 @@ in {
           rebase = true;
         };
         push.default = "matching";
+        rerere = {
+          enabled = true;
+          autoUpdate = true;
+        };
         commit.gpgSign = true;
         tag.gpgSign = true;
       };
