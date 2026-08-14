@@ -1,19 +1,20 @@
-{...}: let
+{config, ...}: let
   # The all-in-one demo image (server + organizer + nginx in one container).
   # Upstream is explicit that it is for evaluation only; the production path is
   # the Compose recipes in deploy/compose/ or the .deb packages.
   # https://github.com/elonen/clapshot#demo
   #
-  # Pinned by digest so a rebuild always gets the bits we tested against. The
-  # tag is documentation only -- podman resolves the digest and ignores it --
-  # so it names the release rather than the `latest-demo` alias that also
-  # points here today. To bump, pick a tag and resolve it:
-  #   skopeo inspect docker://docker.io/elonen/clapshot:<tag> | jq -r .Digest
+  # Our own build rather than upstream's docker.io/elonen/clapshot. The tag
+  # names the git commit it was built from; the digest pin on top of it means a
+  # rebuild always gets the bits we tested against even if the tag is ever
+  # moved. To bump, build a new tag and resolve it (the package is private, so
+  # this needs a token -- see the sops secret below):
+  #   skopeo inspect docker://ghcr.io/ereslibre/clapshot:<tag> | jq -r .Digest
   #
   # Fully qualified on purpose: this host's registries.conf has no
   # unqualified-search registries, so a short name fails to resolve at pull
   # time rather than defaulting to Docker Hub.
-  image = "docker.io/elonen/clapshot:0.12.1-demo@sha256:beae6f1795bfc29a113b96e9f32ca92946385cae2d2d1ebf3637cb63d077e26d";
+  image = "ghcr.io/ereslibre/clapshot:git-2cc8a08-demo@sha256:6fccc47fc958d3a063b2ce73692a0b1b1fda5a05c364d3bacb0c310a1103c3d5";
 
   # Everything stateful -- the SQLite database, the transcoded media, the
   # incoming/ drop directory and clapshot.log -- lives under this single
@@ -31,6 +32,13 @@
   # derived from it automatically.
   urlBase = "http://nuc-3.deer-nessie.ts.net:${toString port}/";
 in {
+  # ghcr.io/ereslibre/clapshot is a private package, so the pull needs
+  # credentials. A classic PAT with only `read:packages` -- GHCR does not
+  # accept fine-grained tokens for pulls, and nothing here needs write. Read
+  # by the container unit's ExecStartPre as root, so the sops default of
+  # root:root 0400 is what we want.
+  sops.secrets."ghcr-pull-token" = {};
+
   # The entrypoint runs `chown -R docker` (uid 1000, baked into the image at
   # build time) over the data dir on every start. Rootful podman maps uids 1:1,
   # so pre-create the host side with that ownership and the chown is a no-op
@@ -49,6 +57,17 @@ in {
     containers.clapshot = {
       inherit image;
       autoStart = true;
+
+      # `podman login ghcr.io` in the unit's ExecStartPre, writing to root's
+      # auth file so the `podman run` that follows can pull. The module makes
+      # this best-effort: if the login fails it falls back to requiring the
+      # image to already be present locally, so an expired token or a GitHub
+      # outage does not stop an already-pulled clapshot from restarting.
+      login = {
+        registry = "ghcr.io";
+        username = "ereslibre";
+        passwordFile = config.sops.secrets."ghcr-pull-token".path;
+      };
 
       # No `pull` override on purpose: the default "missing" is what a digest
       # pin wants. Anything that re-checks the registry on start would buy
