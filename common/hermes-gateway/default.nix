@@ -51,6 +51,11 @@
 
   environment.etc."hermes-gateway.env".source = config.sops.templates."hermes-env".path;
 
+  # `~/.hermes` state (config, plugins, skills). The container bind-mounts
+  # the host home directory, so home-manager writes it on the host and
+  # hermes reads it from inside the container.
+  home-manager.users.ereslibre.imports = [./home.nix];
+
   containers.hermes-gateway = {
     autoStart = true;
     privateNetwork = false;

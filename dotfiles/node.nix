@@ -2,48 +2,7 @@
   lib,
   pkgs,
   ...
-}: let
-  hermesConfig = ./assets/hermes/config.yaml;
-  hermesCurrentDatetimePlugin = ./assets/hermes/plugins/current-datetime;
-  hermesNixomaticSkill = ./assets/hermes/skills/nixomatic;
-  hermesGoogleWorkspaceSkill = ./assets/hermes/skills/google-workspace;
-in {
-  # Copy hermes config to ~/.hermes/config.yaml as a mutable file so hermes
-  # can write back runtime state. The marker file tracks the hash of the last
-  # Nix-deployed version; the copy only runs when that hash changes (or on
-  # first install), preserving any hermes-written changes in between switches.
-  home.activation.hermesConfig = home-manager.lib.hm.dag.entryAfter ["writeBoundary"] ''
-    _hermes_src="${hermesConfig}"
-    _hermes_dst="$HOME/.hermes/config.yaml"
-    _hermes_marker="$HOME/.hermes/.nix-config-hash"
-    _hermes_hash="$(${lib.getExe' pkgs.coreutils "sha256sum"} "$_hermes_src" | cut -d' ' -f1)"
-
-    if [ ! -f "$_hermes_dst" ] || \
-       [ ! -f "$_hermes_marker" ] || \
-       [ "$(cat "$_hermes_marker")" != "$_hermes_hash" ]; then
-      $DRY_RUN_CMD ${lib.getExe' pkgs.coreutils "install"} -Dm644 "$_hermes_src" "$_hermes_dst"
-      $DRY_RUN_CMD ${pkgs.bash}/bin/sh -c "printf '%s' '$_hermes_hash' > '$_hermes_marker'"
-    fi
-  '';
-
-  # Hermes configuration files
-  home.file = {
-    ".hermes/plugins/current-datetime" = {
-      source = hermesCurrentDatetimePlugin;
-      recursive = true;
-    };
-
-    ".hermes/skills/nixomatic" = {
-      source = hermesNixomaticSkill;
-      recursive = true;
-    };
-
-    ".hermes/skills/google-workspace" = {
-      source = hermesGoogleWorkspaceSkill;
-      recursive = true;
-    };
-  };
-
+}: {
   # Enabling linger makes the systemd user services start
   # automatically. In this machine, I want to trigger the
   # `gpg-forward-agent-path` service file automatically as
