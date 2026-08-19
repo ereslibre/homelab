@@ -67,65 +67,7 @@
     # Shared by the devShell's `pkgs` and by every machine's
     # `nixpkgs.overlays` below — keep it single-sourced so the two
     # never drift.
-    overlays = [
-      # ollama 0.32.6 (our nixos-unstable pin) -> 0.32.8. 0.32.7 was
-      # https://github.com/NixOS/nixpkgs/pull/551160 (merged to master);
-      # 0.32.8 has no nixpkgs PR yet. 0.32.8 is what adds Muse Glimmer on
-      # NVIDIA/AMD — 0.32.7 shipped it for Apple Silicon (MLX) only, and
-      # the registry hard-gates the pull with a 412 below 0.32.8.
-      # go.mod/go.sum are untouched across both bumps, so vendorHash stands.
-      # TODO: remove once the flake.lock bump brings 0.32.8 in.
-      (final: prev: let
-        # ollama-{cuda,rocm,vulkan} are independent callPackages of the
-        # same package.nix rather than overrides of `ollama`, so each
-        # acceleration variant has to be bumped on its own.
-        bumpOllama = ollama: let
-          # Since v0.30 ollama pulls llama.cpp via CMake FetchContent, so
-          # nixpkgs pre-stages a pinned checkout (tracking upstream's
-          # LLAMA_CPP_VERSION file) to keep the sandbox offline. 0.32.8
-          # moves that pin b10242 -> b10353, and it has to move here too:
-          # on NVIDIA the Glimmer arch is implemented in llama.cpp
-          # (src/models/muse-glimmer.cpp), not in ollama's own Go engine.
-          # Leaving the old pin builds fine but can't load the model.
-          llamaCppSrc = final.fetchFromGitHub {
-            owner = "ggml-org";
-            repo = "llama.cpp";
-            tag = "b10353";
-            hash = "sha256-MQP91lL8zQLYcnYw5GlkMvH5sXiES+C6L4/1G3Y6TPY=";
-          };
-        in
-          ollama.overrideAttrs (finalAttrs: old: {
-            version = "0.32.8";
-            src = final.fetchFromGitHub {
-              owner = "ollama";
-              repo = "ollama";
-              tag = "v${finalAttrs.version}";
-              hash = "sha256-IuKrp+Zrv4Z86Iji4vyz7F/C1AWuHEtAtujhsJvvZtQ=";
-            };
-            # The llama.cpp pin is a `let` binding in package.nix, reachable
-            # only as the store path baked into postPatch's `cp -r`. It is
-            # re-exported via passthru, so swap that exact path for ours
-            # rather than restating the phase (which would silently rot the
-            # next time upstream edits it).
-            postPatch =
-              builtins.replaceStrings
-              ["${ollama.llamaCppSrc}"]
-              ["${llamaCppSrc}"]
-              old.postPatch;
-            passthru =
-              old.passthru
-              // {
-                inherit llamaCppSrc;
-                llamaCppVersion = "b10353";
-              };
-          });
-      in {
-        ollama = bumpOllama prev.ollama;
-        ollama-cuda = bumpOllama prev.ollama-cuda;
-        ollama-rocm = bumpOllama prev.ollama-rocm;
-        ollama-vulkan = bumpOllama prev.ollama-vulkan;
-      })
-    ];
+    overlays = [];
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system overlays;
