@@ -14,6 +14,7 @@
     ../common/hermes-gateway
     ../common/home-node
     ../common/kernel
+    ../common/netconsole-receiver
     ../common/nix
     ../common/nix-github
     ../common/node

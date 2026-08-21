@@ -10,6 +10,7 @@
     ../common/fonts
     ../common/home-node
     ../common/kernel
+    ../common/netconsole
     ../common/nix
     ../common/nix-github
     ../common/node
@@ -17,6 +18,7 @@
     ../common/podman
     ../common/programs
     ../common/remote-builder
+    ../common/sensor-log
     ../common/services
     ../common/users
     ../common/vendor/amd
