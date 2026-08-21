@@ -72,11 +72,13 @@
     ollama = {
       enable = true;
       host = "0.0.0.0";
-      loadModels = ["muse-glimmer:30b"];
+      loadModels = ["hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "81920";
+        OLLAMA_CONTEXT_LENGTH = "170000";
         OLLAMA_FLASH_ATTENTION = "1";
+        OLLAMA_KV_CACHE_TYPE = "q8_0";
+        OLLAMA_NUM_PARALLEL = "1";
       };
     };
     spice-vdagentd.enable = true;

@@ -12,7 +12,7 @@
           apiKey = "ollama";
           # Keep in sync with services.ollama.loadModels on hulk.
           models = [
-            {id = "muse-glimmer:30b";}
+            {id = "hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";}
           ];
         };
       };
