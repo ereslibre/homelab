@@ -23,10 +23,6 @@
     ../common/users
     ../common/vendor/amd
     ../common/watchdog
-    # TEMP(2026-07-30): disabled to avoid compiling CUDA onnxruntime 1.27.1 from
-    # source (faster-whisper + piper both pull it; not in any substituter for the
-    # current nixpkgs rev). Re-enable once cached or building in a cooler room.
-    # ../common/wyoming
   ];
 
   # Cross-compiling support
@@ -79,7 +75,6 @@
       loadModels = ["muse-glimmer:30b"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        CUDA_VISIBLE_DEVICES = "0";
         OLLAMA_CONTEXT_LENGTH = "81920";
         OLLAMA_FLASH_ATTENTION = "1";
       };
