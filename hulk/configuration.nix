@@ -75,10 +75,16 @@
       loadModels = ["hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "170000";
+        OLLAMA_CONTEXT_LENGTH = "131072";
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_KV_CACHE_TYPE = "q8_0";
         OLLAMA_NUM_PARALLEL = "1";
+        # qwen3.5 is hybrid SSM/attention, so llama.cpp snapshots the recurrent
+        # state instead of rewinding it. Each checkpoint is ~150MiB here and the
+        # default cap is 32 per slot -- 4.7GiB that accrues over a long session,
+        # after ollama has already sized the fit. Ollama never sets this itself,
+        # so the LLAMA_ARG_* passthrough reaches llama-server.
+        LLAMA_ARG_CTX_CHECKPOINTS = "8";
       };
     };
     spice-vdagentd.enable = true;
