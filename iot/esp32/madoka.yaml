@@ -38,3 +38,10 @@ climate:
     name: "Madoka Climate"
     ble_client_id: madoka_climate
     update_interval: 15s
+
+switch:
+  - platform: restart
+    name: "Madoka Climate Restart"
+
+web_server:
+  port: 80
