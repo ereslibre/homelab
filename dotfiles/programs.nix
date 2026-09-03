@@ -596,6 +596,8 @@ in {
             # Enable clipboard through tmux in remote session
             set -as terminal-features ',xterm-256color:clipboard'
 
+            set -as extended-keys on
+
             set -g @dracula-show-powerline true
             set -g @dracula-cpu-display-load true
             set -g @dracula-show-left-icon λ

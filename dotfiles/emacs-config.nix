@@ -106,6 +106,7 @@
       thrift
       ttl-mode
       tuareg
+      typst-ts-mode
       v-mode
       vala-mode
       vimrc-mode
