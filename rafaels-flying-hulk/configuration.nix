@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  revdiff,
   lib,
   ...
 }: let
@@ -17,6 +18,8 @@ in {
 
   environment = {
     shells = with pkgs; [zsh];
+    # revdiff is not in nixpkgs; it comes from the `revdiff` flake input.
+    systemPackages = [revdiff.packages.${pkgs.stdenv.hostPlatform.system}.default];
     userLaunchAgents = {
       "es.ereslibre.gpg-agent.plist" = {
         enable = true;
