@@ -44,7 +44,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     revdiff = {
-      url = "github:umputun/revdiff";
+      url = "github:ereslibre/revdiff/emacs-like-keybindings";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {

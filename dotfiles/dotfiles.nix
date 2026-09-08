@@ -1,6 +1,13 @@
 {profile}: {
   home.file = {
     ".hushlogin".text = "";
+    # revdiff reads this INI file directly (~/.config/revdiff/config), so
+    # the settings apply to plugin-spawned overlays too, where env vars do
+    # not survive the multiplexer popup's fresh shell.
+    ".config/revdiff/config".text = ''
+      theme = dracula
+      emacs = true
+    '';
     ".emacs.d/custom.el" = {
       source = ./assets/emacs/emacs.d/custom.el;
     };

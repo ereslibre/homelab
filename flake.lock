@@ -268,15 +268,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1788733585,
-        "narHash": "sha256-ZBoazi23Fzqzi4rsyP8YLWuvMGA6nZRXvaFqrCI68bg=",
-        "owner": "umputun",
+        "lastModified": 1788812549,
+        "narHash": "sha256-AnAC2I/b3uPAb0+cZdIoUpmAafN98JgaUuY8QvvxGLM=",
+        "owner": "ereslibre",
         "repo": "revdiff",
-        "rev": "55c730910703780c9152c51a69eaed8a4402c6bf",
+        "rev": "ddd6da16be6e23962efd9adc92dcdc76deb614a4",
         "type": "github"
       },
       "original": {
-        "owner": "umputun",
+        "owner": "ereslibre",
+        "ref": "emacs-like-keybindings",
         "repo": "revdiff",
         "type": "github"
       }
