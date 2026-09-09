@@ -10,8 +10,9 @@
       codex
       copilot-cli
       cursor-agent
-      # gemini-cli
+      gemini-cli
       goose-cli
+      herdr
       hermes-agent
       opencode
       pi
