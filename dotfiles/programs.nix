@@ -121,6 +121,16 @@ in {
         (setq-default truncate-lines nil)
         (setq-default global-visual-line-mode t)
 
+        ;; Throughput for language servers. rust-analyzer answers with large
+        ;; JSON payloads; the stock 4k chunk size makes Emacs read them in
+        ;; hundreds of pieces, and the stock 800k GC threshold then collects
+        ;; in the middle of parsing them. 1MB is this host's pipe ceiling
+        ;; (/proc/sys/fs/pipe-max-size), so asking for more buys nothing, and
+        ;; 64MB keeps GC out of the request path without letting individual
+        ;; collections grow long enough to feel like a stall.
+        (setq read-process-output-max (* 1024 1024))
+        (setq gc-cons-threshold (* 64 1024 1024))
+
         ;; no backups
         (setq-default make-backup-files nil)
         (setq-default auto-save-default nil)
@@ -247,7 +257,14 @@ in {
           (lsp-rust-analyzer-display-closure-return-type-hints t)
           (lsp-rust-analyzer-display-parameter-hints nil)
           (lsp-rust-analyzer-display-reborrow-hints "never")
-          (lsp-imenu-index-symbol-kinds '(Function Method Class Interface Struct Enum Constructor Namespace Module Trait))
+          ;; Deliberately NOT setting lsp-imenu-index-symbol-kinds: it is an
+          ;; allowlist applied to *containers* as well as to leaves, and
+          ;; lsp--imenu-filter-symbols drops a rejected symbol together with
+          ;; its entire subtree. rust-analyzer reports an `impl' block as
+          ;; SymbolKind Object, so any allowlist omitting Object silently
+          ;; hides every method defined inside an impl -- i.e. nearly all of
+          ;; the code worth jumping to. helm-imenu narrows interactively
+          ;; anyway, so pre-filtering the index only loses information.
           ;; rustc dumps any over-long type from a diagnostic into a
           ;; rust_out.long-type-<hash>.txt file in the compiler's working
           ;; directory (e.g. littering backend/src/services, src/db, ...).
@@ -258,6 +275,32 @@ in {
           (lsp-rust-analyzer-cargo-extra-env '(:RUSTC_BOOTSTRAP "1" :RUSTFLAGS "-Zwrite-long-types-to-disk=no"))
           :init
           (setq lsp-restart 'interactive)
+          :config
+          ;; Wherever a language server is running, let it be the only source
+          ;; of diagnostics.
+          ;;
+          ;; Around fifteen built-in major modes unconditionally register a
+          ;; Flymake backend that shells out to a standalone linter --
+          ;; rust-ts-mode pipes the buffer through `clippy-driver -',
+          ;; python-ts-mode runs pyflakes, bash-ts-mode runs shellcheck,
+          ;; c-mode runs the compiler, and so on for yaml/ruby/lua/perl/php/
+          ;; tex. Next to a language server every one of them is a loss: they
+          ;; spawn a process per edit burst, and because they are handed a
+          ;; single file rather than the project they report phantom errors
+          ;; for anything declared elsewhere in the crate/package.
+          ;;
+          ;; lsp-diagnostics--enable runs from lsp-configure-hook at depth 0
+          ;; and installs lsp-mode's own backend, so append at depth 100 to
+          ;; run once that is in place. The `t' tail of the buffer-local hook
+          ;; value is left alone: it only pulls in the global value, which
+          ;; stays empty here.
+          (defun ereslibre/lsp-owns-flymake ()
+            "Keep only lsp-mode's Flymake backend in an LSP-managed buffer."
+            (when (memq 'lsp-diagnostics--flymake-backend flymake-diagnostic-functions)
+              (dolist (backend (copy-sequence flymake-diagnostic-functions))
+                (unless (memq backend '(t lsp-diagnostics--flymake-backend))
+                  (remove-hook 'flymake-diagnostic-functions backend t)))))
+          (add-hook 'lsp-configure-hook #'ereslibre/lsp-owns-flymake 100)
           :hook (
                  (rust-mode . lsp)
                  (rust-ts-mode . lsp)
