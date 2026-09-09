@@ -223,17 +223,6 @@ in {
           :config
           (add-hook 'after-init-hook 'global-company-mode))
 
-        (use-package gptel
-          :demand t
-          :config
-          (setq
-           gptel-model 'qwen2.5-coder:32b
-           gptel-backend (gptel-make-ollama "ollama"
-                           :host "hulk.ereslibre.net:11434"
-                           :stream t
-                           :models '(qwen2.5-coder:32b
-                                     deepseek-r1:32b))))
-
         ;; Apply each buffer's direnv environment (PATH, exec-path, ...) so that
         ;; subprocesses like language servers pick up project-pinned toolchains
         ;; (e.g. the Nix/devenv rust-analyzer + matching cargo/rustc) instead of

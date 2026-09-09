@@ -41,7 +41,6 @@
       envrc
       git-link
       google-translate
-      gptel
       helm
       helm-company
       helm-lsp
