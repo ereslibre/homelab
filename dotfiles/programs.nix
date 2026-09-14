@@ -235,6 +235,10 @@ in {
           :custom
           (lsp-eldoc-render-all t)
           (lsp-idle-delay 0.6)
+          ;; Root a workspace where project.el already roots it -- the git
+          ;; checkout the file belongs to -- instead of where some earlier
+          ;; session happened to import.
+          (lsp-auto-guess-root t)
           ;; Never prompt "Do you want to watch all files in <dir>?" — always
           ;; watch (assume yes). nil disables the threshold entirely.
           (lsp-file-watch-threshold nil)
@@ -290,6 +294,13 @@ in {
                 (unless (memq backend '(t lsp-diagnostics--flymake-backend))
                   (remove-hook 'flymake-diagnostic-functions backend t)))))
           (add-hook 'lsp-configure-hook #'ereslibre/lsp-owns-flymake 100)
+
+          ;; lsp-file-watch-threshold is nil above, so every directory below
+          ;; the root is watched without asking first.
+          (dolist (dir '("[/\\\\]vendor\\'"
+                         "[/\\\\]\\.direnv\\'"
+                         "[/\\\\]\\.devenv\\'"))
+            (add-to-list 'lsp-file-watch-ignored-directories dir))
           :hook (
                  (rust-mode . lsp)
                  (rust-ts-mode . lsp)
