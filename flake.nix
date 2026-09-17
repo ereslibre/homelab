@@ -72,7 +72,12 @@
     # Shared by the devShell's `pkgs` and by every machine's
     # `nixpkgs.overlays` below — keep it single-sourced so the two
     # never drift.
-    overlays = [];
+    overlays = [
+      # nixpkgs dropped `buildGo125Module` but sops-nix's
+      # sops-install-secrets still asks for it. Remove once
+      # https://github.com/Mic92/sops-nix/pull/984 lands.
+      (_final: prev: {buildGo125Module = prev.buildGoModule;})
+    ];
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system overlays;

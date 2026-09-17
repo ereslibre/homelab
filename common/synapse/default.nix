@@ -5,6 +5,7 @@
   ...
 }: let
   dbName = "matrix-synapse";
+  hostOverlays = config.nixpkgs.overlays;
 in {
   sops.secrets = {
     "synapse-private-age-key" = {};
@@ -34,6 +35,10 @@ in {
       imports = [
         sops-nix.nixosModules.sops
       ];
+
+      # The container evaluates its own nixpkgs; reuse the host's
+      # overlays so both see the same package set.
+      nixpkgs.overlays = hostOverlays;
 
       networking.firewall.allowedTCPPorts = [8008 8448];
 
