@@ -1,5 +1,5 @@
 model:
-  default: muse-glimmer:30b
+  default: hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL
   provider: custom
   base_url: http://hulk.ereslibre.net:11434/v1
 providers: {}
@@ -163,7 +163,7 @@ auxiliary:
     extra_body: {}
 display:
   compact: false
-  personality: kawaii
+  personality: helpful
   resume_display: full
   busy_input_mode: interrupt
   tui_auto_resume_recent: false
@@ -350,7 +350,7 @@ _config_version: 22
 custom_providers:
 - name: Hulk.ereslibre.net:11434
   base_url: http://hulk.ereslibre.net:11434/v1
-  model: muse-glimmer:30b
+  model: hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL
 session_reset:
   mode: both
   idle_minutes: 1440
