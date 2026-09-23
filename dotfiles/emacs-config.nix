@@ -103,7 +103,21 @@
       templ-ts-mode
       terraform-mode
       thrift
-      ttl-mode
+      # nixpkgs' melpa snapshot still fetches ttl-mode from
+      # github.com/emacsattic/ttl-mode, and that repo is gone -- the
+      # fixed-output fetch 404s and takes the whole emacs closure down
+      # with it. MELPA upstream has already re-pointed its recipe at
+      # jeeger/ttl-mode; this only gets there ahead of the next nixpkgs
+      # regeneration, so drop the override once
+      # `emacsPackages.ttl-mode.src` names jeeger on its own.
+      (ttl-mode.overrideAttrs (_: {
+        src = pkgs.fetchFromGitHub {
+          owner = "jeeger";
+          repo = "ttl-mode";
+          rev = "5f7604e4c88c8d5a8c899a4b4aa95c8fc0bfb09c";
+          hash = "sha256-Nyb+m6yRFB7UC2Vp5cJIFYnIoG3nc58iJWFenTQXFog=";
+        };
+      }))
       tuareg
       typst-ts-mode
       v-mode
