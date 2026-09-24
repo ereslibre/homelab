@@ -79,6 +79,10 @@ in {
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+      # Every git worktree is a new path, so without this each one needs its
+      # own `direnv allow` -- and until it gets one, envrc-mode loads nothing
+      # and language servers start on the wrong toolchain.
+      config.whitelist.prefix = ["${config.home.homeDirectory}/projects/curriedsoftware"];
     };
     emacs = let
       emacsConfig = (import ./emacs-config.nix {
@@ -208,6 +212,31 @@ in {
           :demand t
           :defer 3)
 
+        ;; Reviewing worktrees: one tab per worktree, opened on its status and
+        ;; its diff against main. `C-x p k' closes it again, which (with
+        ;; lsp-keep-workspace-alive nil) also stops its language server.
+        (use-package tab-bar
+          :demand t
+          :custom
+          (tab-bar-show 1)
+          :config
+          (tab-bar-mode 1))
+
+        (defun ereslibre/review-worktree (dir)
+          "Open worktree DIR in its own tab, showing its diff against main."
+          (interactive
+           (list (completing-read "Worktree: "
+                                  (mapcar #'car (magit-list-worktrees)) nil t)))
+          (let ((name (file-name-nondirectory (directory-file-name dir))))
+            (if (member name (mapcar (lambda (tab) (alist-get 'name tab)) (tab-bar-tabs)))
+                (tab-bar-switch-to-tab name)
+              (tab-bar-new-tab)
+              (tab-bar-rename-tab name)
+              (let ((default-directory (file-name-as-directory dir)))
+                (magit-status-setup-buffer dir)
+                (magit-diff-range "main...HEAD")))))
+        (global-set-key (kbd "C-c w r") #'ereslibre/review-worktree)
+
         (use-package yasnippet
           :demand t
           :config
@@ -242,6 +271,10 @@ in {
           ;; Never prompt "Do you want to watch all files in <dir>?" — always
           ;; watch (assume yes). nil disables the threshold entirely.
           (lsp-file-watch-threshold nil)
+          ;; Stop a workspace's server once its last buffer closes, so
+          ;; reviewing one worktree after another does not leave a
+          ;; rust-analyzer per worktree running.
+          (lsp-keep-workspace-alive nil)
           (lsp-inlay-hint-enable t)
           (lsp-rust-analyzer-cargo-watch-command "clippy")
           (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
@@ -299,7 +332,9 @@ in {
           ;; the root is watched without asking first.
           (dolist (dir '("[/\\\\]vendor\\'"
                          "[/\\\\]\\.direnv\\'"
-                         "[/\\\\]\\.devenv\\'"))
+                         "[/\\\\]\\.devenv\\'"
+                         ;; Nested git worktrees belong to their own workspace.
+                         "[/\\\\]\\.worktrees\\'"))
             (add-to-list 'lsp-file-watch-ignored-directories dir))
           :hook (
                  (rust-mode . lsp)
