@@ -29,7 +29,6 @@
     curl
     devenv
     diffutils
-    diffnav
     dig
     file
     gnumake

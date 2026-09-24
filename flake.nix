@@ -43,10 +43,6 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    revdiff = {
-      url = "github:ereslibre/revdiff/emacs-like-keybindings";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,7 +59,6 @@
     nix-darwin,
     nixos-hardware,
     nixpkgs,
-    revdiff,
     sops-nix,
     ...
   }: let
@@ -105,10 +100,11 @@
                 }";
             in {
               inherit (configuration) system;
-              # Every machine gets llm-agents and revdiff for free; hosts
-              # that need more (e.g. sops-nix) add via configuration.specialArgs.
+              # Every machine gets llm-agents for free; hosts that
+              # need more (e.g. sops-nix) add via
+              # configuration.specialArgs.
               specialArgs =
-                {inherit llm-agents revdiff;}
+                {inherit llm-agents;}
                 // (configuration.specialArgs or {});
               modules =
                 configuration.modules
