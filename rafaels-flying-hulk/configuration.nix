@@ -89,7 +89,7 @@ in {
 
   home-manager.users.${user} = {
     home = {
-      packages = with pkgs; [ollama];
+      packages = with pkgs; [ollama virt-manager];
       sessionVariables = {
         OLLAMA_HOST = "hulk.ereslibre.net";
       };

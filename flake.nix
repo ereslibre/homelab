@@ -72,6 +72,21 @@
       # sops-install-secrets still asks for it. Remove once
       # https://github.com/Mic92/sops-nix/pull/984 lands.
       (_final: prev: {buildGo125Module = prev.buildGoModule;})
+      # libvirt-python's test suite (run against the in-memory
+      # `test:///default` driver) is flaky on darwin — intermittent
+      # "Unable to initialize libxml2 schema types" — which breaks
+      # virt-manager on Rafaels-Flying-Hulk. Linux hashes are untouched.
+      (final: prev: {
+        pythonPackagesExtensions =
+          prev.pythonPackagesExtensions
+          ++ [
+            (_pfinal: pprev: {
+              libvirt-python = pprev.libvirt-python.overridePythonAttrs (_: {
+                doCheck = !final.stdenv.hostPlatform.isDarwin;
+              });
+            })
+          ];
+      })
     ];
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
