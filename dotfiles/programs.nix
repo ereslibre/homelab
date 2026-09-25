@@ -210,7 +210,16 @@ in {
 
         (use-package magit
           :demand t
-          :defer 3)
+          :defer 3
+          :bind (("C-c m l" . magit-log)
+                 ("C-c m L" . magit-log-buffer-file)
+                 ("C-c m d" . magit-diff)
+                 ("C-c m D" . magit-diff-buffer-file)
+                 ("C-c m b" . magit-blame)
+                 ("C-c m f" . magit-file-dispatch)
+                 ("C-c m m" . magit-dispatch)
+                 ("C-c m w w" . magit-worktree)
+                 ("C-c m w v" . magit-worktree-status)))
 
         ;; Reviewing worktrees: one tab per worktree, opened on its status and
         ;; its diff against main. `C-x p k' closes it again, which (with
