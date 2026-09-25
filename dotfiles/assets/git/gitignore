@@ -10,3 +10,4 @@
 .direnv
 *.local.json
 rust_out.long-type-*
+/AGENT_REVIEW.md

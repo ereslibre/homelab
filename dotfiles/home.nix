@@ -21,6 +21,7 @@ in {
       (import ./dotfiles.nix {inherit profile;})
       ./fonts.nix
       (import ./packages.nix {inherit aiTools;})
+      (import ./agents.nix {inherit aiTools;})
       (import ./programs.nix {
         inherit username mainlyRemote profile;
         isDarwin = systemMatchesPredicate system "isDarwin";

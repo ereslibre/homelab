@@ -237,6 +237,86 @@ in {
                 (magit-diff-range "main...HEAD")))))
         (global-set-key (kbd "C-c w r") #'ereslibre/review-worktree)
 
+        ;; Review notes for coding agents: a note taken on a diff or a file
+        ;; lands in the worktree's AGENT_REVIEW.md (kept out of git through
+        ;; the global gitignore). The agent works through it and deletes each
+        ;; entry it resolves, so an empty file means the round is done.
+        (defun ereslibre/review-file ()
+          "Return the current worktree's AGENT_REVIEW.md."
+          (expand-file-name "AGENT_REVIEW.md"
+                            (or (magit-toplevel) (user-error "Not inside a git worktree"))))
+
+        (defun ereslibre/review--anchor ()
+          "Return (FILE LINES REV CODE LANG) describing what point is on."
+          (let ((region (use-region-p)))
+            (if (derived-mode-p 'magit-mode)
+                ;; A region is anchored where it starts: its end usually sits
+                ;; at the beginning of the line after the selection.
+                (let* ((file (save-excursion
+                               (when region (goto-char (region-beginning)))
+                               (magit-file-at-point nil t)))
+                       (section (save-excursion
+                                  (when region (goto-char (region-beginning)))
+                                  (magit-current-section)))
+                       (hunk (and (magit-section-match 'hunk section) section))
+                       (line-at (lambda (pos)
+                                  (save-excursion
+                                    (goto-char pos)
+                                    (magit-diff-hunk-line hunk nil)))))
+                  (list file
+                        (cond ((and hunk region)
+                               (cons (funcall line-at (region-beginning))
+                                     (funcall line-at (max (region-beginning) (1- (region-end))))))
+                              (hunk
+                               (let ((range (oref hunk to-range)))
+                                 (cons (car range) (+ (car range) (max 0 (1- (cadr range))))))))
+                        (or magit-buffer-revision magit-buffer-diff-range "uncommitted")
+                        (cond (region (buffer-substring-no-properties (region-beginning) (region-end)))
+                              (hunk (buffer-substring-no-properties (oref hunk start) (oref hunk end))))
+                        "diff"))
+              (let ((beg (if region (region-beginning) (line-beginning-position)))
+                    (end (if region (region-end) (line-end-position))))
+                (list (file-relative-name
+                       (or buffer-file-name (user-error "Buffer is not visiting a file"))
+                       (magit-toplevel))
+                      (cons (line-number-at-pos beg)
+                            (line-number-at-pos (if (and region (> end beg)) (1- end) end)))
+                      (format "working tree at %s" (or (magit-rev-parse "--short" "HEAD") "no commits"))
+                      (buffer-substring-no-properties beg end)
+                      "")))))
+
+        (defun ereslibre/review-note (note)
+          "Append NOTE, anchored at point, to the worktree's AGENT_REVIEW.md.
+        The anchor is the active region, or else the hunk at point in a magit
+        buffer and the current line in a file buffer."
+          (interactive (list (read-string "Review note: ")))
+          (when (string-blank-p note)
+            (user-error "Empty note"))
+          (pcase-let ((`(,file ,lines ,rev ,code ,lang) (ereslibre/review--anchor))
+                      (review (ereslibre/review-file)))
+            (with-temp-buffer
+              (insert (format "## %s%s (%s)\n\n" file
+                              (if lines (format ":%d-%d" (car lines) (cdr lines)) "")
+                              rev))
+              (when code
+                (insert (format "```%s\n%s%s```\n\n" lang code
+                                (if (string-suffix-p "\n" code) "" "\n"))))
+              (insert (string-trim note) "\n\n")
+              (write-region nil nil review t 'silent))
+            (let ((buffer (get-file-buffer review)))
+              (when buffer
+                (with-current-buffer buffer (revert-buffer t t t))))
+            (deactivate-mark)
+            (message "Noted in %s" (abbreviate-file-name review))))
+
+        (defun ereslibre/review-open ()
+          "Visit the worktree's AGENT_REVIEW.md."
+          (interactive)
+          (find-file-other-window (ereslibre/review-file)))
+
+        (global-set-key (kbd "C-c w n") #'ereslibre/review-note)
+        (global-set-key (kbd "C-c w o") #'ereslibre/review-open)
+
         (use-package yasnippet
           :demand t
           :config
