@@ -740,6 +740,16 @@ in {
           };
           "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = lib.mkIf isDarwin {
             RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
+            # Multiplex every connection to a host over one master. The
+            # remote binds the GPG socket (StreamLocalBindUnlink) and
+            # creates the agent socket once per connection, so without
+            # this any short-lived ssh/scp steals the GPG socket and
+            # leaves it dead when it exits, and tmux keeps pointing at
+            # a stale SSH_AUTH_SOCK. With a master, every session
+            # shares the same forwards for as long as the master lives.
+            ControlMaster = "auto";
+            ControlPath = "~/.ssh/cm-%C";
+            ControlPersist = "4h";
           };
           "10.0.1.*".StrictHostKeyChecking = "no";
           "10.0.2.*".StrictHostKeyChecking = "no";
@@ -856,9 +866,6 @@ in {
         superclear() {
           # clear and empty scrollback
           printf "\033[H\033[2J\033[3J"
-        }
-        fixssh() {
-          eval $(${lib.getExe pkgs.tmux} show-env -s | grep '^SSH_')
         }
         key-token() {
           ${lib.getExe pkgs.yubikey-manager} --device "$1" oath accounts code | grep -i "$2"
