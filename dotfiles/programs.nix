@@ -246,6 +246,27 @@ in {
                 (magit-diff-range "main...HEAD")))))
         (global-set-key (kbd "C-c w r") #'ereslibre/review-worktree)
 
+        (defun ereslibre/read-worktree ()
+          "Return the current worktree, or with a prefix argument read one."
+          (if current-prefix-arg
+              (completing-read "Worktree: " (mapcar #'car (magit-list-worktrees)) nil t)
+            (or (magit-toplevel) (user-error "Not inside a git worktree"))))
+
+        (defun ereslibre/worktree-diff (dir)
+          "Show the changes worktree DIR introduces on top of main."
+          (interactive (list (ereslibre/read-worktree)))
+          (let ((default-directory (file-name-as-directory dir)))
+            (magit-diff-range "main...HEAD")))
+
+        (defun ereslibre/worktree-log (dir)
+          "Show the commits worktree DIR has on top of main."
+          (interactive (list (ereslibre/read-worktree)))
+          (let ((default-directory (file-name-as-directory dir)))
+            (apply #'magit-log-other '("main..HEAD") (magit-log-arguments))))
+
+        (global-set-key (kbd "C-c m w d") #'ereslibre/worktree-diff)
+        (global-set-key (kbd "C-c m w l") #'ereslibre/worktree-log)
+
         ;; Review notes for coding agents: a note taken on a diff or a file
         ;; lands in the worktree's AGENT_REVIEW.md (kept out of git through
         ;; the global gitignore). The agent works through it and deletes each
