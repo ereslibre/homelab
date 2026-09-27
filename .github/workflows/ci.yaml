@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v12
+        uses: DeterminateSystems/nix-installer-action@v23
       - name: Format
         run: |
           nix develop --accept-flake-config --command just fmt
@@ -24,6 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v8
+        uses: DeterminateSystems/flake-checker-action@v14
