@@ -5,12 +5,10 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../common/jupyterhub
     ../common/aliases
     ../common/cloudflared
     ../common/docker
     ../common/github-runner
-    ../common/hermes-gateway
     ../common/home-node
     ../common/kernel
     ../common/netconsole-receiver
@@ -39,8 +37,6 @@
   environment.systemPackages = with pkgs; [
     esphome
     espup
-    gogcli
-    google-cloud-sdk
   ];
 
   services = {
@@ -50,10 +46,6 @@
         auto_https disable_redirects
       '';
       virtualHosts = {
-        "jupyter.ereslibre.net".extraConfig = ''
-          tls internal
-          reverse_proxy http://localhost:8000
-        '';
         "matrix.ereslibre.net".extraConfig = ''
           tls internal
           reverse_proxy http://192.168.100.13:8009
