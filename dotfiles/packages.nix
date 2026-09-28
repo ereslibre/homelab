@@ -12,7 +12,6 @@
       cursor-agent
       gemini-cli
       goose-cli
-      herdr
       hermes-agent
       opencode
       pi
