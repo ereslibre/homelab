@@ -756,10 +756,6 @@ in {
           "10.0.3.*".StrictHostKeyChecking = "no";
           "10.0.4.*".StrictHostKeyChecking = "no";
           "192.168.*".StrictHostKeyChecking = "no";
-          "ubuntu-1.hulk" = {
-            HostName = "192.168.122.200";
-            ProxyJump = "hulk.ereslibre.net";
-          };
           "*" = {
             Compression = true;
             ForwardAgent = true;
