@@ -6,15 +6,10 @@
 }: let
   ai-tools = lib.optionals aiTools (
     with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-      claude-code
-      codex
-      copilot-cli
       cursor-agent
       gemini-cli
       goose-cli
       hermes-agent
-      opencode
-      pi
       skills
       qwen-code
     ]
