@@ -47,6 +47,7 @@ in {
     sessionVariables = {
       COLORTERM = "truecolor";
       EDITOR = emacs {nox = true;};
+      LESS = "-FR";
       TERM = "xterm-256color";
     };
     file = lib.mkIf (!mainlyRemote) {
