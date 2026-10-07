@@ -61,7 +61,22 @@ in
           apiKey = "ollama";
           # Keep in sync with services.ollama.loadModels on hulk.
           models = [
-            {id = "hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";}
+            {
+              id = "hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
+              # Without `reasoning` pi sends no thinking control at all and
+              # ollama defaults to thinking on. Its /v1 endpoint only honours
+              # `reasoning_effort`, so map pi's "off" to "none". The chat
+              # template rejects anything above "high" with a 500.
+              reasoning = true;
+              thinkingLevelMap = {
+                off = "none";
+                xhigh = "high";
+                max = "high";
+              };
+              compat.supportsReasoningEffort = true;
+              # Keep in sync with OLLAMA_CONTEXT_LENGTH on hulk.
+              contextWindow = 131072;
+            }
           ];
         };
       };
