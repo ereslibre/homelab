@@ -23,7 +23,7 @@ installer arch="aarch64":
 
 # Build a host's self-contained SD-card image (the installed system
 # itself, not an installer): flash it, boot it, done. Only for hosts
-# that import the sd-image module (today: nidavellir).
+# that import an sd-image module (today: nidavellir, pitchen).
 sd-image host:
   nix build --accept-flake-config .#nixosConfigurations.{{host}}.config.system.build.sdImage
 

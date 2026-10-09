@@ -37,6 +37,15 @@ let
         aiTools = false;
         stateVersion = "26.11";
       };
+      "ereslibre@pitchen" = {
+        system = "aarch64-linux";
+        username = "ereslibre";
+        homeDirectory = "/home/ereslibre";
+        profile = "personal";
+        mainlyRemote = true;
+        aiTools = false;
+        stateVersion = "26.11";
+      };
       "ereslibre@nuc-1" = {
         system = "x86_64-linux";
         username = "ereslibre";

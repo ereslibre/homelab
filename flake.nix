@@ -199,6 +199,20 @@
               ./nidavellir/configuration.nix
             ];
           };
+          "pitchen" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "aarch64-linux";
+            user = "ereslibre";
+            # The board modules look the flake up to fetch the prebuilt
+            # vendor kernel and firmware.
+            specialArgs = {inherit nixos-raspberrypi;};
+            modules = [
+              home-manager.nixosModules.home-manager
+              nixos-raspberrypi.lib.inject-overlays
+              nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+              ./pitchen/configuration.nix
+            ];
+          };
           "nuc-1" = {
             builder = nixpkgs.lib.nixosSystem;
             system = "x86_64-linux";
