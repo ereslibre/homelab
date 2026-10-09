@@ -21,6 +21,12 @@ deploy-tftp host=defaultHost:
 installer arch="aarch64":
   nix build --accept-flake-config .#nixosConfigurations.{{arch}}-installer.config.system.build.sdImage
 
+# Build a host's self-contained SD-card image (the installed system
+# itself, not an installer): flash it, boot it, done. Only for hosts
+# that import the sd-image module (today: nidavellir).
+sd-image host:
+  nix build --accept-flake-config .#nixosConfigurations.{{host}}.config.system.build.sdImage
+
 fmt:
   find . -name "*.nix" | xargs nix develop --accept-flake-config --command alejandra
 
