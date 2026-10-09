@@ -1,6 +1,7 @@
 {
   lib,
   modulesPath,
+  nixos-raspberrypi,
   ...
 }: {
   imports = [
@@ -10,7 +11,7 @@
     # carries the full closure, declares the matching fileSystems, and on
     # first boot grows the root partition to fill the card and registers
     # the store paths. No separate install step, no installer media.
-    (modulesPath + "/installer/sd-card/sd-image-aarch64.nix")
+    nixos-raspberrypi.nixosModules.sd-image
   ];
 
   hardware.enableRedistributableFirmware = true;
@@ -20,8 +21,12 @@
   # kernel under emulation. Nothing here uses it.
   boot.supportedFilesystems.zfs = lib.mkForce false;
 
-  # 4 GB Pi with an SD card as its only disk: compressed RAM swap instead
-  # of a swap file that would chew through the card.
+  # 512 MB Pi with an SD card as its only disk: compressed RAM swap, sized
+  # to the whole of RAM, instead of a swap file that would chew through
+  # the card.
   swapDevices = [];
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
 }

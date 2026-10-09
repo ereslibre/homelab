@@ -41,7 +41,7 @@ EEPROM flash recipe, and install procedure.
 
 ## nidavellir (3D-printer host)
 
-`nidavellir` is a Raspberry Pi 4 B running OctoPrint for the Ender 3,
+`nidavellir` is a Raspberry Pi Zero 2 W running OctoPrint for the Ender 3,
 booting from a self-contained SD image (`just sd-image nidavellir`).
 See [`nidavellir/README.md`](nidavellir/README.md).
 

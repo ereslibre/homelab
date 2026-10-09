@@ -1,7 +1,8 @@
-# nidavellir — the forge. Raspberry Pi 4 B driving the Ender 3 over USB
-# serial with OctoPrint, plus an optional USB webcam. Boots from a
-# self-contained SD image (see ./README.md); the web UI is reachable over
-# tailscale only.
+# nidavellir — the forge. Raspberry Pi Zero 2 W driving the Ender 3 over
+# USB serial with OctoPrint, plus an optional USB webcam. Boots from a
+# self-contained SD image (see ./README.md), joins the Wi-Fi with
+# credentials read from the firmware partition (../common/firmware-wifi);
+# the web UI is reachable over tailscale only.
 {
   config,
   lib,
@@ -12,6 +13,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
+    ../common/firmware-wifi
     ../common/nix
     ../common/packages
     ../common/programs
@@ -84,8 +86,10 @@ in {
     listenAddress = "127.0.0.1:${toString webcamPort}";
     extraArgs = [
       "--format=MJPEG"
-      "--resolution=1280x720"
-      "--desired-fps=15"
+      # Kept modest: the Zero 2 W shares four small cores and 512 MB
+      # between this and OctoPrint.
+      "--resolution=640x480"
+      "--desired-fps=10"
     ];
   };
 
