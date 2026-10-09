@@ -1,5 +1,13 @@
+# esphome is pinned to a version the madoka component builds against; see README.md
+# nix hash has no relevance here; just a fixed point in time we know works (only provides uv)
+
+esphome := "nix shell github:NixOS/nixpkgs/e7439b6b14ad3cc35d05608ebca9bce01a25f5f8#uv -c uvx --python 3.12 --with pip --from esphome==2026.9.1 esphome"
+
 build profile:
-    esphome compile {{profile}}.yaml
+    {{esphome}} compile {{profile}}.yaml
 
 upload profile device: (build profile)
-    esphome upload {{profile}}.yaml --device {{device}}
+    {{esphome}} upload {{profile}}.yaml --device {{device}}
+
+logs profile device:
+    {{esphome}} logs {{profile}}.yaml --device {{device}}
