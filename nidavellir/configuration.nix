@@ -1,19 +1,19 @@
-# nidavellir — the forge. Raspberry Pi Zero 2 W driving the Ender 3 over
-# USB serial with OctoPrint, plus an optional USB webcam. Boots from a
-# self-contained SD image (see ./README.md), joins the Wi-Fi with
-# credentials read from the firmware partition (../common/firmware-wifi);
+# nidavellir — the forge. Raspberry Pi Zero 2 W driving the Ender 5 S1
+# over USB serial with OctoPrint, plus an optional USB webcam. Boots from
+# a self-contained SD image and joins Wi-Fi on its own (see ./README.md);
 # the web UI is reachable over tailscale only.
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   webcamPort = 8080;
+  wifiSecrets = "/var/lib/wifi-secrets";
 in {
   imports = [
     ./hardware-configuration.nix
     ../common/aliases
-    ../common/firmware-wifi
     ../common/nix
     ../common/packages
     ../common/programs
@@ -32,11 +32,57 @@ in {
   # the OctoPrint UI on :80 — is reachable through the tailnet.
   networking.firewall.trustedInterfaces = ["tailscale0"];
 
+  # The Zero 2 W has no Ethernet, so Wi-Fi has to come up unattended on
+  # the very first boot — before there is any way to log in and before a
+  # host key exists for sops. The passphrase therefore travels on the FAT
+  # firmware partition, dropped there right after flashing (see
+  # ./README.md), and never enters the repo or the nix store.
+  networking.wireless = {
+    enable = true;
+    secretsFile = wifiSecrets;
+    networks."Furgoneta de cacharrancia".pskRaw = "ext:psk_furgoneta";
+    extraConfig = ''
+      country=ES
+    '';
+  };
+
+  # wpa_supplicant runs unprivileged and cannot read a root-only FAT
+  # mount, so hand it a private copy. Re-copied on every boot: to change
+  # the passphrase, edit the file on the card from any computer.
+  systemd.services.wifi-secrets = {
+    description = "Install Wi-Fi secrets from the firmware partition";
+    before = ["wpa_supplicant.service"];
+    requiredBy = ["wpa_supplicant.service"];
+    unitConfig.RequiresMountsFor = "/boot/firmware";
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      if [ -f /boot/firmware/wifi-secrets ]; then
+        ${pkgs.coreutils}/bin/install -o wpa_supplicant -g wpa_supplicant -m 0400 \
+          /boot/firmware/wifi-secrets ${wifiSecrets}
+      fi
+      [ -f ${wifiSecrets} ]
+    '';
+  };
+
+  # nidavellir.local, so the host is reachable without knowing its lease.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+    };
+  };
+
   services.octoprint = {
     enable = true;
     host = "127.0.0.1";
     extraConfig = {
-      # Printer is a stock-Marlin Ender 3: CH340 USB serial at 115200.
+      # Printer is a stock-Marlin Ender 5 S1: CH340 USB serial (the USB-C
+      # port on the front) at 115200.
       serial = {
         port = "AUTO";
         baudrate = 115200;
