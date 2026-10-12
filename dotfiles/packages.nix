@@ -14,6 +14,17 @@
       qwen-code
     ]
   );
+  # regclient 0.11.6 does not build at the current nixpkgs pin: its
+  # postInstall ends by unsetting `outputBin`, which the multiple-outputs
+  # fixup hook then dereferences as an empty name. Its tests are also
+  # timing-sensitive and fail under qemu-user (how hulk builds the Pis),
+  # so skip them on aarch64 only. Drop this override once a lock update
+  # fixes the package.
+  regctl =
+    (pkgs.regclient.overrideAttrs (old: {
+      postInstall = old.postInstall + "\noutputBin=out\n";
+      doCheck = !pkgs.stdenv.hostPlatform.isAarch64;
+    })).regctl;
   container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils

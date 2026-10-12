@@ -178,6 +178,15 @@
               ./hulk/configuration.nix
             ];
           };
+          "nidavellir" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "aarch64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              ./nidavellir/configuration.nix
+            ];
+          };
           "nuc-1" = {
             builder = nixpkgs.lib.nixosSystem;
             system = "x86_64-linux";

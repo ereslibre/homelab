@@ -15,6 +15,12 @@ creation_rules:
       - age:
           - *ereslibre
           - *host-hulk
+  # Wi-Fi passphrase only. No host key: it is decrypted on the
+  # workstation at flash time (scripts/flash-sd.sh), never on the Pi.
+  - path_regex: nidavellir/secrets\.yaml$
+    key_groups:
+      - age:
+          - *ereslibre
   - path_regex: nuc-1/secrets\.yaml$
     key_groups:
       - age:
