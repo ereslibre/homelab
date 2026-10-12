@@ -58,11 +58,78 @@ The first visit runs OctoPrint's setup wizard (create the admin user
 there; printer profile for a stock Ender 5 S1 is 220 × 220 × 280 mm,
 origin front-left, heated bed, 0.4 mm nozzle).
 
-If it never shows up on the network, plug a mini-HDMI monitor in: the
-console is on `tty0`, and `systemctl status wifi-secrets wpa_supplicant`
-says whether the passphrase file was found. To change the passphrase
-later, update `secrets.yaml` and also edit `wifi-secrets` on the card's
-FAT partition from any computer; it is re-read on every boot.
+`nidavellir.local` only resolves from machines that speak mDNS (macOS
+does; hulk does not), so from hulk use the address from the router's
+client list until tailscale is up.
+
+To change the passphrase later, update `secrets.yaml` and also edit
+`wifi-secrets` on the card's FAT partition from any computer; it is
+re-read on every boot.
+
+### Flashing from a Mac
+
+hulk has no card reader, and `flash-sd` is Linux-only (`lsblk`,
+`blockdev`, `udevadm`). Build on hulk with `just sd-image nidavellir`,
+then do the rest by hand on the Mac, from a checkout of this repo:
+
+```sh
+scp 'hulk:<checkout>/result/sd-image/*.img.zst' ~/Downloads/
+
+diskutil list external physical          # find the card: /dev/diskN
+diskutil unmountDisk /dev/diskN
+nix shell nixpkgs#zstd -c zstd -dc ~/Downloads/nixos-image-sd-card-*.img.zst \
+  | sudo dd of=/dev/rdiskN bs=4m
+sync
+```
+
+macOS then mounts the firmware partition as `/Volumes/FIRMWARE`
+(reinsert the card if it does not). Seed the passphrase, and look at the
+result before ejecting:
+
+```sh
+ls /Volumes/FIRMWARE/config.txt          # the right volume is mounted
+PSK=$(nix develop --accept-flake-config --command sops decrypt --extract '["wifi_psk"]' nidavellir/secrets.yaml)
+echo ${#PSK}                             # 0 means the decrypt failed
+printf 'psk_furgoneta=%s\n' "$PSK" > /Volumes/FIRMWARE/wifi-secrets
+cat /Volumes/FIRMWARE/wifi-secrets
+diskutil eject /Volumes/FIRMWARE
+```
+
+The file must hold exactly one `psk_furgoneta=<passphrase>` line:
+`psk_furgoneta` is the name `configuration.nix` looks the passphrase up
+under (`pskRaw = "ext:psk_furgoneta"`), not the sops key. Writing the
+image wipes the file, so repeat this after every reflash.
+
+### When Wi-Fi does not come up
+
+Without `wifi-secrets` on the card, `wifi-secrets.service` fails and
+`wpa_supplicant` never starts — check that first. The radio is 2.4 GHz
+only and cannot do WPA3, so the network has to offer 2.4 GHz and WPA2.
+
+The board has no USB-A socket for a keyboard, so there are two ways to
+see what is going on without one:
+
+- **Serial console over USB.** Connect the inner `USB` socket to a
+  computer with a plain micro-USB data cable (no OTG adapter); that
+  cable also powers the Pi. It shows up as a serial port with a login
+  prompt:
+
+  ```sh
+  ls /dev/cu.usbmodem*                   # Linux: /dev/ttyACM*
+  screen /dev/cu.usbmodemXXXX 115200
+  ```
+
+  Log in and run `systemctl status wifi-secrets wpa_supplicant`.
+
+- **Boot report.** About 45 s, 2 min and 4 min after boot the Pi
+  rewrites `boot-report.txt` on the firmware partition: interfaces, the
+  secrets file's key name and length (never the passphrase), unit
+  status, a scan of visible networks, and the kernel and
+  `wpa_supplicant` logs. Wait four minutes, move the card to another
+  computer and read `/Volumes/FIRMWARE/boot-report.txt`.
+
+A mini-HDMI monitor shows the console on `tty0` too, which is enough to
+tell "does not boot" from "boots but is not on the network".
 
 ## Cabling
 
@@ -74,7 +141,8 @@ The Zero 2 W has two micro-USB sockets and they are not interchangeable:
 | `USB` (inner) | the printer's front USB-C port, via a micro-USB OTG cable or adapter |
 
 That single data port is all there is, so a webcam needs a small OTG hub
-shared with the printer.
+shared with the printer. Without the OTG adapter the same socket is a
+serial console (see "When Wi-Fi does not come up").
 
 ## Case
 
@@ -109,6 +177,8 @@ the header slot and an optional camera-ribbon notch.
 | nginx | `:80` | `/` → OctoPrint, `/webcam/` → µStreamer |
 | tailscale | `tailscale0` | the only interface allowed to reach `:80` |
 | avahi | mDNS | publishes `nidavellir.local` |
+| serial getty | `ttyGS0` | USB gadget console on the data socket |
+| boot-report | `/boot/firmware/boot-report.txt` | network bring-up report, rewritten each boot |
 
 To also expose the UI on the LAN, add
 `networking.firewall.allowedTCPPorts = [80];` to `configuration.nix`.

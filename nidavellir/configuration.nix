@@ -67,6 +67,70 @@ in {
     '';
   };
 
+  # The board is headless and Wi-Fi is its only way in, so when Wi-Fi does
+  # not come up there is nothing to log into. Two ways out, neither of
+  # which needs a keyboard:
+  #
+  # 1. A serial console over the data socket: with a plain micro-USB
+  #    cable to a computer (no OTG adapter) the port is a USB device and
+  #    shows up there as a serial port with a login prompt. With the OTG
+  #    adapter in, it is a host as usual and this stays idle.
+  boot.kernelModules = ["g_serial"];
+  systemd.services."serial-getty@ttyGS0" = {
+    overrideStrategy = "asDropin";
+    wantedBy = ["getty.target"];
+  };
+
+  # 2. A bring-up report on the FAT firmware partition, readable from any
+  #    computer the card is moved to. Rewritten a few times, as
+  #    association can take a while; the passphrase itself is never
+  #    written to it.
+  systemd.services.boot-report = {
+    description = "Write a network bring-up report to the firmware partition";
+    wantedBy = ["multi-user.target"];
+    after = ["wifi-secrets.service"];
+    unitConfig.RequiresMountsFor = "/boot/firmware";
+    path = with pkgs; [gawk iproute2 iw util-linux wpa_supplicant];
+    script = ''
+      set +e
+      report() {
+        echo "### $(date) — up $(cut -d' ' -f1 /proc/uptime)s — $(uname -r)"
+        tr -d '\0' </proc/device-tree/model; echo
+        echo "### interfaces"
+        ip -br link
+        ip -br addr
+        rfkill
+        echo "### secrets file"
+        for f in /boot/firmware/wifi-secrets ${wifiSecrets}; do
+          ls -la "$f"
+          awk -F= '{ printf "  line %d: key=%s value_chars=%d\n", NR, $1, length($0) - length($1) - 1 }' "$f"
+          echo "  carriage returns: $(grep -c $'\r' "$f")"
+        done
+        echo "### units"
+        systemctl --failed --no-pager
+        systemctl status --no-pager -l wifi-secrets wpa_supplicant dhcpcd
+        echo "### wpa_supplicant"
+        for dev in /sys/class/net/*/wireless; do
+          dev=$(basename "$(dirname "$dev")")
+          wpa_cli -i "$dev" status
+          wpa_cli -i "$dev" scan_results
+          iw dev "$dev" link
+          iw dev "$dev" scan | grep -E '^BSS|SSID:|freq:|signal:|RSN:|WPA:|Authentication suites|Capabilities:.*MFP'
+        done
+        echo "### kernel"
+        dmesg | grep -i -E 'brcm|sdio|mmc1|cfg80211|firmware|wlan|dwc2|gadget'
+        echo "### journal"
+        journalctl -b --no-pager -u wifi-secrets -u wpa_supplicant -u dhcpcd
+        journalctl -b --no-pager -p warning | tail -n 80
+      }
+      for delay in 45 60 120; do
+        sleep "$delay"
+        report >/boot/firmware/boot-report.txt 2>&1
+        sync
+      done
+    '';
+  };
+
   # nidavellir.local, so the host is reachable without knowing its lease.
   services.avahi = {
     enable = true;
