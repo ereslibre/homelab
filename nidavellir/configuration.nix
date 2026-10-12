@@ -10,6 +10,23 @@
 }: let
   webcamPort = 8080;
   wifiSecrets = config.networking.wireless.secretsFile;
+
+  # Stand-in for `vcgencmd get_throttled`, which OctoPrint's Pi support
+  # plugin polls: vcgencmd talks to the firmware through /dev/vcio, and
+  # only the Pi vendor kernel has that. Mainline reports under-voltage
+  # through hwmon instead, so answer in vcgencmd's format from there
+  # (bit 0 is "under-voltage now"). Frequency capping and thermal
+  # throttling are not exposed, so those are never flagged.
+  throttleCheck = pkgs.writeShellScript "get-throttled" ''
+    for name in /sys/class/hwmon/hwmon*/name; do
+      if [ "$(${pkgs.coreutils}/bin/cat "$name")" = rpi_volt ]; then
+        echo "throttled=0x$(${pkgs.coreutils}/bin/cat "''${name%name}in0_lcrit_alarm")"
+        exit 0
+      fi
+    done
+    echo "no rpi_volt hwmon device" >&2
+    exit 1
+  '';
 in {
   imports = [
     ./hardware-configuration.nix
@@ -41,7 +58,7 @@ in {
   #    cable to a computer (no OTG adapter) the port is a USB device and
   #    shows up there as a serial port with a login prompt. With the OTG
   #    adapter in, it is a host as usual and this stays idle.
-  boot.kernelModules = ["g_serial"];
+  boot.kernelModules = ["g_serial" "raspberrypi-hwmon"];
   systemd.services."serial-getty@ttyGS0" = {
     overrideStrategy = "asDropin";
     wantedBy = ["getty.target"];
@@ -118,6 +135,7 @@ in {
         baudrate = 115200;
         autoconnect = true;
       };
+      plugins.pi_support.vcgencmd_throttle_check_command = "${throttleCheck}";
       plugins.classicwebcam = {
         stream = "/webcam/stream";
         snapshot = "http://127.0.0.1:${toString webcamPort}/snapshot";
