@@ -46,21 +46,21 @@ put it in the world-readable nix store.
 Use a 16 GB or larger card. Insert it, cable the Pi up (below) and power
 on. First boot takes several minutes on this board (partition resize).
 It then takes a DHCP lease and publishes `nidavellir.local` over mDNS.
-SSH is the only service open on the LAN:
+SSH and the web UI are open on the LAN:
 
 ```sh
 ssh ereslibre@nidavellir.local
-sudo tailscale up          # one-time, authenticate in the browser
 ```
 
-After that OctoPrint is at `http://nidavellir/` from any tailnet device.
-The first visit runs OctoPrint's setup wizard (create the admin user
-there; printer profile for a stock Ender 5 S1 is 220 × 220 × 280 mm,
-origin front-left, heated bed, 0.4 mm nozzle).
+OctoPrint is at `http://nidavellir.local/`. The first visit runs
+OctoPrint's setup wizard (create the admin user there; printer profile
+for a stock Ender 5 S1 is 220 × 220 × 280 mm, origin front-left, heated
+bed, 0.4 mm nozzle).
 
-`nidavellir.local` only resolves from machines that speak mDNS (macOS
-does; hulk does not), so from hulk use the address from the router's
-client list until tailscale is up.
+The host is deliberately not on the tailnet: from outside, the network
+is reached through nuc-1. `nidavellir.local` only resolves from machines
+that speak mDNS (macOS does; hulk does not), so elsewhere use the
+address from the router's client list.
 
 To change the passphrase later, update `secrets.yaml` and also edit
 `wifi-secrets` on the card's FAT partition from any computer; it is
@@ -184,14 +184,10 @@ the header slot and an optional camera-ribbon notch.
 |---|---|---|
 | OctoPrint | `127.0.0.1:5000` | serial port auto-detected, 115200 baud, auto-connect |
 | µStreamer | `127.0.0.1:8080` | only runs while a USB camera is plugged in |
-| nginx | `:80` | `/` → OctoPrint, `/webcam/` → µStreamer |
-| tailscale | `tailscale0` | the only interface allowed to reach `:80` |
+| nginx | `:80`, open on the LAN | `/` → OctoPrint, `/webcam/` → µStreamer |
 | avahi | mDNS | publishes `nidavellir.local` |
 | serial getty | `ttyGS0` | USB gadget console on the data socket |
 | boot-report | `/boot/firmware/boot-report.txt` | network bring-up report, rewritten each boot |
-
-To also expose the UI on the LAN, add
-`networking.firewall.allowedTCPPorts = [80];` to `configuration.nix`.
 
 OctoPrint state (users, uploaded G-code, timelapses, plugins installed
 through the UI) lives in `/var/lib/octoprint` on the card. Settings
@@ -213,8 +209,9 @@ Same flow as a running `cpi-N` — build on hulk, push, activate:
 ```sh
 just build nidavellir
 TOPLEVEL=$(readlink -f ./result)
-nix copy --to ssh-ng://ereslibre@nidavellir "$TOPLEVEL"
-ssh -t ereslibre@nidavellir "sudo nix-env -p /nix/var/nix/profiles/system --set $TOPLEVEL && sudo $TOPLEVEL/bin/switch-to-configuration switch"
+PI=<address>     # hulk does not resolve nidavellir.local: use the lease's IP
+nix copy --to ssh-ng://ereslibre@$PI "$TOPLEVEL"
+ssh -t ereslibre@$PI "sudo nix-env -p /nix/var/nix/profiles/system --set $TOPLEVEL && sudo $TOPLEVEL/bin/switch-to-configuration switch"
 ```
 
 Never build *on* the Pi — 512 MB of RAM is not enough to evaluate the

@@ -1,7 +1,7 @@
 # nidavellir — the forge. Raspberry Pi Zero 2 W driving the Ender 5 S1
 # over USB serial with OctoPrint, plus an optional USB webcam. Boots from
 # a self-contained SD image and joins Wi-Fi on its own (see ./README.md);
-# the web UI is reachable over tailscale only.
+# the web UI is served on the LAN.
 {
   config,
   lib,
@@ -18,7 +18,6 @@ in {
     ../common/packages
     ../common/programs
     ../common/services
-    ../common/tailscale
     ../common/users
   ];
 
@@ -28,9 +27,10 @@ in {
   console.keyMap = "us";
   time.timeZone = "Europe/Madrid";
 
-  # LAN only gets SSH (opened by the openssh module). Everything else —
-  # the OctoPrint UI on :80 — is reachable through the tailnet.
-  networking.firewall.trustedInterfaces = ["tailscale0"];
+  # SSH (opened by the openssh module) and the OctoPrint UI on :80, both
+  # on the LAN. The host is not on the tailnet: from outside, the network
+  # is reached through nuc-1.
+  networking.firewall.allowedTCPPorts = [80];
 
   # The Zero 2 W has no Ethernet, so Wi-Fi has to come up unattended on
   # the very first boot — before there is any way to log in and before a
