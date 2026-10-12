@@ -2,17 +2,20 @@
 # macOS, so pick whichever the package put on PATH.
 openscad := "nix shell nixpkgs#openscad-unstable -c sh -c 'exec \"$(command -v openscad-unstable || command -v openscad)\" \"$@\"' openscad"
 
-# Render both printable parts.
-all: base lid
+# Render both parts side by side, as one plate: case.stl
+plate: (_stl "both" "case")
+
+# Render each part into its own file.
+parts: base lid
 
 # Render the tray: base.stl
-base: (_stl "base")
+base: (_stl "base" "base")
 
 # Render the cover, turned over for printing: lid.stl
-lid: (_stl "lid")
+lid: (_stl "lid" "lid")
 
-_stl part:
-  {{openscad}} -D 'part="{{part}}"' -o {{part}}.stl case.scad
+_stl part name:
+  {{openscad}} -D 'part="{{part}}"' -o {{name}}.stl case.scad
 
 # Render a picture of the assembled case: assembly.png
 preview:
@@ -24,4 +27,4 @@ gui:
 
 # Remove everything rendered.
 clean:
-  rm -f base.stl lid.stl assembly.png
+  rm -f case.stl base.stl lid.stl assembly.png

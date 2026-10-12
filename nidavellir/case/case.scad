@@ -1,8 +1,8 @@
-// Case for nidavellir: a Raspberry Pi Zero 2 W bolted to a 2020 extrusion
-// of the Ender 5 S1 frame.
+// Case for nidavellir: a Raspberry Pi Zero 2 W sitting on the table next
+// to the Ender 5 S1.
 //
 // Two parts, both printed flat with no supports:
-//   base — tray with standoffs, port notches and two frame-mount ears
+//   base — tray with standoffs and port notches
 //   lid  — plate with posts that clamp the board, vents and a GPIO slot
 //
 // Four M2.5 x 12 screws go through the lid, its posts and the board, and
@@ -11,6 +11,7 @@
 // Board dimensions follow the official Zero mechanical drawing. Origin is
 // the board corner next to the mini-HDMI port, X along the port edge.
 //
+//   openscad -o case.stl case.scad    (both parts on one plate)
 //   openscad -D 'part="base"' -o base.stl case.scad
 //   openscad -D 'part="lid"'  -o lid.stl  case.scad
 
@@ -18,8 +19,8 @@
 part = "both"; // [both, base, lid, assembly]
 
 /* [Options] */
-// Ears for bolting to a 2020 slot; "none" for tape or zip ties.
-mount = "2020"; // [2020, none]
+// "2020" adds two ears for bolting to a slot of the printer frame.
+mount = "none"; // [none, 2020]
 // Slot above the 40-pin header (needed for a Zero 2 WH).
 gpio_slot = true;
 hdmi_notch = true;
@@ -39,7 +40,7 @@ top_h = 5.0;
 // Pilot hole for M2.5 threading straight into plastic.
 screw_pilot_d = 2.1;
 screw_clear_d = 2.9;
-// M4 into a T-nut; use 5.4 for M5.
+// Ears only: M4 into a T-nut; use 5.4 for M5.
 mount_screw_d = 4.4;
 
 /* [Hidden] */

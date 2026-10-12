@@ -155,9 +155,8 @@ serial console (see "When Wi-Fi does not come up").
 
 ## Case
 
-[`case/`](case/) holds a two-part printable case with ears that bolt
-onto a 2020 slot of the printer frame. Render the STL files for the
-slicer with:
+[`case/`](case/) holds a two-part printable case that sits on the table
+next to the printer. Render the STL file for the slicer with:
 
 ```sh
 cd nidavellir/case
