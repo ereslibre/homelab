@@ -187,6 +187,15 @@
               ./nidavellir/configuration.nix
             ];
           };
+          "pitchen" = {
+            builder = nixpkgs.lib.nixosSystem;
+            system = "aarch64-linux";
+            user = "ereslibre";
+            modules = [
+              home-manager.nixosModules.home-manager
+              ./pitchen/configuration.nix
+            ];
+          };
           "nuc-1" = {
             builder = nixpkgs.lib.nixosSystem;
             system = "x86_64-linux";

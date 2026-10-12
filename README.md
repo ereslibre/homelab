@@ -46,6 +46,12 @@ S1, booting from a self-contained SD image (`just sd-image nidavellir`)
 and joining Wi-Fi on its own. A printable case lives next to it.
 See [`nidavellir/README.md`](nidavellir/README.md).
 
+## pitchen (kitchen kiosk)
+
+`pitchen` is a Raspberry Pi 5 with a 10.1" touchscreen that shows Home
+Assistant full screen, booting from a self-contained SD image
+(`just sd-image pitchen`). See [`pitchen/README.md`](pitchen/README.md).
+
 ## cpi-1 … cpi-7 (headless PoE Pi fleet)
 
 Seven rack-mounted PoE-powered Pi 4 Bs. Each host is fully described
