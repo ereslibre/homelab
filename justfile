@@ -21,18 +21,6 @@ deploy-tftp host=defaultHost:
 installer arch="aarch64":
   nix build --accept-flake-config .#nixosConfigurations.{{arch}}-installer.config.system.build.sdImage
 
-# Build a host's self-contained SD-card image (the installed system
-# itself, not an installer): flash it, boot it, done. Only for hosts
-# that import an sd-image module (today: nidavellir, pitchen).
-sd-image host:
-  nix build --accept-flake-config .#nixosConfigurations.{{host}}.config.system.build.sdImage
-
-# Build a host's SD image, write it to `device` (e.g. /dev/sdX) and drop
-# the host's sops-kept Wi-Fi passphrase onto its firmware partition, so
-# the card joins Wi-Fi unattended on first boot. DESTROYS `device`.
-flash-sd host device: (sd-image host)
-  scripts/flash-sd.sh {{host}} {{device}}
-
 fmt:
   find . -name "*.nix" | xargs nix develop --accept-flake-config --command alejandra
 

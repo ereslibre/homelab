@@ -6,7 +6,6 @@ keys:
   - &host-nuc-1 age1jsrzvlyj5fzf6c3rysd79f68drmpgvh4myxqsl7mlm7gyhfunywq573mss
   - &host-nuc-2 age1ph4vt4lhrw4q974gm2g0xue3y8swy8qw9k8kg68hzxs7s04cxyzs5jujvs
   - &host-nuc-3 age1jt7ucv03v82ccuwwhaulgywswsc5h2uxauyrdmra8gsd47ajfyasyp4r9q
-  - &host-pi-desktop age1rxgj2tjw60apsfr5wyuz9j7fe49xgzrm4w984k7wy2dh7f23z4hsksnthm
   # Services
   - &synapse age16au9jxyajmg7ddck3m0cyu0cqvn2xdmjacjhs64ftduly2svjaxsu9fqhy
 creation_rules:
@@ -15,17 +14,6 @@ creation_rules:
       - age:
           - *ereslibre
           - *host-hulk
-  # Wi-Fi passphrase only. No host key: it is decrypted on the
-  # workstation at flash time (scripts/flash-sd.sh), never on the Pi.
-  - path_regex: nidavellir/secrets\.yaml$
-    key_groups:
-      - age:
-          - *ereslibre
-  # Same: the Wi-Fi passphrase, decrypted at flash time.
-  - path_regex: pitchen/secrets\.yaml$
-    key_groups:
-      - age:
-          - *ereslibre
   - path_regex: nuc-1/secrets\.yaml$
     key_groups:
       - age:
@@ -41,11 +29,6 @@ creation_rules:
       - age:
           - *ereslibre
           - *host-nuc-3
-  - path_regex: pi-desktop/secrets\.yaml$
-    key_groups:
-      - age:
-          - *ereslibre
-          - *host-pi-desktop
   - path_regex: common/synapse/secrets\.yaml$
     key_groups:
       - age:

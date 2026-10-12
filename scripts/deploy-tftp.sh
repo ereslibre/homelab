@@ -12,25 +12,16 @@
 # Usage:
 #   scripts/deploy-tftp.sh <hostname> [--toplevel <store-path>]
 #
-# The script knows two ways to map a host to its TFTP directory:
-#
-#   - Literal-prefix hosts: pi-desktop. EEPROM is flashed with
-#     TFTP_PREFIX=1 and TFTP_PREFIX_STR=<host>/ so it fetches from
-#     /<host>/.
-#   - MAC-prefix hosts: every cpi-*. EEPROM is flashed with
-#     TFTP_PREFIX=2 so the Pi fetches from /<mac-with-dashes>/.
-#
-# Extend the MAC_OF / LITERAL_PREFIX_OF maps below when you add a host.
+# Every cpi-* has its EEPROM flashed with TFTP_PREFIX=2, so the Pi
+# fetches from /<mac-with-dashes>/: extend the MAC_OF map below when you
+# add one. A host flashed with a literal prefix instead (TFTP_PREFIX=1,
+# TFTP_PREFIX_STR=<dir>/) names its directory with TFTP_SUBDIR=<dir>.
 
 set -euo pipefail
 
 SYNOLOGY_USER="${SYNOLOGY_USER:-ereslibre}"
 SYNOLOGY_HOST="${SYNOLOGY_HOST:-10.0.4.2}"
 TFTP_BASE="${TFTP_BASE:-/volume1/pis}"
-
-declare -A LITERAL_PREFIX_OF=(
-  [pi-desktop]=pi-desktop
-)
 
 declare -A MAC_OF=(
   [cpi-1]=dc:a6:32:b1:07:03
@@ -58,13 +49,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Resolve TFTP destination subdir for this host.
-TFTP_SUBDIR=""
-if [[ -n "${LITERAL_PREFIX_OF[$HOST]:-}" ]]; then
-  TFTP_SUBDIR=${LITERAL_PREFIX_OF[$HOST]}
-elif [[ -n "${MAC_OF[$HOST]:-}" ]]; then
+TFTP_SUBDIR="${TFTP_SUBDIR:-}"
+if [[ -z "$TFTP_SUBDIR" ]]; then
+  [[ -n "${MAC_OF[$HOST]:-}" ]] ||
+    die "no MAC_OF entry for host '$HOST' — add one to scripts/deploy-tftp.sh, or set TFTP_SUBDIR"
   TFTP_SUBDIR=${MAC_OF[$HOST]//:/-}
-else
-  die "no LITERAL_PREFIX_OF or MAC_OF entry for host '$HOST' — add one to scripts/deploy-tftp.sh"
 fi
 
 echo "deploy-tftp: host=$HOST  tftp_subdir=$TFTP_SUBDIR"

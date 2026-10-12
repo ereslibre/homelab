@@ -105,8 +105,11 @@
         host: configuration:
           configuration.builder (
             let
+              # A machine defined outside this repo has no entry in
+              # ./dotfiles to look up, so it passes its own as `home`.
               hmConfiguration =
-                dotfiles
+                configuration.home
+                or dotfiles
                 .rawHomeManagerConfigurations
                 ."${configuration.user}@${
                   if builtins.hasAttr "host" configuration
@@ -154,6 +157,10 @@
       );
       hermesModule = import ./common/hermes {inherit llm-agents;};
     in {
+      # The wiring every machine below goes through (dotfiles, overlays,
+      # caches), for flakes that take this one as an input and define
+      # machines of their own.
+      lib = {inherit mapMachineConfigurations;};
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Flying-Hulk" = {
           builder = nix-darwin.lib.darwinSystem;
@@ -176,24 +183,6 @@
               microvm.nixosModules.host
               sops-nix.nixosModules.sops
               ./hulk/configuration.nix
-            ];
-          };
-          "nidavellir" = {
-            builder = nixpkgs.lib.nixosSystem;
-            system = "aarch64-linux";
-            user = "ereslibre";
-            modules = [
-              home-manager.nixosModules.home-manager
-              ./nidavellir/configuration.nix
-            ];
-          };
-          "pitchen" = {
-            builder = nixpkgs.lib.nixosSystem;
-            system = "aarch64-linux";
-            user = "ereslibre";
-            modules = [
-              home-manager.nixosModules.home-manager
-              ./pitchen/configuration.nix
             ];
           };
           "nuc-1" = {
@@ -230,18 +219,6 @@
               microvm.nixosModules.host
               sops-nix.nixosModules.sops
               ./nuc-3/configuration.nix
-            ];
-          };
-          "pi-desktop" = {
-            builder = nixpkgs.lib.nixosSystem;
-            system = "aarch64-linux";
-            user = "ereslibre";
-            modules = [
-              home-manager.nixosModules.home-manager
-              nixos-hardware.nixosModules.raspberry-pi-4
-              sops-nix.nixosModules.sops
-              hermesModule
-              ./pi-desktop/configuration.nix
             ];
           };
         }

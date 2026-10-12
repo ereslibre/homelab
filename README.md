@@ -32,26 +32,6 @@
 # sudo tailscale up --accept-dns=false
 ```
 
-## pi-desktop (diskless iSCSI netboot)
-
-`pi-desktop` is a Raspberry Pi 400 with no local storage that netboots
-over TFTP and mounts root from an iSCSI LUN on the Synology. See
-[`pi-desktop/README.md`](pi-desktop/README.md) for the full setup,
-EEPROM flash recipe, and install procedure.
-
-## nidavellir (3D-printer host)
-
-`nidavellir` is a Raspberry Pi Zero 2 W running OctoPrint for the Ender 5
-S1, booting from a self-contained SD image (`just sd-image nidavellir`)
-and joining Wi-Fi on its own. A printable case lives next to it.
-See [`nidavellir/README.md`](nidavellir/README.md).
-
-## pitchen (kitchen kiosk)
-
-`pitchen` is a Raspberry Pi 5 with a 10.1" touchscreen that shows Home
-Assistant full screen, booting from a self-contained SD image
-(`just sd-image pitchen`). See [`pitchen/README.md`](pitchen/README.md).
-
 ## cpi-1 … cpi-7 (headless PoE Pi fleet)
 
 Seven rack-mounted PoE-powered Pi 4 Bs. Each host is fully described

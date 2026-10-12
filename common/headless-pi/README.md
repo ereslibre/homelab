@@ -401,7 +401,7 @@ and stdin isn't a TTY; sudo silently waits forever.
 - **EEPROM flash with `pieeprom-2025-05-08.bin`**, not the
   `raspberrypi-eeprom-2026.01.09` that nixpkgs currently ships as
   default — the 2026 firmware is silent on the wire on the Pi 4
-  during netboot. See pi-desktop/README.md for the full story.
+  during netboot.
 - **Installer USB sticks cross-contaminate EEPROMs.** A USB stick
   that previously had `pieeprom.upd` / `pieeprom.sig` /
   `recovery.bin` on its FAT partition (left over from a previous

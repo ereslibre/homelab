@@ -7,7 +7,7 @@
 # and a minimal configuration.nix with hostname + sops paths.
 {
   # No local bootloader — kernel + initrd come over TFTP from the Synology
-  # (see pi-desktop/README.md for the full architecture).
+  # (see ./README.md for the full architecture).
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = false;
 
