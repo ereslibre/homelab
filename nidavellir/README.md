@@ -210,7 +210,7 @@ Same flow as a running `cpi-N` — build on hulk, push, activate:
 just build nidavellir
 TOPLEVEL=$(readlink -f ./result)
 PI=<address>     # hulk does not resolve nidavellir.local: use the lease's IP
-nix copy --to ssh-ng://ereslibre@$PI "$TOPLEVEL"
+nix copy --no-check-sigs --to ssh-ng://ereslibre@$PI "$TOPLEVEL"   # locally built, so unsigned
 ssh -t ereslibre@$PI "sudo nix-env -p /nix/var/nix/profiles/system --set $TOPLEVEL && sudo $TOPLEVEL/bin/switch-to-configuration switch"
 ```
 
