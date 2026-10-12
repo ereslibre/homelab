@@ -40,7 +40,12 @@ in {
   networking.wireless = {
     enable = true;
     secretsFile = wifiSecrets;
-    networks."Furgoneta de cacharrancia".pskRaw = "ext:psk_furgoneta";
+    networks."Furgoneta de cacharrancia" = {
+      pskRaw = "ext:psk_furgoneta";
+      # The SSID is not broadcast: without a directed probe it never
+      # shows up in a scan and wpa_supplicant scans forever.
+      hidden = true;
+    };
     extraConfig = ''
       country=ES
     '';

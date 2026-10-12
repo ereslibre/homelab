@@ -119,7 +119,17 @@ see what is going on without one:
   screen /dev/cu.usbmodemXXXX 115200
   ```
 
-  Log in and run `systemctl status wifi-secrets wpa_supplicant`.
+  Log in and run `systemctl status wifi-secrets wpa_supplicant`. Things
+  that trip this up:
+
+  - It has to be the `USB` socket; `PWR IN` has no data lines.
+  - It has to be a data cable. With a charge-only one the Pi powers up
+    but no serial port appears.
+  - A laptop port is enough to run the bare board. If it resets, also
+    plug the normal supply into `PWR IN`.
+  - Only the login prompt is on this console, not the boot messages, and
+    only once the system is up: a minute or two, longer on first boot.
+    Press Enter if the screen stays blank.
 
 - **Boot report.** About 45 s, 2 min and 4 min after boot the Pi
   rewrites `boot-report.txt` on the firmware partition: interfaces, the
