@@ -53,9 +53,8 @@ ssh ereslibre@nidavellir.local
 ```
 
 OctoPrint is at `http://nidavellir.local/`. The first visit runs
-OctoPrint's setup wizard (create the admin user there; printer profile
-for a stock Ender 5 S1 is 220 × 220 × 280 mm, origin front-left, heated
-bed, 0.4 mm nozzle).
+OctoPrint's setup wizard: create the admin user there and fill in the
+printer profile from [Printer profile](#printer-profile).
 
 The host is deliberately not on the tailnet: from outside, the network
 is reached through nuc-1. `nidavellir.local` only resolves from machines
@@ -193,6 +192,38 @@ OctoPrint state (users, uploaded G-code, timelapses, plugins installed
 through the UI) lives in `/var/lib/octoprint` on the card. Settings
 declared in `configuration.nix` are merged over `config.yaml` on every
 service start, so they win over changes made in the UI.
+
+## Printer profile
+
+The setup wizard asks for these; they are for a stock Ender 5 S1 (Sprite
+direct-drive extruder, 0.4 mm nozzle). The profile is kept in
+`/var/lib/octoprint`, not in `configuration.nix`.
+
+| Tab | Setting | Value |
+|---|---|---|
+| General | Name | `Ender 5 S1` |
+| General | Model | `Creality Ender 5 S1` |
+| Print bed & build volume | Form factor | Rectangular |
+| Print bed & build volume | Origin | Lower left |
+| Print bed & build volume | Heated bed | yes |
+| Print bed & build volume | Heated chamber | no |
+| Print bed & build volume | Width (X) | 220 mm |
+| Print bed & build volume | Depth (Y) | 220 mm |
+| Print bed & build volume | Height (Z) | 280 mm |
+| Print bed & build volume | Custom bounding box | no |
+| Axes | X | 6000 mm/min, not inverted |
+| Axes | Y | 6000 mm/min, not inverted |
+| Axes | Z | 200 mm/min, not inverted |
+| Axes | E | 300 mm/min, not inverted |
+| Hotend & extruder | Nozzle diameter | 0.4 mm |
+| Hotend & extruder | Number of extruders | 1 |
+| Hotend & extruder | Default extrusion length | 5 mm |
+
+The axes values are OctoPrint's defaults and only drive the jog buttons
+in the Control tab, not prints. The Ender 5 homes X and Y to the back
+right, but the coordinate origin is still front-left, so "Lower left" is
+correct. The bed moves instead of the gantry, so jogging Z up lowers the
+bed; tick "Invert control" on Z if that feels backwards.
 
 ## Webcam
 
