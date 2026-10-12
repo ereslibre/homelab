@@ -155,27 +155,17 @@ serial console (see "When Wi-Fi does not come up").
 
 ## Case
 
-[`case/case.scad`](case/case.scad) is a two-part printable case with ears
-that bolt onto a 2020 slot of the printer frame. Render and print it:
+[`case/`](case/) holds a two-part printable case with ears that bolt
+onto a 2020 slot of the printer frame. Render the STL files for the
+slicer with:
 
 ```sh
 cd nidavellir/case
-nix shell nixpkgs#openscad-unstable -c openscad -D 'part="base"' -o base.stl case.scad
-nix shell nixpkgs#openscad-unstable -c openscad -D 'part="lid"'  -o lid.stl  case.scad
+just
 ```
 
-Both parts print flat as exported, without supports (0.2 mm layers; PETG
-if it sits near the bed or PSU, otherwise PLA is fine). Hardware:
-
-- 4 × M2.5 × 12 screws — through the lid and the board, self-tapping
-  into the base standoffs;
-- 2 × M4 × 8 screws + M4 T-nuts for the frame (`mount_screw_d = 5.4`
-  for M5, `mount = "none"` to drop the ears).
-
-Cut-outs: mini-HDMI, both micro-USB sockets, the SD card (swappable
-without opening the case), a slot over the 40-pin header and vents over
-the SoC. The parameters at the top of the file cover fit (`clearance`),
-the header slot and an optional camera-ribbon notch.
+[`case/README.md`](case/README.md) covers printing, the hardware needed
+and the parameters of the model.
 
 ## What's on it
 
