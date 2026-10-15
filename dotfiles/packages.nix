@@ -9,7 +9,6 @@
       cursor-agent
       gemini-cli
       goose-cli
-      hermes-agent
       skills
       qwen-code
     ]

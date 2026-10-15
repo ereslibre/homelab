@@ -367,8 +367,8 @@ Variants:
   then `just deploy-tftp cpi-N` from hulk to refresh the TFTP
   kernel/initrd/cmdline, then `ssh -t ereslibre@cpi-N sudo reboot`.
 - **Pure config / userland change** (e.g. adding a package like
-  `hermes-agent`): `switch` is fine, no TFTP redeploy needed —
-  kernel/initrd haven't moved.
+  `btop`): `switch` is fine, no TFTP redeploy needed — kernel/initrd
+  haven't moved.
 
 If `ssh -t` ever hangs at the password prompt, you forgot the `-t`
 and stdin isn't a TTY; sudo silently waits forever.

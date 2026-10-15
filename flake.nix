@@ -155,7 +155,6 @@
             }
           )
       );
-      hermesModule = import ./common/hermes {inherit llm-agents;};
     in {
       # The wiring every machine below goes through (dotfiles, overlays,
       # caches), for flakes that take this one as an input and define
@@ -255,7 +254,6 @@
                 home-manager.nixosModules.home-manager
                 nixos-hardware.nixosModules.raspberry-pi-4
                 sops-nix.nixosModules.sops
-                hermesModule
                 (import ./common/headless-pi/cpi-node.nix {inherit n;})
               ]
               ++ extraModules;
