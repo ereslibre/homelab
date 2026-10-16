@@ -24,7 +24,7 @@
       postInstall = old.postInstall + "\noutputBin=out\n";
       doCheck = !pkgs.stdenv.hostPlatform.isAarch64;
     })).regctl;
-  container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.isLinux [distrobox]);
+  container-tools = with pkgs; ([dive reg regctl] ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [distrobox]);
   core-tools = with pkgs; [
     binutils
     btop-cuda
@@ -57,7 +57,7 @@
   # bin/rust-analyzer collision against rustup's shim. cargo/rustc still come
   # from rustup; project-local toolchains (devenv/.envrc) still override via PATH.
   global-language-tools = with pkgs; [gopls nodejs pnpm rustup (lib.hiPrio rust-analyzer)];
-  kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.isLinux [k3d kind]));
+  kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.hostPlatform.isLinux [k3d kind]));
   platform-tools = with pkgs; [gh];
 in {
   home.packages =

@@ -8,7 +8,12 @@
   virtualisation = {
     containers = {
       enable = true;
-      registries.insecure = ["localhost:3000"];
+      registries.settings.registry = [
+        {
+          location = "localhost:3000";
+          insecure = true;
+        }
+      ];
     };
     podman.enable = true;
   };
