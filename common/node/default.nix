@@ -23,6 +23,9 @@
 
   networking = {
     useDHCP = lib.mkDefault true;
+    # Keep dhcpcd off container/CNI interfaces; otherwise it assigns
+    # them IPv4LL (169.254.x.x) addresses.
+    dhcpcd.denyInterfaces = ["veth*" "cni*" "flannel*"];
     firewall.enable = false;
   };
 
