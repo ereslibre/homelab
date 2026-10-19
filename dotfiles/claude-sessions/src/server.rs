@@ -4,9 +4,19 @@
 //! they can be read or typed into: a target never resolves to an arbitrary
 //! tmux pane.
 
-use std::{net::SocketAddr, path::PathBuf, sync::Arc};
+use std::{
+    net::{IpAddr, SocketAddr},
+    path::PathBuf,
+    sync::Arc,
+};
 
 use anyhow::Result;
+use axum::{
+    extract::{ConnectInfo, Request, State},
+    http::StatusCode,
+    middleware::{self, Next},
+    response::{IntoResponse, Response},
+};
 use rmcp::{
     Json, ServerHandler,
     handler::server::{router::tool::ToolRouter, wrapper::Parameters},
@@ -195,7 +205,27 @@ impl ServerHandler for Sessions {
     }
 }
 
-pub async fn run(dir: PathBuf, listen: SocketAddr, allowed_hosts: Vec<String>) -> Result<()> {
+/// Refuse peers outside `allow`, loopback aside. Empty lets everyone in.
+async fn check_peer(
+    State(allow): State<Arc<Vec<IpAddr>>>,
+    ConnectInfo(peer): ConnectInfo<SocketAddr>,
+    request: Request,
+    next: Next,
+) -> Response {
+    let ip = peer.ip().to_canonical();
+    if allow.is_empty() || ip.is_loopback() || allow.contains(&ip) {
+        next.run(request).await
+    } else {
+        StatusCode::FORBIDDEN.into_response()
+    }
+}
+
+pub async fn run(
+    dir: PathBuf,
+    listen: SocketAddr,
+    allowed_hosts: Vec<String>,
+    allow_from: Vec<IpAddr>,
+) -> Result<()> {
     let dir = Arc::new(dir);
     let cancel = CancellationToken::new();
     let mut config = StreamableHttpServerConfig::default().with_cancellation_token(cancel.clone());
@@ -208,14 +238,23 @@ pub async fn run(dir: PathBuf, listen: SocketAddr, allowed_hosts: Vec<String>) -
         Default::default(),
         config,
     );
-    let router = axum::Router::new().nest_service("/mcp", service);
+    let router =
+        axum::Router::new()
+            .nest_service("/mcp", service)
+            .layer(middleware::from_fn_with_state(
+                Arc::new(allow_from),
+                check_peer,
+            ));
     let listener = tokio::net::TcpListener::bind(listen).await?;
     eprintln!("listening on http://{}/mcp", listener.local_addr()?);
-    axum::serve(listener, router)
-        .with_graceful_shutdown(async move {
-            let _ = tokio::signal::ctrl_c().await;
-            cancel.cancel();
-        })
-        .await?;
+    axum::serve(
+        listener,
+        router.into_make_service_with_connect_info::<SocketAddr>(),
+    )
+    .with_graceful_shutdown(async move {
+        let _ = tokio::signal::ctrl_c().await;
+        cancel.cancel();
+    })
+    .await?;
     Ok(())
 }

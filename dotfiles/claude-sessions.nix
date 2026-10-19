@@ -63,6 +63,16 @@ in {
         names that machine uses for this one.
       '';
     };
+    allowFrom = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [];
+      example = ["10.0.4.32"];
+      description = ''
+        Client addresses allowed to connect, on top of loopback. Empty lets
+        every client in, which is only fine behind a firewall that already
+        limits who reaches {option}`listen`.
+      '';
+    };
   };
 
   config = lib.mkMerge [
@@ -80,6 +90,7 @@ in {
           ExecStart = lib.escapeShellArgs (
             [(lib.getExe package) "serve" "--listen" cfg.listen]
             ++ lib.concatMap (host: ["--allowed-host" host]) cfg.allowedHosts
+            ++ lib.concatMap (ip: ["--allow-from" ip]) cfg.allowFrom
           );
           Restart = "on-failure";
         };
