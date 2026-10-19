@@ -22,6 +22,7 @@ in {
       ./fonts.nix
       (import ./packages.nix {inherit aiTools;})
       (import ./agents.nix {inherit aiTools;})
+      ./claude-sessions.nix
       (import ./programs.nix {
         inherit username mainlyRemote profile;
         isDarwin = systemMatchesPredicate system "isDarwin";
