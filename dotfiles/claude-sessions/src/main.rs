@@ -11,7 +11,10 @@ mod server;
 mod state;
 mod tmux;
 
-use std::{net::SocketAddr, path::PathBuf};
+use std::{
+    net::{IpAddr, SocketAddr},
+    path::PathBuf,
+};
 
 use anyhow::Result;
 use clap::{Parser, Subcommand};
@@ -39,6 +42,10 @@ enum Command {
         /// Without any, only loopback hosts are accepted.
         #[arg(long = "allowed-host")]
         allowed_hosts: Vec<String>,
+        /// Client address allowed to connect; repeat for more. Loopback is
+        /// always allowed. Without any, every client is.
+        #[arg(long)]
+        allow_from: Vec<IpAddr>,
     },
 }
 
@@ -61,6 +68,7 @@ async fn main() -> Result<()> {
         Command::Serve {
             listen,
             allowed_hosts,
-        } => server::run(dir, listen, allowed_hosts).await,
+            allow_from,
+        } => server::run(dir, listen, allowed_hosts, allow_from).await,
     }
 }
