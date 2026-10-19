@@ -92,6 +92,9 @@ in {
             ++ lib.concatMap (host: ["--allowed-host" host]) cfg.allowedHosts
             ++ lib.concatMap (ip: ["--allow-from" ip]) cfg.allowFrom
           );
+          # programs.tmux.secureSocket moves the socket under the runtime
+          # dir via a session variable, which systemd units never see.
+          Environment = lib.optional (with config.programs.tmux; enable && secureSocket) "TMUX_TMPDIR=%t";
           Restart = "on-failure";
         };
         Install.WantedBy = ["default.target"];
