@@ -38,7 +38,20 @@ in {
 
       # The container evaluates its own nixpkgs; reuse the host's
       # overlays so both see the same package set.
-      nixpkgs.overlays = hostOverlays;
+      nixpkgs.overlays =
+        hostOverlays
+        ++ [
+          # TEMPORARY: matrix-synapse 1.162.0 on nixos-unstable 09063bd1
+          # fails test_oidc.OidcHandlerTestCase.test_map_userinfo_to_user
+          # on Hydra (build 349689623), so it is not in the binary cache
+          # and every build reruns the whole suite locally. 1.163.0 already
+          # builds fine on Hydra; drop this once the channel moves past it.
+          (_: prev: {
+            matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs {
+              doCheck = false;
+            };
+          })
+        ];
 
       networking.firewall.allowedTCPPorts = [8008 8448];
 
