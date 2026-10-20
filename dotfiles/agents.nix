@@ -44,10 +44,6 @@ in
         enable = true;
         package = agents.codex;
       };
-      github-copilot-cli = {
-        enable = true;
-        package = agents.copilot-cli;
-      };
       opencode = {
         enable = true;
         package = agents.opencode;
