@@ -305,6 +305,12 @@ in {
         (global-set-key (kbd "C-c m w d") #'ereslibre/worktree-diff)
         (global-set-key (kbd "C-c m w l") #'ereslibre/worktree-log)
 
+        ;; From a diff, RET visits a blob (to read) and C-RET the worktree file
+        ;; (with envrc and lsp). The same C-RET in a blob makes that jump later.
+        (with-eval-after-load 'magit-files
+          (define-key magit-blob-mode-map (kbd "C-<return>") #'magit-blob-visit-file)
+          (define-key magit-blob-mode-map (kbd "C-j") #'magit-blob-visit-file))
+
         ;; Review notes for coding agents: a note taken on a diff or a file
         ;; lands in the worktree's AGENT_REVIEW.md (kept out of git through
         ;; the global gitignore). The agent works through it and deletes each
