@@ -224,13 +224,12 @@ in {
 
         ;; Reviewing worktrees: one tab per worktree, opened on its status and
         ;; its diff against its target. `C-x p k' closes it again, which (with
-        ;; lsp-keep-workspace-alive nil) also stops its language server.
+        ;; lsp-keep-workspace-alive nil) also stops its language server. The bar
+        ;; itself stays hidden; switch tabs with `C-x t o' or `C-x t RET'.
         (use-package tab-bar
           :demand t
           :custom
-          (tab-bar-show 1)
-          :config
-          (tab-bar-mode 1))
+          (tab-bar-show nil))
 
         (defun ereslibre/review-worktree (dir)
           "Open worktree DIR in its own tab, showing its diff against its target."
