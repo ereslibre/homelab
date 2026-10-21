@@ -23,7 +23,19 @@ in
     programs = {
       claude-code = {
         enable = true;
-        package = agents.claude-code;
+        # Claude Code shells out to python3 for edits and data munging, and
+        # falls back to slower paths when it is missing. Suffixed so a
+        # project-local python (devenv/.envrc) still wins. `version` is kept
+        # so the module's version-gated features keep working.
+        package = pkgs.symlinkJoin {
+          inherit (agents.claude-code) pname version meta;
+          name = "claude-code-${agents.claude-code.version}";
+          paths = [agents.claude-code];
+          nativeBuildInputs = [pkgs.makeWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/claude --suffix PATH : ${lib.makeBinPath [pkgs.python3]}
+          '';
+        };
         # Same servers as the official `rust-analyzer-lsp` and `gopls-lsp`
         # marketplace plugins, shipped as a Home Manager-managed plugin instead.
         # Commands resolve through PATH on purpose: the global binaries come
