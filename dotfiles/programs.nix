@@ -223,7 +223,7 @@ in {
                  ("C-c m w v" . magit-worktree-status)))
 
         ;; Reviewing worktrees: one tab per worktree, opened on its status and
-        ;; its diff against main. `C-x p k' closes it again, which (with
+        ;; its diff against its target. `C-x p k' closes it again, which (with
         ;; lsp-keep-workspace-alive nil) also stops its language server.
         (use-package tab-bar
           :demand t
@@ -233,7 +233,7 @@ in {
           (tab-bar-mode 1))
 
         (defun ereslibre/review-worktree (dir)
-          "Open worktree DIR in its own tab, showing its diff against main."
+          "Open worktree DIR in its own tab, showing its diff against its target."
           (interactive
            (list (completing-read "Worktree: "
                                   (mapcar #'car (magit-list-worktrees)) nil t)))
@@ -244,8 +244,8 @@ in {
               (tab-bar-rename-tab name)
               (let ((default-directory (file-name-as-directory dir)))
                 (magit-status-setup-buffer dir)
-                (magit-diff-range "main...HEAD")))))
-        (global-set-key (kbd "C-c w r") #'ereslibre/review-worktree)
+                (magit-diff-range (concat (ereslibre/worktree-target) "...HEAD"))))))
+        (global-set-key (kbd "C-c m w r") #'ereslibre/review-worktree)
 
         (defun ereslibre/read-worktree ()
           "Return the current worktree, or with a prefix argument read one."
@@ -254,9 +254,32 @@ in {
             (or (magit-toplevel) (user-error "Not inside a git worktree"))))
 
         (defun ereslibre/worktree-target ()
-          "Return the branch the current worktree's branch targets: the remote's default branch."
-          (or (magit-rev-parse "--abbrev-ref" "origin/HEAD")
-              "main"))
+          "Return the branch the current worktree's branch sits on top of.
+        That is the remote's default branch, unless the branch is stacked on
+        one checked out in another worktree. Of all of them, the target is
+        the one HEAD is the fewest commits ahead of, then the one with the
+        fewest commits of its own, the default on a tie. Branches HEAD is not
+        ahead of at all are stacked on it, not under it."
+          (let* ((default (or (magit-rev-parse "--abbrev-ref" "origin/HEAD") "main"))
+                 (current (magit-get-current-branch))
+                 target best)
+            (dolist (branch (cons default (mapcar (lambda (worktree) (nth 2 worktree))
+                                                  (magit-list-worktrees))))
+              (let* ((counts (and branch (not (equal branch current))
+                                  (magit-git-string "rev-list" "--left-right" "--count"
+                                                    (concat branch "...HEAD"))))
+                     ;; (HEAD's commits . BRANCH's commits)
+                     (ahead (and counts
+                                 (pcase-let ((`(,theirs ,ours) (mapcar #'string-to-number
+                                                                       (split-string counts))))
+                                   (cons ours theirs)))))
+                (when (and ahead (> (car ahead) 0)
+                           (or (not best)
+                               (< (car ahead) (car best))
+                               (and (= (car ahead) (car best)) (< (cdr ahead) (cdr best)))))
+                  (setq target branch
+                        best ahead))))
+            (or target default)))
 
         ;; These only shell out to git, so keep envrc (and with it direnv and
         ;; devenv) from starting in the buffers they create: a worktree can be
@@ -359,33 +382,8 @@ in {
           (interactive)
           (find-file-other-window (ereslibre/review-file)))
 
-        (global-set-key (kbd "C-c w n") #'ereslibre/review-note)
-        (global-set-key (kbd "C-c w o") #'ereslibre/review-open)
-
-        ;; Reviewing worktrees: one tab per worktree, opened on its status and
-        ;; its diff against main. `C-x p k' closes it again, which (with
-        ;; lsp-keep-workspace-alive nil) also stops its language server.
-        (use-package tab-bar
-          :demand t
-          :custom
-          (tab-bar-show 1)
-          :config
-          (tab-bar-mode 1))
-
-        (defun ereslibre/review-worktree (dir)
-          "Open worktree DIR in its own tab, showing its diff against main."
-          (interactive
-           (list (completing-read "Worktree: "
-                                  (mapcar #'car (magit-list-worktrees)) nil t)))
-          (let ((name (file-name-nondirectory (directory-file-name dir))))
-            (if (member name (mapcar (lambda (tab) (alist-get 'name tab)) (tab-bar-tabs)))
-                (tab-bar-switch-to-tab name)
-              (tab-bar-new-tab)
-              (tab-bar-rename-tab name)
-              (let ((default-directory (file-name-as-directory dir)))
-                (magit-status-setup-buffer dir)
-                (magit-diff-range "main...HEAD")))))
-        (global-set-key (kbd "C-c w r") #'ereslibre/review-worktree)
+        (global-set-key (kbd "C-c m w n") #'ereslibre/review-note)
+        (global-set-key (kbd "C-c m w o") #'ereslibre/review-open)
 
         (use-package yasnippet
           :demand t
