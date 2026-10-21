@@ -253,17 +253,31 @@ in {
               (completing-read "Worktree: " (mapcar #'car (magit-list-worktrees)) nil t)
             (or (magit-toplevel) (user-error "Not inside a git worktree"))))
 
+        (defun ereslibre/worktree-target ()
+          "Return the branch the current worktree's branch targets: the remote's default branch."
+          (or (magit-rev-parse "--abbrev-ref" "origin/HEAD")
+              "main"))
+
+        ;; These only shell out to git, so keep envrc (and with it direnv and
+        ;; devenv) from starting in the buffers they create: a worktree can be
+        ;; looked at without ever being visited.
+        (defvar envrc-global-modes)
+
         (defun ereslibre/worktree-diff (dir)
-          "Show the changes worktree DIR introduces on top of main."
+          "Show the changes worktree DIR introduces on top of its target."
           (interactive (list (ereslibre/read-worktree)))
-          (let ((default-directory (file-name-as-directory dir)))
-            (magit-diff-range "main...HEAD")))
+          (let* ((default-directory (file-name-as-directory dir))
+                 (target (ereslibre/worktree-target))
+                 (envrc-global-modes nil))
+            (magit-diff-range (concat target "...HEAD"))))
 
         (defun ereslibre/worktree-log (dir)
-          "Show the commits worktree DIR has on top of main."
+          "Show the commits worktree DIR has on top of its target."
           (interactive (list (ereslibre/read-worktree)))
-          (let ((default-directory (file-name-as-directory dir)))
-            (apply #'magit-log-other '("main..HEAD") (magit-log-arguments))))
+          (let* ((default-directory (file-name-as-directory dir))
+                 (target (ereslibre/worktree-target))
+                 (envrc-global-modes nil))
+            (apply #'magit-log-other (list (concat target "..HEAD")) (magit-log-arguments))))
 
         (global-set-key (kbd "C-c m w d") #'ereslibre/worktree-diff)
         (global-set-key (kbd "C-c m w l") #'ereslibre/worktree-log)
