@@ -621,6 +621,7 @@ in {
           :config
           (setq org-directory "~/.org")
           (setq org-agenda-files '("~/.org/habits.org"
+        			                     "~/.org/curried-software.org"
         			                     "~/.org/inbox.org"
         			                     "~/.org/journal.org"
         			                     "~/.org/notes.org"
@@ -664,7 +665,7 @@ in {
         	      '(("A" "All"
         	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
          	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
-        	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org"))))
+        	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org" "~/.org/curried-software.org"))))
         	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))))
         	        ("o" "Office"
         	         ((agenda "" ((org-agenda-start-day nil) (org-agenda-span 'day)))
@@ -683,7 +684,7 @@ in {
         	        ("w" "Weekly review"
         	         ((agenda "" ((org-agenda-start-day nil)
         			                  (org-agenda-span 'week)))
-        	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org"))))
+        	          (tags-todo "+work" ((org-agenda-files '("~/.org/projects.org" "~/.org/curried-software.org"))))
         	          (tags-todo "+personal" ((org-agenda-files '("~/.org/projects.org"))))
         	          (tags-todo "+hacking" ((org-agenda-files '("~/.org/projects.org"))))
         	          (tags "+someday" ((org-agenda-files '("~/.org/someday.org"))))))))
