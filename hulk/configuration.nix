@@ -77,6 +77,8 @@
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = "131072";
         OLLAMA_FLASH_ATTENTION = "1";
+        # Never unload. A per-request keep_alive from a client still wins.
+        OLLAMA_KEEP_ALIVE = "-1";
         OLLAMA_KV_CACHE_TYPE = "q8_0";
         OLLAMA_NUM_PARALLEL = "1";
         # qwen3.5 is hybrid SSM/attention, so llama.cpp snapshots the recurrent
