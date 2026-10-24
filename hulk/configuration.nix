@@ -63,9 +63,32 @@
   # 128 jobs at once. cores = 0 lets a lone build claim the whole machine, and
   # max-jobs caps the 16 concurrent remote-build slots (see common/remote-builds)
   # at a limit the scheduler enforces for real.
-  nix.settings = {
-    cores = 0;
-    max-jobs = 16;
+  nix = {
+    settings = {
+      cores = 0;
+      max-jobs = 16;
+    };
+    # Builds still get every idle cycle, but anything interactive preempts them.
+    daemonCPUSchedPolicy = "batch";
+    daemonIOSchedClass = "best-effort";
+    daemonIOSchedPriority = 7;
+  };
+
+  # A chromium/firefox-sized build at 16 jobs x 128 threads exhausts RAM, and
+  # the global OOM killer then picks ollama or a login session instead of the
+  # build, after the box has thrashed for minutes. Confine builds (and their
+  # /tmp tmpfs pages, which are charged to this cgroup) so pressure stays inside
+  # nix-daemon: MemoryHigh throttles and reclaims builds first, MemoryMax makes
+  # the kernel kill a build process rather than the rest of the system. The
+  # cgroup weights are proportional, not caps, so an otherwise idle machine
+  # still gives builds all 128 threads.
+  systemd.services.nix-daemon.serviceConfig = {
+    CPUWeight = 10;
+    IOWeight = 10;
+    MemoryHigh = "80%";
+    MemoryMax = "88%";
+    MemorySwapMax = "2G";
+    OOMScoreAdjust = 500;
   };
 
   services = {
