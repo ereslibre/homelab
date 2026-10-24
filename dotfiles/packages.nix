@@ -57,7 +57,10 @@
   # from rustup; project-local toolchains (devenv/.envrc) still override via PATH.
   global-language-tools = with pkgs; [gopls nodejs pnpm rustup (lib.hiPrio rust-analyzer)];
   kubernetes-tools = with pkgs; ([fluxcd kubectl kubernetes-helm kubeseal velero] ++ (lib.optionals pkgs.stdenv.hostPlatform.isLinux [k3d kind]));
-  platform-tools = with pkgs; [gh];
+  google-cloud-sdk = pkgs.google-cloud-sdk.withExtraComponents (with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
+  platform-tools = with pkgs; [gh google-cloud-sdk];
 in {
   home.packages =
     ai-tools
