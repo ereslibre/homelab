@@ -82,8 +82,7 @@ in
                 max = "high";
               };
               compat.supportsReasoningEffort = true;
-              # Keep in sync with OLLAMA_CONTEXT_LENGTH on hulk.
-              contextWindow = 131072;
+              contextWindow = (import ../ollama.nix).contextLength;
             }
           ];
         };

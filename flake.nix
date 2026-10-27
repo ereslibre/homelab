@@ -75,6 +75,7 @@
   }: let
     dotfiles = import ./dotfiles;
     nixCaches = import ./nix-caches.nix;
+    ollama = import ./ollama.nix;
     # Shared by the devShell's `pkgs` and by every machine's
     # `nixpkgs.overlays` below — keep it single-sourced so the two
     # never drift.
@@ -170,7 +171,9 @@
       # The wiring every machine below goes through (dotfiles, overlays,
       # caches), for flakes that take this one as an input and define
       # machines of their own.
-      lib = {inherit mapMachineConfigurations;};
+      # `ollama` is the shape of hulk's Ollama (see ./ollama.nix), for the
+      # private holabot client.
+      lib = {inherit mapMachineConfigurations ollama;};
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Flying-Hulk" = {
           builder = nix-darwin.lib.darwinSystem;

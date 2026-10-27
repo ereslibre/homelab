@@ -98,7 +98,7 @@
       loadModels = ["hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL"];
       package = pkgs.ollama-cuda;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = "131072";
+        OLLAMA_CONTEXT_LENGTH = toString (import ../ollama.nix).contextLength;
         OLLAMA_FLASH_ATTENTION = "1";
         # Never unload. A per-request keep_alive from a client still wins.
         OLLAMA_KEEP_ALIVE = "-1";
