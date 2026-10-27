@@ -7,6 +7,13 @@ switch host=defaultHost: (build host)
 build host=defaultHost:
   nix build --accept-flake-config .#{{configType}}.{{host}}.config.system.build.toplevel
 
+# Build a host here (or on the remote builders), copy it over SSH and
+# switch to it there. Asks for the host's sudo password. `addr` is where
+# to reach it, if not under its own name (e.g. a DHCP lease's IP).
+deploy host addr=host:
+  nixos-rebuild switch --accept-flake-config --flake .#{{host}} \
+    --target-host ereslibre@{{addr}} --sudo --ask-sudo-password
+
 # Refresh the netboot tree for a TFTP-booted Pi host on the Synology.
 # See scripts/deploy-tftp.sh for the per-host MAC / prefix mapping.
 deploy-tftp host=defaultHost:
