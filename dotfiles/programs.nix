@@ -748,7 +748,7 @@ in {
           ff = "only";
           rebase = true;
         };
-        push.default = "matching";
+        push.default = "simple";
         rerere = {
           enabled = true;
           autoUpdate = true;
