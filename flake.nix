@@ -105,6 +105,17 @@
             })
           ];
       })
+      # writeDarwinBundle is a shebangless script, so the
+      # desktopToDarwinBundle hook only runs it through bash's ENOEXEC
+      # fallback, which intermittently segfaults on darwin (breaking
+      # virt-manager). Front it with a real script that invokes it via
+      # stdenv.shell, as nixpkgs' t3code does. Linux hashes are untouched.
+      (final: prev:
+        prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
+          writeDarwinBundle = final.writeShellScriptBin "write-darwin-bundle" ''
+            exec ${final.stdenv.shell} ${prev.writeDarwinBundle}/bin/write-darwin-bundle "$@"
+          '';
+        })
     ];
   in (flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
