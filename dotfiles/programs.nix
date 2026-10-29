@@ -783,17 +783,26 @@ in {
             User = "ubuntu";
           };
           "hulk hulk.ereslibre.net nuc-1 nuc-1.ereslibre.net nuc-2 nuc-2.ereslibre.net nuc-3 nuc-3.ereslibre.net" = lib.mkIf isDarwin {
-            RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
-            # Multiplex every connection to a host over one master. The
-            # remote binds the GPG socket (StreamLocalBindUnlink) and
-            # creates the agent socket once per connection, so without
-            # this any short-lived ssh/scp steals the GPG socket and
-            # leaves it dead when it exits, and tmux keeps pointing at
-            # a stale SSH_AUTH_SOCK. With a master, every session
-            # shares the same forwards for as long as the master lives.
+            # Multiplex every connection to a host over one master, so
+            # every session shares the same forwards for as long as the
+            # master lives, and tmux does not keep pointing at a stale
+            # SSH_AUTH_SOCK.
             ControlMaster = "auto";
             ControlPath = "~/.ssh/cm-%C";
             ControlPersist = "4h";
+          };
+          # Forward the GPG agent only from connections tagged `gpg`,
+          # which is what the interactive `ssh` alias passes (`-P gpg`).
+          # The remote binds the socket with StreamLocalBindUnlink, so
+          # any connection that requests the forward outside the master
+          # (TRAMP and other tools with their own ControlPath) unlinks
+          # the master's socket, binds its own, and leaves it dead when
+          # it exits: the master's listener survives with no file, and
+          # gpg reports "no gpg-agent running" until the master is torn
+          # down. `originalhost` is what was typed, so this does not
+          # depend on the HostName blocks being read first.
+          "Match originalhost hulk,hulk.ereslibre.net,nuc-1,nuc-1.ereslibre.net,nuc-2,nuc-2.ereslibre.net,nuc-3,nuc-3.ereslibre.net tagged gpg" = lib.mkIf isDarwin {
+            RemoteForward = "/run/user/1000/gnupg/S.gpg-agent /Users/${username}/.gnupg/S.gpg-agent.extra";
           };
           "10.0.1.*".StrictHostKeyChecking = "no";
           "10.0.2.*".StrictHostKeyChecking = "no";
@@ -996,6 +1005,11 @@ in {
           la = "${lib.getExe' pkgs.coreutils "ls"} --color=auto -A";
           ls = "${lib.getExe' pkgs.coreutils "ls"} --color=auto";
           vdir = "${lib.getExe' pkgs.coreutils "vdir"} --color=auto";
+        }
+        // lib.optionalAttrs isDarwin {
+          # Only an interactive ssh forwards the GPG agent; see the
+          # `tagged gpg` match block in `programs.ssh`.
+          ssh = "ssh -P gpg";
         }
         // shellExtras.shellAliases;
       inherit (shellExtras) profileExtra;
