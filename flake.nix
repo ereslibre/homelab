@@ -52,6 +52,12 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Not used here: the private repo follows it to give holabot on nuc-3
+    # the skill, and keeps one pin with the rest of the inputs.
+    nixomatic-skill = {
+      url = "github:curriedsoftware/nixomatic-skill";
+      flake = false;
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix = {

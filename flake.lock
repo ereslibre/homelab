@@ -222,6 +222,22 @@
         "type": "github"
       }
     },
+    "nixomatic-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786377884,
+        "narHash": "sha256-hf7awbYQUc1DXlzNNTXQZ5Cjsg3i9exziDOu2oWqM5k=",
+        "owner": "curriedsoftware",
+        "repo": "nixomatic-skill",
+        "rev": "4f874277184a67072922edcb579dc525cdfe00d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "curriedsoftware",
+        "repo": "nixomatic-skill",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -295,6 +311,7 @@
         "llm-agents": "llm-agents",
         "microvm": "microvm",
         "nix-darwin": "nix-darwin",
+        "nixomatic-skill": "nixomatic-skill",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix"
