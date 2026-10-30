@@ -62,7 +62,60 @@
     gke-gcloud-auth-plugin
   ]);
   platform-tools = with pkgs; [gh google-cloud-sdk];
+  # Mirror the tmux setup in programs.nix (C-z prefix, v/s splits, q/x kill,
+  # b tree, Space copy-mode, status line at the bottom). C-z C-z sends a
+  # literal C-z to the pane.
+  herdr-config = ''
+    onboarding = false
+
+    [theme]
+    name = "dracula"
+
+    [ui]
+    tab_bar_position = "bottom"
+    tab_bar_right = [
+      { type = "zoom" },
+      { type = "hostname" },
+      { type = "datetime", format = "%a %m/%d %H:%M" },
+    ]
+    sidebar_start_collapsed = true
+    sidebar_collapsed_mode = "hidden"
+    pane_gaps = false
+    pane_outer_borders = false
+    pane_scrollbars = false
+    prompt_new_tab_name = false
+
+    [ui.sound]
+    enabled = false
+
+    [keys]
+    prefix = "ctrl+z"
+    split_vertical = ["prefix+v", "prefix+ctrl+v", "prefix+percent"]
+    split_horizontal = ["prefix+s", "prefix+ctrl+s", "prefix+double_quote"]
+    copy_mode = ["prefix+[", "prefix+space", "prefix+ctrl+space"]
+    goto = "prefix+b"
+    toggle_sidebar = "prefix+shift+b"
+    settings = "prefix+shift+s"
+    close_tab = ["prefix+q", "prefix+ctrl+q", "prefix+ampersand"]
+    close_pane = ["prefix+x", "prefix+ctrl+x"]
+    detach = "prefix+d"
+    zoom = "prefix+z"
+    rename_tab = "prefix+comma"
+    rename_workspace = "prefix+$"
+    cycle_pane_next = ["prefix+tab", "prefix+o"]
+    open_notification_target = "prefix+shift+o"
+    last_pane = "prefix+semicolon"
+    focus_pane_left = ["prefix+h", "prefix+left"]
+    focus_pane_down = ["prefix+j", "prefix+down"]
+    focus_pane_up = ["prefix+k", "prefix+up"]
+    focus_pane_right = ["prefix+l", "prefix+right"]
+    resize_pane_left = "prefix+ctrl+left"
+    resize_pane_down = "prefix+ctrl+down"
+    resize_pane_up = "prefix+ctrl+up"
+    resize_pane_right = "prefix+ctrl+right"
+  '';
 in {
+  home.file.".config/herdr/config.toml" = lib.mkIf aiTools {text = herdr-config;};
   home.packages =
     ai-tools
     ++ container-tools
