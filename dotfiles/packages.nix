@@ -8,6 +8,7 @@
     with llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
       cursor-agent
       gemini-cli
+      herdr
       skills
       qwen-code
     ]
