@@ -6,7 +6,13 @@
     enable = true;
     host = "0.0.0.0";
     # The model below at its full context, and nothing else beside it.
-    settings.LLAMA_GUI_MODELS_MAX = 1;
+    settings = {
+      LLAMA_GUI_MODELS_MAX = 1;
+      # Every route (UI, API and the proxy clients use) rejects a Host that
+      # looks public unless it is listed here, and this one is how ../llm.nix
+      # and the browser reach hulk. Single-label names and IPs always pass.
+      LLAMA_GUI_ALLOWED_HOSTS = "hulk.ereslibre.net";
+    };
     profiles.${llm.model} = {
       model = "hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
       settings = {
