@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./llama-gui.nix
     ../common/aliases
     ../common/docker
     ../common/fonts
@@ -75,7 +76,7 @@
   };
 
   # A chromium/firefox-sized build at 16 jobs x 128 threads exhausts RAM, and
-  # the global OOM killer then picks ollama or a login session instead of the
+  # the global OOM killer then picks llama-server or a login session instead of the
   # build, after the box has thrashed for minutes. Confine builds (and their
   # /tmp tmpfs pages, which are charged to this cgroup) so pressure stays inside
   # nix-daemon: MemoryHigh throttles and reclaims builds first, MemoryMax makes
@@ -92,32 +93,7 @@
   };
 
   services = {
-    ollama = {
-      enable = true;
-      host = "0.0.0.0";
-      loadModels = ["hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL"];
-      package = pkgs.ollama-cuda;
-      environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = toString (import ../ollama.nix).contextLength;
-        OLLAMA_FLASH_ATTENTION = "1";
-        # Never unload. A per-request keep_alive from a client still wins.
-        OLLAMA_KEEP_ALIVE = "-1";
-        OLLAMA_KV_CACHE_TYPE = "q8_0";
-        OLLAMA_NUM_PARALLEL = "1";
-        # qwen3.5 is hybrid SSM/attention, so llama.cpp snapshots the recurrent
-        # state instead of rewinding it. Each checkpoint is ~150MiB here and the
-        # default cap is 32 per slot -- 4.7GiB that accrues over a long session,
-        # after ollama has already sized the fit. Ollama never sets this itself,
-        # so the LLAMA_ARG_* passthrough reaches llama-server.
-        LLAMA_ARG_CTX_CHECKPOINTS = "8";
-      };
-    };
     spice-vdagentd.enable = true;
-  };
-
-  systemd.services.ollama = {
-    after = ["nvidia-persistenced.service"];
-    requires = ["nvidia-persistenced.service"];
   };
 
   sops.defaultSopsFile = ./secrets.yaml;

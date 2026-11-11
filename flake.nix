@@ -40,6 +40,10 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    llama-gui = {
+      url = "github:Angelmmiguel/llama-gui/pull/1/head";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     microvm = {
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,6 +75,7 @@
     emacs-overlay,
     flake-utils,
     home-manager,
+    llama-gui,
     microvm,
     llm-agents,
     nix-darwin,
@@ -81,7 +86,7 @@
   }: let
     dotfiles = import ./dotfiles;
     nixCaches = import ./nix-caches.nix;
-    ollama = import ./ollama.nix;
+    llm = import ./llm.nix;
     # Shared by the devShell's `pkgs` and by every machine's
     # `nixpkgs.overlays` below — keep it single-sourced so the two
     # never drift.
@@ -188,9 +193,9 @@
       # The wiring every machine below goes through (dotfiles, overlays,
       # caches), for flakes that take this one as an input and define
       # machines of their own.
-      # `ollama` is the shape of hulk's Ollama (see ./ollama.nix), for the
+      # `llm` is the shape of hulk's llama-gui (see ./llm.nix), for the
       # private holabot client.
-      lib = {inherit mapMachineConfigurations ollama;};
+      lib = {inherit mapMachineConfigurations llm;};
       darwinConfigurations = mapMachineConfigurations {
         "Rafaels-Flying-Hulk" = {
           builder = nix-darwin.lib.darwinSystem;
@@ -209,6 +214,7 @@
             system = "x86_64-linux";
             user = "ereslibre";
             modules = [
+              llama-gui.nixosModules.default
               home-manager.nixosModules.home-manager
               microvm.nixosModules.host
               sops-nix.nixosModules.sops

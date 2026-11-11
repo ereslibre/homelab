@@ -85,12 +85,7 @@ in {
   programs.zsh.enable = true;
 
   home-manager.users.${user} = {
-    home = {
-      packages = with pkgs; [ollama virt-manager];
-      sessionVariables = {
-        OLLAMA_HOST = "hulk.ereslibre.net";
-      };
-    };
+    home.packages = with pkgs; [virt-manager];
 
     programs.keychain = {
       enable = true;

@@ -63,18 +63,18 @@ in
       pi-coding-agent = {
         enable = true;
         package = agents.pi;
-        models.providers.ollama = {
-          baseUrl = "http://hulk.ereslibre.net:11434/v1";
+        models.providers.hulk = {
+          inherit (import ../llm.nix) baseUrl;
           api = "openai-completions";
-          apiKey = "ollama";
-          # Keep in sync with services.ollama.loadModels on hulk.
+          # llama-gui has no authentication yet; pi just needs a value.
+          apiKey = "none";
           models = [
             {
-              id = "hf.co/unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
+              id = (import ../llm.nix).model;
               # Without `reasoning` pi sends no thinking control at all and
-              # ollama defaults to thinking on. Its /v1 endpoint only honours
-              # `reasoning_effort`, so map pi's "off" to "none". The chat
-              # template rejects anything above "high" with a 500.
+              # the model defaults to thinking on. Map pi's "off" to
+              # `reasoning_effort` "none". The chat template rejects anything
+              # above "high" with a 500.
               reasoning = true;
               thinkingLevelMap = {
                 off = "none";
@@ -82,7 +82,7 @@ in
                 max = "high";
               };
               compat.supportsReasoningEffort = true;
-              contextWindow = (import ../ollama.nix).contextLength;
+              contextWindow = (import ../llm.nix).contextLength;
             }
           ];
         };
