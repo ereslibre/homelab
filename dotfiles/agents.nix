@@ -53,7 +53,8 @@ in
         };
       };
       codex = {
-        enable = true;
+        # FIXME: disable temporarily as it's failing now
+        enable = false;
         package = agents.codex;
       };
       opencode = {
