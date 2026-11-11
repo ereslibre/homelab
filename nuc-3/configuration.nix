@@ -36,7 +36,12 @@
 
   environment.systemPackages = with pkgs; [
     esphome
-    espup
+    # FIXME: drop once nixpkgs fixes it. The cargo setup hook now
+    # exports AWS_LC_SYS_USE_SYSTEM=1 for every Rust package, but
+    # espup's derivation does not provide aws-lc, so aws-lc-sys panics.
+    (espup.overrideAttrs (old: {
+      buildInputs = old.buildInputs ++ [aws-lc];
+    }))
   ];
 
   services = {
