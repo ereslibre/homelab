@@ -7,7 +7,7 @@
 # services.llama-gui in ./hulk/configuration.nix).
 {
   # OpenAI-compatible endpoint, llama-gui's proxy in front of llama-server.
-  baseUrl = "http://hulk.ereslibre.net:8080/v1";
+  baseUrl = "http://hulk.ereslibre.net:11434/v1";
   # The profile's alias, which is the `model` clients ask for.
   model = "qwen3.8-27b";
   # The profile's context size. Clients that assume more get their prompts

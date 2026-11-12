@@ -5,6 +5,8 @@
   in {
     enable = true;
     host = "0.0.0.0";
+    # The same port Ollama uses.
+    port = 11434;
     # The model below at its full context, and nothing else beside it.
     settings = {
       LLAMA_GUI_MODELS_MAX = 1;
