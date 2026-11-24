@@ -7,9 +7,9 @@
     host = "0.0.0.0";
     # The same port Ollama uses.
     port = 11434;
-    # The model below at its full context, and nothing else beside it.
+    # One slot per profile below, so loading one never evicts the other.
     settings = {
-      LLAMA_GUI_MODELS_MAX = 1;
+      LLAMA_GUI_MODELS_MAX = 2;
       # Every route (UI, API and the proxy clients use) rejects a Host that
       # looks public unless it is listed here, and this one is how ../llm.nix
       # and the browser reach hulk. Single-label names and IPs always pass.
@@ -31,6 +31,24 @@
         # the default cap is 32 per slot -- 4.7GiB that accrues over a long
         # session, after the fit has already been sized.
         extra_args = ["--ctx-checkpoints 8"];
+      };
+    };
+    # A decision model (llama.cpp's /v1/systemone), 430MiB of ModernBERT.
+    profiles.${llm.decisionModel} = {
+      model = "hf.co/ggml-org/Laya-GGUF:Q8_0";
+      settings = {
+        name = "Laya";
+        # The model's own limit.
+        ctx_size = 8192;
+        # llama.cpp evaluates a Laya prompt in one batch and rejects one that
+        # does not fit, so the batch is as large as the context.
+        batch = 8192;
+        ubatch = 8192;
+        parallel = 1;
+        # On the CPU: the GPU is sized for the model above, and this one must
+        # never be what keeps it from loading.
+        ngl = "0";
+        load_at_start = true;
       };
     };
   };

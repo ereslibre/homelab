@@ -13,4 +13,11 @@
   # The profile's context size. Clients that assume more get their prompts
   # rejected or truncated by the server.
   contextLength = 131072;
+
+  # A decision model beside it: it answers typed questions (yes/no, one of,
+  # a score) on llama.cpp's /v1/systemone, which is not under the OpenAI
+  # prefix, so clients need the whole URL.
+  decisionUrl = "http://hulk.ereslibre.net:11434/v1/systemone";
+  # That profile's alias.
+  decisionModel = "laya";
 }
