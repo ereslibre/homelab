@@ -48,10 +48,11 @@
         # On the CPU: the GPU is sized for the model above, and this one must
         # never be what keeps it from loading.
         ngl = "0";
-        # `ngl = 0` alone still opens a CUDA context and puts the compute
-        # buffer on the card: 1GiB of VRAM, more than the headroom the model
-        # above has left over the router's memory margin, so that one was
-        # refused ("model limit reached"). No device, no VRAM.
+        # `ngl = 0` alone still puts 630MiB of compute buffers on the GPU.
+        # The router counts those against the memory margin it keeps free
+        # (2GiB), finds no room beside the model above, and evicts whichever
+        # of the two loaded first -- LLAMA_GUI_MODELS_MAX does not help.
+        # With no device at all it asks for no GPU memory.
         extra_args = ["--device none"];
         load_at_start = true;
       };
