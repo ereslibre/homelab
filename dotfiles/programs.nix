@@ -854,8 +854,9 @@ in {
             set -g @dracula-plugins "time"
             set -g @dracula-show-timezone false
             set -g @dracula-military-time true
-            # Session name as its own powerline segment, right of the time one
-            set -g @dracula-time-format "%a %m/%d %H:%M #[fg=#50fa7b]#[fg=#282a36]#[bg=#50fa7b] #S"
+            # Session name as its own (muted) powerline segment, left of the time one
+            set -g @dracula-time-colors "gray white"
+            set -g @dracula-time-format "#S #[fg=#6272a4]#[fg=#f8f8f2]#[bg=#6272a4] %a %m/%d %H:%M"
           '';
         }
       ];
